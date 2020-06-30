@@ -1,11 +1,16 @@
 import React from 'react';
-import { View } from 'react-native';
-import Details from '../components/Details';
+import { View, Text, TouchableOpacity } from 'react-native';
+import ProximitySearch from '../components/ProximitySearch';
 
-const Home = () => {
+const Home = ({ navigation }) => {
   return (
     <View>
-      <Details />
+      <View>
+        <ProximitySearch />
+        <TouchableOpacity onPress={() => navigation.navigate('InputLocation')}>
+          <Text>By City</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };

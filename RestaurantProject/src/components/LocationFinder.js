@@ -1,14 +1,11 @@
 import React, { useState, useCallback } from 'react';
-import { View, Button, TextInput } from 'react-native';
+import { View, Button } from 'react-native';
+import SearchInput from '../components/SearchInput';
 import axios from 'axios';
-import RestaurantList from './RestaurantList';
 import config from '../../config';
 
-const LocationFinder = () => {
+const LocationFinder = ({ city, state, zipcode }) => {
   const [location, setLocation] = useState('');
-  const [city, setCity] = useState('');
-  const [state, setState] = useState('');
-  const [zipcode, setZipcode] = useState('');
 
   const getCity = useCallback(() => {
     axios
@@ -27,15 +24,11 @@ const LocationFinder = () => {
 
   return (
     <View>
-      <TextInput onChangeText={setCity} value={city} placeholder="city" />
-      <TextInput onChangeText={setState} value={state} placeholder="state" />
-      <TextInput
-        onChangeText={setZipcode}
-        value={zipcode}
-        placeholder="zipcode"
-      />
-      <Button onPress={getCity} title="Nearby" />
-      <RestaurantList location={location} />
+      {location ? (
+        <SearchInput location={location} />
+      ) : (
+        <Button onPress={getCity} title="Location Search" />
+      )}
     </View>
   );
 };
