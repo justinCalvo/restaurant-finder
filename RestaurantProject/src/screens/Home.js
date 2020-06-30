@@ -5,12 +5,10 @@ import ProximitySearch from '../components/ProximitySearch';
 const Home = ({ navigation }) => {
   return (
     <View>
-      <View>
-        <ProximitySearch />
-        <TouchableOpacity onPress={() => navigation.navigate('InputLocation')}>
-          <Text>By City</Text>
-        </TouchableOpacity>
-      </View>
+      <ProximitySearch />
+      <TouchableOpacity onPress={() => navigation.navigate('InputLocation')}>
+        <Text>By City</Text>
+      </TouchableOpacity>
     </View>
   );
 };

@@ -1,11 +1,10 @@
 import React, { useState, useCallback } from 'react';
 import { View, Button } from 'react-native';
-import SearchInput from '../components/SearchInput';
 import axios from 'axios';
 import config from '../../config';
 
 const LocationFinder = ({ city, state, zipcode }) => {
-  const [location, setLocation] = useState('');
+  const [restaurants, setRestaurants] = useState('');
 
   const getCity = useCallback(() => {
     axios
@@ -14,8 +13,23 @@ const LocationFinder = ({ city, state, zipcode }) => {
           config.API_KEY
         }`,
       )
-      .then(results => {
-        setLocation(results.data.results[0].geometry.location);
+      .then(location => {
+        const locationPath = location.data.results[0].geometry.location;
+        axios
+          .get(
+            `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${
+              locationPath.lat
+            },${locationPath.lng}&radius=8046.72&type=restaurant&opennow&key=${
+              config.API_KEY
+            }`,
+          )
+          .then(data => {
+            setRestaurants(data.data.results);
+            console.log(data.data.results);
+          })
+          .catch(err => {
+            console.log(err);
+          });
       })
       .catch(err => {
         console.log(err);
@@ -24,11 +38,7 @@ const LocationFinder = ({ city, state, zipcode }) => {
 
   return (
     <View>
-      {location ? (
-        <SearchInput location={location} />
-      ) : (
-        <Button onPress={getCity} title="Location Search" />
-      )}
+      <Button onPress={getCity} title="Location Search" />
     </View>
   );
 };
