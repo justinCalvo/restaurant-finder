@@ -1,9 +1,12 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { View, Button } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import config from '../../config';
 
 const LocationFinder = ({ city, state, zipcode }) => {
+  const navigation = useNavigation();
+
   const [restaurants, setRestaurants] = useState('');
 
   const getCity = useCallback(() => {
@@ -36,9 +39,19 @@ const LocationFinder = ({ city, state, zipcode }) => {
       });
   }, [city, state, zipcode]);
 
+  const sendRestaurants = useCallback(() => {
+    if (restaurants.length > 0) {
+      navigation.navigate('RestaurantDetails', { restaurants: restaurants });
+    }
+  }, [restaurants, navigation]);
+
+  useEffect(() => {
+    sendRestaurants();
+  }, [sendRestaurants, restaurants]);
+
   return (
     <View>
-      <Button onPress={getCity} title="Location Search" />
+      <Button onPress={getCity} title="Search" />
     </View>
   );
 };

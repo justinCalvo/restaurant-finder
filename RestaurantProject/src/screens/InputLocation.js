@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TextInput } from 'react-native';
+import { View, TextInput, StyleSheet } from 'react-native';
 import LocationFinder from '../components/LocationFinder';
 
 const InputLocation = () => {
@@ -8,10 +8,21 @@ const InputLocation = () => {
   const [zipcode, setZipcode] = useState('');
 
   return (
-    <View>
-      <TextInput onChangeText={setCity} value={city} placeholder="city" />
-      <TextInput onChangeText={setState} value={state} placeholder="state" />
+    <View style={styles.container}>
       <TextInput
+        style={styles.textInput}
+        onChangeText={setCity}
+        value={city}
+        placeholder="city"
+      />
+      <TextInput
+        style={styles.textInput}
+        onChangeText={setState}
+        value={state}
+        placeholder="state"
+      />
+      <TextInput
+        style={styles.textInput}
         onChangeText={setZipcode}
         value={zipcode}
         placeholder="zipcode"
@@ -20,5 +31,19 @@ const InputLocation = () => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingHorizontal: 50,
+    backgroundColor: 'white',
+  },
+  textInput: {
+    fontSize: 28,
+    borderBottomWidth: 1,
+    borderColor: 'black',
+    paddingVertical: 10,
+  },
+});
 
 export default InputLocation;
