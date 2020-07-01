@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, Text, FlatList } from 'react-native';
+import { View, Text } from 'react-native';
 
-const RestaurantDetails = () => {
+const Photos = () => {
   return (
     <View>
       <Text>Hello</Text>
@@ -9,4 +9,4 @@ const RestaurantDetails = () => {
   );
 };
 
-export default RestaurantDetails;
+export default Photos;

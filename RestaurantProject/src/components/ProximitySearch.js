@@ -26,7 +26,7 @@ const ProximitySearch = () => {
 
   const sendRestaurants = useCallback(() => {
     if (restaurants.length > 0) {
-      navigation.navigate('RestaurantDetails', { restaurants: restaurants });
+      navigation.navigate('Restaurants', { restaurants: restaurants });
     }
   }, [restaurants, navigation]);
 

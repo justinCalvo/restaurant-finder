@@ -1,12 +1,24 @@
-import React from 'react';
-import { View, Text } from 'react-native';
+import React, { useState } from 'react';
+import { View, StyleSheet } from 'react-native';
+import Details from '../components/Details';
 
-const RestaurantDetails = () => {
+const Restaurants = ({ route }) => {
+  const [index, setIndex] = useState(0);
+
   return (
-    <View>
-      <Text>Hello</Text>
+    <View style={styles.container}>
+      {/* Matches */}
+      {/* Photos */}
+      <Details restaurants={route.params.restaurants} index={index} />
     </View>
   );
 };
 
-export default RestaurantDetails;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: 'white',
+  },
+});
+
+export default Restaurants;

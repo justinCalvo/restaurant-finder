@@ -2,7 +2,7 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import Home from '../screens/Home';
 import InputLocation from '../screens/InputLocation';
-import RestaurantDetails from '../components/RestaurantDetails';
+import Restaurants from '../screens/Restaurants';
 
 const Stack = createStackNavigator();
 
@@ -16,8 +16,8 @@ const MainStack = () => {
         options={{ title: null }}
       />
       <Stack.Screen
-        name="RestaurantDetails"
-        component={RestaurantDetails}
+        name="Restaurants"
+        component={Restaurants}
         options={{ title: null }}
       />
     </Stack.Navigator>
