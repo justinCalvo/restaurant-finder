@@ -1,12 +1,12 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 
-const Photos = () => {
+const Matches = () => {
   return (
     <View>
-      <Text>Photos</Text>
+      <Text>Matches</Text>
     </View>
   );
 };
 
-export default Photos;
+export default Matches;

@@ -1,15 +1,21 @@
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import Details from '../components/Details';
+import Photos from '../components/Photos';
+import Matches from '../components/Matches';
 
 const Restaurants = ({ route }) => {
   const [index, setIndex] = useState(0);
-
+  console.log(index);
   return (
     <View style={styles.container}>
-      {/* Matches */}
-      {/* Photos */}
-      <Details restaurants={route.params.restaurants} index={index} />
+      <Matches index={index} />
+      <Photos index={index} />
+      <Details
+        restaurants={route.params.restaurants}
+        index={index}
+        setIndex={setIndex}
+      />
     </View>
   );
 };
