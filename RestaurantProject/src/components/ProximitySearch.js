@@ -7,7 +7,8 @@ import config from '../../config';
 const ProximitySearch = () => {
   const navigation = useNavigation();
 
-  const [restaurants, setRestaurants] = useState('');
+  const [restaurants, setRestaurants] = useState([]);
+  const [placeDetails, setPlaceDetails] = useState([]);
 
   const getNearby = useCallback(() => {
     axios
@@ -18,6 +19,37 @@ const ProximitySearch = () => {
       )
       .then(data => {
         setRestaurants(data.data.results);
+        axios
+          .get(
+            `https://maps.googleapis.com/maps/api/place/details/json?place_id=${
+              data.data.results[0].place_id
+            }&fields=formatted_phone_number,opening_hours,website,photo&key=${
+              config.API_KEY
+            }`,
+          )
+          .then(description => {
+            axios
+              .get(
+                `https://maps.googleapis.com/maps/api/place/details/json?place_id=${
+                  data.data.results[1].place_id
+                }&fields=formatted_phone_number,opening_hours,website,photo&key=${
+                  config.API_KEY
+                }`,
+              )
+              .then(newDescription => {
+                setPlaceDetails(oldArray => [
+                  ...oldArray,
+                  description.data.result,
+                  newDescription.data.result,
+                ]);
+              })
+              .catch(err => {
+                console.log(err);
+              });
+          })
+          .catch(err => {
+            console.log(err);
+          });
       })
       .catch(err => {
         console.log(err);
@@ -25,10 +57,14 @@ const ProximitySearch = () => {
   }, []);
 
   const sendRestaurants = useCallback(() => {
-    if (restaurants.length > 0) {
-      navigation.navigate('Restaurants', { restaurants: restaurants });
+    if (placeDetails.length > 0) {
+      navigation.navigate('Restaurants', {
+        restaurants: restaurants,
+        placeDetails: placeDetails,
+        setPlaceDetails: setPlaceDetails,
+      });
     }
-  }, [restaurants, navigation]);
+  }, [restaurants, navigation, placeDetails]);
 
   useEffect(() => {
     sendRestaurants();
