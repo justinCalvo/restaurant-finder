@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-const Details = ({ restaurants, index, setIndex, placeDetails }) => {
+const Details = ({ restaurants, index }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.textName}>{restaurants[index].name}</Text>
@@ -11,7 +11,6 @@ const Details = ({ restaurants, index, setIndex, placeDetails }) => {
       </Text>
       <Text>Price Level: {restaurants[index].price_level}</Text>
       <Text>Rating: {restaurants[index].rating}</Text>
-      <Text>PlaceDetails: {placeDetails[index].formatted_phone_number}</Text>
     </View>
   );
 };

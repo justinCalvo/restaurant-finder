@@ -31,7 +31,7 @@ const Restaurants = ({ route }) => {
       .get(
         `https://maps.googleapis.com/maps/api/place/details/json?place_id=${
           route.params.restaurants[index + 2].place_id
-        }&fields=formatted_phone_number,opening_hours,website,photo&key=${
+        }&fields=formatted_phone_number,opening_hours,website,photo,reviews&key=${
           config.API_KEY
         }`,
       )
@@ -45,7 +45,7 @@ const Restaurants = ({ route }) => {
         console.log(err);
       });
   };
-  console.log(route.params.placeDetails[index]);
+
   return (
     <FlingGestureHandler
       direction={Directions.LEFT}
@@ -67,10 +67,9 @@ const Restaurants = ({ route }) => {
           <Details
             restaurants={route.params.restaurants}
             index={index}
-            setIndex={setIndex}
             placeDetails={route.params.placeDetails}
           />
-          <Description restaurants={route.params.restaurants} index={index} />
+          <Description placeDetails={route.params.placeDetails} index={index} />
         </SafeAreaView>
       </FlingGestureHandler>
     </FlingGestureHandler>

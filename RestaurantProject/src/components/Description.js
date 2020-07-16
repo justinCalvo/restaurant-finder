@@ -1,23 +1,43 @@
-import React, { useCallback } from 'react';
-import { View, Text, Button } from 'react-native';
-import axios from 'axios';
-import config from '../../config';
+import React from 'react';
+import { View, Text, FlatList } from 'react-native';
 
-const Description = ({ restaurants, index }) => {
-  const getDescription = useCallback(() => {
-    axios
-      .get(
-        `https://maps.googleapis.com/maps/api/place/details/json?place_id=${
-          restaurants[index].placeId
-        }&fields=formatted_phone_number,opening_hours,website,address_component,adr_address,photo&key=${
-          config.API_KEY
-        }`,
-      )
-      .then(data => console.log('this data:', data));
-  }, [restaurants, index]);
+const Description = ({ placeDetails, index }) => {
+  console.log(placeDetails[index]);
   return (
     <View>
-      <Button title="Test" onPress={getDescription} />
+      <Text>Phone#: {placeDetails[index].formatted_phone_number}</Text>
+      <Text>{placeDetails[index].website}</Text>
+      <Text>
+        {placeDetails[index].opening_hours.weekday_text[0]}
+        {'\n'}
+        {placeDetails[index].opening_hours.weekday_text[1]}
+        {'\n'}
+        {placeDetails[index].opening_hours.weekday_text[2]}
+        {'\n'}
+        {placeDetails[index].opening_hours.weekday_text[3]}
+        {'\n'}
+        {placeDetails[index].opening_hours.weekday_text[4]}
+        {'\n'}
+        {placeDetails[index].opening_hours.weekday_text[5]}
+        {'\n'}
+        {placeDetails[index].opening_hours.weekday_text[6]}
+      </Text>
+      {placeDetails[index].reviews ? (
+        <FlatList
+          data={placeDetails[index].reviews}
+          keyExtractor={(item, i) => i.toString()}
+          renderItem={({ item }) => (
+            <View>
+              <Text>{item.author_name}</Text>
+              <Text>Customer Rating: {item.rating}</Text>
+              <Text>{item.relative_time_description}</Text>
+              <Text>{item.text}</Text>
+            </View>
+          )}
+        />
+      ) : (
+        <Text>No Reviews</Text>
+      )}
     </View>
   );
 };
