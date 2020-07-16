@@ -1,15 +1,33 @@
-import React from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { View, Text, FlatList, StyleSheet, Button } from 'react-native';
 
 const Reviews = ({ placeDetails, index, viewReviews, setViewReviews }) => {
+  const [buttonTitle, setButtonTitle] = useState('');
+
   const handleViewReviews = () => {
-    setViewReviews(true);
+    if (buttonTitle === 'View Reviews') {
+      setViewReviews(true);
+    } else {
+      setViewReviews(false);
+    }
   };
+
+  const changeButtonTitle = useCallback(() => {
+    if (viewReviews) {
+      setButtonTitle('Hide Reviews');
+    } else {
+      setButtonTitle('View Reviews');
+    }
+  }, [viewReviews]);
+
+  useEffect(() => {
+    changeButtonTitle();
+  }, [viewReviews, changeButtonTitle]);
 
   return (
     <View>
       {placeDetails[index].reviews ? (
-        <Button title="View Reviews" onPress={handleViewReviews} />
+        <Button title={buttonTitle} onPress={handleViewReviews} />
       ) : (
         <Text>No Reviews</Text>
       )}
