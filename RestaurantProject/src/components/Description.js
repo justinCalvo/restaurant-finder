@@ -20,7 +20,6 @@ const Description = ({
       direction={Directions.UP}
       onHandlerStateChange={({ nativeEvent }) => {
         if (nativeEvent.state === State.ACTIVE) {
-          console.log('up');
           setShowDescription(true);
         }
       }}>
@@ -28,7 +27,6 @@ const Description = ({
         direction={Directions.DOWN}
         onHandlerStateChange={({ nativeEvent }) => {
           if (nativeEvent.state === State.ACTIVE) {
-            console.log('down');
             setShowDescription(false);
           }
         }}>
