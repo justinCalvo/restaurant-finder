@@ -14,15 +14,21 @@ import config from '../../config';
 
 const Restaurants = ({ route }) => {
   const [index, setIndex] = useState(0);
+  const [showDescription, setShowDescription] = useState(false);
+  const [viewReviews, setViewReviews] = useState(false);
 
   const LeftActions = () => {
     getNext();
     setIndex(index + 1);
+    setShowDescription(false);
+    setViewReviews(false);
   };
 
   const RightActions = () => {
     getNext();
     setIndex(index + 1);
+    setShowDescription(false);
+    setViewReviews(false);
     // TODO: add selected data to database as a "favorite"
   };
 
@@ -69,7 +75,14 @@ const Restaurants = ({ route }) => {
             index={index}
             placeDetails={route.params.placeDetails}
           />
-          <Description placeDetails={route.params.placeDetails} index={index} />
+          <Description
+            placeDetails={route.params.placeDetails}
+            index={index}
+            showDescription={showDescription}
+            setShowDescription={setShowDescription}
+            viewReviews={viewReviews}
+            setViewReviews={setViewReviews}
+          />
         </SafeAreaView>
       </FlingGestureHandler>
     </FlingGestureHandler>

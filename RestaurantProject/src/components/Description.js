@@ -1,14 +1,20 @@
-import React, { useState } from 'react';
-import { View, Text, FlatList, StyleSheet } from 'react-native';
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 import {
   FlingGestureHandler,
   Directions,
   State,
 } from 'react-native-gesture-handler';
+import Reviews from './Reviews';
 
-const Description = ({ placeDetails, index }) => {
-  const [showDescription, setShowDescription] = useState(true);
-
+const Description = ({
+  placeDetails,
+  index,
+  showDescription,
+  setShowDescription,
+  viewReviews,
+  setViewReviews,
+}) => {
   return (
     <FlingGestureHandler
       direction={Directions.UP}
@@ -27,7 +33,7 @@ const Description = ({ placeDetails, index }) => {
           }
         }}>
         <View>
-          <Text>Description</Text>
+          <Text style={styles.description}>View Description</Text>
           <View style={[showDescription ? styles.display : styles.hide]}>
             <Text>Phone#: {placeDetails[index].formatted_phone_number}</Text>
             <Text>{placeDetails[index].website}</Text>
@@ -46,22 +52,12 @@ const Description = ({ placeDetails, index }) => {
               {'\n'}
               {placeDetails[index].opening_hours.weekday_text[6]}
             </Text>
-            {placeDetails[index].reviews ? (
-              <FlatList
-                data={placeDetails[index].reviews}
-                keyExtractor={(item, i) => i.toString()}
-                renderItem={({ item }) => (
-                  <View>
-                    <Text>{item.author_name}</Text>
-                    <Text>Customer Rating: {item.rating}</Text>
-                    <Text>{item.relative_time_description}</Text>
-                    <Text>{item.text}</Text>
-                  </View>
-                )}
-              />
-            ) : (
-              <Text>No Reviews</Text>
-            )}
+            <Reviews
+              placeDetails={placeDetails}
+              index={index}
+              viewReviews={viewReviews}
+              setViewReviews={setViewReviews}
+            />
           </View>
         </View>
       </FlingGestureHandler>
@@ -75,6 +71,11 @@ const styles = StyleSheet.create({
   },
   hide: {
     display: 'none',
+  },
+  description: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
 });
 
