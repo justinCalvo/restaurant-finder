@@ -1,28 +1,10 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import PriceLevel from './PriceLevel';
 
 const RestaurantInfo = ({ restaurants, index }) => {
-  const [formatPriceLevel, setFormatPriceLevel] = useState('');
   const [stars, setStars] = useState([]);
-
-  // TODO: how do we want to represent a price level of 0?
-  const formatPrice = useCallback(() => {
-    const priceLevel = restaurants[index].price_level;
-    if (priceLevel === 0) {
-      setFormatPriceLevel('0');
-    } else if (priceLevel === 1) {
-      setFormatPriceLevel('$');
-    } else if (priceLevel === 2) {
-      setFormatPriceLevel('$$');
-    } else if (priceLevel === 3) {
-      setFormatPriceLevel('$$$');
-    } else if (priceLevel === 4) {
-      setFormatPriceLevel('$$$$');
-    } else {
-      setFormatPriceLevel('0');
-    }
-  }, [restaurants, index]);
 
   const createStars = useCallback(() => {
     const afterDecimal = restaurants[index].rating.toString().slice(2);
@@ -44,10 +26,9 @@ const RestaurantInfo = ({ restaurants, index }) => {
   }, [restaurants, index]);
 
   useEffect(() => {
-    formatPrice();
     createStars();
-  }, [formatPrice, createStars, restaurants]);
-  console.log(stars);
+  }, [createStars, restaurants]);
+
   return (
     <View style={styles.container}>
       <Text style={styles.textName}>{restaurants[index].name}</Text>
@@ -55,7 +36,7 @@ const RestaurantInfo = ({ restaurants, index }) => {
         Address: {'\n'}
         {restaurants[index].formatted_address}
       </Text>
-      <Text>Price: {formatPriceLevel}</Text>
+      <PriceLevel restaurants={restaurants} index={index} />
       <View style={styles.ratingContainer}>
         <Icon name={stars[0]} size={25} color="gold" />
         <Icon name={stars[1]} size={25} color="gold" />
