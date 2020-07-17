@@ -1,28 +1,18 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState } from 'react';
 import { View, Text, FlatList, StyleSheet, Button } from 'react-native';
 
 const Reviews = ({ placeDetails, index, viewReviews, setViewReviews }) => {
-  const [buttonTitle, setButtonTitle] = useState('');
+  const [buttonTitle, setButtonTitle] = useState('View Reviews');
 
   const handleViewReviews = () => {
     if (buttonTitle === 'View Reviews') {
       setViewReviews(true);
-    } else {
-      setViewReviews(false);
-    }
-  };
-
-  const changeButtonTitle = useCallback(() => {
-    if (viewReviews) {
       setButtonTitle('Hide Reviews');
     } else {
+      setViewReviews(false);
       setButtonTitle('View Reviews');
     }
-  }, [viewReviews]);
-
-  useEffect(() => {
-    changeButtonTitle();
-  }, [viewReviews, changeButtonTitle]);
+  };
 
   return (
     <View>
@@ -37,10 +27,10 @@ const Reviews = ({ placeDetails, index, viewReviews, setViewReviews }) => {
         keyExtractor={(item, i) => i.toString()}
         renderItem={({ item }) => (
           <View>
-            <Text>{item.author_name}</Text>
-            <Text>Customer Rating: {item.rating}</Text>
-            <Text>{item.relative_time_description}</Text>
-            <Text>{item.text}</Text>
+            <Text style={styles.text}>{item.author_name}</Text>
+            <Text style={styles.text}>Customer Rating: {item.rating}</Text>
+            <Text style={styles.text}>{item.relative_time_description}</Text>
+            <Text style={styles.text}>{item.text}</Text>
           </View>
         )}
       />
@@ -59,6 +49,9 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     textAlign: 'center',
+  },
+  text: {
+    fontSize: 18,
   },
 });
 

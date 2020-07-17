@@ -1,13 +1,15 @@
 import React from 'react';
-import { View, Text, StyleSheet, Linking } from 'react-native';
+import { View, Text, StyleSheet, Linking, Dimensions } from 'react-native';
 import {
   FlingGestureHandler,
   Directions,
   State,
 } from 'react-native-gesture-handler';
 import Reviews from './Reviews';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const Details = ({
+  restaurants,
   placeDetails,
   index,
   showDetails,
@@ -15,6 +17,7 @@ const Details = ({
   viewReviews,
   setViewReviews,
 }) => {
+  console.log(placeDetails[index]);
   return (
     <FlingGestureHandler
       direction={Directions.UP}
@@ -33,9 +36,20 @@ const Details = ({
         <View>
           <Text style={styles.description}>View Details</Text>
           <View style={[showDetails ? styles.display : styles.hide]}>
-            <Text>Phone#: {placeDetails[index].formatted_phone_number}</Text>
-            <Text onPress={() => Linking.openURL(placeDetails[index].website)}>
-              Website
+            <Text
+              style={styles.text}
+              onPress={() =>
+                Linking.openURL(
+                  `tel:${placeDetails[index].formatted_phone_number}`,
+                )
+              }>
+              <Icon name="phone" size={15} />
+              {placeDetails[index].formatted_phone_number}
+            </Text>
+            <Text
+              onPress={() => Linking.openURL(placeDetails[index].website)}
+              style={[styles.website, styles.text]}>
+              {restaurants[index].name}
             </Text>
             <Text>
               {placeDetails[index].opening_hours.weekday_text[0]}
@@ -65,9 +79,13 @@ const Details = ({
   );
 };
 
+const { width, height } = Dimensions.get('window');
+
 const styles = StyleSheet.create({
   display: {
     display: 'flex',
+    width: width,
+    height: height - height / 2,
   },
   hide: {
     display: 'none',
@@ -78,6 +96,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     backgroundColor: 'black',
     color: 'white',
+  },
+  text: {
+    fontSize: 18,
+  },
+  website: {
+    color: 'blue',
+    textDecorationLine: 'underline',
   },
 });
 

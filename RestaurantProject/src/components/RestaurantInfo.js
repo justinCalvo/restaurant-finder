@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import PriceLevel from './PriceLevel';
 
-const RestaurantInfo = ({ restaurants, index }) => {
+const RestaurantInfo = ({ restaurants, index, showDetails }) => {
   const [stars, setStars] = useState([]);
 
   const createStars = useCallback(() => {
@@ -31,7 +31,7 @@ const RestaurantInfo = ({ restaurants, index }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.textName}>{restaurants[index].name}</Text>
+      <Text style={styles.restaurantName}>{restaurants[index].name}</Text>
       <View style={styles.ratingContainer}>
         <Icon name={stars[0]} size={25} color="gold" />
         <Icon name={stars[1]} size={25} color="gold" />
@@ -40,10 +40,12 @@ const RestaurantInfo = ({ restaurants, index }) => {
         <Icon name={stars[4]} size={25} color="gold" />
       </View>
       <PriceLevel restaurants={restaurants} index={index} />
-      <Text>
-        Address: {'\n'}
-        {restaurants[index].formatted_address}
-      </Text>
+      {!showDetails ? (
+        <Text>
+          Address: {'\n'}
+          {restaurants[index].formatted_address}
+        </Text>
+      ) : null}
     </View>
   );
 };
@@ -53,7 +55,7 @@ const styles = StyleSheet.create({
     flex: 2,
     justifyContent: 'center',
   },
-  textName: {
+  restaurantName: {
     fontSize: 32,
     fontWeight: 'bold',
     textAlign: 'center',
@@ -61,9 +63,7 @@ const styles = StyleSheet.create({
   ratingContainer: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    // backgroundColor: 'black',
   },
-  icon: {},
 });
 
 export default RestaurantInfo;

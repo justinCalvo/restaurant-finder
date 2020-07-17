@@ -74,8 +74,10 @@ const Restaurants = ({ route }) => {
             restaurants={route.params.restaurants}
             index={index}
             placeDetails={route.params.placeDetails}
+            showDetails={showDetails}
           />
           <Details
+            restaurants={route.params.restaurants}
             placeDetails={route.params.placeDetails}
             index={index}
             showDetails={showDetails}
