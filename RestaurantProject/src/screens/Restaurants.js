@@ -5,31 +5,31 @@ import {
   Directions,
   State,
 } from 'react-native-gesture-handler';
-import Details from '../components/Details';
+import RestaurantInfo from '../components/RestaurantInfo';
 import Photos from '../components/Photos';
 import Matches from '../components/Matches';
-import Description from '../components/Description';
+import Details from '../components/Details';
 import axios from 'axios';
 import config from '../../config';
 
 const Restaurants = ({ route }) => {
   const [index, setIndex] = useState(0);
-  const [showDescription, setShowDescription] = useState(false);
+  const [showDetails, setShowDetails] = useState(false);
   const [viewReviews, setViewReviews] = useState(false);
 
   const LeftActions = () => {
     getNext();
     setIndex(index + 1);
-    setShowDescription(false);
+    setShowDetails(false);
     setViewReviews(false);
   };
 
   const RightActions = () => {
     getNext();
     setIndex(index + 1);
-    setShowDescription(false);
+    setShowDetails(false);
     setViewReviews(false);
-    // TODO: add selected data to database as a "favorite"
+    // TODO: add selected data to database as a potential "match"
   };
 
   const getNext = () => {
@@ -70,16 +70,16 @@ const Restaurants = ({ route }) => {
         <SafeAreaView style={styles.container}>
           <Matches index={index} />
           <Photos index={index} />
-          <Details
+          <RestaurantInfo
             restaurants={route.params.restaurants}
             index={index}
             placeDetails={route.params.placeDetails}
           />
-          <Description
+          <Details
             placeDetails={route.params.placeDetails}
             index={index}
-            showDescription={showDescription}
-            setShowDescription={setShowDescription}
+            showDetails={showDetails}
+            setShowDetails={setShowDetails}
             viewReviews={viewReviews}
             setViewReviews={setViewReviews}
           />
