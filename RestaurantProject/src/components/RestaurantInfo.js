@@ -32,11 +32,6 @@ const RestaurantInfo = ({ restaurants, index }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.textName}>{restaurants[index].name}</Text>
-      <Text>
-        Address: {'\n'}
-        {restaurants[index].formatted_address}
-      </Text>
-      <PriceLevel restaurants={restaurants} index={index} />
       <View style={styles.ratingContainer}>
         <Icon name={stars[0]} size={25} color="gold" />
         <Icon name={stars[1]} size={25} color="gold" />
@@ -44,6 +39,11 @@ const RestaurantInfo = ({ restaurants, index }) => {
         <Icon name={stars[3]} size={25} color="gold" />
         <Icon name={stars[4]} size={25} color="gold" />
       </View>
+      <PriceLevel restaurants={restaurants} index={index} />
+      <Text>
+        Address: {'\n'}
+        {restaurants[index].formatted_address}
+      </Text>
     </View>
   );
 };
