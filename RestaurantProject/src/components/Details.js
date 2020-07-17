@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Linking } from 'react-native';
 import {
   FlingGestureHandler,
   Directions,
@@ -34,7 +34,9 @@ const Details = ({
           <Text style={styles.description}>View Details</Text>
           <View style={[showDetails ? styles.display : styles.hide]}>
             <Text>Phone#: {placeDetails[index].formatted_phone_number}</Text>
-            <Text>{placeDetails[index].website}</Text>
+            <Text onPress={() => Linking.openURL(placeDetails[index].website)}>
+              Website
+            </Text>
             <Text>
               {placeDetails[index].opening_hours.weekday_text[0]}
               {'\n'}
