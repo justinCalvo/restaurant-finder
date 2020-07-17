@@ -29,7 +29,7 @@ const Reviews = ({ placeDetails, index, viewReviews, setViewReviews }) => {
       {placeDetails[index].reviews ? (
         <Button title={buttonTitle} onPress={handleViewReviews} />
       ) : (
-        <Text>No Reviews</Text>
+        <Text style={styles.noReviews}>No Reviews</Text>
       )}
       <FlatList
         style={viewReviews ? styles.reviewDisplay : styles.reviewHide}
@@ -54,6 +54,11 @@ const styles = StyleSheet.create({
   },
   reviewHide: {
     display: 'none',
+  },
+  noReviews: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
 });
 
