@@ -62,6 +62,8 @@
 		832B1DCC664E9E87AC31D3C3 /* Pods-RestaurantProject-RestaurantProjectTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RestaurantProject-RestaurantProjectTests.debug.xcconfig"; path = "Target Support Files/Pods-RestaurantProject-RestaurantProjectTests/Pods-RestaurantProject-RestaurantProjectTests.debug.xcconfig"; sourceTree = "<group>"; };
 		91844115FC2B1018C12473C5 /* Pods-RestaurantProject-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RestaurantProject-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-RestaurantProject-tvOS/Pods-RestaurantProject-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		B435DE25959CF9CB52E482AC /* Pods-RestaurantProject-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RestaurantProject-tvOS.release.xcconfig"; path = "Target Support Files/Pods-RestaurantProject-tvOS/Pods-RestaurantProject-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		C1706E2724C21FDD00321174 /* Ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
+		C1706E2824C21FEB00321174 /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		C1BEECF924C21202009D0FB6 /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		CA4BF60A819AF198C5CD63AE /* libPods-RestaurantProject.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RestaurantProject.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5AFB97FBDA30EE4418782A0 /* Pods-RestaurantProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RestaurantProject.release.xcconfig"; path = "Target Support Files/Pods-RestaurantProject/Pods-RestaurantProject.release.xcconfig"; sourceTree = "<group>"; };
@@ -202,6 +204,8 @@
 		C1BEECF824C2115B009D0FB6 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				C1706E2824C21FEB00321174 /* FontAwesome.ttf */,
+				C1706E2724C21FDD00321174 /* Ionicons.ttf */,
 				C1BEECF924C21202009D0FB6 /* MaterialIcons.ttf */,
 			);
 			name = Fonts;
