@@ -17,20 +17,16 @@ const Restaurants = ({ route }) => {
   const [showDetails, setShowDetails] = useState(false);
   const [viewReviews, setViewReviews] = useState(false);
 
-  const LeftActions = () => {
+  const MainAction = () => {
     getNext();
     setIndex(index + 1);
     setShowDetails(false);
     setViewReviews(false);
   };
 
-  const RightActions = () => {
-    getNext();
-    setIndex(index + 1);
-    setShowDetails(false);
-    setViewReviews(false);
-    // TODO: add selected data to database as a potential "match"
-  };
+  // const RightActions = () => {
+  // TODO: add selected data to database as a potential "match"
+  // };
 
   const getNext = () => {
     axios
@@ -57,14 +53,15 @@ const Restaurants = ({ route }) => {
       direction={Directions.LEFT}
       onHandlerStateChange={({ nativeEvent }) => {
         if (nativeEvent.state === State.ACTIVE) {
-          LeftActions();
+          MainAction();
         }
       }}>
       <FlingGestureHandler
         direction={Directions.RIGHT}
         onHandlerStateChange={({ nativeEvent }) => {
           if (nativeEvent.state === State.ACTIVE) {
-            RightActions();
+            MainAction();
+            // RightActions();
           }
         }}>
         <SafeAreaView style={styles.container}>

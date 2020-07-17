@@ -17,7 +17,7 @@ const Details = ({
   viewReviews,
   setViewReviews,
 }) => {
-  console.log(placeDetails[index]);
+  // console.log(placeDetails[index]);
   return (
     <FlingGestureHandler
       direction={Directions.UP}
@@ -71,6 +71,7 @@ const Details = ({
               index={index}
               viewReviews={viewReviews}
               setViewReviews={setViewReviews}
+              restaurants={restaurants}
             />
           </View>
         </View>
