@@ -11,13 +11,19 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 const Details = ({
   restaurants,
   placeDetails,
+  setPlaceDetails,
   index,
   showDetails,
   setShowDetails,
   viewReviews,
   setViewReviews,
+  customerRating,
+  setCustomerRating,
+  allCustomerRatings,
+  setAllCustomerRatings,
+  num,
+  setNum,
 }) => {
-  // console.log(placeDetails[index]);
   return (
     <FlingGestureHandler
       direction={Directions.UP}
@@ -71,7 +77,12 @@ const Details = ({
               index={index}
               viewReviews={viewReviews}
               setViewReviews={setViewReviews}
-              restaurants={restaurants}
+              customerRating={customerRating}
+              setCustomerRating={setCustomerRating}
+              allCustomerRatings={allCustomerRatings}
+              setAllCustomerRatings={setAllCustomerRatings}
+              num={num}
+              setNum={setNum}
             />
           </View>
         </View>

@@ -16,12 +16,18 @@ const Restaurants = ({ route }) => {
   const [index, setIndex] = useState(0);
   const [showDetails, setShowDetails] = useState(false);
   const [viewReviews, setViewReviews] = useState(false);
+  const [customerRating, setCustomerRating] = useState([]);
+  const [allCustomerRatings, setAllCustomerRatings] = useState([]);
+  const [num, setNum] = useState(0);
 
   const MainAction = () => {
     getNext();
     setIndex(index + 1);
     setShowDetails(false);
     setViewReviews(false);
+    setCustomerRating([]);
+    setAllCustomerRatings([]);
+    setNum(0);
   };
 
   // const RightActions = () => {
@@ -76,11 +82,18 @@ const Restaurants = ({ route }) => {
           <Details
             restaurants={route.params.restaurants}
             placeDetails={route.params.placeDetails}
+            setPlaceDetails={route.params.setPlaceDetails}
             index={index}
             showDetails={showDetails}
             setShowDetails={setShowDetails}
             viewReviews={viewReviews}
             setViewReviews={setViewReviews}
+            customerRating={customerRating}
+            setCustomerRating={setCustomerRating}
+            allCustomerRatings={allCustomerRatings}
+            setAllCustomerRatings={setAllCustomerRatings}
+            num={num}
+            setNum={setNum}
           />
         </SafeAreaView>
       </FlingGestureHandler>

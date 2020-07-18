@@ -1,27 +1,39 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { View, Text, FlatList, StyleSheet, Button } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import { View, Text, StyleSheet, Button } from 'react-native';
+import ReviewScreen from '../screens/ReviewScreen';
 
 const Reviews = ({
   placeDetails,
   index,
   viewReviews,
   setViewReviews,
-  restaurants,
+  customerRating,
+  setCustomerRating,
+  allCustomerRatings,
+  setAllCustomerRatings,
+  num,
+  setNum,
 }) => {
   const [buttonTitle, setButtonTitle] = useState('View Reviews');
-  // const [customerRating, setCustomerRating] = useState([]);
-  // const [allCustomerRatings, setAllCustomerRatings] = useState([]);
-  // const [num, setNum] = useState(0);
+  const [reviewData, setReviewData] = useState([]);
 
-  const handleViewReviews = useCallback(() => {
-    if (!viewReviews) {
-      setViewReviews(true);
-      // allRatings();
-    } else {
-      setViewReviews(false);
+  const updateReviewData = useCallback(() => {
+    let temp = [];
+    let nextNumber = 0;
+    if (placeDetails[index].reviews) {
+      placeDetails[index].reviews.forEach(item => {
+        temp.push({
+          author_name: item.author_name,
+          rating: item.rating,
+          relative_time_description: item.relative_time_description,
+          text: item.text,
+          next: nextNumber,
+        });
+        nextNumber++;
+      });
+      setReviewData(temp);
     }
-  }, [setViewReviews, viewReviews]);
+  }, [placeDetails, index, setReviewData]);
 
   const checkViewState = useCallback(() => {
     if (viewReviews) {
@@ -31,44 +43,54 @@ const Reviews = ({
     }
   }, [viewReviews]);
 
+  const allRatings = useCallback(() => {
+    let temp = [];
+    if (placeDetails[index].reviews) {
+      placeDetails[index].reviews.forEach(item => {
+        temp.push(item.rating);
+      });
+      setAllCustomerRatings(temp);
+    }
+  }, [placeDetails, index, setAllCustomerRatings]);
+
+  const handleViewReviews = useCallback(() => {
+    if (!viewReviews) {
+      setViewReviews(true);
+    } else {
+      setViewReviews(false);
+    }
+  }, [setViewReviews, viewReviews]);
+
+  const createStars = useCallback(() => {
+    const wholeNumber = allCustomerRatings[num]
+      ? allCustomerRatings[num]
+      : null;
+    let customerRatingArray = [];
+    if (wholeNumber) {
+      for (var i = 1; i <= 5; i++) {
+        if (i <= wholeNumber) {
+          customerRatingArray.push('star');
+        } else {
+          customerRatingArray.push('star-border');
+        }
+      }
+      setCustomerRating(oldArray => [...oldArray, customerRatingArray]);
+      setNum(num + 1);
+    }
+  }, [allCustomerRatings, num, setCustomerRating, setNum]);
+
+  useEffect(() => {
+    createStars();
+  }, [createStars, allRatings, placeDetails, viewReviews]);
+
   useEffect(() => {
     checkViewState();
-  }, [checkViewState, viewReviews]);
+    allRatings();
+  }, [allRatings, checkViewState, viewReviews, placeDetails]);
 
-  // const allRatings = useCallback(() => {
-  //   let temp = [];
-  //   if (placeDetails[index].reviews) {
-  //     placeDetails[index].reviews.forEach(item => {
-  //       temp.push(item.rating);
-  //     });
-  //     setAllCustomerRatings(temp);
-  //   }
-  // }, [placeDetails, index]);
-  // console.log(allCustomerRatings);
-
-  // const createStars = useCallback(() => {
-  //   const wholeNumber = allCustomerRatings[num]
-  //     ? allCustomerRatings[num]
-  //     : null;
-  //   let customerRatingArray = [];
-  //   if (wholeNumber) {
-  //     for (var i = 1; i <= 5; i++) {
-  //       if (i <= wholeNumber) {
-  //         customerRatingArray.push('star');
-  //       } else {
-  //         customerRatingArray.push('star-border');
-  //       }
-  //     }
-  //     setCustomerRating(oldArray => [...oldArray, customerRatingArray]);
-  //     setNum(num + 1);
-  //   }
-  // }, [allCustomerRatings, num]);
-
-  // console.log(customerRating);
-
-  // useEffect(() => {
-  //   createStars();
-  // }, [createStars, allRatings, placeDetails, viewReviews]);
+  useEffect(() => {
+    updateReviewData();
+  }, [updateReviewData, placeDetails]);
 
   return (
     <View>
@@ -77,28 +99,17 @@ const Reviews = ({
       ) : (
         <Text style={styles.noReviews}>No Reviews</Text>
       )}
-      {/* {customerRating.length > 0 ? ( */}
-      <FlatList
-        style={viewReviews ? styles.reviewDisplay : styles.reviewHide}
-        data={placeDetails[index].reviews}
-        keyExtractor={(item, i) => i.toString()}
-        renderItem={({ item }) => (
-          <View>
-            <Text style={styles.text}>{item.author_name}</Text>
-            <Text style={styles.text}>Customer Rating: {item.rating}</Text>
-            {/* <View style={styles.ratingContainer}>
-              <Icon name={customerRating[num][0]} size={25} color="gold" />
-              <Icon name={customerRating[num][1]} size={25} color="gold" />
-              <Icon name={customerRating[num][2]} size={25} color="gold" />
-              <Icon name={customerRating[num][3]} size={25} color="gold" />
-              <Icon name={customerRating[num][4]} size={25} color="gold" />
-            </View> */}
-            <Text style={styles.text}>{item.relative_time_description}</Text>
-            <Text style={styles.text}>{item.text}</Text>
-          </View>
-        )}
-      />
-      {/* ) : null} */}
+      {customerRating ? (
+        <ReviewScreen
+          customerRating={customerRating}
+          placeDetails={placeDetails}
+          allRatings={allRatings}
+          num={num}
+          viewReviews={viewReviews}
+          index={index}
+          reviewData={reviewData}
+        />
+      ) : null}
     </View>
   );
 };
