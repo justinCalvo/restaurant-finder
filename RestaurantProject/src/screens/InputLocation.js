@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TextInput, StyleSheet } from 'react-native';
+import { View, TextInput, StyleSheet, Dimensions } from 'react-native';
 import LocationFinder from '../components/LocationFinder';
 
 const InputLocation = () => {
@@ -32,8 +32,12 @@ const InputLocation = () => {
   );
 };
 
+const { width, height } = Dimensions.get('window');
+
 const styles = StyleSheet.create({
   container: {
+    width: width,
+    height: height,
     flex: 1,
     paddingHorizontal: 50,
     backgroundColor: 'white',
