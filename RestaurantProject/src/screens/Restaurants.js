@@ -72,7 +72,8 @@ const Restaurants = ({ route }) => {
         }}>
         <SafeAreaView style={styles.container}>
           <Matches index={index} />
-          <Photos index={index}
+          <Photos
+            index={index}
             photos={route.params.placeDetails[index].photos}
             showDetails={showDetails}
           />
