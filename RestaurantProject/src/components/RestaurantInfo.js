@@ -32,19 +32,21 @@ const RestaurantInfo = ({ restaurants, index, showDetails }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.restaurantName}>{restaurants[index].name}</Text>
-      <View style={styles.ratingContainer}>
-        <Icon name={stars[0]} size={25} color="gold" />
-        <Icon name={stars[1]} size={25} color="gold" />
-        <Icon name={stars[2]} size={25} color="gold" />
-        <Icon name={stars[3]} size={25} color="gold" />
-        <Icon name={stars[4]} size={25} color="gold" />
-      </View>
-      <PriceLevel restaurants={restaurants} index={index} />
       {!showDetails ? (
-        <Text>
-          Address: {'\n'}
-          {restaurants[index].formatted_address}
-        </Text>
+        <>
+          <View style={styles.ratingContainer}>
+            <Icon name={stars[0]} size={25} color="gold" />
+            <Icon name={stars[1]} size={25} color="gold" />
+            <Icon name={stars[2]} size={25} color="gold" />
+            <Icon name={stars[3]} size={25} color="gold" />
+            <Icon name={stars[4]} size={25} color="gold" />
+          </View>
+          <PriceLevel restaurants={restaurants} index={index} />
+          <Text>
+            Address: {'\n'}
+            {restaurants[index].formatted_address}
+          </Text>
+        </>
       ) : null}
     </View>
   );
@@ -52,7 +54,7 @@ const RestaurantInfo = ({ restaurants, index, showDetails }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 2,
+    flex: 1,
     justifyContent: 'center',
   },
   restaurantName: {

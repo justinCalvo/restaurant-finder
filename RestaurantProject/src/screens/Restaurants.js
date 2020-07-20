@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SafeAreaView, StyleSheet } from 'react-native';
+import { SafeAreaView, StyleSheet, Dimensions } from 'react-native';
 import {
   FlingGestureHandler,
   Directions,
@@ -101,8 +101,12 @@ const Restaurants = ({ route }) => {
   );
 };
 
+const { width, height } = Dimensions.get('window');
+
 const styles = StyleSheet.create({
   container: {
+    width: width,
+    height: height,
     flex: 1,
     backgroundColor: 'white',
   },

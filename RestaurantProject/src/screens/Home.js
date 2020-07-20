@@ -1,5 +1,11 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Dimensions,
+} from 'react-native';
 import ProximitySearch from '../components/ProximitySearch';
 
 const Home = ({ navigation }) => {
@@ -12,9 +18,12 @@ const Home = ({ navigation }) => {
     </View>
   );
 };
+const { width, height } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   container: {
+    width: width,
+    height: height,
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',

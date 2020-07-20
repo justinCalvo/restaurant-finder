@@ -42,22 +42,24 @@ const Details = ({
         <View>
           <Text style={styles.description}>View Details</Text>
           <View style={[showDetails ? styles.display : styles.hide]}>
-            <Text
-              style={styles.text}
-              onPress={() =>
-                Linking.openURL(
-                  `tel:${placeDetails[index].formatted_phone_number}`,
-                )
-              }>
-              <Icon name="phone" size={15} />
-              {placeDetails[index].formatted_phone_number}
-            </Text>
-            <Text
-              onPress={() => Linking.openURL(placeDetails[index].website)}
-              style={[styles.website, styles.text]}>
-              {restaurants[index].name}
-            </Text>
-            <Text>
+            <View style={styles.contactContainer}>
+              <Text
+                style={styles.text}
+                onPress={() =>
+                  Linking.openURL(
+                    `tel:${placeDetails[index].formatted_phone_number}`,
+                  )
+                }>
+                <Icon name="phone" size={15} />
+                {placeDetails[index].formatted_phone_number}
+              </Text>
+              <Text
+                onPress={() => Linking.openURL(placeDetails[index].website)}
+                style={[styles.website, styles.text]}>
+                {restaurants[index].name}
+              </Text>
+            </View>
+            <Text style={styles.scheduleText}>
               {placeDetails[index].opening_hours.weekday_text[0]}
               {'\n'}
               {placeDetails[index].opening_hours.weekday_text[1]}
@@ -115,6 +117,15 @@ const styles = StyleSheet.create({
   website: {
     color: 'blue',
     textDecorationLine: 'underline',
+  },
+  contactContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    padding: 10,
+    flexWrap: 'wrap',
+  },
+  scheduleText: {
+    textAlign: 'center',
   },
 });
 
