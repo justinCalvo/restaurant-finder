@@ -18,11 +18,13 @@ const Restaurants = ({ route }) => {
   const LeftActions = () => {
     getNext();
     setIndex(index + 1);
+    console.log(index);
   };
 
   const RightActions = () => {
     getNext();
     setIndex(index + 1);
+    console.log(index);
     // TODO: add selected data to database as a "favorite"
   };
 
@@ -45,7 +47,7 @@ const Restaurants = ({ route }) => {
         console.log(err);
       });
   };
-  console.log(route.params.placeDetails[index]);
+  // console.log(route.params.placeDetails[index].photos);
   return (
     <FlingGestureHandler
       direction={Directions.LEFT}
@@ -63,7 +65,9 @@ const Restaurants = ({ route }) => {
         }}>
         <SafeAreaView style={styles.container}>
           <Matches index={index} />
-          <Photos index={index} />
+          <Photos index={index}
+                  photos={route.params.placeDetails[index].photos}
+          />
           <Details
             restaurants={route.params.restaurants}
             index={index}

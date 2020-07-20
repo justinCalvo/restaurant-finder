@@ -11,6 +11,7 @@ const ProximitySearch = () => {
   const [placeDetails, setPlaceDetails] = useState([]);
 
   const getNearby = useCallback(() => {
+    setPlaceDetails([]);
     axios
       .get(
         `https://maps.googleapis.com/maps/api/place/textsearch/json?query=restaurant&opennow&key=${

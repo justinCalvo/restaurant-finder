@@ -13,7 +13,8 @@ const Description = ({ restaurants, index }) => {
           config.API_KEY
         }`,
       )
-      .then(data => console.log('this data:', data));
+      // .then(data => console.log('this data:', data));
+      .catch(err => console.log(err));
   }, [restaurants, index]);
   return (
     <View>

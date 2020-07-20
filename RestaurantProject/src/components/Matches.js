@@ -1,10 +1,23 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 
 const Matches = () => {
+
+  const styles = StyleSheet.create({
+    container: {
+      paddingTop: 10,
+      paddingBottom: 10,
+    },
+    banner: {
+      textAlign: 'center',
+      fontWeight: 'bold',
+      fontSize: 18,
+    },
+  });
+
   return (
-    <View>
-      <Text>Matches</Text>
+    <View style={styles.container}>
+      <Text style={styles.banner}>Matches</Text>
     </View>
   );
 };

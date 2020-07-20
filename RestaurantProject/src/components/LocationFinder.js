@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { View, Button } from 'react-native';
+import { View, Button, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import config from '../../config';
@@ -8,6 +8,17 @@ const LocationFinder = ({ city, state, zipcode }) => {
   const navigation = useNavigation();
 
   const [restaurants, setRestaurants] = useState('');
+
+  const styles = StyleSheet.create({
+    container: {
+      paddingTop: 10,
+    },
+    banner: {
+      textAlign: center,
+      fontWeight: 'bold',
+      fontSize: 18,
+    },
+  });
 
   const getCity = useCallback(() => {
     axios
@@ -28,7 +39,7 @@ const LocationFinder = ({ city, state, zipcode }) => {
           )
           .then(data => {
             setRestaurants(data.data.results);
-            console.log(data.data.results);
+            // console.log(data.data.results);
           })
           .catch(err => {
             console.log(err);
