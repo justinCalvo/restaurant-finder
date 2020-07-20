@@ -74,7 +74,7 @@ const { width } = Dimensions.get('window');
 const styles = StyleSheet.create({
   reviewDisplay: {
     display: 'flex',
-    marginBottom: 220,
+    marginBottom: 240,
     paddingHorizontal: 10,
   },
   reviewHide: {
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
   },
   ratingContainer: {
     flexDirection: 'row',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
     marginBottom: 5,
   },
   authorText: {

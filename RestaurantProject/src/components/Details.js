@@ -43,16 +43,18 @@ const Details = ({
           <Text style={styles.description}>View Details</Text>
           <View style={[showDetails ? styles.display : styles.hide]}>
             <View style={styles.contactContainer}>
-              <Text
-                style={styles.text}
-                onPress={() =>
-                  Linking.openURL(
-                    `tel:${placeDetails[index].formatted_phone_number}`,
-                  )
-                }>
-                <Icon name="phone" size={15} />
-                {placeDetails[index].formatted_phone_number}
-              </Text>
+              {placeDetails[index].formatted_phone_number ? (
+                <Text
+                  style={styles.text}
+                  onPress={() =>
+                    Linking.openURL(
+                      `tel:${placeDetails[index].formatted_phone_number}`,
+                    )
+                  }>
+                  <Icon name="phone" size={15} />
+                  {placeDetails[index].formatted_phone_number}
+                </Text>
+              ) : null}
               <Text
                 onPress={() => Linking.openURL(placeDetails[index].website)}
                 style={[styles.website, styles.text]}>
