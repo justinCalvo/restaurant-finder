@@ -45,7 +45,7 @@ const Restaurants = ({ route }) => {
         console.log(err);
       });
   };
-  // console.log(route.params.placeDetails[index].photos);
+
   return (
     <FlingGestureHandler
       direction={Directions.LEFT}
