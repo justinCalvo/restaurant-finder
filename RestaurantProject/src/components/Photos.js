@@ -16,11 +16,12 @@ const Photos = ({ photos, showDetails }) => {
     },
     photo: {
       width: width - 10,
-      height: height*.45 - 10,
+      height: width - 10,
     },
     condensed: {
-      width: 300,
-      height: 300,
+      // display: 'none',
+      width: (width - 10)/2,
+      height: (width - 10)/2,
     }
   });
 
