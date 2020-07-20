@@ -18,13 +18,11 @@ const Restaurants = ({ route }) => {
   const LeftActions = () => {
     getNext();
     setIndex(index + 1);
-    console.log(index);
   };
 
   const RightActions = () => {
     getNext();
     setIndex(index + 1);
-    console.log(index);
     // TODO: add selected data to database as a "favorite"
   };
 
