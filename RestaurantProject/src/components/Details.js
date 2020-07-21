@@ -39,8 +39,14 @@ const Details = ({
             setShowDetails(false);
           }
         }}>
-        <View>
-          <Text style={styles.description}>View Details</Text>
+        <View style={styles.container}>
+          <View style={styles.bottomDragContainer}>
+            {showDetails ? (
+              <Text style={styles.description}>Hide Details</Text>
+            ) : (
+              <Text style={styles.description}>View Details</Text>
+            )}
+          </View>
           <View style={[showDetails ? styles.display : styles.hide]}>
             <View style={styles.contactContainer}>
               {placeDetails[index].formatted_phone_number ? (
@@ -61,21 +67,23 @@ const Details = ({
                 {restaurants[index].name}
               </Text>
             </View>
-            <Text style={styles.scheduleText}>
-              {placeDetails[index].opening_hours.weekday_text[0]}
-              {'\n'}
-              {placeDetails[index].opening_hours.weekday_text[1]}
-              {'\n'}
-              {placeDetails[index].opening_hours.weekday_text[2]}
-              {'\n'}
-              {placeDetails[index].opening_hours.weekday_text[3]}
-              {'\n'}
-              {placeDetails[index].opening_hours.weekday_text[4]}
-              {'\n'}
-              {placeDetails[index].opening_hours.weekday_text[5]}
-              {'\n'}
-              {placeDetails[index].opening_hours.weekday_text[6]}
-            </Text>
+            {!viewReviews ? (
+              <Text style={[styles.scheduleText, styles.text]}>
+                {placeDetails[index].opening_hours.weekday_text[0]}
+                {'\n'}
+                {placeDetails[index].opening_hours.weekday_text[1]}
+                {'\n'}
+                {placeDetails[index].opening_hours.weekday_text[2]}
+                {'\n'}
+                {placeDetails[index].opening_hours.weekday_text[3]}
+                {'\n'}
+                {placeDetails[index].opening_hours.weekday_text[4]}
+                {'\n'}
+                {placeDetails[index].opening_hours.weekday_text[5]}
+                {'\n'}
+                {placeDetails[index].opening_hours.weekday_text[6]}
+              </Text>
+            ) : null}
             <Reviews
               placeDetails={placeDetails}
               index={index}
@@ -98,10 +106,17 @@ const Details = ({
 const { width, height } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
+  container: {
+    width: width,
+    height: height,
+    alignItems: 'center',
+    flex: 1,
+    justifyContent: 'flex-end',
+  },
   display: {
     display: 'flex',
     width: width,
-    height: height - height / 2,
+    flex: 1,
   },
   hide: {
     display: 'none',
@@ -110,8 +125,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     textAlign: 'center',
-    backgroundColor: 'black',
-    color: 'white',
+    color: 'black',
   },
   text: {
     fontSize: 18,
@@ -128,6 +142,12 @@ const styles = StyleSheet.create({
   },
   scheduleText: {
     textAlign: 'center',
+  },
+  bottomDragContainer: {
+    width: width / 1.5,
+    borderBottomWidth: 1,
+    borderTopWidth: 1,
+    borderColor: 'black',
   },
 });
 

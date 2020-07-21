@@ -16,7 +16,6 @@ const Reviews = ({
       <FlatList
         style={viewReviews ? styles.reviewDisplay : styles.reviewHide}
         data={reviewData}
-        keyExtractor={(item, i) => i.toString()}
         renderItem={({ item }) => (
           <View>
             <Text style={[styles.text, styles.authorText]}>
@@ -56,7 +55,11 @@ const Reviews = ({
                 </View>
               ) : null}
             </View>
-            <Text style={styles.text}>{item.text}</Text>
+            <View>
+              <View>
+                <Text style={styles.text}>{item.text}</Text>
+              </View>
+            </View>
             {item.next !== 4 ? (
               <View style={styles.underlineContainer}>
                 <View style={styles.underline} />
@@ -74,7 +77,7 @@ const { width } = Dimensions.get('window');
 const styles = StyleSheet.create({
   reviewDisplay: {
     display: 'flex',
-    marginBottom: 240,
+    marginBottom: 120,
     paddingHorizontal: 10,
   },
   reviewHide: {
@@ -108,6 +111,14 @@ const styles = StyleSheet.create({
     height: 1,
     backgroundColor: 'black',
     margin: 15,
+  },
+  displayFullReview: {
+    flex: 1,
+    flexDirection: 'row',
+  },
+  more: {
+    color: 'blue',
+    fontSize: 16,
   },
 });
 

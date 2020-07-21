@@ -54,7 +54,6 @@ const RestaurantInfo = ({ restaurants, index, showDetails }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     justifyContent: 'center',
   },
   restaurantName: {

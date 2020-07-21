@@ -93,7 +93,7 @@ const Reviews = ({
   }, [updateReviewData, placeDetails]);
 
   return (
-    <View>
+    <View style={styles.container}>
       {placeDetails[index].reviews ? (
         <Button title={buttonTitle} onPress={handleViewReviews} />
       ) : (
