@@ -2,7 +2,6 @@ import React from 'react';
 import { SafeAreaView, Text, StyleSheet } from 'react-native';
 
 const Matches = () => {
-
   const styles = StyleSheet.create({
     container: {
       paddingTop: 10,

@@ -108,12 +108,15 @@ const { width, height } = Dimensions.get('window');
 const styles = StyleSheet.create({
   container: {
     width: width,
+    height: height,
     alignItems: 'center',
+    flex: 1,
+    justifyContent: 'flex-end',
   },
   display: {
     display: 'flex',
     width: width,
-    height: height - height / 2,
+    flex: 1,
   },
   hide: {
     display: 'none',
