@@ -39,15 +39,19 @@ const Restaurants = ({ route }) => {
       .get(
         `https://maps.googleapis.com/maps/api/place/details/json?place_id=${
           route.params.restaurants[index + 2].place_id
-        }&fields=formatted_phone_number,opening_hours,website,photo,reviews&key=${
+        }&fields=formatted_phone_number,opening_hours/weekday_text,website,photo,reviews&key=${
           config.API_KEY
         }`,
       )
       .then(description => {
-        route.params.setPlaceDetails(oldArray => [
-          ...oldArray,
-          description.data.result,
-        ]);
+        let newRestaurants = route.params.restaurants;
+        for (var key in description.data.result) {
+          newRestaurants[index + 2][key] = description.data.result[key];
+        }
+
+        // console.log(newRestaurants[index + 2]);
+        route.params.setRestaurants(newRestaurants);
+
       })
       .catch(err => {
         console.log(err);
@@ -74,19 +78,16 @@ const Restaurants = ({ route }) => {
           <Matches index={index} />
           <Photos
             index={index}
-            photos={route.params.placeDetails[index].photos}
+            photos={route.params.restaurants[index].photos}
             showDetails={showDetails}
           />
           <RestaurantInfo
             restaurants={route.params.restaurants}
             index={index}
-            placeDetails={route.params.placeDetails}
             showDetails={showDetails}
           />
           <Details
             restaurants={route.params.restaurants}
-            placeDetails={route.params.placeDetails}
-            setPlaceDetails={route.params.setPlaceDetails}
             index={index}
             showDetails={showDetails}
             setShowDetails={setShowDetails}

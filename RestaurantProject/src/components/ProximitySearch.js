@@ -8,7 +8,6 @@ const ProximitySearch = () => {
   const navigation = useNavigation();
 
   const [restaurants, setRestaurants] = useState([]);
-  const [placeDetails, setPlaceDetails] = useState([]);
   const [nextPageToken, setNextPageToken] = useState('');
 
   const getNearby = useCallback(() => {
@@ -19,13 +18,13 @@ const ProximitySearch = () => {
         }`,
       )
       .then(data => {
+        let proximityResults = data.data.results;
         setNextPageToken(data.data.next_page_token);
-        setRestaurants(data.data.results);
         axios
           .get(
             `https://maps.googleapis.com/maps/api/place/details/json?place_id=${
-              data.data.results[0].place_id
-            }&fields=formatted_phone_number,opening_hours,website,photo&key=${
+              proximityResults[0].place_id
+            }&fields=formatted_phone_number,opening_hours/weekday_text,website,photo,review&key=${
               config.API_KEY
             }`,
           )
@@ -33,17 +32,22 @@ const ProximitySearch = () => {
             axios
               .get(
                 `https://maps.googleapis.com/maps/api/place/details/json?place_id=${
-                  data.data.results[1].place_id
-                }&fields=formatted_phone_number,opening_hours,website,photo&key=${
+                  proximityResults[1].place_id
+                }&fields=formatted_phone_number,opening_hours/weekday_text,website,photo,review&key=${
                   config.API_KEY
                 }`,
               )
               .then(newDescription => {
-                setPlaceDetails(oldArray => [
-                  ...oldArray,
-                  description.data.result,
-                  newDescription.data.result,
-                ]);
+
+                for (var key in description.data.result) {
+                  proximityResults[0][key] = description.data.result[key];
+                }
+                for (var key in newDescription.data.result) {
+                  proximityResults[1][key] = newDescription.data.result[key];
+                }
+
+                setRestaurants(proximityResults);
+
               })
               .catch(err => {
                 console.log(err);
@@ -59,14 +63,13 @@ const ProximitySearch = () => {
   }, []);
 
   const sendRestaurants = useCallback(() => {
-    if (placeDetails.length > 0) {
+    if (restaurants.length > 0) {
       navigation.navigate('Restaurants', {
         restaurants: restaurants,
-        placeDetails: placeDetails,
-        setPlaceDetails: setPlaceDetails,
+        setRestaurants: setRestaurants,
       });
     }
-  }, [restaurants, navigation, placeDetails]);
+  }, [restaurants, navigation]);
 
   useEffect(() => {
     sendRestaurants();

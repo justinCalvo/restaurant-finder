@@ -10,8 +10,6 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const Details = ({
   restaurants,
-  placeDetails,
-  setPlaceDetails,
   index,
   showDetails,
   setShowDetails,
@@ -49,43 +47,43 @@ const Details = ({
           </View>
           <View style={[showDetails ? styles.display : styles.hide]}>
             <View style={styles.contactContainer}>
-              {placeDetails[index].formatted_phone_number ? (
+              {restaurants[index].formatted_phone_number ? (
                 <Text
                   style={styles.text}
                   onPress={() =>
                     Linking.openURL(
-                      `tel:${placeDetails[index].formatted_phone_number}`,
+                      `tel:${restaurants[index].formatted_phone_number}`,
                     )
                   }>
                   <Icon name="phone" size={15} />
-                  {placeDetails[index].formatted_phone_number}
+                  {restaurants[index].formatted_phone_number}
                 </Text>
               ) : null}
               <Text
-                onPress={() => Linking.openURL(placeDetails[index].website)}
+                onPress={() => Linking.openURL(restaurants[index].website)}
                 style={[styles.website, styles.text]}>
                 {restaurants[index].name}
               </Text>
             </View>
             {!viewReviews ? (
               <Text style={[styles.scheduleText, styles.text]}>
-                {placeDetails[index].opening_hours.weekday_text[0]}
+                {restaurants[index].opening_hours.weekday_text[0]}
                 {'\n'}
-                {placeDetails[index].opening_hours.weekday_text[1]}
+                {restaurants[index].opening_hours.weekday_text[1]}
                 {'\n'}
-                {placeDetails[index].opening_hours.weekday_text[2]}
+                {restaurants[index].opening_hours.weekday_text[2]}
                 {'\n'}
-                {placeDetails[index].opening_hours.weekday_text[3]}
+                {restaurants[index].opening_hours.weekday_text[3]}
                 {'\n'}
-                {placeDetails[index].opening_hours.weekday_text[4]}
+                {restaurants[index].opening_hours.weekday_text[4]}
                 {'\n'}
-                {placeDetails[index].opening_hours.weekday_text[5]}
+                {restaurants[index].opening_hours.weekday_text[5]}
                 {'\n'}
-                {placeDetails[index].opening_hours.weekday_text[6]}
+                {restaurants[index].opening_hours.weekday_text[6]}
               </Text>
             ) : null}
             <Reviews
-              placeDetails={placeDetails}
+              restaurants={restaurants}
               index={index}
               viewReviews={viewReviews}
               setViewReviews={setViewReviews}

@@ -36,7 +36,7 @@ const Photos = ({ photos, showDetails }) => {
     axios
       .get(
         `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${
-          photos[0].photo_reference
+          photos[1].photo_reference
         }&key=${config.API_KEY}`,
       )
       .then(data => {

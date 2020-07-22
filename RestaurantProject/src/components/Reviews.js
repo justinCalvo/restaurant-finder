@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Button } from 'react-native';
 import ReviewScreen from '../screens/ReviewScreen';
 
 const Reviews = ({
-  placeDetails,
+  restaurants,
   index,
   viewReviews,
   setViewReviews,
@@ -20,8 +20,8 @@ const Reviews = ({
   const updateReviewData = useCallback(() => {
     let temp = [];
     let nextNumber = 0;
-    if (placeDetails[index].reviews) {
-      placeDetails[index].reviews.forEach(item => {
+    if (restaurants[index].reviews) {
+      restaurants[index].reviews.forEach(item => {
         temp.push({
           author_name: item.author_name,
           rating: item.rating,
@@ -33,7 +33,7 @@ const Reviews = ({
       });
       setReviewData(temp);
     }
-  }, [placeDetails, index, setReviewData]);
+  }, [restaurants, index, setReviewData]);
 
   const checkViewState = useCallback(() => {
     if (viewReviews) {
@@ -45,13 +45,13 @@ const Reviews = ({
 
   const allRatings = useCallback(() => {
     let temp = [];
-    if (placeDetails[index].reviews) {
-      placeDetails[index].reviews.forEach(item => {
+    if (restaurants[index].reviews) {
+      restaurants[index].reviews.forEach(item => {
         temp.push(item.rating);
       });
       setAllCustomerRatings(temp);
     }
-  }, [placeDetails, index, setAllCustomerRatings]);
+  }, [restaurants, index, setAllCustomerRatings]);
 
   const handleViewReviews = useCallback(() => {
     if (!viewReviews) {
@@ -81,20 +81,20 @@ const Reviews = ({
 
   useEffect(() => {
     createStars();
-  }, [createStars, allRatings, placeDetails, viewReviews]);
+  }, [createStars, allRatings, restaurants, viewReviews]);
 
   useEffect(() => {
     checkViewState();
     allRatings();
-  }, [allRatings, checkViewState, viewReviews, placeDetails]);
+  }, [allRatings, checkViewState, viewReviews, restaurants]);
 
   useEffect(() => {
     updateReviewData();
-  }, [updateReviewData, placeDetails]);
+  }, [updateReviewData, restaurants]);
 
   return (
     <View style={styles.container}>
-      {placeDetails[index].reviews ? (
+      {restaurants[index].reviews ? (
         <Button title={buttonTitle} onPress={handleViewReviews} />
       ) : (
         <Text style={styles.noReviews}>No Reviews</Text>
@@ -102,7 +102,7 @@ const Reviews = ({
       {customerRating ? (
         <ReviewScreen
           customerRating={customerRating}
-          placeDetails={placeDetails}
+          restaurants={restaurants}
           allRatings={allRatings}
           num={num}
           viewReviews={viewReviews}
