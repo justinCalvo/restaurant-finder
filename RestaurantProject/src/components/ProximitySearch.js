@@ -38,16 +38,13 @@ const ProximitySearch = () => {
                 }`,
               )
               .then(newDescription => {
-
                 for (var key in description.data.result) {
                   proximityResults[0][key] = description.data.result[key];
                 }
                 for (var key in newDescription.data.result) {
                   proximityResults[1][key] = newDescription.data.result[key];
                 }
-
                 setRestaurants(proximityResults);
-
               })
               .catch(err => {
                 console.log(err);

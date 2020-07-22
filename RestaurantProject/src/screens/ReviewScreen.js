@@ -16,6 +16,7 @@ const Reviews = ({
       <FlatList
         style={viewReviews ? styles.reviewDisplay : styles.reviewHide}
         data={reviewData}
+        keyExtractor={(item, i) => i.toString()}
         renderItem={({ item }) => (
           <View>
             <Text style={[styles.text, styles.authorText]}>

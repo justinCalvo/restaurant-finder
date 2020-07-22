@@ -51,7 +51,6 @@ const Restaurants = ({ route }) => {
 
         // console.log(newRestaurants[index + 2]);
         route.params.setRestaurants(newRestaurants);
-
       })
       .catch(err => {
         console.log(err);
