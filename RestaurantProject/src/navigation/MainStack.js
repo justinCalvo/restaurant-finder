@@ -1,8 +1,8 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import Home from '../screens/Home';
-import InputLocation from '../screens/InputLocation';
-import Restaurants from '../screens/Restaurants';
+import Home from '../screens/Landing/Home';
+import CityInput from '../screens/Landing/CityInput';
+import Restaurants from '../screens/Main/Restaurants';
 import { Routes } from '../constants/NavConst';
 
 const Stack = createStackNavigator();
@@ -16,8 +16,8 @@ const MainStack = () => {
         options={{ title: null }}
       />
       <Stack.Screen
-        name={Routes.InputLocation}
-        component={InputLocation}
+        name={Routes.CityInput}
+        component={CityInput}
         options={{ title: null }}
       />
       <Stack.Screen

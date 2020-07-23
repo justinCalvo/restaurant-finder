@@ -5,12 +5,12 @@ import {
   Directions,
   State,
 } from 'react-native-gesture-handler';
-import RestaurantInfo from '../components/RestaurantInfo';
-import Photos from '../components/Photos';
-import Matches from '../components/Matches';
-import Details from '../components/Details';
+import Expanded from '../../components/Details/Expanded';
+import Photos from '../../components/Photos/Photos';
+import Matches from '../../components/Matches/Matches';
+import Details from '../../components/Details/Details';
 import axios from 'axios';
-import config from '../../config';
+import config from '../../../config';
 
 const Restaurants = ({ route }) => {
   const [index, setIndex] = useState(0);
@@ -80,12 +80,12 @@ const Restaurants = ({ route }) => {
             photos={route.params.restaurants[index].photos}
             showDetails={showDetails}
           />
-          <RestaurantInfo
+          <Details
             restaurants={route.params.restaurants}
             index={index}
             showDetails={showDetails}
           />
-          <Details
+          <Expanded
             restaurants={route.params.restaurants}
             index={index}
             showDetails={showDetails}

@@ -2,7 +2,7 @@ import React, { useState, useCallback, useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
-import config from '../../config';
+import config from '../../../config';
 
 const ProximitySearch = () => {
   const navigation = useNavigation();

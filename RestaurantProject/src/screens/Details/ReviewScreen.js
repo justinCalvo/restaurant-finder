@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, FlatList, StyleSheet, Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-const Reviews = ({
+const ReviewScreen = ({
   viewReviews,
   restaurants,
   allRatings,
@@ -123,4 +123,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Reviews;
+export default ReviewScreen;

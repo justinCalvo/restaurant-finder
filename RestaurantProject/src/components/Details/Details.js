@@ -1,9 +1,9 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import PriceLevel from './PriceLevel';
+import PriceRating from './PriceRating';
 
-const RestaurantInfo = ({ restaurants, index, showDetails }) => {
+const Details = ({ restaurants, index, showDetails }) => {
   const [stars, setStars] = useState([]);
 
   const createStars = useCallback(() => {
@@ -41,7 +41,7 @@ const RestaurantInfo = ({ restaurants, index, showDetails }) => {
             <Icon name={stars[3]} size={25} color="gold" />
             <Icon name={stars[4]} size={25} color="gold" />
           </View>
-          <PriceLevel restaurants={restaurants} index={index} />
+          <PriceRating restaurants={restaurants} index={index} />
           <Text>
             Address: {'\n'}
             {restaurants[index].formatted_address}
@@ -67,4 +67,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default RestaurantInfo;
+export default Details;

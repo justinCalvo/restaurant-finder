@@ -2,9 +2,9 @@ import React, { useState, useCallback, useEffect } from 'react';
 import { View, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
-import config from '../../config';
+import config from '../../../config';
 
-const LocationFinder = ({ city, state, zipcode }) => {
+const CitySearch = ({ city, state, zipcode }) => {
   const navigation = useNavigation();
 
   const [restaurants, setRestaurants] = useState('');
@@ -91,4 +91,4 @@ const LocationFinder = ({ city, state, zipcode }) => {
   );
 };
 
-export default LocationFinder;
+export default CitySearch;

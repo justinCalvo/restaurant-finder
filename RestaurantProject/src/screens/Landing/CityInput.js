@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { View, TextInput, StyleSheet, Dimensions } from 'react-native';
-import LocationFinder from '../components/LocationFinder';
+import CitySearch from '../../components/Landing/CitySearch';
 
-const InputLocation = () => {
+const CityInput = () => {
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
   const [zipcode, setZipcode] = useState('');
@@ -27,7 +27,7 @@ const InputLocation = () => {
         value={zipcode}
         placeholder="zipcode"
       />
-      <LocationFinder city={city} state={state} zipcode={zipcode} />
+      <CitySearch city={city} state={state} zipcode={zipcode} />
     </View>
   );
 };
@@ -50,4 +50,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default InputLocation;
+export default CityInput;

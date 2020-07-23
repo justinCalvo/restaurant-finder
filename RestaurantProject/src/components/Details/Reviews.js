@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native';
-import ReviewScreen from '../screens/ReviewScreen';
+import ReviewScreen from '../../screens/ReviewScreen';
 
 const Reviews = ({
   restaurants,

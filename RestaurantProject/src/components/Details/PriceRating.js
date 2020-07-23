@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-const PriceLevel = ({ restaurants, index }) => {
+const PriceRating = ({ restaurants, index }) => {
   const checkPriceLevel = restaurants[index].price_level;
 
   return (
@@ -74,4 +74,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PriceLevel;
+export default PriceRating;

@@ -6,7 +6,7 @@ import {
   StyleSheet,
   Dimensions,
 } from 'react-native';
-import ProximitySearch from '../components/ProximitySearch';
+import ProximitySearch from '../../components/Landing/ProximitySearch';
 
 const Home = ({ navigation }) => {
   return (

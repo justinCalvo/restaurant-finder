@@ -8,7 +8,7 @@ import {
 import Reviews from './Reviews';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-const Details = ({
+const Expanded = ({
   restaurants,
   index,
   showDetails,
@@ -149,4 +149,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Details;
+export default Expanded;

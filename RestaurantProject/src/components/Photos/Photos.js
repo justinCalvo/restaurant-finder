@@ -8,7 +8,7 @@ import {
   Dimensions,
 } from 'react-native';
 import axios from 'axios';
-import config from '../../config';
+import config from '../../../config';
 
 const Photos = ({ photos, showDetails }) => {
   const { width, height } = Dimensions.get('window');
@@ -24,7 +24,6 @@ const Photos = ({ photos, showDetails }) => {
       height: width - 10,
     },
     condensed: {
-      // display: 'none',
       width: (width - 10) / 2,
       height: (width - 10) / 2,
     },
