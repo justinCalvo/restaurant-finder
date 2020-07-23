@@ -7,12 +7,13 @@ import {
   Dimensions,
 } from 'react-native';
 import ProximitySearch from '../../components/Landing/ProximitySearch';
+import { Routes } from '../../constants/NavConst';
 
 const Home = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <ProximitySearch />
-      <TouchableOpacity onPress={() => navigation.navigate('InputLocation')}>
+      <TouchableOpacity onPress={() => navigation.navigate(Routes.CityInput)}>
         <Text style={styles.text}>By City</Text>
       </TouchableOpacity>
     </View>

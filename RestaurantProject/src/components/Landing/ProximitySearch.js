@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import config from '../../../config';
+import { Routes } from '../../constants/NavConst';
 
 const ProximitySearch = () => {
   const navigation = useNavigation();
@@ -61,7 +62,7 @@ const ProximitySearch = () => {
 
   const sendRestaurants = useCallback(() => {
     if (restaurants.length > 0) {
-      navigation.navigate('Restaurants', {
+      navigation.navigate(Routes.Restaurants, {
         restaurants: restaurants,
         setRestaurants: setRestaurants,
       });
