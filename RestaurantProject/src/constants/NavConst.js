@@ -1,5 +1,5 @@
 export class Routes {
   static Home = 'Home';
-  static InputLocation = 'InputLocation';
+  static CityInput = 'CityInput';
   static Restaurants = 'Restaurants';
 }
