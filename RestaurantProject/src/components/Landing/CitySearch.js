@@ -29,7 +29,6 @@ const CitySearch = ({ city, state, zipcode }) => {
             }`,
           )
           .then(data => {
-            console.log(data.data.results);
             let proximityResults = data.data.results;
             setNextPageToken(data.data.next_page_token);
             axios
