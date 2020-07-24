@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { View, Text, StyleSheet, Linking } from 'react-native';
+import { View, Text, StyleSheet, Linking, Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import PriceRating from './PriceRating';
 
@@ -31,6 +31,21 @@ const Details = ({ restaurants, index, showDetails }) => {
 
   return (
     <View style={styles.container}>
+      {!showDetails ? (
+        <>
+          <View style={styles.ratingContainer}>
+            <Text style={styles.ratingsTotalText}>
+              ({restaurants[index].user_ratings_total})
+            </Text>
+            <Icon name={stars[0]} size={25} color="gold" />
+            <Icon name={stars[1]} size={25} color="gold" />
+            <Icon name={stars[2]} size={25} color="gold" />
+            <Icon name={stars[3]} size={25} color="gold" />
+            <Icon name={stars[4]} size={25} color="gold" />
+          </View>
+          <PriceRating restaurants={restaurants} index={index} />
+        </>
+      ) : null}
       <Text style={styles.restaurantName}>{restaurants[index].name}</Text>
       <View style={styles.contactContainer}>
         {restaurants[index].formatted_phone_number ? (
@@ -53,26 +68,20 @@ const Details = ({ restaurants, index, showDetails }) => {
       </View>
       {!showDetails ? (
         <>
-          <View style={styles.ratingContainer}>
-            <Text style={styles.ratingsTotalText}>
-              ({restaurants[index].user_ratings_total})
-            </Text>
-            <Icon name={stars[0]} size={25} color="gold" />
-            <Icon name={stars[1]} size={25} color="gold" />
-            <Icon name={stars[2]} size={25} color="gold" />
-            <Icon name={stars[3]} size={25} color="gold" />
-            <Icon name={stars[4]} size={25} color="gold" />
+          <View style={styles.addressContainer}>
+            <View style={styles.address}>
+              <Text style={[styles.text, styles.addressText]}>
+                {restaurants[index].formatted_address}
+              </Text>
+            </View>
           </View>
-          <PriceRating restaurants={restaurants} index={index} />
-          <Text>
-            Address: {'\n'}
-            {restaurants[index].formatted_address}
-          </Text>
         </>
       ) : null}
     </View>
   );
 };
+
+const { width } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   container: {
@@ -104,6 +113,16 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     padding: 10,
     flexWrap: 'wrap',
+  },
+  addressContainer: {
+    alignItems: 'center',
+    paddingVertical: 10,
+  },
+  address: {
+    width: width / 1.5,
+  },
+  addressText: {
+    textAlign: 'center',
   },
 });
 

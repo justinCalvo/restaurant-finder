@@ -1,12 +1,11 @@
 import React from 'react';
-import { View, Text, StyleSheet, Linking, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import {
   FlingGestureHandler,
   Directions,
   State,
 } from 'react-native-gesture-handler';
 import Reviews from './Reviews';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const Expanded = ({
   restaurants,
