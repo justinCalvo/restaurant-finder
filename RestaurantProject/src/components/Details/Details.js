@@ -2,6 +2,7 @@ import React, { useState, useCallback, useEffect } from 'react';
 import { View, Text, StyleSheet, Linking, Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import PriceRating from './PriceRating';
+import CurrentDay from './CurrentDay';
 
 const Details = ({ restaurants, index, showDetails }) => {
   const [stars, setStars] = useState([]);
@@ -47,6 +48,9 @@ const Details = ({ restaurants, index, showDetails }) => {
         </>
       ) : null}
       <Text style={styles.restaurantName}>{restaurants[index].name}</Text>
+      {!showDetails ? (
+        <CurrentDay restaurants={restaurants} index={index} />
+      ) : null}
       <View style={styles.contactContainer}>
         {restaurants[index].formatted_phone_number ? (
           <Text
@@ -116,7 +120,7 @@ const styles = StyleSheet.create({
   },
   addressContainer: {
     alignItems: 'center',
-    paddingVertical: 10,
+    paddingVertical: 5,
   },
   address: {
     width: width / 1.5,
