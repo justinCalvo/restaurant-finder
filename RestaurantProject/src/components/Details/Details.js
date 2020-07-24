@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Linking } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import PriceRating from './PriceRating';
 
@@ -32,6 +32,25 @@ const Details = ({ restaurants, index, showDetails }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.restaurantName}>{restaurants[index].name}</Text>
+      <View style={styles.contactContainer}>
+        {restaurants[index].formatted_phone_number ? (
+          <Text
+            style={styles.text}
+            onPress={() =>
+              Linking.openURL(
+                `tel:${restaurants[index].formatted_phone_number}`,
+              )
+            }>
+            <Icon name="phone" size={15} />
+            {restaurants[index].formatted_phone_number}
+          </Text>
+        ) : null}
+        <Text
+          onPress={() => Linking.openURL(restaurants[index].website)}
+          style={[styles.website, styles.text]}>
+          {restaurants[index].name}
+        </Text>
+      </View>
       {!showDetails ? (
         <>
           <View style={styles.ratingContainer}>
@@ -72,6 +91,19 @@ const styles = StyleSheet.create({
   ratingsTotalText: {
     paddingHorizontal: 5,
     fontSize: 16,
+  },
+  text: {
+    fontSize: 18,
+  },
+  website: {
+    color: 'blue',
+    textDecorationLine: 'underline',
+  },
+  contactContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    padding: 10,
+    flexWrap: 'wrap',
   },
 });
 
