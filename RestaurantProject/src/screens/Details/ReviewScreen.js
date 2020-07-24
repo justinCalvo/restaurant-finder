@@ -12,6 +12,7 @@ const ReviewScreen = ({
   reviewData,
 }) => {
   return (
+    // TODO: Add "Read More" button to review text
     <View>
       <FlatList
         style={viewReviews ? styles.reviewDisplay : styles.reviewHide}
