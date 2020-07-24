@@ -97,7 +97,7 @@ const Restaurants = ({ route }) => {
         });
     }
   };
-  console.log(index);
+
   return (
     <FlingGestureHandler
       direction={Directions.LEFT}
