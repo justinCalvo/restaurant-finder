@@ -28,13 +28,16 @@ const Details = ({ restaurants, index, showDetails }) => {
   useEffect(() => {
     createStars();
   }, [createStars, restaurants]);
-
+  console.log(restaurants[index]);
   return (
     <View style={styles.container}>
       <Text style={styles.restaurantName}>{restaurants[index].name}</Text>
       {!showDetails ? (
         <>
           <View style={styles.ratingContainer}>
+            <Text style={styles.ratingsTotalText}>
+              ({restaurants[index].user_ratings_total})
+            </Text>
             <Icon name={stars[0]} size={25} color="gold" />
             <Icon name={stars[1]} size={25} color="gold" />
             <Icon name={stars[2]} size={25} color="gold" />
@@ -64,6 +67,11 @@ const styles = StyleSheet.create({
   ratingContainer: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+  ratingsTotalText: {
+    paddingHorizontal: 5,
+    fontSize: 16,
   },
 });
 

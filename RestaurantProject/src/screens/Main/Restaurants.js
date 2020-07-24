@@ -85,6 +85,7 @@ const Restaurants = ({ route }) => {
               price_level: item.price_level,
               formatted_address: item.formatted_address,
               place_id: item.place_id,
+              user_ratings_total: item.user_ratings_total,
             });
           });
           route.params.setRestaurants(temp);
