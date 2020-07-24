@@ -30,9 +30,10 @@ const Restaurants = ({ route }) => {
       setAllCustomerRatings([]);
       setNum(0);
     } else {
-      Alert.alert('End of Restaurants List');
+      // TODO: better ending to list
+      Alert.alert('End of List');
     }
-    if (index === 17 || index === 37) {
+    if (index === 15 || index === 35) {
       getNextTwenty();
     }
   };
@@ -65,9 +66,9 @@ const Restaurants = ({ route }) => {
   };
 
   const getNextTwenty = () => {
-    let temp = route.params.restaurants;
+    if (index === 15 || index === 35) {
+      let temp = route.params.restaurants;
 
-    if (index === 17 || index === 37) {
       axios
         .get(
           `https://maps.googleapis.com/maps/api/place/textsearch/json?pagetoken=${
@@ -76,18 +77,19 @@ const Restaurants = ({ route }) => {
         )
         .then(data => {
           route.params.setNextPageToken(data.data.next_page_token);
-          data.data.results.forEach(item => {
+          const currentData = data.data.results;
+          for (var i = 0; i < currentData.length; i++) {
             temp.push({
-              formatted_phone_number: item.formatted_phone_number,
-              website: item.website,
-              name: item.name,
-              rating: item.rating,
-              price_level: item.price_level,
-              formatted_address: item.formatted_address,
-              place_id: item.place_id,
-              user_ratings_total: item.user_ratings_total,
+              formatted_phone_number: currentData[i].formatted_phone_number,
+              website: currentData[i].website,
+              name: currentData[i].name,
+              rating: currentData[i].rating,
+              price_level: currentData[i].price_level,
+              formatted_address: currentData[i].formatted_address,
+              place_id: currentData[i].place_id,
+              user_ratings_total: currentData[i].user_ratings_total,
             });
-          });
+          }
           route.params.setRestaurants(temp);
         })
         .catch(err => {
@@ -95,7 +97,7 @@ const Restaurants = ({ route }) => {
         });
     }
   };
-
+  console.log(index);
   return (
     <FlingGestureHandler
       direction={Directions.LEFT}
