@@ -21,16 +21,17 @@ const Reviews = ({
     let temp = [];
     let nextNumber = 0;
     if (restaurants[index].reviews) {
-      restaurants[index].reviews.forEach(item => {
+      const currentData = restaurants[index].reviews;
+      for (var i = 0; i < currentData.length; i++) {
         temp.push({
-          author_name: item.author_name,
-          rating: item.rating,
-          relative_time_description: item.relative_time_description,
-          text: item.text,
+          author_name: currentData[i].author_name,
+          rating: currentData[i].rating,
+          relative_time_description: currentData[i].relative_time_description,
+          text: currentData[i].text,
           next: nextNumber,
         });
         nextNumber++;
-      });
+      }
       setReviewData(temp);
     }
   }, [restaurants, index, setReviewData]);
@@ -46,9 +47,10 @@ const Reviews = ({
   const allRatings = useCallback(() => {
     let temp = [];
     if (restaurants[index].reviews) {
-      restaurants[index].reviews.forEach(item => {
-        temp.push(item.rating);
-      });
+      const currentData = restaurants[index].reviews;
+      for (var i = 0; i < currentData.length; i++) {
+        temp.push(currentData[i].rating);
+      }
       setAllCustomerRatings(temp);
     }
   }, [restaurants, index, setAllCustomerRatings]);

@@ -3,12 +3,13 @@ import { View, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import config from '../../../config';
+import { Routes } from '../../constants/NavConst';
 
 const CitySearch = ({ city, state, zipcode }) => {
   const navigation = useNavigation();
 
-  const [restaurants, setRestaurants] = useState('');
-  const [placeDetails, setPlaceDetails] = useState([]);
+  const [restaurants, setRestaurants] = useState([]);
+  const [nextPageToken, setNextPageToken] = useState('');
 
   const getCity = useCallback(() => {
     axios
@@ -21,19 +22,20 @@ const CitySearch = ({ city, state, zipcode }) => {
         const locationPath = location.data.results[0].geometry.location;
         axios
           .get(
-            `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${
+            `https://maps.googleapis.com/maps/api/place/textsearch/json?query=restaurant&opennow&location=${
               locationPath.lat
             },${locationPath.lng}&radius=8046.72&type=restaurant&opennow&key=${
               config.API_KEY
             }`,
           )
           .then(data => {
-            setRestaurants(data.data.results);
+            let proximityResults = data.data.results;
+            setNextPageToken(data.data.next_page_token);
             axios
               .get(
                 `https://maps.googleapis.com/maps/api/place/details/json?place_id=${
-                  data.data.results[0].place_id
-                }&fields=formatted_phone_number,opening_hours,website,photo&key=${
+                  proximityResults[0].place_id
+                }&fields=formatted_phone_number,opening_hours/weekday_text,website,photo,review&key=${
                   config.API_KEY
                 }`,
               )
@@ -41,17 +43,20 @@ const CitySearch = ({ city, state, zipcode }) => {
                 axios
                   .get(
                     `https://maps.googleapis.com/maps/api/place/details/json?place_id=${
-                      data.data.results[1].place_id
-                    }&fields=formatted_phone_number,opening_hours,website,photo&key=${
+                      proximityResults[1].place_id
+                    }&fields=formatted_phone_number,opening_hours/weekday_text,website,photo,review&key=${
                       config.API_KEY
                     }`,
                   )
                   .then(newDescription => {
-                    setPlaceDetails(oldArray => [
-                      ...oldArray,
-                      description.data.result,
-                      newDescription.data.result,
-                    ]);
+                    for (var key in description.data.result) {
+                      proximityResults[0][key] = description.data.result[key];
+                    }
+                    for (var key in newDescription.data.result) {
+                      proximityResults[1][key] =
+                        newDescription.data.result[key];
+                    }
+                    setRestaurants(proximityResults);
                   })
                   .catch(err => {
                     console.log(err);
@@ -71,14 +76,15 @@ const CitySearch = ({ city, state, zipcode }) => {
   }, [city, state, zipcode]);
 
   const sendRestaurants = useCallback(() => {
-    if (placeDetails.length > 0) {
-      navigation.navigate('Restaurants', {
+    if (restaurants.length > 0) {
+      navigation.navigate(Routes.Restaurants, {
         restaurants: restaurants,
-        placeDetails: placeDetails,
-        setPlaceDetails: setPlaceDetails,
+        setRestaurants: setRestaurants,
+        nextPageToken: nextPageToken,
+        setNextPageToken: setNextPageToken,
       });
     }
-  }, [restaurants, navigation, placeDetails]);
+  }, [restaurants, navigation, nextPageToken]);
 
   useEffect(() => {
     sendRestaurants();
