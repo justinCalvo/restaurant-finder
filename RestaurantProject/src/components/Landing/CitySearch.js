@@ -80,9 +80,11 @@ const CitySearch = ({ city, state, zipcode }) => {
       navigation.navigate(Routes.Restaurants, {
         restaurants: restaurants,
         setRestaurants: setRestaurants,
+        nextPageToken: nextPageToken,
+        setNextPageToken: setNextPageToken,
       });
     }
-  }, [restaurants, navigation]);
+  }, [restaurants, navigation, nextPageToken]);
 
   useEffect(() => {
     sendRestaurants();

@@ -59,15 +59,18 @@ const ProximitySearch = () => {
         console.log(err);
       });
   }, []);
+  // console.log(restaurants);
 
   const sendRestaurants = useCallback(() => {
     if (restaurants.length > 0) {
       navigation.navigate(Routes.Restaurants, {
         restaurants: restaurants,
         setRestaurants: setRestaurants,
+        nextPageToken: nextPageToken,
+        setNextPageToken: setNextPageToken,
       });
     }
-  }, [restaurants, navigation]);
+  }, [restaurants, navigation, nextPageToken]);
 
   useEffect(() => {
     sendRestaurants();
