@@ -28,7 +28,7 @@ const Details = ({ restaurants, index, showDetails }) => {
   useEffect(() => {
     createStars();
   }, [createStars, restaurants]);
-  console.log(restaurants[index]);
+
   return (
     <View style={styles.container}>
       <Text style={styles.restaurantName}>{restaurants[index].name}</Text>
