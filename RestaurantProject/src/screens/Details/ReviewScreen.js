@@ -46,11 +46,6 @@ const ReviewScreen = ({
   const renderItem = ({ item }) => {
     const display = item.next === selectedId ? 'flex' : 'none';
 
-    const handleReadMore = next => {
-      setSelectedId(next);
-      this.flatListRef.scrollToIndex({ index: next });
-    };
-
     return (
       <View>
         <Text style={[styles.text, styles.authorText]}>{item.author_name}</Text>
@@ -111,6 +106,11 @@ const ReviewScreen = ({
       setScrollReviewsToTop(false);
     }
   }, [scrollReviewsToTop, setScrollReviewsToTop]);
+
+  const handleReadMore = next => {
+    setSelectedId(next);
+    this.flatListRef.scrollToIndex({ index: next });
+  };
 
   useEffect(() => {
     handleScrollReviewsToTop();
