@@ -20,6 +20,8 @@ const Expanded = ({
   setAllCustomerRatings,
   num,
   setNum,
+  scrollReviewsToTop,
+  setScrollReviewsToTop,
 }) => {
   return (
     <FlingGestureHandler
@@ -73,6 +75,8 @@ const Expanded = ({
               setAllCustomerRatings={setAllCustomerRatings}
               num={num}
               setNum={setNum}
+              scrollReviewsToTop={scrollReviewsToTop}
+              setScrollReviewsToTop={setScrollReviewsToTop}
             />
           </View>
         </View>

@@ -16,6 +16,7 @@ const Restaurants = ({ route }) => {
   const [index, setIndex] = useState(0);
   const [showDetails, setShowDetails] = useState(false);
   const [viewReviews, setViewReviews] = useState(false);
+  const [scrollReviewsToTop, setScrollReviewsToTop] = useState(false);
   const [customerRating, setCustomerRating] = useState([]);
   const [allCustomerRatings, setAllCustomerRatings] = useState([]);
   const [num, setNum] = useState(0);
@@ -29,6 +30,7 @@ const Restaurants = ({ route }) => {
       setCustomerRating([]);
       setAllCustomerRatings([]);
       setNum(0);
+      setScrollReviewsToTop(true);
     } else {
       // TODO: better ending to list
       Alert.alert('End of List');
@@ -139,6 +141,8 @@ const Restaurants = ({ route }) => {
             setAllCustomerRatings={setAllCustomerRatings}
             num={num}
             setNum={setNum}
+            scrollReviewsToTop={scrollReviewsToTop}
+            setScrollReviewsToTop={setScrollReviewsToTop}
           />
         </SafeAreaView>
       </FlingGestureHandler>

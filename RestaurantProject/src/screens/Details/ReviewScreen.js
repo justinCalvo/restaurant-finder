@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   View,
   Text,
@@ -38,11 +38,18 @@ const ReviewScreen = ({
   num,
   index,
   reviewData,
+  scrollReviewsToTop,
+  setScrollReviewsToTop,
 }) => {
   const [selectedId, setSelectedId] = useState(null);
 
   const renderItem = ({ item }) => {
     const display = item.next === selectedId ? 'flex' : 'none';
+
+    const handleReadMore = next => {
+      setSelectedId(next);
+      this.flatListRef.scrollToIndex({ index: next });
+    };
 
     return (
       <View>
@@ -84,7 +91,7 @@ const ReviewScreen = ({
         <View>
           <CreateReviews
             item={item}
-            onPress={() => setSelectedId(item.next)}
+            onPress={() => handleReadMore(item.next)}
             selectedId={selectedId}
             style={{ display }}
           />
@@ -98,11 +105,25 @@ const ReviewScreen = ({
     );
   };
 
+  const handleScrollReviewsToTop = useCallback(() => {
+    if (scrollReviewsToTop) {
+      this.flatListRef.scrollToIndex({ animated: false, index: 0 });
+      setScrollReviewsToTop(false);
+    }
+  }, [scrollReviewsToTop, setScrollReviewsToTop]);
+
+  useEffect(() => {
+    handleScrollReviewsToTop();
+  }, [handleScrollReviewsToTop, scrollReviewsToTop]);
+
   return (
     <View>
       <FlatList
         style={viewReviews ? styles.reviewDisplay : styles.reviewHide}
         data={reviewData}
+        ref={ref => {
+          this.flatListRef = ref;
+        }}
         keyExtractor={item => item.next}
         extraData={selectedId}
         renderItem={renderItem}
