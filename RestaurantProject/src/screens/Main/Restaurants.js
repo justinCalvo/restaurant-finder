@@ -21,6 +21,7 @@ import { getNext, getNextTwenty } from '../../API/getNextDetails';
 
 const Restaurants = ({ route }) => {
   const [index, setIndex] = useState(0);
+  const [photoIndex, setPhotoIndex] = useState(1);
   const [showDetails, setShowDetails] = useState(false);
   const [viewReviews, setViewReviews] = useState(false);
   const [scrollReviewsToTop, setScrollReviewsToTop] = useState(false);
@@ -92,6 +93,7 @@ const Restaurants = ({ route }) => {
           <Matches index={index} />
           <Photos
             index={index}
+            photoIndex={photoIndex}
             photos={route.params.restaurants[index].photos}
             showDetails={showDetails}
           />

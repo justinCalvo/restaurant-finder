@@ -10,7 +10,7 @@ import {
 import axios from 'axios';
 import config from '../../../config';
 
-const Photos = ({ photos, showDetails }) => {
+const Photos = ({ index, photoIndex, photos, showDetails }) => {
   const { width, height } = Dimensions.get('window');
 
   const styles = StyleSheet.create({
@@ -29,33 +29,35 @@ const Photos = ({ photos, showDetails }) => {
     },
   });
 
-  const [photoString, setPhotoString] = useState('');
+  // const [photoString, setPhotoString] = useState('');
 
-  const getPhotos = useCallback(() => {
-    axios
-      .get(
-        `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${
-          photos[1].photo_reference
-        }&key=${config.API_KEY}`,
-      )
-      .then(data => {
-        setPhotoString(data.config.url.toString());
-        // console.log(data)
-      })
-      .catch(err => console.log(err));
-    // console.log('Log this shit: ', photos[0].photo_reference);
-  }, [photos]);
+  // const getPhotos = useCallback(() => {
+  //   axios
+  //     .get(
+  //       `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${
+  //         photos[1].photo_reference
+  //       }&key=${config.API_KEY}`,
+  //     )
+  //     .then(data => {
+  //       setPhotoString(data.config.url.toString());
+  //       // console.log(data)
+  //     })
+  //     .catch(err => console.log(err));
+  //   // console.log('Log this shit: ', photos[0].photo_reference);
+  // }, [photos]);
 
-  useEffect(() => {
-    getPhotos();
-  }, [getPhotos, photoString]);
+  // useEffect(() => {
+  //   getPhotos();
+  // }, [getPhotos, photoString]);
 
   return (
     <SafeAreaView style={styles.container}>
       <Image
         style={showDetails ? styles.condensed : styles.photo}
         source={{
-          uri: photoString ? photoString : 'https://i.imgur.com/6nbpbTN.jpeg',
+          uri: photos[photoIndex].url
+            ? photos[photoIndex].url
+            : 'https://i.imgur.com/6nbpbTN.jpeg',
         }}
       />
     </SafeAreaView>
