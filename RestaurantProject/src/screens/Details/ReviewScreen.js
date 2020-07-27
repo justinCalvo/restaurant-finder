@@ -5,26 +5,26 @@ import {
   FlatList,
   StyleSheet,
   Dimensions,
-  TouchableOpacity,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const CreateReviews = ({ item, onPress, style, selectedId }) => (
   <>
-    {item.next === selectedId || item.next.length <= 80 ? (
+    {item.next === selectedId || item.text.length <= 100 ? (
       <Text style={styles.text}>{item.text}</Text>
     ) : (
       <View style={styles.textContainer}>
-        <TouchableOpacity
+        <TouchableWithoutFeedback
           style={
             item.next === selectedId ? styles.hideButton : styles.showButton
           }
           onPress={onPress}>
           <Text style={styles.text}>
-            {item.text.substr(0, 80)}
+            {item.text.substr(0, 100)}
             <Text style={styles.readMore}> ...Read More</Text>
           </Text>
-        </TouchableOpacity>
+        </TouchableWithoutFeedback>
       </View>
     )}
   </>
