@@ -13,7 +13,8 @@ const ProximitySearch = () => {
   const [nextPageToken, setNextPageToken] = useState('');
 
   const getNearby = useCallback(() => {
-    getRestaurants(config, axios, setNextPageToken, setRestaurants);
+    let lat, lng;
+    getRestaurants(lat, lng, config, axios, setNextPageToken, setRestaurants);
   }, []);
 
   const sendRestaurants = useCallback(() => {

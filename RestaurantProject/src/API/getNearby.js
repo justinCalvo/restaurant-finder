@@ -6,35 +6,27 @@ export const getRestaurants = (
   setNextPageToken,
   setRestaurants,
 ) => {
+  let url;
+
   if (lat && lng) {
-    axios
-      .get(
-        `https://maps.googleapis.com/maps/api/place/textsearch/json?query=restaurant&opennow&location=${lat},${lng}&radius=8046.72&type=restaurant&opennow&key=${
-          config.API_KEY
-        }`,
-      )
-      .then(data => {
-        setNextPageToken(data.data.next_page_token);
-        getInitialDetails(data.data.results, config, axios, setRestaurants);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=restaurant&opennow&location=${lat},${lng}&radius=8046.72&type=restaurant&opennow&key=${
+      config.API_KEY
+    }`;
   } else {
-    axios
-      .get(
-        `https://maps.googleapis.com/maps/api/place/textsearch/json?query=restaurant&opennow&key=${
-          config.API_KEY
-        }`,
-      )
-      .then(data => {
-        setNextPageToken(data.data.next_page_token);
-        getInitialDetails(data.data.results, config, axios, setRestaurants);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=restaurant&opennow&key=${
+      config.API_KEY
+    }`;
   }
+
+  axios
+    .get(url)
+    .then(data => {
+      setNextPageToken(data.data.next_page_token);
+      getInitialDetails(data.data.results, config, axios, setRestaurants);
+    })
+    .catch(err => {
+      console.log(err);
+    });
 };
 
 export const getInitialDetails = (results, config, axios, setRestaurants) => {
