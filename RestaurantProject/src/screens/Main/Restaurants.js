@@ -1,5 +1,11 @@
-import React, { useState } from 'react';
-import { SafeAreaView, StyleSheet, Dimensions, Alert } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import {
+  SafeAreaView,
+  StyleSheet,
+  Dimensions,
+  Alert,
+  BackHandler,
+} from 'react-native';
 import {
   FlingGestureHandler,
   Directions,
@@ -99,6 +105,27 @@ const Restaurants = ({ route }) => {
         });
     }
   };
+
+  useEffect(() => {
+    const backAction = () => {
+      Alert.alert('Hold on!', 'Are you sure you want to exit the app?', [
+        {
+          text: 'Cancel',
+          onPress: () => null,
+          style: 'cancel',
+        },
+        { text: 'YES', onPress: () => BackHandler.exitApp() },
+      ]);
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+
+    return () => backHandler.remove();
+  }, []);
 
   return (
     <FlingGestureHandler
