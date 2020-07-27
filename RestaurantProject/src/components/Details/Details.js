@@ -1,7 +1,8 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Linking, Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import PriceRating from './PriceRating';
+import CurrentDay from './CurrentDay';
 
 const Details = ({ restaurants, index, showDetails }) => {
   const [stars, setStars] = useState([]);
@@ -31,7 +32,6 @@ const Details = ({ restaurants, index, showDetails }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.restaurantName}>{restaurants[index].name}</Text>
       {!showDetails ? (
         <>
           <View style={styles.ratingContainer}>
@@ -45,15 +45,47 @@ const Details = ({ restaurants, index, showDetails }) => {
             <Icon name={stars[4]} size={25} color="gold" />
           </View>
           <PriceRating restaurants={restaurants} index={index} />
-          <Text>
-            Address: {'\n'}
-            {restaurants[index].formatted_address}
+        </>
+      ) : null}
+      <Text style={styles.restaurantName}>{restaurants[index].name}</Text>
+      {!showDetails ? (
+        <CurrentDay restaurants={restaurants} index={index} />
+      ) : null}
+      <View style={styles.contactContainer}>
+        {restaurants[index].formatted_phone_number ? (
+          <Text
+            style={styles.text}
+            onPress={() =>
+              Linking.openURL(
+                `tel:${restaurants[index].formatted_phone_number}`,
+              )
+            }>
+            <Icon name="phone" size={15} />
+            {restaurants[index].formatted_phone_number}
           </Text>
+        ) : null}
+        <Text
+          onPress={() => Linking.openURL(restaurants[index].website)}
+          style={[styles.website, styles.text]}>
+          {restaurants[index].name}
+        </Text>
+      </View>
+      {!showDetails ? (
+        <>
+          <View style={styles.addressContainer}>
+            <View style={styles.address}>
+              <Text style={[styles.text, styles.addressText]}>
+                {restaurants[index].formatted_address}
+              </Text>
+            </View>
+          </View>
         </>
       ) : null}
     </View>
   );
 };
+
+const { width } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   container: {
@@ -72,6 +104,29 @@ const styles = StyleSheet.create({
   ratingsTotalText: {
     paddingHorizontal: 5,
     fontSize: 16,
+  },
+  text: {
+    fontSize: 18,
+  },
+  website: {
+    color: 'blue',
+    textDecorationLine: 'underline',
+  },
+  contactContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    padding: 10,
+    flexWrap: 'wrap',
+  },
+  addressContainer: {
+    alignItems: 'center',
+    paddingVertical: 5,
+  },
+  address: {
+    width: width / 1.5,
+  },
+  addressText: {
+    textAlign: 'center',
   },
 });
 

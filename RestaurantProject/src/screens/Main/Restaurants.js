@@ -1,5 +1,11 @@
-import React, { useState } from 'react';
-import { SafeAreaView, StyleSheet, Dimensions, Alert } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import {
+  SafeAreaView,
+  StyleSheet,
+  Dimensions,
+  Alert,
+  BackHandler,
+} from 'react-native';
 import {
   FlingGestureHandler,
   Directions,
@@ -16,6 +22,7 @@ const Restaurants = ({ route }) => {
   const [index, setIndex] = useState(0);
   const [showDetails, setShowDetails] = useState(false);
   const [viewReviews, setViewReviews] = useState(false);
+  const [scrollReviewsToTop, setScrollReviewsToTop] = useState(false);
   const [customerRating, setCustomerRating] = useState([]);
   const [allCustomerRatings, setAllCustomerRatings] = useState([]);
   const [num, setNum] = useState(0);
@@ -29,6 +36,7 @@ const Restaurants = ({ route }) => {
       setCustomerRating([]);
       setAllCustomerRatings([]);
       setNum(0);
+      setScrollReviewsToTop(true);
     } else {
       // TODO: better ending to list
       Alert.alert('End of List');
@@ -98,6 +106,27 @@ const Restaurants = ({ route }) => {
     }
   };
 
+  useEffect(() => {
+    const backAction = () => {
+      Alert.alert('Hold on!', 'Are you sure you want to exit the app?', [
+        {
+          text: 'Cancel',
+          onPress: () => null,
+          style: 'cancel',
+        },
+        { text: 'YES', onPress: () => BackHandler.exitApp() },
+      ]);
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+
+    return () => backHandler.remove();
+  }, []);
+
   return (
     <FlingGestureHandler
       direction={Directions.LEFT}
@@ -139,6 +168,8 @@ const Restaurants = ({ route }) => {
             setAllCustomerRatings={setAllCustomerRatings}
             num={num}
             setNum={setNum}
+            scrollReviewsToTop={scrollReviewsToTop}
+            setScrollReviewsToTop={setScrollReviewsToTop}
           />
         </SafeAreaView>
       </FlingGestureHandler>

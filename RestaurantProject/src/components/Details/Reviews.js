@@ -13,6 +13,8 @@ const Reviews = ({
   setAllCustomerRatings,
   num,
   setNum,
+  scrollReviewsToTop,
+  setScrollReviewsToTop,
 }) => {
   const [buttonTitle, setButtonTitle] = useState('View Reviews');
   const [reviewData, setReviewData] = useState([]);
@@ -110,6 +112,8 @@ const Reviews = ({
           viewReviews={viewReviews}
           index={index}
           reviewData={reviewData}
+          scrollReviewsToTop={scrollReviewsToTop}
+          setScrollReviewsToTop={setScrollReviewsToTop}
         />
       ) : null}
     </View>
