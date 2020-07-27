@@ -23,7 +23,7 @@ const MainStack = () => {
       <Stack.Screen
         name={Routes.Restaurants}
         component={Restaurants}
-        options={{ title: null }}
+        options={{ title: null, headerLeft: null }}
       />
     </Stack.Navigator>
   );
