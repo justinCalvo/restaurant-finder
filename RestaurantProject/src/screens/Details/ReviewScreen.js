@@ -103,6 +103,7 @@ const ReviewScreen = ({
   const handleScrollReviewsToTop = useCallback(() => {
     if (scrollReviewsToTop) {
       this.flatListRef.scrollToIndex({ animated: false, index: 0 });
+      setSelectedId(null);
       setScrollReviewsToTop(false);
     }
   }, [scrollReviewsToTop, setScrollReviewsToTop]);
