@@ -17,6 +17,7 @@ import Matches from '../../components/Matches/Matches';
 import Details from '../../components/Details/Details';
 import axios from 'axios';
 import config from '../../../config';
+import { getNext, getNextTwenty } from '../../API/getNextDetails';
 
 const Restaurants = ({ route }) => {
   const [index, setIndex] = useState(0);
@@ -29,7 +30,7 @@ const Restaurants = ({ route }) => {
 
   const MainAction = () => {
     if (route.params.restaurants[index + 1]) {
-      getNext();
+      getNext(route, axios, index, config);
       setIndex(index + 1);
       setShowDetails(false);
       setViewReviews(false);
@@ -42,69 +43,13 @@ const Restaurants = ({ route }) => {
       Alert.alert('End of List');
     }
     if (index === 15 || index === 35) {
-      getNextTwenty();
+      getNextTwenty(route, axios, index, config);
     }
   };
 
   // const RightActions = () => {
   // TODO: add selected data to database as a potential "match"
   // };
-
-  const getNext = () => {
-    if (route.params.restaurants[index + 2]) {
-      axios
-        .get(
-          `https://maps.googleapis.com/maps/api/place/details/json?place_id=${
-            route.params.restaurants[index + 2].place_id
-          }&fields=formatted_phone_number,opening_hours/weekday_text,website,photo,reviews&key=${
-            config.API_KEY
-          }`,
-        )
-        .then(description => {
-          let newRestaurants = route.params.restaurants;
-          for (var key in description.data.result) {
-            newRestaurants[index + 2][key] = description.data.result[key];
-          }
-          route.params.setRestaurants(newRestaurants);
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    }
-  };
-
-  const getNextTwenty = () => {
-    if (index === 15 || index === 35) {
-      let temp = route.params.restaurants;
-
-      axios
-        .get(
-          `https://maps.googleapis.com/maps/api/place/textsearch/json?pagetoken=${
-            route.params.nextPageToken
-          }&key=${config.API_KEY}`,
-        )
-        .then(data => {
-          route.params.setNextPageToken(data.data.next_page_token);
-          const currentData = data.data.results;
-          for (var i = 0; i < currentData.length; i++) {
-            temp.push({
-              formatted_phone_number: currentData[i].formatted_phone_number,
-              website: currentData[i].website,
-              name: currentData[i].name,
-              rating: currentData[i].rating,
-              price_level: currentData[i].price_level,
-              formatted_address: currentData[i].formatted_address,
-              place_id: currentData[i].place_id,
-              user_ratings_total: currentData[i].user_ratings_total,
-            });
-          }
-          route.params.setRestaurants(temp);
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    }
-  };
 
   useEffect(() => {
     const backAction = () => {
