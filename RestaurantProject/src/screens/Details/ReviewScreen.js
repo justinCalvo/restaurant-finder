@@ -124,7 +124,7 @@ const ReviewScreen = ({
         ref={ref => {
           this.flatListRef = ref;
         }}
-        keyExtractor={item => item.next}
+        keyExtractor={item => item.next.toString()}
         extraData={selectedId}
         renderItem={renderItem}
       />
