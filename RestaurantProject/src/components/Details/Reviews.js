@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import ReviewScreen from '../../screens/Details/ReviewScreen';
 
 const Reviews = ({
@@ -99,9 +99,13 @@ const Reviews = ({
   return (
     <View style={styles.container}>
       {restaurants[index].reviews ? (
-        <Button title={buttonTitle} onPress={handleViewReviews} />
+        <TouchableOpacity onPress={handleViewReviews}>
+          <Text style={[styles.reviews, styles.reviewsTouchable]}>
+            {buttonTitle}
+          </Text>
+        </TouchableOpacity>
       ) : (
-        <Text style={styles.noReviews}>No Reviews</Text>
+        <Text style={styles.reviews}>No Reviews</Text>
       )}
       {customerRating ? (
         <ReviewScreen
@@ -127,8 +131,8 @@ const styles = StyleSheet.create({
   reviewHide: {
     display: 'none',
   },
-  noReviews: {
-    fontSize: 18,
+  reviews: {
+    fontSize: 22,
     fontWeight: 'bold',
     textAlign: 'center',
   },
@@ -138,6 +142,9 @@ const styles = StyleSheet.create({
   ratingContainer: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
+  },
+  reviewsTouchable: {
+    color: 'blue',
   },
 });
 
