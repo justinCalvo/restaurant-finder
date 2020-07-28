@@ -6,7 +6,7 @@ The purpose of this app is to give an answer to the question, "Where should we e
 
 ---
 
-![Alt Text](https://media0.giphy.com/media/JpAU0pc6ZlWrOXWRr0/giphy.gif)
+![Alt Text](https://media3.giphy.com/media/TLDjUjfANaSKLenYz8/giphy.gif)
 
 ---
 
