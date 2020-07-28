@@ -10,20 +10,6 @@ The purpose of this app is to give an answer to the question, "Where should we e
 
 ---
 
-Built with React Native
+## Technologies
 
----
-
-## Installation
-
-npm install
-
-cd ios/
-
-pod install
-
-npx react-native start
-
-npx react-native run-ios
-
-npx react-native run-android
+React Native ∙ JavaScript ∙ CSS
