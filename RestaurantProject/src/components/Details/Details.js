@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   restaurantName: {
-    fontSize: 32,
+    fontSize: 24,
     fontWeight: 'bold',
     textAlign: 'center',
   },
