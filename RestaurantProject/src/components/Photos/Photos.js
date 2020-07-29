@@ -1,16 +1,26 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import {
-  SafeAreaView,
+  View,
   Text,
   Button,
   Image,
   StyleSheet,
   Dimensions,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import axios from 'axios';
 import config from '../../../config';
+import Popover from 'react-native-popover-view';
+import ModalScreen from '../../screens/Modal/ModalScreen';
 
-const Photos = ({ index, photoIndex, photos, showDetails }) => {
+const Photos = ({
+  index,
+  photoIndex,
+  restaurants,
+  showDetails,
+  setPhotoIndex,
+  setRestaurants,
+}) => {
   const { width, height } = Dimensions.get('window');
 
   const styles = StyleSheet.create({
@@ -22,45 +32,44 @@ const Photos = ({ index, photoIndex, photos, showDetails }) => {
     photo: {
       width: width - 10,
       height: width - 10,
+      marginLeft: 5,
+      marginRight: 5,
     },
     condensed: {
       width: (width - 10) / 2,
       height: (width - 10) / 2,
     },
+    poppop: {
+      width: width,
+      height: width,
+    },
   });
 
-  // const [photoString, setPhotoString] = useState('');
-
-  // const getPhotos = useCallback(() => {
-  //   axios
-  //     .get(
-  //       `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${
-  //         photos[1].photo_reference
-  //       }&key=${config.API_KEY}`,
-  //     )
-  //     .then(data => {
-  //       setPhotoString(data.config.url.toString());
-  //       // console.log(data)
-  //     })
-  //     .catch(err => console.log(err));
-  //   // console.log('Log this shit: ', photos[0].photo_reference);
-  // }, [photos]);
-
-  // useEffect(() => {
-  //   getPhotos();
-  // }, [getPhotos, photoString]);
-
   return (
-    <SafeAreaView style={styles.container}>
-      <Image
-        style={showDetails ? styles.condensed : styles.photo}
-        source={{
-          uri: photos[photoIndex].url
-            ? photos[photoIndex].url
-            : 'https://i.imgur.com/6nbpbTN.jpeg',
-        }}
-      />
-    </SafeAreaView>
+    <Popover
+      from={
+        <TouchableWithoutFeedback>
+          <Image
+            style={showDetails ? styles.condensed : styles.photo}
+            source={{
+              uri: restaurants[index].photos[photoIndex].url
+                ? restaurants[index].photos[photoIndex].url
+                : 'https://i.imgur.com/6nbpbTN.jpeg',
+            }}
+          />
+        </TouchableWithoutFeedback>
+      }>
+      <View style={styles.poppop}>
+        <ModalScreen
+          index={index}
+          restaurants={restaurants}
+          photoIndex={photoIndex}
+          setPhotoIndex={setPhotoIndex}
+          setRestaurants={setRestaurants}
+        />
+      </View>
+      {/* <Text>This is the contents of the popover</Text> */}
+    </Popover>
   );
 };
 

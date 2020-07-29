@@ -29,10 +29,13 @@ const Restaurants = ({ route }) => {
   const [allCustomerRatings, setAllCustomerRatings] = useState([]);
   const [num, setNum] = useState(0);
 
+  const { width, height } = Dimensions.get('window');
+
   const MainAction = () => {
     if (route.params.restaurants[index + 1]) {
-      getNext(route, axios, index, config);
+      getNext(route, axios, index, config, width);
       setIndex(index + 1);
+      setPhotoIndex(1);
       setShowDetails(false);
       setViewReviews(false);
       setCustomerRating([]);
@@ -94,8 +97,10 @@ const Restaurants = ({ route }) => {
           <Photos
             index={index}
             photoIndex={photoIndex}
-            photos={route.params.restaurants[index].photos}
+            setPhotoIndex={setPhotoIndex}
             showDetails={showDetails}
+            restaurants={route.params.restaurants}
+            setRestaurants={route.params.setRestaurants}
           />
           <Details
             restaurants={route.params.restaurants}

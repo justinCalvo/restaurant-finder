@@ -1,4 +1,4 @@
-export const getNext = async (route, axios, index, config) => {
+export const getNext = async (route, axios, index, config, width) => {
   if (route.params.restaurants[index + 2]) {
     axios
       .get(
@@ -19,6 +19,7 @@ export const getNext = async (route, axios, index, config) => {
           index,
           config,
           route.params.setRestaurants,
+          width,
         );
         // route.params.setRestaurants(newRestaurants);
       })
@@ -67,6 +68,7 @@ export const getNextPhotos = (
   index,
   config,
   setRestaurants,
+  width,
 ) => {
   // console.log(route.params.restaurants[index + 2]);
   // if (route.params.restaurants[index + 2]) {
@@ -77,9 +79,11 @@ export const getNextPhotos = (
       }&key=${config.API_KEY}`,
     )
     .then(data00 => {
+      let w = results[index + 2].photos[2].width;
+      let h = results[index + 2].photos[2].height;
       axios
         .get(
-          `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${
+          `https://maps.googleapis.com/maps/api/place/photo?maxwidth=${width}&photoreference=${
             results[index + 2].photos[2].photo_reference
           }&key=${config.API_KEY}`,
         )

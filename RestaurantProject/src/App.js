@@ -4,6 +4,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import MainStack from './navigation/MainStack';
 
 const App = () => {
+  console.disableYellowBox = true;
+
   return (
     <NavigationContainer>
       <MainStack />
