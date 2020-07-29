@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {
   View,
+  SafeAreaView,
   Text,
   TouchableOpacity,
   StyleSheet,
@@ -8,18 +9,27 @@ import {
 } from 'react-native';
 import ProximitySearch from '../../components/Landing/ProximitySearch';
 import CityInput from './CityInput';
+import Icon from 'react-native-vector-icons/Ionicons';
 
-const Home = ({ navigation }) => {
+const Home = () => {
   const [toggleCitySearch, setToggleCitySearch] = useState(false);
-  console.log(toggleCitySearch);
+
   return (
-    <View style={styles.container}>
-      <ProximitySearch />
-      <TouchableOpacity onPress={() => setToggleCitySearch(!toggleCitySearch)}>
-        <Text style={styles.text}>Enter Location</Text>
-      </TouchableOpacity>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.headerContainer}>
+        <Text style={styles.header}>Rair</Text>
+      </View>
+      <View style={styles.buttonContainer}>
+        <ProximitySearch />
+        <TouchableOpacity
+          onPress={() => setToggleCitySearch(!toggleCitySearch)}>
+          <Text style={styles.text}>
+            <Icon name="search-sharp" size={24} /> Search Location
+          </Text>
+        </TouchableOpacity>
+      </View>
       {toggleCitySearch ? <CityInput /> : null}
-    </View>
+    </SafeAreaView>
   );
 };
 const { width, height } = Dimensions.get('window');
@@ -29,7 +39,6 @@ const styles = StyleSheet.create({
     width: width,
     height: height,
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'white',
   },
@@ -37,6 +46,23 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     fontSize: 28,
     fontWeight: 'bold',
+  },
+  header: {
+    fontSize: 44,
+    fontWeight: 'bold',
+    alignItems: 'center',
+  },
+  buttonContainer: {
+    width: width,
+    height: height / 3,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+  headerContainer: {
+    width: width,
+    height: height / 4,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TextInput, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, TextInput, StyleSheet, Dimensions } from 'react-native';
 import CitySearch from '../../components/Landing/CitySearch';
 
 const CityInput = () => {
@@ -21,6 +21,9 @@ const CityInput = () => {
         value={state}
         placeholder="state"
       />
+      <View style={styles.textContainer}>
+        <Text style={styles.text}>OR</Text>
+      </View>
       <TextInput
         style={styles.textInput}
         onChangeText={setZipcode}
@@ -44,6 +47,15 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: 'black',
     paddingVertical: 10,
+    textAlign: 'center',
+  },
+  text: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  textContainer: {
+    paddingTop: 30,
   },
 });
 
