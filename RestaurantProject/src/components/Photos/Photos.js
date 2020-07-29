@@ -49,14 +49,16 @@ const Photos = ({
     <Popover
       from={
         <TouchableWithoutFeedback>
-          <Image
-            style={showDetails ? styles.condensed : styles.photo}
-            source={{
-              uri: restaurants[index].photos[photoIndex].url
-                ? restaurants[index].photos[photoIndex].url
-                : 'https://i.imgur.com/6nbpbTN.jpeg',
-            }}
-          />
+          <View style={styles.container}>
+            <Image
+              style={showDetails ? styles.condensed : styles.photo}
+              source={{
+                uri: restaurants[index].photos[photoIndex].url
+                  ? restaurants[index].photos[photoIndex].url
+                  : 'https://i.imgur.com/6nbpbTN.jpeg',
+              }}
+            />
+          </View>
         </TouchableWithoutFeedback>
       }>
       <View style={styles.poppop}>
