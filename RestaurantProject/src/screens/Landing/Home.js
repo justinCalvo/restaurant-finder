@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -7,15 +7,18 @@ import {
   Dimensions,
 } from 'react-native';
 import ProximitySearch from '../../components/Landing/ProximitySearch';
-import { Routes } from '../../constants/NavConst';
+import CityInput from './CityInput';
 
 const Home = ({ navigation }) => {
+  const [toggleCitySearch, setToggleCitySearch] = useState(false);
+  console.log(toggleCitySearch);
   return (
     <View style={styles.container}>
       <ProximitySearch />
-      <TouchableOpacity onPress={() => navigation.navigate(Routes.CityInput)}>
-        <Text style={styles.text}>By City</Text>
+      <TouchableOpacity onPress={() => setToggleCitySearch(!toggleCitySearch)}>
+        <Text style={styles.text}>Enter Location</Text>
       </TouchableOpacity>
+      {toggleCitySearch ? <CityInput /> : null}
     </View>
   );
 };

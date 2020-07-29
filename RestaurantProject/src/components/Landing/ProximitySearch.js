@@ -35,7 +35,7 @@ const ProximitySearch = () => {
   return (
     <View>
       <TouchableOpacity onPress={getNearby} title="Nearby Search">
-        <Text style={styles.text}>Nearby</Text>
+        <Text style={styles.text}>Current Location</Text>
       </TouchableOpacity>
     </View>
   );

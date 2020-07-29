@@ -32,15 +32,12 @@ const CityInput = () => {
   );
 };
 
-const { width, height } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   container: {
     width: width,
-    height: height,
-    flex: 1,
     paddingHorizontal: 50,
-    backgroundColor: 'white',
   },
   textInput: {
     fontSize: 28,
