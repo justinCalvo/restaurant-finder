@@ -1,7 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import Home from '../screens/Landing/Home';
-// import CityInput from '../screens/Landing/CityInput';
 import Restaurants from '../screens/Main/Restaurants';
 import { Routes } from '../constants/NavConst';
 
@@ -15,11 +14,6 @@ const MainStack = () => {
         component={Home}
         options={{ title: null }}
       />
-      {/* <Stack.Screen
-        name={Routes.CityInput}
-        component={CityInput}
-        options={{ title: null }}
-      /> */}
       <Stack.Screen
         name={Routes.Restaurants}
         component={Restaurants}

@@ -29,8 +29,6 @@ const Restaurants = ({ route }) => {
   const [allCustomerRatings, setAllCustomerRatings] = useState([]);
   const [num, setNum] = useState(0);
 
-  const { width } = Dimensions.get('window');
-
   const MainAction = () => {
     if (route.params.restaurants[index + 1]) {
       getNext(route, axios, index, config, width);
