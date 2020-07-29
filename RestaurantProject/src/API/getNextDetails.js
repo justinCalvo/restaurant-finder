@@ -1,4 +1,4 @@
-export const getNext = (route, axios, index, config) => {
+export const getNext = async (route, axios, index, config, width) => {
   if (route.params.restaurants[index + 2]) {
     axios
       .get(
@@ -13,7 +13,15 @@ export const getNext = (route, axios, index, config) => {
         for (var key in description.data.result) {
           newRestaurants[index + 2][key] = description.data.result[key];
         }
-        route.params.setRestaurants(newRestaurants);
+        getNextPhotos(
+          newRestaurants,
+          axios,
+          index,
+          config,
+          route.params.setRestaurants,
+          width,
+        );
+        // route.params.setRestaurants(newRestaurants);
       })
       .catch(err => {
         console.log(err);
@@ -52,4 +60,45 @@ export const getNextTwenty = (route, axios, index, config) => {
         console.log(err);
       });
   }
+};
+
+export const getNextPhotos = (
+  results,
+  axios,
+  index,
+  config,
+  setRestaurants,
+  width,
+) => {
+  // console.log(route.params.restaurants[index + 2]);
+  // if (route.params.restaurants[index + 2]) {
+  axios
+    .get(
+      `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${
+        results[index + 2].photos[1].photo_reference
+      }&key=${config.API_KEY}`,
+    )
+    .then(data00 => {
+      let w = results[index + 2].photos[2].width;
+      let h = results[index + 2].photos[2].height;
+      axios
+        .get(
+          `https://maps.googleapis.com/maps/api/place/photo?maxwidth=${width}&photoreference=${
+            results[index + 2].photos[2].photo_reference
+          }&key=${config.API_KEY}`,
+        )
+        .then(data01 => {
+          results[index + 2].photos[1].url = data00.config.url;
+          results[index + 2].photos[2].url = data01.config.url;
+
+          setRestaurants(results);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    })
+    .catch(err => {
+      console.log(err);
+    });
+  // }
 };

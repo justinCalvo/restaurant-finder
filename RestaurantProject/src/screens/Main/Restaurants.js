@@ -21,6 +21,7 @@ import { getNext, getNextTwenty } from '../../API/getNextDetails';
 
 const Restaurants = ({ route }) => {
   const [index, setIndex] = useState(0);
+  const [photoIndex, setPhotoIndex] = useState(1);
   const [showDetails, setShowDetails] = useState(false);
   const [viewReviews, setViewReviews] = useState(false);
   const [scrollReviewsToTop, setScrollReviewsToTop] = useState(false);
@@ -28,10 +29,13 @@ const Restaurants = ({ route }) => {
   const [allCustomerRatings, setAllCustomerRatings] = useState([]);
   const [num, setNum] = useState(0);
 
+  const { width, height } = Dimensions.get('window');
+
   const MainAction = () => {
     if (route.params.restaurants[index + 1]) {
-      getNext(route, axios, index, config);
+      getNext(route, axios, index, config, width);
       setIndex(index + 1);
+      setPhotoIndex(1);
       setShowDetails(false);
       setViewReviews(false);
       setCustomerRating([]);
@@ -92,8 +96,11 @@ const Restaurants = ({ route }) => {
           <Matches index={index} />
           <Photos
             index={index}
-            photos={route.params.restaurants[index].photos}
+            photoIndex={photoIndex}
+            setPhotoIndex={setPhotoIndex}
             showDetails={showDetails}
+            restaurants={route.params.restaurants}
+            setRestaurants={route.params.setRestaurants}
           />
           <Details
             restaurants={route.params.restaurants}

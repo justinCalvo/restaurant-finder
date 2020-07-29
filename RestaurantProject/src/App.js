@@ -5,6 +5,8 @@ import MainStack from './navigation/MainStack';
 console.disableYellowBox = true;
 
 const App = () => {
+  console.disableYellowBox = true;
+
   return (
     <NavigationContainer>
       <MainStack />
