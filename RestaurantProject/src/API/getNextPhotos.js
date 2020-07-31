@@ -1,4 +1,4 @@
-export const getNextPhotos = async (
+export const getNextPhotos = (
   photoIndex,
   restaurants,
   setRestaurants,
@@ -8,7 +8,10 @@ export const getNextPhotos = async (
   config,
   width,
 ) => {
-  if (restaurants[index].photos[photoIndex + 2].photo_reference) {
+  if (
+    restaurants[index].photos[photoIndex + 2] &&
+    !restaurants[index].photos[photoIndex + 2].url
+  ) {
     axios
       .get(
         `https://maps.googleapis.com/maps/api/place/photo?maxwidth=${width}&photoreference=${

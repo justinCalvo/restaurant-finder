@@ -5,6 +5,7 @@ import axios from 'axios';
 import config from '../../../config';
 import { Routes } from '../../constants/NavConst';
 import { getRestaurants } from '../../API/getNearby';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const ProximitySearch = () => {
   const navigation = useNavigation();
@@ -35,7 +36,9 @@ const ProximitySearch = () => {
   return (
     <View>
       <TouchableOpacity onPress={getNearby} title="Nearby Search">
-        <Text style={styles.text}>Nearby</Text>
+        <Text style={styles.text}>
+          <Icon name="navigate-sharp" size={24} /> Current Location
+        </Text>
       </TouchableOpacity>
     </View>
   );

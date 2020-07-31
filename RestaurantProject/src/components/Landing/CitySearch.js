@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { View, Button } from 'react-native';
+import { View, Button, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import config from '../../../config';
@@ -13,26 +13,30 @@ const CitySearch = ({ city, state, zipcode }) => {
   const [nextPageToken, setNextPageToken] = useState('');
 
   const getCity = useCallback(() => {
-    axios
-      .get(
-        `https://maps.googleapis.com/maps/api/geocode/json?address=${city},${state},${zipcode}&key=${
-          config.API_KEY
-        }`,
-      )
-      .then(location => {
-        const locationPath = location.data.results[0].geometry.location;
-        getRestaurants(
-          locationPath.lat,
-          locationPath.lng,
-          config,
-          axios,
-          setNextPageToken,
-          setRestaurants,
-        );
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    if ((city && state) || zipcode) {
+      axios
+        .get(
+          `https://maps.googleapis.com/maps/api/geocode/json?address=${city},${state},${zipcode}&key=${
+            config.API_KEY
+          }`,
+        )
+        .then(location => {
+          const locationPath = location.data.results[0].geometry.location;
+          getRestaurants(
+            locationPath.lat,
+            locationPath.lng,
+            config,
+            axios,
+            setNextPageToken,
+            setRestaurants,
+          );
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    } else {
+      Alert.alert('Please enter city and state or zip code');
+    }
   }, [city, state, zipcode]);
 
   const sendRestaurants = useCallback(() => {
