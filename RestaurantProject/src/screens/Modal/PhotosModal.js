@@ -55,8 +55,6 @@ const PhotosModal = ({ route }) => {
       );
       route.params.setPhotoIndex(route.params.photoIndex++);
       setSwipedLeft(false);
-    } else {
-      route.params.setPhotoIndex(1);
     }
   }, [isFocused, route.params, swipedLeft, swipedRight]);
 
