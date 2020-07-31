@@ -36,8 +36,8 @@ const Photos = ({
           <Image
             style={showDetails ? styles.condensed : styles.photo}
             source={{
-              uri: restaurants[index].photos[photoIndex].url
-                ? restaurants[index].photos[photoIndex].url
+              uri: restaurants[index].photos[1].url
+                ? restaurants[index].photos[1].url
                 : 'https://i.imgur.com/6nbpbTN.jpeg',
             }}
           />

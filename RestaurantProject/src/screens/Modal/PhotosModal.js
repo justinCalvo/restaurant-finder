@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   View,
   Text,
@@ -17,21 +17,31 @@ import config from '../../../config';
 import { getNextPhotos } from '../../API/getNextPhotos';
 import { CommonActions } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
+import { useIsFocused } from '@react-navigation/native';
 
 const PhotosModal = ({ route }) => {
+  const [swipedRight, setSwipedRight] = useState(false);
+  const [swipedLeft, setSwipedLeft] = useState(false);
   const navigation = useNavigation();
+  const isFocused = useIsFocused();
 
-  const SwipeRight = () => {
-    if (route.params.photoIndex >= 1) {
+  const SwipeRight = useCallback(() => {
+    setSwipedRight(true);
+  }, []);
+
+  const SwipeLeft = useCallback(() => {
+    setSwipedLeft(true);
+  }, []);
+
+  useEffect(() => {
+    if (route.params.photoIndex > 1 && swipedRight) {
       route.params.setPhotoIndex(route.params.photoIndex--);
+      setSwipedRight(false);
     }
-  };
-
-  const SwipeLeft = () => {
-    // console.log(setRestaurants);
     if (
-      route.params.photoIndex <=
-      route.params.restaurants[route.params.index].photos.length - 1
+      route.params.photoIndex <
+        route.params.restaurants[route.params.index].photos.length - 1 &&
+      swipedLeft
     ) {
       getNextPhotos(
         route.params.photoIndex,
@@ -44,10 +54,11 @@ const PhotosModal = ({ route }) => {
         width,
       );
       route.params.setPhotoIndex(route.params.photoIndex++);
+      setSwipedLeft(false);
     } else {
       route.params.setPhotoIndex(1);
     }
-  };
+  }, [isFocused, route.params, swipedLeft, swipedRight]);
 
   return (
     <FlingGestureHandler
