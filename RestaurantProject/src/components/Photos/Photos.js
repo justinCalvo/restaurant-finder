@@ -51,7 +51,6 @@ const { width } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 50,
     justifyContent: 'center',
     alignItems: 'center',
   },

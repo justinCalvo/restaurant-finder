@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { Routes } from '../constants/NavConst';
 import MainStack from './MainStack';
 import PhotosModal from '../screens/Modal/PhotosModal';
+import MatchesModal from '../screens/Modal/MatchesModal';
 
 const RootStack = createStackNavigator();
 
@@ -33,6 +34,7 @@ const Root = () => {
       mode="modal">
       <RootStack.Screen name={Routes.Main} component={MainStack} />
       <RootStack.Screen name={Routes.PhotosModal} component={PhotosModal} />
+      <RootStack.Screen name={Routes.MatchesModal} component={MatchesModal} />
     </RootStack.Navigator>
   );
 };

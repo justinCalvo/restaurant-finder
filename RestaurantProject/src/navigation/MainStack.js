@@ -17,7 +17,12 @@ const MainStack = () => {
       <Stack.Screen
         name={Routes.Restaurants}
         component={Restaurants}
-        options={{ title: null, headerLeft: null, gestureEnabled: false }}
+        options={{
+          title: null,
+          headerLeft: null,
+          gestureEnabled: false,
+          headerShown: false,
+        }}
       />
     </Stack.Navigator>
   );
