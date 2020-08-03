@@ -46,8 +46,7 @@ const PhotosModal = ({ route }) => {
       getNextPhotos(
         route.params.photoIndex,
         route.params.restaurants,
-        route.params.setRestaurants,
-        route.params.setPhotoIndex,
+        navigation,
         route.params.index,
         axios,
         config,
@@ -56,7 +55,7 @@ const PhotosModal = ({ route }) => {
       route.params.setPhotoIndex(route.params.photoIndex++);
       setSwipedLeft(false);
     }
-  }, [isFocused, route.params, swipedLeft, swipedRight]);
+  }, [isFocused, navigation, route.params, swipedLeft, swipedRight]);
 
   return (
     <FlingGestureHandler

@@ -1,4 +1,4 @@
-export const getNext = (route, axios, index, config, width) => {
+export const getNext = (navigation, route, axios, index, config, width) => {
   if (route.params.restaurants[index + 2]) {
     axios
       .get(
@@ -13,14 +13,7 @@ export const getNext = (route, axios, index, config, width) => {
         for (var key in description.data.result) {
           newRestaurants[index + 2][key] = description.data.result[key];
         }
-        getNextPhotos(
-          newRestaurants,
-          axios,
-          index,
-          config,
-          route.params.setRestaurants,
-          width,
-        );
+        getNextPhotos(newRestaurants, axios, index, config, navigation, width);
         // route.params.setRestaurants(newRestaurants);
       })
       .catch(err => {
@@ -67,11 +60,9 @@ export const getNextPhotos = (
   axios,
   index,
   config,
-  setRestaurants,
+  navigation,
   width,
 ) => {
-  // console.log(route.params.restaurants[index + 2]);
-  // if (route.params.restaurants[index + 2]) {
   axios
     .get(
       `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${
@@ -89,7 +80,7 @@ export const getNextPhotos = (
           results[index + 2].photos[1].url = data00.config.url;
           results[index + 2].photos[2].url = data01.config.url;
 
-          setRestaurants(results);
+          navigation.setParams({ restaurants: results });
         })
         .catch(err => {
           console.log(err);

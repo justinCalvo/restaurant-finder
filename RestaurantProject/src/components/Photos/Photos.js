@@ -25,7 +25,6 @@ const Photos = ({
       restaurants: restaurants,
       photoIndex: photoIndex,
       setPhotoIndex: setPhotoIndex,
-      setRestaurants: setRestaurants,
     });
   };
 

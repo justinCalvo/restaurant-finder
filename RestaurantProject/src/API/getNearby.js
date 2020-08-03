@@ -66,7 +66,6 @@ export const getInitialDetails = (results, config, axios, setRestaurants) => {
 };
 
 export const getInitialPhotos = (results, config, axios, setRestaurants) => {
-  console.log('initial');
   axios
     .get(
       `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${
