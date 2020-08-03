@@ -46,8 +46,7 @@ const PhotosModal = ({ route }) => {
       getNextPhotos(
         route.params.photoIndex,
         route.params.restaurants,
-        route.params.setRestaurants,
-        route.params.setPhotoIndex,
+        navigation,
         route.params.index,
         axios,
         config,
@@ -56,7 +55,7 @@ const PhotosModal = ({ route }) => {
       route.params.setPhotoIndex(route.params.photoIndex++);
       setSwipedLeft(false);
     }
-  }, [isFocused, route.params, swipedLeft, swipedRight]);
+  }, [isFocused, navigation, route.params, swipedLeft, swipedRight]);
 
   return (
     <FlingGestureHandler
@@ -78,20 +77,20 @@ const PhotosModal = ({ route }) => {
             onPress={() => navigation.dispatch(CommonActions.goBack())}>
             <View style={styles.modalClose} />
           </TouchableWithoutFeedback>
-          <Image
-            style={styles.photo}
-            source={{
-              uri: route.params.restaurants[route.params.index].photos[
-                route.params.photoIndex
-              ].url
-                ? route.params.restaurants[route.params.index].photos[
-                    route.params.photoIndex
-                  ].url
-                : 'https://i.imgur.com/6nbpbTN.jpeg',
-            }}
-          />
-          <View>
-            <Text>
+          <View style={styles.imageContainer}>
+            <Image
+              style={styles.photo}
+              source={{
+                uri: route.params.restaurants[route.params.index].photos[
+                  route.params.photoIndex
+                ].url
+                  ? route.params.restaurants[route.params.index].photos[
+                      route.params.photoIndex
+                    ].url
+                  : 'https://i.imgur.com/6nbpbTN.jpeg',
+              }}
+            />
+            <Text style={styles.text}>
               {route.params.photoIndex} of{' '}
               {route.params.restaurants[route.params.index].photos.length - 1}
             </Text>
@@ -116,13 +115,24 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   photo: {
+    width: (38 * width) / 43,
+    height: (38 * width) / 43,
+  },
+  imageContainer: {
     width: (38 * width) / 40,
     height: (38 * width) / 40,
+    backgroundColor: 'black',
+    borderRadius: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   modalClose: {
     height: height * 0.3,
     width: width,
     backgroundColor: 'transparent',
+  },
+  text: {
+    color: 'white',
   },
 });
 

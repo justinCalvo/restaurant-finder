@@ -19,7 +19,7 @@ import axios from 'axios';
 import config from '../../../config';
 import { getNext, getNextTwenty } from '../../API/getNextDetails';
 
-const Restaurants = ({ route }) => {
+const Restaurants = ({ route, navigation }) => {
   const [index, setIndex] = useState(0);
   const [photoIndex, setPhotoIndex] = useState(1);
   const [showDetails, setShowDetails] = useState(false);
@@ -31,7 +31,7 @@ const Restaurants = ({ route }) => {
 
   const MainAction = () => {
     if (route.params.restaurants[index + 1]) {
-      getNext(route, axios, index, config, width);
+      getNext(navigation, route, axios, index, config, width);
       setIndex(index + 1);
       setPhotoIndex(1);
       setShowDetails(false);
@@ -95,10 +95,10 @@ const Restaurants = ({ route }) => {
           <Photos
             index={index}
             photoIndex={photoIndex}
+            navigation={navigation}
             setPhotoIndex={setPhotoIndex}
             showDetails={showDetails}
             restaurants={route.params.restaurants}
-            setRestaurants={route.params.setRestaurants}
           />
           <Details
             restaurants={route.params.restaurants}

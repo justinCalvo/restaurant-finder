@@ -22,8 +22,10 @@ const ProximitySearch = () => {
     if (restaurants.length > 0) {
       navigation.navigate(Routes.Restaurants, {
         restaurants: restaurants,
-        setRestaurants: setRestaurants,
         nextPageToken: nextPageToken,
+      });
+      navigation.setOptions({
+        setRestaurants: setRestaurants,
         setNextPageToken: setNextPageToken,
       });
     }

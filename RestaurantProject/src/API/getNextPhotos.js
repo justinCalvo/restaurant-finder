@@ -1,8 +1,7 @@
 export const getNextPhotos = (
   photoIndex,
   restaurants,
-  setRestaurants,
-  setPhotoIndex,
+  navigation,
   index,
   axios,
   config,
@@ -21,7 +20,7 @@ export const getNextPhotos = (
       .then(data => {
         let newData = restaurants;
         newData[index].photos[photoIndex + 2].url = data.config.url;
-        setRestaurants(newData);
+        navigation.setParams({ restaurants: newData });
       })
       .catch(err => {
         console.log(err);

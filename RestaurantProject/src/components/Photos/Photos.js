@@ -25,7 +25,6 @@ const Photos = ({
       restaurants: restaurants,
       photoIndex: photoIndex,
       setPhotoIndex: setPhotoIndex,
-      setRestaurants: setRestaurants,
     });
   };
 
@@ -51,7 +50,6 @@ const { width } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 50,
     justifyContent: 'center',
     alignItems: 'center',
   },
