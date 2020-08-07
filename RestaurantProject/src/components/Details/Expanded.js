@@ -6,9 +6,9 @@ import {
   State,
 } from 'react-native-gesture-handler';
 import Reviews from './Reviews';
+import { useSelector } from 'react-redux';
 
 const Expanded = ({
-  restaurants,
   index,
   showDetails,
   setShowDetails,
@@ -23,6 +23,8 @@ const Expanded = ({
   scrollReviewsToTop,
   setScrollReviewsToTop,
 }) => {
+  const details = useSelector(state => state.details);
+
   return (
     <FlingGestureHandler
       direction={Directions.UP}
@@ -49,23 +51,22 @@ const Expanded = ({
           <View style={[showDetails ? styles.display : styles.hide]}>
             {!viewReviews ? (
               <Text style={[styles.scheduleText, styles.text]}>
-                {restaurants[index].opening_hours.weekday_text[0]}
+                {details.details[index].opening_hours.weekday_text[0]}
                 {'\n'}
-                {restaurants[index].opening_hours.weekday_text[1]}
+                {details.details[index].opening_hours.weekday_text[1]}
                 {'\n'}
-                {restaurants[index].opening_hours.weekday_text[2]}
+                {details.details[index].opening_hours.weekday_text[2]}
                 {'\n'}
-                {restaurants[index].opening_hours.weekday_text[3]}
+                {details.details[index].opening_hours.weekday_text[3]}
                 {'\n'}
-                {restaurants[index].opening_hours.weekday_text[4]}
+                {details.details[index].opening_hours.weekday_text[4]}
                 {'\n'}
-                {restaurants[index].opening_hours.weekday_text[5]}
+                {details.details[index].opening_hours.weekday_text[5]}
                 {'\n'}
-                {restaurants[index].opening_hours.weekday_text[6]}
+                {details.details[index].opening_hours.weekday_text[6]}
               </Text>
             ) : null}
             <Reviews
-              restaurants={restaurants}
               index={index}
               viewReviews={viewReviews}
               setViewReviews={setViewReviews}

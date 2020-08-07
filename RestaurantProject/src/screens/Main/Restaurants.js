@@ -18,6 +18,8 @@ import Details from '../../components/Details/Details';
 import axios from 'axios';
 import config from '../../../config';
 import { getNext, getNextTwenty } from '../../API/getNextDetails';
+import { useDispatch, useSelector } from 'react-redux';
+import { getDetails } from '../../redux/actions/detailsActions';
 
 const Restaurants = ({ route, navigation }) => {
   const [index, setIndex] = useState(0);
@@ -28,10 +30,13 @@ const Restaurants = ({ route, navigation }) => {
   const [customerRating, setCustomerRating] = useState([]);
   const [allCustomerRatings, setAllCustomerRatings] = useState([]);
   const [num, setNum] = useState(0);
+  const dispatch = useDispatch();
+  const details = useSelector(state => state.details);
+  const restaurants = useSelector(state => state.restaurants);
 
   const MainAction = () => {
-    if (route.params.restaurants[index + 1]) {
-      getNext(navigation, route, axios, index, config, width);
+    if (restaurants.restaurants[index + 1]) {
+      dispatch(getDetails(details, restaurants.restaurants, index));
       setIndex(index + 1);
       setPhotoIndex(1);
       setShowDetails(false);
@@ -44,9 +49,9 @@ const Restaurants = ({ route, navigation }) => {
       // TODO: better ending to list
       Alert.alert('End of List');
     }
-    if (index === 15 || index === 35) {
-      getNextTwenty(route, axios, index, config);
-    }
+    // if (index === 15 || index === 35) {
+    //   getNextTwenty(route, axios, index, config);
+    // }
   };
 
   // const RightActions = () => {
@@ -98,15 +103,9 @@ const Restaurants = ({ route, navigation }) => {
             navigation={navigation}
             setPhotoIndex={setPhotoIndex}
             showDetails={showDetails}
-            restaurants={route.params.restaurants}
           />
-          <Details
-            restaurants={route.params.restaurants}
-            index={index}
-            showDetails={showDetails}
-          />
+          <Details index={index} showDetails={showDetails} />
           <Expanded
-            restaurants={route.params.restaurants}
             index={index}
             showDetails={showDetails}
             setShowDetails={setShowDetails}

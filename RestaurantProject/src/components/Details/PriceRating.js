@@ -1,9 +1,11 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { useSelector } from 'react-redux';
 
-const PriceRating = ({ restaurants, index }) => {
-  const checkPriceLevel = restaurants[index].price_level;
+const PriceRating = ({ index }) => {
+  const restaurants = useSelector(state => state.restaurants);
+  const checkPriceLevel = restaurants.restaurants[index].price_level;
 
   return (
     <View style={styles.container}>

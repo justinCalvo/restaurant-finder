@@ -4,37 +4,26 @@ import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import config from '../../../config';
 import { Routes } from '../../constants/NavConst';
-import { getRestaurants } from '../../API/getNearby';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { useDispatch, useSelector, batch } from 'react-redux';
+import { getRestaurants } from '../../redux/actions/restaurantsActions';
+import { getDetails } from '../../redux/actions/detailsActions';
 
 const ProximitySearch = () => {
+  const dispatch = useDispatch();
+  const state = useSelector(state => state.restaurants);
+  // const details = useSelector(state => state.details);
   const navigation = useNavigation();
 
-  const [restaurants, setRestaurants] = useState([]);
-  const [nextPageToken, setNextPageToken] = useState('');
+  const getNearby = async () => {
+    let getData = await dispatch(getRestaurants());
+    // setTimeout(() => {
+    navigation.navigate(Routes.Restaurants);
+    // }, 100);
+  };
 
-  const getNearby = useCallback(() => {
-    let lat, lng;
-    getRestaurants(lat, lng, config, axios, setNextPageToken, setRestaurants);
-  }, []);
-
-  const sendRestaurants = useCallback(() => {
-    if (restaurants.length > 0) {
-      navigation.navigate(Routes.Restaurants, {
-        restaurants: restaurants,
-        nextPageToken: nextPageToken,
-      });
-      navigation.setOptions({
-        setRestaurants: setRestaurants,
-        setNextPageToken: setNextPageToken,
-      });
-    }
-  }, [restaurants, navigation, nextPageToken]);
-
-  useEffect(() => {
-    sendRestaurants();
-  }, [sendRestaurants, restaurants]);
-
+  // console.log(wasPressed);
+  // console.log(state.restaurants);
   return (
     <View>
       <TouchableOpacity onPress={getNearby} title="Nearby Search">

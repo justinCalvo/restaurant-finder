@@ -1,9 +1,9 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import ReviewScreen from '../../screens/Details/ReviewScreen';
+import { useSelector } from 'react-redux';
 
 const Reviews = ({
-  restaurants,
   index,
   viewReviews,
   setViewReviews,
@@ -18,12 +18,14 @@ const Reviews = ({
 }) => {
   const [buttonTitle, setButtonTitle] = useState('View Reviews');
   const [reviewData, setReviewData] = useState([]);
+  const details = useSelector(state => state.details);
+  const restaurants = useSelector(state => state.restaurants);
 
   const updateReviewData = useCallback(() => {
     let temp = [];
     let nextNumber = 0;
-    if (restaurants[index].reviews) {
-      const currentData = restaurants[index].reviews;
+    if (details.details[index].reviews) {
+      const currentData = details.details[index].reviews;
       for (var i = 0; i < currentData.length; i++) {
         temp.push({
           author_name: currentData[i].author_name,
@@ -36,7 +38,7 @@ const Reviews = ({
       }
       setReviewData(temp);
     }
-  }, [restaurants, index, setReviewData]);
+  }, [details.details, index, setReviewData]);
 
   const checkViewState = useCallback(() => {
     if (viewReviews) {
@@ -48,14 +50,14 @@ const Reviews = ({
 
   const allRatings = useCallback(() => {
     let temp = [];
-    if (restaurants[index].reviews) {
-      const currentData = restaurants[index].reviews;
+    if (details.details[index].reviews) {
+      const currentData = details.details[index].reviews;
       for (var i = 0; i < currentData.length; i++) {
         temp.push(currentData[i].rating);
       }
       setAllCustomerRatings(temp);
     }
-  }, [restaurants, index, setAllCustomerRatings]);
+  }, [details.details, index, setAllCustomerRatings]);
 
   const handleViewReviews = useCallback(() => {
     if (!viewReviews) {
@@ -85,20 +87,20 @@ const Reviews = ({
 
   useEffect(() => {
     createStars();
-  }, [createStars, allRatings, restaurants, viewReviews]);
+  }, [createStars, allRatings, details.details, viewReviews]);
 
   useEffect(() => {
     checkViewState();
     allRatings();
-  }, [allRatings, checkViewState, viewReviews, restaurants]);
+  }, [allRatings, checkViewState, viewReviews, details.details]);
 
   useEffect(() => {
     updateReviewData();
-  }, [updateReviewData, restaurants]);
+  }, [updateReviewData, details.details]);
 
   return (
     <View style={styles.container}>
-      {restaurants[index].reviews ? (
+      {details.details[index].reviews ? (
         <TouchableOpacity onPress={handleViewReviews}>
           <Text style={[styles.reviews, styles.reviewsTouchable]}>
             {buttonTitle}
@@ -110,7 +112,6 @@ const Reviews = ({
       {customerRating ? (
         <ReviewScreen
           customerRating={customerRating}
-          restaurants={restaurants}
           allRatings={allRatings}
           num={num}
           viewReviews={viewReviews}

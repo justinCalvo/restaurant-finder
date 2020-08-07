@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { useSelector } from 'react-redux';
 
-const CurrentDay = ({ restaurants, index }) => {
+const CurrentDay = ({ index }) => {
   const [displayCurrentSchedule, setDisplayCurrentSchedule] = useState('');
+  const state = useSelector(state => state.details);
 
   var today = new Date();
   var day = today.getDay();
@@ -17,14 +19,14 @@ const CurrentDay = ({ restaurants, index }) => {
       day--;
       currentDay = day;
     }
-    const getIndex = restaurants[index].opening_hours.weekday_text[
+    const getIndex = state.details[index].opening_hours.weekday_text[
       currentDay
     ].indexOf(':');
-    const timesOnly = restaurants[index].opening_hours.weekday_text[
+    const timesOnly = state.details[index].opening_hours.weekday_text[
       currentDay
     ].substr(getIndex + 1);
     setDisplayCurrentSchedule(timesOnly);
-  }, [day, index, restaurants]);
+  }, [day, index, state.details]);
 
   useEffect(() => {
     currentSchedule();

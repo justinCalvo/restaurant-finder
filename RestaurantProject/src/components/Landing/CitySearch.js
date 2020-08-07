@@ -4,55 +4,23 @@ import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import config from '../../../config';
 import { Routes } from '../../constants/NavConst';
-import { getRestaurants } from '../../API/getNearby';
+import { useDispatch, useSelector } from 'react-redux';
+import { getLocation } from '../../redux/actions/locationActions';
 
-const CitySearch = ({ city, state, zipcode }) => {
+const CitySearch = ({ city, states, zipcode }) => {
+  const dispatch = useDispatch();
+  const restaurants = useSelector(state => state.restaurants);
   const navigation = useNavigation();
 
-  const [restaurants, setRestaurants] = useState([]);
-  const [nextPageToken, setNextPageToken] = useState('');
-
-  const getCity = useCallback(() => {
-    if ((city && state) || zipcode) {
-      axios
-        .get(
-          `https://maps.googleapis.com/maps/api/geocode/json?address=${city},${state},${zipcode}&key=${
-            config.API_KEY
-          }`,
-        )
-        .then(location => {
-          const locationPath = location.data.results[0].geometry.location;
-          getRestaurants(
-            locationPath.lat,
-            locationPath.lng,
-            config,
-            axios,
-            setNextPageToken,
-            setRestaurants,
-          );
-        })
-        .catch(err => {
-          console.log(err);
-        });
+  const getCity = async () => {
+    if ((city && states) || zipcode) {
+      let getData = await dispatch(getLocation(city, states, zipcode));
+      // console.log(restaurants);
+      navigation.navigate(Routes.Restaurants);
     } else {
       Alert.alert('Please enter city and state or zip code');
     }
-  }, [city, state, zipcode]);
-
-  const sendRestaurants = useCallback(() => {
-    if (restaurants.length > 0) {
-      navigation.navigate(Routes.Restaurants, {
-        restaurants: restaurants,
-        setRestaurants: setRestaurants,
-        nextPageToken: nextPageToken,
-        setNextPageToken: setNextPageToken,
-      });
-    }
-  }, [restaurants, navigation, nextPageToken]);
-
-  useEffect(() => {
-    sendRestaurants();
-  }, [sendRestaurants, restaurants]);
+  };
 
   return (
     <View>

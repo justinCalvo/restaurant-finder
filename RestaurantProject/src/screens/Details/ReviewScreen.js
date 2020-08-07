@@ -32,7 +32,6 @@ const CreateReviews = ({ item, onPress, style, selectedId }) => (
 
 const ReviewScreen = ({
   viewReviews,
-  restaurants,
   allRatings,
   customerRating,
   num,
