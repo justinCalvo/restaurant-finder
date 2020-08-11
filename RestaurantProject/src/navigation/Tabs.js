@@ -16,11 +16,11 @@ const Tabs = () => {
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
 
-          if (route.name === 'Restaurants') {
+          if (route.name === Routes.Restaurants) {
             iconName = focused
               ? 'ios-information-circle'
               : 'ios-information-circle-outline';
-          } else if (route.name === 'Matches') {
+          } else if (route.name === Routes.Matches) {
             iconName = focused ? 'heart-circle' : 'heart-circle-outline';
           }
           return <Ionicons name={iconName} size={size} color={color} />;

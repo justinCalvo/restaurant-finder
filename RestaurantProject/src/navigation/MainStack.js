@@ -1,7 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import Home from '../screens/Landing/Home';
-import Restaurants from '../screens/Main/Restaurants';
 import { Routes } from '../constants/NavConst';
 import Tabs from './Tabs';
 
