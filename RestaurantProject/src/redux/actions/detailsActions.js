@@ -22,11 +22,8 @@ export const getDetails = (details, restaurants, index) => async dispatch => {
       config.API_KEY
     }`;
 
-    // console.log(url);
-
     const data = await axios.get(url);
-    // console.log('GET DETAILS');
-    // console.log(data);
+
     newData.push(data.data.result);
 
     dispatch({
@@ -38,7 +35,7 @@ export const getDetails = (details, restaurants, index) => async dispatch => {
     }&key=${config.API_KEY}`;
 
     const finalData = await axios.get(url);
-    // console.log(finalData.config.url);
+
     newData[0].photos[1].url = finalData.config.url;
 
     dispatch({

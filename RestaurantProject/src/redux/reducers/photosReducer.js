@@ -6,11 +6,6 @@ const photosReducer = (state = initalState, action) => {
   const { type, payload } = action;
 
   switch (type) {
-    // case 'RESET_DETAILS':
-    //   return {
-    //     ...state,
-    //     details: payload.details,
-    //   };
     case 'AWAITING_PHOTOS':
       return {
         ...state,
@@ -27,7 +22,6 @@ const photosReducer = (state = initalState, action) => {
     default:
       return state;
   }
-  return state;
 };
 
 export default photosReducer;

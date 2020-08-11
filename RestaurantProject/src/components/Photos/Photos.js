@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     alignItems: 'center',
+    paddingTop: 10,
   },
   photo: {
     width: width - 10,

@@ -1,6 +1,5 @@
 const initalState = {
   restaurants: [],
-  details: [],
   nextPageToken: '',
 };
 
@@ -14,11 +13,6 @@ const restaurantsReducer = (state = initalState, action) => {
         restaurants: payload.restaurants,
         details: payload.details,
       };
-    // case 'RESET_DETAILS':
-    //   return {
-    //     ...state,
-    //     details: payload.details,
-    //   };
     case 'AWAITING_LOCATION':
       return {
         ...state,
@@ -41,29 +35,9 @@ const restaurantsReducer = (state = initalState, action) => {
         restaurants: payload.restaurants,
         nextPageToken: payload.nextPageToken,
       };
-    case 'AWAITING_DETAILS':
-      return {
-        ...state,
-      };
-    case 'REJECTED_DETAILS':
-      return {
-        ...state,
-      };
-    case 'AWAITING_INITIAL_PHOTOS':
-      return {
-        ...state,
-      };
-    case 'SUCCESS_DETAILS':
-      return {
-        ...state,
-        details: payload.details,
-        // restaurants: payload.restaurants,
-        // nextPageToken: payload.nextPageToken,
-      };
     default:
       return state;
   }
-  return state;
 };
 
 export default restaurantsReducer;

@@ -6,11 +6,6 @@ const detailsReducer = (state = initalState, action) => {
   const { type, payload } = action;
 
   switch (type) {
-    // case 'RESET_DETAILS':
-    //   return {
-    //     ...state,
-    //     details: payload.details,
-    //   };
     case 'AWAITING_DETAILS':
       return {
         ...state,
@@ -31,7 +26,6 @@ const detailsReducer = (state = initalState, action) => {
     default:
       return state;
   }
-  return state;
 };
 
 export default detailsReducer;
