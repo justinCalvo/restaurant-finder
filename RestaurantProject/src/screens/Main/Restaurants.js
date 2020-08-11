@@ -96,7 +96,7 @@ const Restaurants = ({ route, navigation }) => {
           }
         }}>
         <SafeAreaView style={styles.container}>
-          <Matches index={index} />
+          {/* <Matches index={index} /> */}
           <Photos
             index={index}
             photoIndex={photoIndex}

@@ -4,5 +4,5 @@ export class Routes {
   static Restaurants = 'Restaurants';
   static PhotosModal = 'PhotosModal';
   static Main = 'Main';
-  static MatchesModal = 'MatchesModal';
+  static Matches = 'Matches';
 }
