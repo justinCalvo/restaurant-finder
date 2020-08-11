@@ -1,6 +1,5 @@
 const initalState = {
   restaurants: [],
-  details: [],
   nextPageToken: '',
 };
 
@@ -35,23 +34,6 @@ const restaurantsReducer = (state = initalState, action) => {
         ...state,
         restaurants: payload.restaurants,
         nextPageToken: payload.nextPageToken,
-      };
-    case 'AWAITING_DETAILS':
-      return {
-        ...state,
-      };
-    case 'REJECTED_DETAILS':
-      return {
-        ...state,
-      };
-    case 'AWAITING_INITIAL_PHOTOS':
-      return {
-        ...state,
-      };
-    case 'SUCCESS_DETAILS':
-      return {
-        ...state,
-        details: payload.details,
       };
     default:
       return state;

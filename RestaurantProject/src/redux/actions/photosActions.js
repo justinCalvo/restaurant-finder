@@ -4,7 +4,7 @@ import config from '../../../config';
 export const getPhotos = (details, index, photoIndex) => async dispatch => {
   try {
     dispatch({
-      type: 'AWAITING_PHOTOS,
+      type: 'AWAITING_PHOTOS',
     });
 
     let newData = details;
