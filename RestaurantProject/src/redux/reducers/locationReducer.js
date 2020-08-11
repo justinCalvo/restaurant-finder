@@ -33,7 +33,6 @@ const locationReducer = (state = initalState, action) => {
     default:
       return state;
   }
-  return state;
 };
 
 export default locationReducer;

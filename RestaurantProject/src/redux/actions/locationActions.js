@@ -32,14 +32,47 @@ export const getLocation = (city, states, zipcode) => async dispatch => {
       config.API_KEY
     }`;
 
-    let data = await axios.get(url);
-    // console.log('GET REQUEST');
+    const restaurants = await axios.get(url);
 
     dispatch({
       type: 'SUCCESS_RESTAURANTS',
       payload: {
-        restaurants: data.data.results,
-        nextPageToken: data.data.next_page_token,
+        restaurants: restaurants.data.results,
+        nextPageToken: restaurants.data.next_page_token,
+      },
+    });
+
+    dispatch({
+      type: 'AWAITING_DETAILS',
+    });
+
+    url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${
+      restaurants.data.results[0].place_id
+    }&fields=formatted_phone_number,opening_hours/weekday_text,website,photo,reviews&key=${
+      config.API_KEY
+    }`;
+
+    const deets = await axios.get(url);
+
+    let newData = [deets.data.result];
+
+    dispatch({
+      type: 'AWAITING_INITIAL_PHOTOS',
+    });
+
+    url = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=${
+      newData[0].photos[1].width
+    }&photoreference=${newData[0].photos[1].photo_reference}&key=${
+      config.API_KEY
+    }`;
+
+    const finalData = await axios.get(url);
+
+    newData[0].photos[1].url = finalData.config.url;
+    dispatch({
+      type: 'SUCCESS_DETAILS',
+      payload: {
+        details: newData,
       },
     });
   } catch (e) {

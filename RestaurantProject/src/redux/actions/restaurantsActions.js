@@ -18,10 +18,8 @@ export const getRestaurants = (city, states, zipcode) => async dispatch => {
     let url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=restaurant&opennow&key=${
       config.API_KEY
     }`;
-    // }
 
     const restaurants = await axios.get(url);
-    // console.log('GET REQUEST');
 
     dispatch({
       type: 'SUCCESS_RESTAURANTS',
@@ -41,11 +39,8 @@ export const getRestaurants = (city, states, zipcode) => async dispatch => {
       config.API_KEY
     }`;
 
-    // console.log(url);
-
     const deets = await axios.get(url);
-    // console.log('GET DETAILS');
-    // console.log(deets.data.result);
+
     let newData = [deets.data.result];
 
     dispatch({
@@ -59,7 +54,7 @@ export const getRestaurants = (city, states, zipcode) => async dispatch => {
     }`;
 
     const finalData = await axios.get(url);
-    // console.log(finalData.config.url);
+
     newData[0].photos[1].url = finalData.config.url;
     dispatch({
       type: 'SUCCESS_DETAILS',

@@ -34,6 +34,7 @@ const Tabs = () => {
       <AppTabs.Screen
         name={Routes.Matches}
         component={MatchesScreen}
+        // TODO: update tab bar badge to work dynamically with matches or remove?
         options={{ tabBarBadge: 3 }}
       />
     </AppTabs.Navigator>

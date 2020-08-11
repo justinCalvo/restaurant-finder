@@ -14,11 +14,6 @@ const restaurantsReducer = (state = initalState, action) => {
         restaurants: payload.restaurants,
         details: payload.details,
       };
-    // case 'RESET_DETAILS':
-    //   return {
-    //     ...state,
-    //     details: payload.details,
-    //   };
     case 'AWAITING_LOCATION':
       return {
         ...state,
@@ -57,13 +52,10 @@ const restaurantsReducer = (state = initalState, action) => {
       return {
         ...state,
         details: payload.details,
-        // restaurants: payload.restaurants,
-        // nextPageToken: payload.nextPageToken,
       };
     default:
       return state;
   }
-  return state;
 };
 
 export default restaurantsReducer;
