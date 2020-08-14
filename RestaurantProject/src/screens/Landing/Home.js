@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import ProximitySearch from '../../components/Landing/ProximitySearch';
-import CityInput from './CityInput';
+import CitySearch from '../../components/Landing/CitySearch';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const Home = () => {
@@ -32,7 +32,7 @@ const Home = () => {
           </Text>
         </TouchableOpacity>
       </View>
-      {toggleCitySearch ? <CityInput /> : null}
+      {toggleCitySearch ? <CitySearch /> : null}
     </KeyboardAwareScrollView>
   );
 };
