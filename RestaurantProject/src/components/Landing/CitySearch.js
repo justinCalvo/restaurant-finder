@@ -14,7 +14,7 @@ import { Routes } from '../../constants/NavConst';
 import { useDispatch } from 'react-redux';
 import { getLocation } from '../../redux/actions/locationActions';
 
-const CityInput = ({ isLoading, setIsLoading }) => {
+const CitySearch = ({ isLoading, setIsLoading }) => {
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
   const [zipcode, setZipcode] = useState('');
@@ -107,4 +107,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CityInput;
+export default CitySearch;
