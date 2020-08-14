@@ -1,42 +1,80 @@
 import axios from 'axios';
 import config from '../../../config';
 
-export const getDetails = (details, restaurants, index) => async dispatch => {
+export const getDetails = (
+  details,
+  restaurants,
+  index,
+  pIndex,
+) => async dispatch => {
   try {
-    // dispatch({
-    //   type: 'RESET_DETAILS',
-    //   payload: {
-    //     details: [],
-    //   },
-    // });
+    dispatch({
+      type: 'AWAITING_PHOTOS',
+    });
+
+    let pData = details;
+
+    if (pIndex && !pData[index].photos[pIndex + 2].url) {
+      let url = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=${
+        details[index].photos[pIndex + 2].width
+      }&photoreference=${
+        details[index].photos[pIndex + 2].photo_reference
+      }&key=${config.API_KEY}`;
+
+      const data = await axios.get(url);
+      pData[index].photos[pIndex + 2].url = data.config.url;
+    }
+
+    dispatch({
+      type: 'SUCCESS_PHOTOS',
+      payload: {
+        details: pData,
+      },
+    });
 
     dispatch({
       type: 'AWAITING_DETAILS',
     });
 
-    let newData = details;
+    let newData;
+    if (restaurants) {
+      newData = details;
+      url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${
+        restaurants[index + 1].place_id
+      }&fields=formatted_phone_number,opening_hours/weekday_text,website,photo,reviews&key=${
+        config.API_KEY
+      }`;
 
-    let url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${
-      restaurants[index].place_id
-    }&fields=formatted_phone_number,opening_hours/weekday_text,website,photo,reviews&key=${
-      config.API_KEY
-    }`;
+      const deetsData = await axios.get(url);
 
-    const data = await axios.get(url);
-
-    newData.push(data.data.result);
+      newData.push(deetsData.data.result);
+    } else {
+      newData = pData;
+    }
 
     dispatch({
       type: 'AWAITING_INITIAL_PHOTOS',
     });
 
-    url = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=${width}&photoreference=${
-      newData[0].photos[1].photo_reference
-    }&key=${config.API_KEY}`;
+    if (restaurants) {
+      url = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=${
+        newData[index + 1].photos[1].width
+      }&photoreference=${newData[index + 1].photos[1].photo_reference}&key=${
+        config.API_KEY
+      }`;
 
-    const finalData = await axios.get(url);
+      const initialOneData = await axios.get(url);
+      newData[index + 1].photos[1].url = initialOneData.config.url;
 
-    newData[0].photos[1].url = finalData.config.url;
+      url = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=${
+        newData[index + 1].photos[2].width
+      }&photoreference=${newData[index + 1].photos[2].photo_reference}&key=${
+        config.API_KEY
+      }`;
+
+      const initialTwoData = await axios.get(url);
+      newData[index + 1].photos[2].url = initialTwoData.config.url;
+    }
 
     dispatch({
       type: 'SUCCESS_DETAILS',
@@ -44,6 +82,7 @@ export const getDetails = (details, restaurants, index) => async dispatch => {
         details: newData,
       },
     });
+    // }
   } catch (e) {
     dispatch({
       type: 'REJECTED_DETAILS',

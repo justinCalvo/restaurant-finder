@@ -18,12 +18,18 @@ import { getNextPhotos } from '../../API/getNextPhotos';
 import { CommonActions } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
 import { useIsFocused } from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
+import { getDetails } from '../../redux/actions/detailsActions';
 
 const PhotosModal = ({ route }) => {
   const [swipedRight, setSwipedRight] = useState(false);
   const [swipedLeft, setSwipedLeft] = useState(false);
+  const [photoIndex, setPhotoIndex] = useState(1);
   const navigation = useNavigation();
   const isFocused = useIsFocused();
+  const dispatch = useDispatch();
+  const state = useSelector(state => state.details);
+  const restaurants = useSelector(state => state.restaurants);
 
   const SwipeRight = useCallback(() => {
     setSwipedRight(true);
@@ -34,28 +40,22 @@ const PhotosModal = ({ route }) => {
   }, []);
 
   useEffect(() => {
-    if (route.params.photoIndex > 1 && swipedRight) {
-      route.params.setPhotoIndex(route.params.photoIndex--);
+    if (photoIndex > 1 && swipedRight) {
+      setPhotoIndex(photoIndex - 1);
       setSwipedRight(false);
     }
+
     if (
-      route.params.photoIndex <
-        route.params.restaurants[route.params.index].photos.length - 1 &&
+      photoIndex < state.details[route.params.index].photos.length - 1 &&
       swipedLeft
     ) {
-      getNextPhotos(
-        route.params.photoIndex,
-        route.params.restaurants,
-        navigation,
-        route.params.index,
-        axios,
-        config,
-        width,
+      dispatch(
+        getDetails(state.details, undefined, route.params.index, photoIndex),
       );
-      route.params.setPhotoIndex(route.params.photoIndex++);
+      setPhotoIndex(photoIndex + 1);
       setSwipedLeft(false);
     }
-  }, [isFocused, navigation, route.params, swipedLeft, swipedRight]);
+  }, [isFocused, navigation, swipedLeft, swipedRight, photoIndex]);
 
   return (
     <FlingGestureHandler
@@ -81,18 +81,14 @@ const PhotosModal = ({ route }) => {
             <Image
               style={styles.photo}
               source={{
-                uri: route.params.restaurants[route.params.index].photos[
-                  route.params.photoIndex
-                ].url
-                  ? route.params.restaurants[route.params.index].photos[
-                      route.params.photoIndex
-                    ].url
+                uri: state.details[route.params.index].photos[photoIndex].url
+                  ? state.details[route.params.index].photos[photoIndex].url
                   : 'https://i.imgur.com/6nbpbTN.jpeg',
               }}
             />
             <Text style={styles.text}>
-              {route.params.photoIndex} of{' '}
-              {route.params.restaurants[route.params.index].photos.length - 1}
+              {photoIndex} of{' '}
+              {state.details[route.params.index].photos.length - 1}
             </Text>
           </View>
           <TouchableWithoutFeedback

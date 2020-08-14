@@ -14,19 +14,16 @@ const Photos = ({ index, photoIndex, showDetails }) => {
   const navigation = useNavigation();
   const state = useSelector(state => state.details);
 
-  // const handlePhotosModal = () => {
-  //   navigation.navigate(Routes.PhotosModal, {
-  //     index: index,
-  //     restaurants: restaurants,
-  //     photoIndex: photoIndex,
-  //     setPhotoIndex: setPhotoIndex,
-  //   });
-  // };
+  const handlePhotosModal = () => {
+    navigation.navigate(Routes.PhotosModal, {
+      index: index,
+    });
+  };
 
   return (
     <View>
-      {/* <TouchableWithoutFeedback onPress={handlePhotosModal}> */}
-      <TouchableWithoutFeedback>
+      <TouchableWithoutFeedback onPress={handlePhotosModal}>
+        {/* <TouchableWithoutFeedback> */}
         <View style={styles.container}>
           <Image
             style={showDetails ? styles.condensed : styles.photo}

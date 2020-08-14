@@ -23,7 +23,6 @@ import { getDetails } from '../../redux/actions/detailsActions';
 
 const Restaurants = ({ route, navigation }) => {
   const [index, setIndex] = useState(0);
-  const [photoIndex, setPhotoIndex] = useState(1);
   const [showDetails, setShowDetails] = useState(false);
   const [viewReviews, setViewReviews] = useState(false);
   const [scrollReviewsToTop, setScrollReviewsToTop] = useState(false);
@@ -34,11 +33,12 @@ const Restaurants = ({ route, navigation }) => {
   const details = useSelector(state => state.details);
   const restaurants = useSelector(state => state.restaurants);
 
-  const MainAction = () => {
+  const MainAction = async () => {
     if (restaurants.restaurants[index + 1]) {
-      dispatch(getDetails(details, restaurants.restaurants, index));
+      await dispatch(
+        getDetails(details.details, restaurants.restaurants, index, undefined),
+      );
       setIndex(index + 1);
-      setPhotoIndex(1);
       setShowDetails(false);
       setViewReviews(false);
       setCustomerRating([]);
@@ -99,9 +99,7 @@ const Restaurants = ({ route, navigation }) => {
           {/* <Matches index={index} /> */}
           <Photos
             index={index}
-            photoIndex={photoIndex}
             navigation={navigation}
-            setPhotoIndex={setPhotoIndex}
             showDetails={showDetails}
           />
           <Details index={index} showDetails={showDetails} />

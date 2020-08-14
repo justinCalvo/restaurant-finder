@@ -1,16 +1,20 @@
 import axios from 'axios';
 import config from '../../../config';
 
-export const getPhotos = (details, index, photoIndex) => async dispatch => {
+export const getPhotos = (
+  placeDetails,
+  index,
+  photoIndex,
+) => async dispatch => {
   try {
     dispatch({
       type: 'AWAITING_PHOTOS',
     });
 
-    let newData = details;
+    let newData = placeDetails;
 
     const url = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=${width}&photoreference=${
-      details[index].photos[photoIndex + 2].photo_reference
+      placeDetails[index].photos[photoIndex + 2].photo_reference
     }&key=${config.API_KEY}`;
 
     // console.log(url);
@@ -23,7 +27,7 @@ export const getPhotos = (details, index, photoIndex) => async dispatch => {
     dispatch({
       type: 'SUCCESS_PHOTOS',
       payload: {
-        details: newData,
+        photos: newData,
       },
     });
   } catch (e) {

@@ -1,5 +1,5 @@
 const initalState = {
-  details: [],
+  photos: [],
 };
 
 const photosReducer = (state = initalState, action) => {
@@ -17,7 +17,7 @@ const photosReducer = (state = initalState, action) => {
     case 'SUCCESS_PHOTOS':
       return {
         ...state,
-        details: payload.details,
+        photos: payload.photos,
       };
     default:
       return state;

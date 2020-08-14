@@ -53,9 +53,18 @@ export const getRestaurants = (city, states, zipcode) => async dispatch => {
       config.API_KEY
     }`;
 
-    const finalData = await axios.get(url);
+    const initialOneData = await axios.get(url);
+    newData[0].photos[1].url = initialOneData.config.url;
 
-    newData[0].photos[1].url = finalData.config.url;
+    url = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=${
+      newData[0].photos[2].width
+    }&photoreference=${newData[0].photos[2].photo_reference}&key=${
+      config.API_KEY
+    }`;
+
+    const initialTwoData = await axios.get(url);
+    newData[0].photos[2].url = initialTwoData.config.url;
+
     dispatch({
       type: 'SUCCESS_DETAILS',
       payload: {
