@@ -1,32 +1,110 @@
-import React, { useState, useCallback, useEffect } from 'react';
-import { View, Button, Alert } from 'react-native';
+import React, { useState } from 'react';
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  Dimensions,
+  Keyboard,
+  Alert,
+  Button,
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import axios from 'axios';
-import config from '../../../config';
 import { Routes } from '../../constants/NavConst';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { getLocation } from '../../redux/actions/locationActions';
 
-const CitySearch = ({ city, states, zipcode }) => {
+const CitySearch = ({ isLoading, setIsLoading }) => {
+  const [city, setCity] = useState('');
+  const [state, setState] = useState('');
+  const [zipcode, setZipcode] = useState('');
+
   const dispatch = useDispatch();
-  const restaurants = useSelector(state => state.restaurants);
   const navigation = useNavigation();
 
+  let stateInputRef = React.createRef();
+
   const getCity = async () => {
-    if ((city && states) || zipcode) {
-      let getData = await dispatch(getLocation(city, states, zipcode));
-      // console.log(restaurants);
+    if ((city && state) || zipcode) {
+      setIsLoading(true);
+      await dispatch(getLocation(city, state, zipcode));
+      setIsLoading(false);
       navigation.navigate(Routes.Restaurants);
     } else {
       Alert.alert('Please enter city and state or zip code');
     }
   };
 
+  const handleOnPressSubmit = () => {
+    getCity();
+    Keyboard.dismiss();
+  };
+
   return (
-    <View>
+    <View style={styles.container}>
+      <TextInput
+        style={styles.textInput}
+        onChangeText={setCity}
+        value={city}
+        placeholder="city"
+        returnKeyType="next"
+        autoCorrect={false}
+        onSubmitEditing={() => {
+          stateInputRef.focus();
+        }}
+        blurOnSubmit={false}
+      />
+      <TextInput
+        style={styles.textInput}
+        onChangeText={setState}
+        value={state}
+        placeholder="state"
+        ref={ref => (stateInputRef = ref)}
+        returnKeyType="search"
+        autoCorrect={false}
+        onSubmitEditing={handleOnPressSubmit}
+        blurOnSubmit={false}
+      />
+      <View style={styles.textContainer}>
+        <Text style={styles.text}>OR</Text>
+      </View>
+      <TextInput
+        style={styles.textInput}
+        onChangeText={setZipcode}
+        value={zipcode}
+        placeholder="zipcode"
+        returnKeyType="search"
+        autoCorrect={false}
+        onSubmitEditing={handleOnPressSubmit}
+        blurOnSubmit={false}
+      />
       <Button onPress={getCity} title="Search" />
     </View>
   );
 };
+
+const { width } = Dimensions.get('window');
+
+const styles = StyleSheet.create({
+  container: {
+    width: width,
+    paddingHorizontal: 50,
+  },
+  textInput: {
+    fontSize: 28,
+    borderBottomWidth: 1,
+    borderColor: 'black',
+    paddingVertical: 10,
+    textAlign: 'center',
+  },
+  text: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  textContainer: {
+    paddingTop: 30,
+  },
+});
 
 export default CitySearch;
