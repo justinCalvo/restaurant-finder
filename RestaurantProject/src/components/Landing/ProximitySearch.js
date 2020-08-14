@@ -6,12 +6,14 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { useDispatch } from 'react-redux';
 import { getRestaurants } from '../../redux/actions/restaurantsActions';
 
-const ProximitySearch = () => {
+const ProximitySearch = ({ isLoading, setIsLoading }) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
   const getNearby = async () => {
+    setIsLoading(true);
     await dispatch(getRestaurants());
+    setIsLoading(false);
     navigation.navigate(Routes.Restaurants);
   };
 

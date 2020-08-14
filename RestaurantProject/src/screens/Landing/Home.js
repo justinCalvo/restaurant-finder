@@ -10,9 +10,11 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import ProximitySearch from '../../components/Landing/ProximitySearch';
 import CitySearch from '../../components/Landing/CitySearch';
 import Icon from 'react-native-vector-icons/Ionicons';
+import Loading from '../../components/Loading/Loading';
 
 const Home = () => {
   const [toggleCitySearch, setToggleCitySearch] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   return (
     <KeyboardAwareScrollView
@@ -24,7 +26,8 @@ const Home = () => {
         <View style={styles.headerContainer}>
           <Text style={styles.header}>Rair</Text>
         </View>
-        <ProximitySearch />
+        {isLoading ? <Loading /> : null}
+        <ProximitySearch isLoading={isLoading} setIsLoading={setIsLoading} />
         <TouchableOpacity
           onPress={() => setToggleCitySearch(!toggleCitySearch)}>
           <Text style={styles.text}>
@@ -32,7 +35,9 @@ const Home = () => {
           </Text>
         </TouchableOpacity>
       </View>
-      {toggleCitySearch ? <CitySearch /> : null}
+      {toggleCitySearch ? (
+        <CitySearch isLoading={isLoading} setIsLoading={setIsLoading} />
+      ) : null}
     </KeyboardAwareScrollView>
   );
 };

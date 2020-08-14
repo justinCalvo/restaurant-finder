@@ -14,7 +14,7 @@ import { Routes } from '../../constants/NavConst';
 import { useDispatch } from 'react-redux';
 import { getLocation } from '../../redux/actions/locationActions';
 
-const CityInput = () => {
+const CityInput = ({ isLoading, setIsLoading }) => {
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
   const [zipcode, setZipcode] = useState('');
@@ -26,7 +26,9 @@ const CityInput = () => {
 
   const getCity = async () => {
     if ((city && state) || zipcode) {
+      setIsLoading(true);
       await dispatch(getLocation(city, state, zipcode));
+      setIsLoading(false);
       navigation.navigate(Routes.Restaurants);
     } else {
       Alert.alert('Please enter city and state or zip code');
