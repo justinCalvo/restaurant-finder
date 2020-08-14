@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import {
   View,
-  SafeAreaView,
   Text,
   TouchableOpacity,
   StyleSheet,
   Dimensions,
 } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import ProximitySearch from '../../components/Landing/ProximitySearch';
 import CityInput from './CityInput';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -15,11 +15,15 @@ const Home = () => {
   const [toggleCitySearch, setToggleCitySearch] = useState(false);
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.headerContainer}>
-        <Text style={styles.header}>Rair</Text>
-      </View>
+    <KeyboardAwareScrollView
+      style={styles.keyboardColor}
+      resetScrollToCoords={{ x: 0, y: 0 }}
+      contentContainerStyle={styles.container}
+      scrollEnabled={false}>
       <View style={styles.buttonContainer}>
+        <View style={styles.headerContainer}>
+          <Text style={styles.header}>Rair</Text>
+        </View>
         <ProximitySearch />
         <TouchableOpacity
           onPress={() => setToggleCitySearch(!toggleCitySearch)}>
@@ -29,7 +33,7 @@ const Home = () => {
         </TouchableOpacity>
       </View>
       {toggleCitySearch ? <CityInput /> : null}
-    </SafeAreaView>
+    </KeyboardAwareScrollView>
   );
 };
 const { width, height } = Dimensions.get('window');
@@ -54,15 +58,18 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     width: width,
-    height: height / 3,
+    height: height / 1.5,
     justifyContent: 'flex-end',
     alignItems: 'center',
   },
   headerContainer: {
     width: width,
-    height: height / 4,
+    height: height / 5,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  keyboardColor: {
+    backgroundColor: 'white',
   },
 });
 
