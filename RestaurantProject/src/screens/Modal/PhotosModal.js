@@ -12,8 +12,6 @@ import {
   Directions,
   State,
 } from 'react-native-gesture-handler';
-import axios from 'axios';
-import config from '../../../config';
 import { getNextPhotos } from '../../API/getNextPhotos';
 import { CommonActions } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
@@ -29,7 +27,6 @@ const PhotosModal = ({ route }) => {
   const isFocused = useIsFocused();
   const dispatch = useDispatch();
   const state = useSelector(state => state.details);
-  const restaurants = useSelector(state => state.restaurants);
 
   const SwipeRight = useCallback(() => {
     setSwipedRight(true);
@@ -55,7 +52,16 @@ const PhotosModal = ({ route }) => {
       setPhotoIndex(photoIndex + 1);
       setSwipedLeft(false);
     }
-  }, [isFocused, navigation, swipedLeft, swipedRight, photoIndex]);
+  }, [
+    isFocused,
+    navigation,
+    swipedLeft,
+    swipedRight,
+    photoIndex,
+    state.details,
+    route.params.index,
+    dispatch,
+  ]);
 
   return (
     <FlingGestureHandler

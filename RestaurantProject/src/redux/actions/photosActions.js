@@ -13,7 +13,9 @@ export const getPhotos = (
 
     let newData = placeDetails;
 
-    const url = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=${width}&photoreference=${
+    const url = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=${
+      placeDetails[index].photos[photoIndex + 2].width
+    }&photoreference=${
       placeDetails[index].photos[photoIndex + 2].photo_reference
     }&key=${config.API_KEY}`;
 

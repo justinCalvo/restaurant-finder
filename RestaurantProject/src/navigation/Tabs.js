@@ -3,13 +3,22 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import { Routes } from '../constants/NavConst';
+import { useSelector } from 'react-redux';
 
 import Restaurants from '../screens/Main/Restaurants';
 import MatchesScreen from '../screens/Details/MatchesScreen';
+// import { setMatches } from '../redux/actions/matchesActions';
 
 const AppTabs = createBottomTabNavigator();
 
 const Tabs = () => {
+  const matches = useSelector(state => state.matches);
+  // const dispatch = useDispatch();
+
+  // const resetMatchCounter = async () => {
+  //   await dispatch(setMatches(undefined, undefined, matches));
+  // };
+
   return (
     <AppTabs.Navigator
       screenOptions={({ route }) => ({
@@ -35,7 +44,10 @@ const Tabs = () => {
         name={Routes.Matches}
         component={MatchesScreen}
         // TODO: update tab bar badge to work dynamically with matches or remove?
-        options={{ tabBarBadge: 3 }}
+        options={{
+          tabBarBadge:
+            matches.newMatchesCounter === 0 ? null : matches.newMatchesCounter,
+        }}
       />
     </AppTabs.Navigator>
   );

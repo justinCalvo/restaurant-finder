@@ -23,7 +23,6 @@ const Photos = ({ index, photoIndex, showDetails }) => {
   return (
     <View>
       <TouchableWithoutFeedback onPress={handlePhotosModal}>
-        {/* <TouchableWithoutFeedback> */}
         <View style={styles.container}>
           <Image
             style={showDetails ? styles.condensed : styles.photo}
