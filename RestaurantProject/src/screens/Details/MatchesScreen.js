@@ -1,12 +1,21 @@
-import React from 'react';
-import { SafeAreaView, View, Text, StyleSheet, Dimensions } from 'react-native';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { SafeAreaView, Text, StyleSheet, Dimensions } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
+import { setMatches } from '../../redux/actions/matchesActions';
 
-const MatchesScreen = () => {
+const MatchesScreen = ({ navigation }) => {
   const matches = useSelector(state => state.matches);
-  console.log('here');
-  console.log(matches);
-  // console.log(matches.newMatchesCounter);
+  const dispatch = useDispatch();
+  console.log(matches.matches);
+
+  useEffect(() => {
+    const resetTabBarBadge = navigation.addListener('tabPress', e => {
+      dispatch(setMatches(undefined, undefined, matches));
+    });
+
+    return resetTabBarBadge;
+  }, [dispatch, matches, navigation]);
+
   return (
     <SafeAreaView style={styles.container}>
       <Text>Hello</Text>

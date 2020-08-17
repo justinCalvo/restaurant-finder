@@ -7,17 +7,11 @@ import { useSelector } from 'react-redux';
 
 import Restaurants from '../screens/Main/Restaurants';
 import MatchesScreen from '../screens/Details/MatchesScreen';
-// import { setMatches } from '../redux/actions/matchesActions';
 
 const AppTabs = createBottomTabNavigator();
 
 const Tabs = () => {
   const matches = useSelector(state => state.matches);
-  // const dispatch = useDispatch();
-
-  // const resetMatchCounter = async () => {
-  //   await dispatch(setMatches(undefined, undefined, matches));
-  // };
 
   return (
     <AppTabs.Navigator
@@ -38,12 +32,12 @@ const Tabs = () => {
       tabBarOptions={{
         activeTintColor: 'tomato',
         inactiveTintColor: 'gray',
-      }}>
+      }}
+      lazy={false}>
       <AppTabs.Screen name={Routes.Restaurants} component={Restaurants} />
       <AppTabs.Screen
         name={Routes.Matches}
         component={MatchesScreen}
-        // TODO: update tab bar badge to work dynamically with matches or remove?
         options={{
           tabBarBadge:
             matches.newMatchesCounter === 0 ? null : matches.newMatchesCounter,
