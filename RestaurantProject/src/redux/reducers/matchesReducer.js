@@ -1,5 +1,6 @@
 const initalState = {
   matches: {},
+  displayMatches: [],
   newMatchesCounter: 0,
 };
 
@@ -20,6 +21,7 @@ const matchesReducer = (state = initalState, action) => {
       return {
         ...state,
         matches: payload.matches,
+        displayMatches: payload.displayMatches,
         newMatchesCounter: payload.newMatchesCounter,
       };
     case 'REJECTED_MATCHES':

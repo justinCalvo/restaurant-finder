@@ -19,7 +19,6 @@ const Reviews = ({
   const [buttonTitle, setButtonTitle] = useState('View Reviews');
   const [reviewData, setReviewData] = useState([]);
   const details = useSelector(state => state.details);
-  const restaurants = useSelector(state => state.restaurants);
 
   const updateReviewData = useCallback(() => {
     let temp = [];

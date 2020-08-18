@@ -1,26 +1,48 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { useState, useEffect, useCallback } from 'react';
+import { View, StyleSheet, Dimensions } from 'react-native';
+import { createStars } from '../../services/CreateStars';
+import MatchesScreen from '../../screens/Details/MatchesScreen';
+import { useSelector, useDispatch } from 'react-redux';
+import { setMatches } from '../../redux/actions/matchesActions';
 
-const Matches = ({ displayMatches }) => {
-  console.log('this: ', displayMatches);
+const Matches = ({ navigation }) => {
+  const [stars, setStars] = useState([]);
+
+  const matches = useSelector(state => state.matches);
+  const displayMatches = useSelector(state => state.matches);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const resetTabBarBadge = navigation.addListener('tabPress', e => {
+      dispatch(setMatches(undefined, undefined, undefined, matches));
+    });
+    return resetTabBarBadge;
+  }, [dispatch, matches, navigation]);
+
+  const sendCreateStars = useCallback(() => {
+    createStars(displayMatches.displayMatches, undefined, setStars);
+  }, [displayMatches]);
+
+  useEffect(() => {
+    sendCreateStars();
+  }, [sendCreateStars, matches.matches]);
+
   return (
     <View style={styles.container}>
-      <Text style={styles.banner}>lol</Text>
+      {stars.length === displayMatches.displayMatches.length ? (
+        <MatchesScreen stars={stars} />
+      ) : null}
     </View>
   );
 };
 
+const { width, height } = Dimensions.get('window');
+
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 10,
-    paddingBottom: 10,
-    marginBottom: 10,
-    marginTop: 10,
-  },
-  banner: {
-    textAlign: 'center',
-    fontWeight: 'bold',
-    fontSize: 18,
+    width: width,
+    height: height,
+    backgroundColor: 'white',
   },
 });
 

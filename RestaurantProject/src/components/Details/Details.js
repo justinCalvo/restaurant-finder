@@ -1,36 +1,40 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { View, Text, StyleSheet, Linking, Dimensions } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import { createStars } from '../../services/CreateStars';
+
+import Icon from 'react-native-vector-icons/Ionicons';
 import PriceRating from './PriceRating';
 import CurrentDay from './CurrentDay';
 import { useSelector } from 'react-redux';
 
 const Details = ({ index, showDetails }) => {
   const [stars, setStars] = useState([]);
-  const state = useSelector(state => state.restaurants);
+  const restaurants = useSelector(state => state.restaurants);
 
-  const createStars = useCallback(() => {
-    const afterDecimal = state.restaurants[index].rating.toString().slice(2);
-    const wholeNumber = Math.floor(state.restaurants[index].rating);
-    let starArray = [];
+  // const createStars = useCallback(() => {
+  //   const afterDecimal = restaurants.restaurants[index].rating
+  //     .toString()
+  //     .slice(2);
+  //   const wholeNumber = Math.floor(restaurants.restaurants[index].rating);
+  //   let starArray = [];
 
-    for (var i = 1; i <= 5; i++) {
-      if (i <= wholeNumber) {
-        starArray.push('star');
-      } else if (afterDecimal >= 8) {
-        starArray.push('star');
-      } else if (afterDecimal <= 7 && afterDecimal >= 3) {
-        starArray.push('star-half');
-      } else {
-        starArray.push('star-border');
-      }
-    }
-    setStars(starArray);
-  }, [state.restaurants, index]);
+  //   for (var i = 1; i <= 5; i++) {
+  //     if (i <= wholeNumber) {
+  //       starArray.push('star-sharp');
+  //     } else if (afterDecimal >= 8) {
+  //       starArray.push('star-sharp');
+  //     } else if (afterDecimal <= 7 && afterDecimal >= 3) {
+  //       starArray.push('star-half-sharp');
+  //     } else {
+  //       starArray.push('star-outline');
+  //     }
+  //   }
+  //   setStars(starArray);
+  // }, [restaurants.restaurants, index]);
 
   useEffect(() => {
-    createStars();
-  }, [createStars, state.restaurants]);
+    createStars(undefined, restaurants.restaurants[index], setStars);
+  }, [index, restaurants.restaurants]);
 
   return (
     <View style={styles.container}>
@@ -38,7 +42,7 @@ const Details = ({ index, showDetails }) => {
         <>
           <View style={styles.ratingContainer}>
             <Text style={styles.ratingsTotalText}>
-              ({state.restaurants[index].user_ratings_total})
+              ({restaurants.restaurants[index].user_ratings_total})
             </Text>
             <Icon name={stars[0]} size={25} color="gold" />
             <Icon name={stars[1]} size={25} color="gold" />
@@ -49,25 +53,29 @@ const Details = ({ index, showDetails }) => {
           <PriceRating index={index} />
         </>
       ) : null}
-      <Text style={styles.restaurantName}>{state.restaurants[index].name}</Text>
+      <Text style={styles.restaurantName}>
+        {restaurants.restaurants[index].name}
+      </Text>
       {!showDetails ? <CurrentDay index={index} /> : null}
       <View style={styles.contactContainer}>
-        {state.restaurants[index].formatted_phone_number ? (
+        {restaurants.restaurants[index].formatted_phone_number ? (
           <Text
             style={styles.text}
             onPress={() =>
               Linking.openURL(
-                `tel:${state.restaurants[index].formatted_phone_number}`,
+                `tel:${restaurants.restaurants[index].formatted_phone_number}`,
               )
             }>
             <Icon name="phone" size={15} />
-            {state.restaurants[index].formatted_phone_number}
+            {restaurants.restaurants[index].formatted_phone_number}
           </Text>
         ) : null}
         <Text
-          onPress={() => Linking.openURL(state.restaurants[index].website)}
+          onPress={() =>
+            Linking.openURL(restaurants.restaurants[index].website)
+          }
           style={[styles.website, styles.text]}>
-          {state.restaurants[index].name}
+          {restaurants.restaurants[index].name}
         </Text>
       </View>
       {!showDetails ? (
@@ -75,7 +83,7 @@ const Details = ({ index, showDetails }) => {
           <View style={styles.addressContainer}>
             <View style={styles.address}>
               <Text style={[styles.text, styles.addressText]}>
-                {state.restaurants[index].formatted_address}
+                {restaurants.restaurants[index].formatted_address}
               </Text>
             </View>
           </View>

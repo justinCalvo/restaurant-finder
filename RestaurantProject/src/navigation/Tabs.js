@@ -6,7 +6,7 @@ import { Routes } from '../constants/NavConst';
 import { useSelector } from 'react-redux';
 
 import Restaurants from '../screens/Main/Restaurants';
-import MatchesScreen from '../screens/Details/MatchesScreen';
+import Matches from '../components/Matches/Matches';
 
 const AppTabs = createBottomTabNavigator();
 
@@ -37,7 +37,7 @@ const Tabs = () => {
       <AppTabs.Screen name={Routes.Restaurants} component={Restaurants} />
       <AppTabs.Screen
         name={Routes.Matches}
-        component={MatchesScreen}
+        component={Matches}
         options={{
           tabBarBadge:
             matches.newMatchesCounter === 0 ? null : matches.newMatchesCounter,

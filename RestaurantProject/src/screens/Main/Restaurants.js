@@ -54,7 +54,9 @@ const Restaurants = ({ route, navigation }) => {
   };
   // console.log(details.details[0]);
   const RightActions = async () => {
-    await dispatch(setMatches(restaurants.restaurants, index, matches));
+    await dispatch(
+      setMatches(restaurants.restaurants, details.details, index, matches),
+    );
   };
 
   useEffect(() => {
