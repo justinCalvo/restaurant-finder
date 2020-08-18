@@ -23,7 +23,11 @@ const MatchesScreen = ({ navigation, stars }) => {
           source={{ uri: item.photos[1].url }}
         />
         <View style={styles.detailsContainer}>
-          <Text style={styles.text}>{item.name}</Text>
+          {item.name.length >= 25 ? (
+            <Text style={styles.text}>{item.name.slice(0, 25)}...</Text>
+          ) : (
+            <Text style={styles.text}>{item.name}</Text>
+          )}
           <View style={styles.ratingContainer}>
             <Icon name={stars[item.nextStars][0]} size={20} color="gold" />
             <Icon name={stars[item.nextStars][1]} size={20} color="gold" />

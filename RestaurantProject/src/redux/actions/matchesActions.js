@@ -38,7 +38,6 @@ export const setMatches = (
 
     for (item in matchObj) {
       for (let i = 0; i < restaurants.length; i++) {
-        console.log('here');
         if (restaurants[i].place_id === item) {
           newMatches.push({
             formatted_phone_number: details[i].formatted_phone_number,
