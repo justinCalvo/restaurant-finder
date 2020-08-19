@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { View, StyleSheet, Dimensions, Alert } from 'react-native';
 import MatchesScreen from '../../screens/Matches/MatchesScreen';
 
-import { createStars } from '../../services/CreateStars';
+import { createStars } from '../../helper/CreateStars';
 import { useSelector, useDispatch } from 'react-redux';
 import { setMatches } from '../../redux/actions/matchesActions';
 

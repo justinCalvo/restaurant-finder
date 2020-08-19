@@ -16,8 +16,8 @@ const MatchDetails = ({ route }) => {
   return (
     <SafeAreaView style={styles.container}>
       <Image style={styles.photo} source={{ uri: item.photos[1].url }} />
-      <Text style={styles.restaurantName}>{item.name}</Text>
       <View style={styles.ratingContainer}>
+        <Text style={styles.ratingsTotalText}>({item.user_ratings_total})</Text>
         <Icon name={stars[item.nextStars][0]} size={25} color="gold" />
         <Icon name={stars[item.nextStars][1]} size={25} color="gold" />
         <Icon name={stars[item.nextStars][2]} size={25} color="gold" />
@@ -62,6 +62,7 @@ const MatchDetails = ({ route }) => {
           }
         />
       </View>
+      <Text style={styles.restaurantName}>{item.name}</Text>
     </SafeAreaView>
   );
 };
@@ -93,6 +94,10 @@ const styles = StyleSheet.create({
   priceContainer: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
+  },
+  ratingsTotalText: {
+    paddingHorizontal: 5,
+    fontSize: 16,
   },
 
   showDollarOne: {

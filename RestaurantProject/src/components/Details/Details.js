@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Linking, Dimensions } from 'react-native';
-import { createStars } from '../../services/CreateStars';
+import { createStars } from '../../helper/CreateStars';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 import PriceRating from './PriceRating';

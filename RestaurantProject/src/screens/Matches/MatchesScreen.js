@@ -97,6 +97,7 @@ const MatchesScreen = ({ stars }) => {
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
+        style={styles.display}
         data={displayMatches.displayMatches}
         keyExtractor={item => item.nextStars.toString()}
         extraData={stars}
@@ -112,8 +113,6 @@ const styles = StyleSheet.create({
   container: {
     height: height,
     width: width,
-    paddingVertical: 30,
-    paddingHorizontal: 40,
   },
   condensed: {
     width: width / 5,
@@ -125,6 +124,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingVertical: 15,
+    paddingHorizontal: 40,
   },
   image: {
     borderRadius: 40,
@@ -145,6 +145,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-end',
     alignItems: 'center',
+  },
+  display: {
+    display: 'flex',
+    marginBottom: 170,
+    paddingHorizontal: 10,
   },
 
   showDollarOne: {
