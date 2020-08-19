@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Linking, Dimensions } from 'react-native';
 import { createStars } from '../../helper/CreateStars';
 import PriceRating from '../../utils/PriceRating';
 import Stars from '../../utils/Stars';
-import CurrentDay from './CurrentDay';
+import CurrentDay from '../../utils/CurrentDay';
 import { useSelector } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -33,7 +33,9 @@ const Details = ({ index, showDetails }) => {
       <Text style={styles.restaurantName}>
         {restaurants.restaurants[index].name}
       </Text>
-      {!showDetails ? <CurrentDay index={index} /> : null}
+      <View style={styles.dayContainer}>
+        {!showDetails ? <CurrentDay index={index} /> : null}
+      </View>
       <View style={styles.contactContainer}>
         {restaurants.restaurants[index].formatted_phone_number ? (
           <Text
@@ -116,6 +118,9 @@ const styles = StyleSheet.create({
   priceContainer: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
+  },
+  dayContainer: {
+    paddingVertical: 5,
   },
 });
 

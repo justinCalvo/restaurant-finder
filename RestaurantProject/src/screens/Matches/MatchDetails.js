@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import PriceRating from '../../utils/PriceRating';
 import Stars from '../../utils/Stars';
+import CurrentDay from '../../utils/CurrentDay';
 
 const MatchDetails = ({ route }) => {
   const { stars, item } = route.params;
@@ -24,6 +25,9 @@ const MatchDetails = ({ route }) => {
         <PriceRating priceLevel={item.price_level} size={25} />
       </View>
       <Text style={styles.restaurantName}>{item.name}</Text>
+      <View style={styles.dayContainer}>
+        <CurrentDay openingHours={item.opening_hours.weekday_text} />
+      </View>
     </SafeAreaView>
   );
 };
@@ -59,6 +63,9 @@ const styles = StyleSheet.create({
   ratingsTotalText: {
     paddingHorizontal: 5,
     fontSize: 16,
+  },
+  dayContainer: {
+    paddingVertical: 5,
   },
 });
 
