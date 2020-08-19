@@ -11,11 +11,8 @@ import {
 } from 'react-native';
 import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
-import PriceRating from '../../components/Details/PriceRating';
-import Stars from '../../components/Details/Stars';
-
-import Icon from 'react-native-vector-icons/Ionicons';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import PriceRating from '../../utils/PriceRating';
+import Stars from '../../utils/Stars';
 
 const MatchesScreen = ({ stars }) => {
   const navigation = useNavigation();

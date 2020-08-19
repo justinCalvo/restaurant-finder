@@ -7,8 +7,7 @@ import {
   Dimensions,
   TouchableWithoutFeedback,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import Stars from '../../components/Details/Stars';
+import Stars from '../../utils/Stars';
 
 const CreateReviews = ({ item, onPress, style, selectedId }) => (
   <>

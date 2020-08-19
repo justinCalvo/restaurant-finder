@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Linking, Dimensions } from 'react-native';
 import { createStars } from '../../helper/CreateStars';
-import PriceRating from './PriceRating';
+import PriceRating from '../../utils/PriceRating';
+import Stars from '../../utils/Stars';
 import CurrentDay from './CurrentDay';
 import { useSelector } from 'react-redux';
-import Stars from './Stars';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const Details = ({ index, showDetails }) => {

@@ -24,7 +24,6 @@ export const createStars = (ratings, index, setStars) => {
   } else {
     const afterDecimal = index.rating.toString().slice(2);
     const wholeNumber = Math.floor(index.rating);
-
     for (i = 1; i <= 5; i++) {
       if (i <= wholeNumber) {
         starArray.push('star-sharp');

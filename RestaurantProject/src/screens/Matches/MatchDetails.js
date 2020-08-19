@@ -7,9 +7,8 @@ import {
   Dimensions,
   Image,
 } from 'react-native';
-import PriceRating from '../../components/Details/PriceRating';
+import PriceRating from '../../utils/PriceRating';
 import Stars from '../../components/Details/Stars';
-import Icon from 'react-native-vector-icons/Ionicons';
 
 const MatchDetails = ({ route }) => {
   const { stars, item } = route.params;
