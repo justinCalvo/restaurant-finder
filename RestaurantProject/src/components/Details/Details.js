@@ -10,6 +10,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 const Details = ({ index, showDetails }) => {
   const [stars, setStars] = useState([]);
   const restaurants = useSelector(state => state.restaurants);
+  const details = useSelector(state => state.details);
 
   useEffect(() => {
     createStars(undefined, restaurants.restaurants[index], setStars);
@@ -37,16 +38,16 @@ const Details = ({ index, showDetails }) => {
         {!showDetails ? <CurrentDay index={index} /> : null}
       </View>
       <View style={styles.contactContainer}>
-        {restaurants.restaurants[index].formatted_phone_number ? (
+        {details.details[index].formatted_phone_number ? (
           <Text
             style={styles.text}
             onPress={() =>
               Linking.openURL(
-                `tel:${restaurants.restaurants[index].formatted_phone_number}`,
+                `tel:${details.details[index].formatted_phone_number}`,
               )
             }>
-            <Icon name="phone" size={15} />
-            {restaurants.restaurants[index].formatted_phone_number}
+            <Icon name="call" size={18} />
+            {details.details[index].formatted_phone_number}
           </Text>
         ) : null}
         <Text

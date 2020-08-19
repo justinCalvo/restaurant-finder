@@ -47,7 +47,6 @@ export const getDetails = (
       }`;
 
       const deetsData = await axios.get(url);
-      // deetsData.data.result.place_id = restaurants[index + 1].place_id;
       newData.push(deetsData.data.result);
     } else {
       newData = pData;

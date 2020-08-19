@@ -6,10 +6,12 @@ import {
   StyleSheet,
   Dimensions,
   Image,
+  Linking,
 } from 'react-native';
 import PriceRating from '../../utils/PriceRating';
 import Stars from '../../utils/Stars';
 import CurrentDay from '../../utils/CurrentDay';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const MatchDetails = ({ route }) => {
   const { stars, item } = route.params;
@@ -27,6 +29,30 @@ const MatchDetails = ({ route }) => {
       <Text style={styles.restaurantName}>{item.name}</Text>
       <View style={styles.dayContainer}>
         <CurrentDay openingHours={item.opening_hours.weekday_text} />
+      </View>
+      <View style={styles.contactContainer}>
+        {item.formatted_phone_number ? (
+          <Text
+            style={styles.text}
+            onPress={() =>
+              Linking.openURL(`tel:${item.formatted_phone_number}`)
+            }>
+            <Icon name="call" size={18} />
+            {item.formatted_phone_number}
+          </Text>
+        ) : null}
+        <Text
+          onPress={() => Linking.openURL(item.website)}
+          style={[styles.website, styles.text]}>
+          {item.name}
+        </Text>
+      </View>
+      <View style={styles.addressContainer}>
+        <View style={styles.address}>
+          <Text style={[styles.text, styles.addressText]}>
+            {item.formatted_address}
+          </Text>
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -66,6 +92,29 @@ const styles = StyleSheet.create({
   },
   dayContainer: {
     paddingVertical: 5,
+  },
+  contactContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    padding: 10,
+    flexWrap: 'wrap',
+  },
+  text: {
+    fontSize: 18,
+  },
+  website: {
+    color: 'blue',
+    textDecorationLine: 'underline',
+  },
+  addressContainer: {
+    alignItems: 'center',
+    paddingVertical: 5,
+  },
+  address: {
+    width: width / 1.5,
+  },
+  addressText: {
+    textAlign: 'center',
   },
 });
 
