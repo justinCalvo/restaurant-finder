@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, StyleSheet, Dimensions } from 'react-native';
+import { View, StyleSheet, Dimensions, Alert } from 'react-native';
 import { createStars } from '../../services/CreateStars';
 import MatchesScreen from '../../screens/Details/MatchesScreen';
 import { useSelector, useDispatch } from 'react-redux';
@@ -14,10 +14,15 @@ const Matches = ({ navigation }) => {
 
   useEffect(() => {
     const resetTabBarBadge = navigation.addListener('tabPress', e => {
-      dispatch(setMatches(undefined, undefined, undefined, matches));
+      if (displayMatches.displayMatches.length > 0) {
+        dispatch(setMatches(undefined, undefined, undefined, matches));
+      } else {
+        e.preventDefault();
+        Alert.alert('Keep Swiping!', 'No matches found yet!');
+      }
     });
     return resetTabBarBadge;
-  }, [dispatch, matches, navigation]);
+  }, [dispatch, displayMatches, matches, navigation]);
 
   const sendCreateStars = useCallback(() => {
     createStars(displayMatches.displayMatches, undefined, setStars);
