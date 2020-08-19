@@ -22,7 +22,7 @@ const Photos = ({ index, photoIndex, showDetails }) => {
 
   return (
     <View>
-      <TouchableHighlight underlayColor="grey" onPress={handlePhotosModal}>
+      <TouchableHighlight underlayColor="#1C2938" onPress={handlePhotosModal}>
         <View style={styles.container}>
           <Image
             style={showDetails ? styles.condensed : styles.photo}

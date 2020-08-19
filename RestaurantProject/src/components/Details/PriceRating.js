@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { useSelector } from 'react-redux';
 
 const PriceRating = ({ index }) => {
@@ -9,7 +9,7 @@ const PriceRating = ({ index }) => {
 
   return (
     <View style={styles.container}>
-      <Icon
+      <FontAwesome
         name="dollar"
         size={25}
         color="black"
@@ -17,7 +17,7 @@ const PriceRating = ({ index }) => {
           checkPriceLevel >= 1 ? styles.showDollarOne : styles.hideDollarOne
         }
       />
-      <Icon
+      <FontAwesome
         name="dollar"
         size={25}
         color="black"
@@ -25,7 +25,7 @@ const PriceRating = ({ index }) => {
           checkPriceLevel >= 2 ? styles.showDollarTwo : styles.hideDollarTwo
         }
       />
-      <Icon
+      <FontAwesome
         name="dollar"
         size={25}
         color="black"
@@ -33,7 +33,7 @@ const PriceRating = ({ index }) => {
           checkPriceLevel >= 3 ? styles.showDollarThree : styles.hideDollarThree
         }
       />
-      <Icon
+      <FontAwesome
         name="dollar"
         size={25}
         color="black"

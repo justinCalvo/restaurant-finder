@@ -23,7 +23,10 @@ const MatchesScreen = ({ stars }) => {
     return (
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate('MatchDetails', item);
+          navigation.navigate('MatchDetails', {
+            item: item,
+            stars: stars,
+          });
         }}>
         <View style={styles.matchContainer}>
           <Image

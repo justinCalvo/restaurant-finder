@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Linking, Dimensions } from 'react-native';
 import { createStars } from '../../services/CreateStars';
 
@@ -10,27 +10,6 @@ import { useSelector } from 'react-redux';
 const Details = ({ index, showDetails }) => {
   const [stars, setStars] = useState([]);
   const restaurants = useSelector(state => state.restaurants);
-
-  // const createStars = useCallback(() => {
-  //   const afterDecimal = restaurants.restaurants[index].rating
-  //     .toString()
-  //     .slice(2);
-  //   const wholeNumber = Math.floor(restaurants.restaurants[index].rating);
-  //   let starArray = [];
-
-  //   for (var i = 1; i <= 5; i++) {
-  //     if (i <= wholeNumber) {
-  //       starArray.push('star-sharp');
-  //     } else if (afterDecimal >= 8) {
-  //       starArray.push('star-sharp');
-  //     } else if (afterDecimal <= 7 && afterDecimal >= 3) {
-  //       starArray.push('star-half-sharp');
-  //     } else {
-  //       starArray.push('star-outline');
-  //     }
-  //   }
-  //   setStars(starArray);
-  // }, [restaurants.restaurants, index]);
 
   useEffect(() => {
     createStars(undefined, restaurants.restaurants[index], setStars);
