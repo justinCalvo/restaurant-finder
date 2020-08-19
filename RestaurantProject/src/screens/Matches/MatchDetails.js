@@ -8,7 +8,7 @@ import {
   Image,
 } from 'react-native';
 import PriceRating from '../../utils/PriceRating';
-import Stars from '../../components/Details/Stars';
+import Stars from '../../utils/Stars';
 
 const MatchDetails = ({ route }) => {
   const { stars, item } = route.params;
