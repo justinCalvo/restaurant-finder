@@ -11,6 +11,8 @@ import {
 } from 'react-native';
 import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
+import PriceRating from '../../components/Details/PriceRating';
+import Stars from '../../components/Details/Stars';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -40,53 +42,10 @@ const MatchesScreen = ({ stars }) => {
               <Text style={styles.text}>{item.name}</Text>
             )}
             <View style={styles.ratingContainer}>
-              <Icon name={stars[item.nextStars][0]} size={20} color="gold" />
-              <Icon name={stars[item.nextStars][1]} size={20} color="gold" />
-              <Icon name={stars[item.nextStars][2]} size={20} color="gold" />
-              <Icon name={stars[item.nextStars][3]} size={20} color="gold" />
-              <Icon name={stars[item.nextStars][4]} size={20} color="gold" />
+              <Stars stars={stars} next={item.nextStars} size={20} />
             </View>
             <View style={styles.priceContainer}>
-              <FontAwesome
-                name="dollar"
-                size={18}
-                color="black"
-                style={
-                  item.price_level >= 1
-                    ? styles.showDollarOne
-                    : styles.hideDollarOne
-                }
-              />
-              <FontAwesome
-                name="dollar"
-                size={18}
-                color="black"
-                style={
-                  item.price_level >= 2
-                    ? styles.showDollarTwo
-                    : styles.hideDollarTwo
-                }
-              />
-              <FontAwesome
-                name="dollar"
-                size={18}
-                color="black"
-                style={
-                  item.price_level >= 3
-                    ? styles.showDollarThree
-                    : styles.hideDollarThree
-                }
-              />
-              <FontAwesome
-                name="dollar"
-                size={18}
-                color="black"
-                style={
-                  item.price_level >= 4
-                    ? styles.showDollarFour
-                    : styles.hideDollarFour
-                }
-              />
+              <PriceRating priceLevel={item.price_level} size={18} />
             </View>
           </View>
         </View>
@@ -150,31 +109,6 @@ const styles = StyleSheet.create({
     display: 'flex',
     marginBottom: 170,
     paddingHorizontal: 10,
-  },
-
-  showDollarOne: {
-    display: 'flex',
-  },
-  hideDollarOne: {
-    display: 'none',
-  },
-  showDollarTwo: {
-    display: 'flex',
-  },
-  hideDollarTwo: {
-    display: 'none',
-  },
-  showDollarThree: {
-    display: 'flex',
-  },
-  hideDollarThree: {
-    display: 'none',
-  },
-  showDollarFour: {
-    display: 'flex',
-  },
-  hideDollarFour: {
-    display: 'none',
   },
 });
 

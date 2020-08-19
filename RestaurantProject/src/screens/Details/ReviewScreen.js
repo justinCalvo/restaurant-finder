@@ -8,6 +8,7 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import Stars from '../../components/Details/Stars';
 
 const CreateReviews = ({ item, onPress, style, selectedId }) => (
   <>
@@ -54,31 +55,7 @@ const ReviewScreen = ({
           </Text>
           {customerRating.length > 0 && customerRating[item.next] ? (
             <View style={styles.ratingContainer}>
-              <Icon
-                name={customerRating[item.next][0]}
-                size={25}
-                color="gold"
-              />
-              <Icon
-                name={customerRating[item.next][1]}
-                size={25}
-                color="gold"
-              />
-              <Icon
-                name={customerRating[item.next][2]}
-                size={25}
-                color="gold"
-              />
-              <Icon
-                name={customerRating[item.next][3]}
-                size={25}
-                color="gold"
-              />
-              <Icon
-                name={customerRating[item.next][4]}
-                size={25}
-                color="gold"
-              />
+              <Stars stars={customerRating} next={item.next} size={25} />
             </View>
           ) : null}
         </View>

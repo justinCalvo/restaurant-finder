@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Linking, Dimensions } from 'react-native';
 import { createStars } from '../../helper/CreateStars';
-
-import Icon from 'react-native-vector-icons/Ionicons';
 import PriceRating from './PriceRating';
 import CurrentDay from './CurrentDay';
 import { useSelector } from 'react-redux';
+import Stars from './Stars';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const Details = ({ index, showDetails }) => {
   const [stars, setStars] = useState([]);
@@ -23,13 +23,11 @@ const Details = ({ index, showDetails }) => {
             <Text style={styles.ratingsTotalText}>
               ({restaurants.restaurants[index].user_ratings_total})
             </Text>
-            <Icon name={stars[0]} size={25} color="gold" />
-            <Icon name={stars[1]} size={25} color="gold" />
-            <Icon name={stars[2]} size={25} color="gold" />
-            <Icon name={stars[3]} size={25} color="gold" />
-            <Icon name={stars[4]} size={25} color="gold" />
+            <Stars stars={stars} size={25} />
           </View>
-          <PriceRating index={index} />
+          <View style={styles.priceContainer}>
+            <PriceRating index={index} size={25} />
+          </View>
         </>
       ) : null}
       <Text style={styles.restaurantName}>
@@ -114,6 +112,10 @@ const styles = StyleSheet.create({
   },
   addressText: {
     textAlign: 'center',
+  },
+  priceContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
   },
 });
 

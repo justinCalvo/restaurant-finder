@@ -1,17 +1,20 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { useSelector } from 'react-redux';
 
-const PriceRating = ({ index }) => {
+const PriceRating = ({ index, priceLevel, size }) => {
   const restaurants = useSelector(state => state.restaurants);
-  const checkPriceLevel = restaurants.restaurants[index].price_level;
+  const checkPriceLevel =
+    index !== undefined
+      ? restaurants.restaurants[index].price_level
+      : priceLevel;
 
   return (
-    <View style={styles.container}>
+    <>
       <FontAwesome
         name="dollar"
-        size={25}
+        size={size}
         color="black"
         style={
           checkPriceLevel >= 1 ? styles.showDollarOne : styles.hideDollarOne
@@ -19,7 +22,7 @@ const PriceRating = ({ index }) => {
       />
       <FontAwesome
         name="dollar"
-        size={25}
+        size={size}
         color="black"
         style={
           checkPriceLevel >= 2 ? styles.showDollarTwo : styles.hideDollarTwo
@@ -27,7 +30,7 @@ const PriceRating = ({ index }) => {
       />
       <FontAwesome
         name="dollar"
-        size={25}
+        size={size}
         color="black"
         style={
           checkPriceLevel >= 3 ? styles.showDollarThree : styles.hideDollarThree
@@ -35,21 +38,17 @@ const PriceRating = ({ index }) => {
       />
       <FontAwesome
         name="dollar"
-        size={25}
+        size={size}
         color="black"
         style={
           checkPriceLevel >= 4 ? styles.showDollarFour : styles.hideDollarFour
         }
       />
-    </View>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-  },
   showDollarOne: {
     display: 'flex',
   },
