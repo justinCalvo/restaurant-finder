@@ -18,15 +18,21 @@ const MatchDetails = ({ route }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Image style={styles.photo} source={{ uri: item.photos[1].url }} />
-      <View style={styles.ratingContainer}>
-        <Text style={styles.ratingsTotalText}>({item.user_ratings_total})</Text>
-        <Stars stars={stars} next={item.nextStars} size={25} />
-      </View>
-      <View style={styles.priceContainer}>
-        <PriceRating priceLevel={item.price_level} size={25} />
-      </View>
       <Text style={styles.restaurantName}>{item.name}</Text>
+      <View style={styles.ratingContainer}>
+        <View style={styles.priceContainer}>
+          <PriceRating priceLevel={item.price_level} size={25} />
+        </View>
+        <View style={styles.restaurantRating}>
+          <Text style={styles.ratingsTotalText}>
+            ({item.user_ratings_total})
+          </Text>
+          <Stars stars={stars} next={item.nextStars} size={25} />
+        </View>
+      </View>
+      <View style={styles.photoContainer}>
+        <Image style={styles.photo} source={{ uri: item.photos[1].url }} />
+      </View>
       <View style={styles.dayContainer}>
         <CurrentDay openingHours={item.opening_hours.weekday_text} />
       </View>
@@ -65,12 +71,14 @@ const styles = StyleSheet.create({
     width: width,
     height: height,
     backgroundColor: 'white',
+    // justifyContent: 'center',
   },
   photo: {
-    width: width - 10,
-    height: width - 10,
+    width: width - 15,
+    height: width - 15,
     marginLeft: 5,
     marginRight: 5,
+    borderRadius: 200,
   },
   restaurantName: {
     fontSize: 24,
@@ -79,12 +87,18 @@ const styles = StyleSheet.create({
   },
   ratingContainer: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 10,
+    paddingBottom: 10,
+    alignItems: 'center',
+  },
+  restaurantRating: {
+    flexDirection: 'row',
     justifyContent: 'flex-end',
     alignItems: 'center',
   },
   priceContainer: {
     flexDirection: 'row',
-    justifyContent: 'flex-end',
   },
   ratingsTotalText: {
     paddingHorizontal: 5,
@@ -98,6 +112,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     padding: 10,
     flexWrap: 'wrap',
+  },
+  photoContainer: {
+    paddingVertical: 20,
+    alignItems: 'center',
+    width: width,
   },
   text: {
     fontSize: 18,
