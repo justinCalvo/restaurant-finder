@@ -12,10 +12,11 @@ export const getDetails = (
       type: 'AWAITING_PHOTOS',
     });
 
-    let pData = details;
+    let pData = details,
+      url;
 
     if (pIndex && !pData[index].photos[pIndex + 2].url) {
-      let url = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=${
+      url = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=${
         details[index].photos[pIndex + 2].width
       }&photoreference=${
         details[index].photos[pIndex + 2].photo_reference
@@ -46,7 +47,6 @@ export const getDetails = (
       }`;
 
       const deetsData = await axios.get(url);
-
       newData.push(deetsData.data.result);
     } else {
       newData = pData;

@@ -40,7 +40,7 @@ export const getRestaurants = (city, states, zipcode) => async dispatch => {
     }`;
 
     const deets = await axios.get(url);
-
+    // deets.data.result.place_id = restaurants.data.results[0].place_id;
     let newData = [deets.data.result];
 
     dispatch({

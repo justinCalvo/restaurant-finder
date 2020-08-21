@@ -1,36 +1,20 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Linking, Dimensions } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import PriceRating from './PriceRating';
-import CurrentDay from './CurrentDay';
+import { createStars } from '../../helper/CreateStars';
+import PriceRating from '../../utils/PriceRating';
+import Stars from '../../utils/Stars';
+import CurrentDay from '../../utils/CurrentDay';
 import { useSelector } from 'react-redux';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const Details = ({ index, showDetails }) => {
   const [stars, setStars] = useState([]);
-  const state = useSelector(state => state.restaurants);
-
-  const createStars = useCallback(() => {
-    const afterDecimal = state.restaurants[index].rating.toString().slice(2);
-    const wholeNumber = Math.floor(state.restaurants[index].rating);
-    let starArray = [];
-
-    for (var i = 1; i <= 5; i++) {
-      if (i <= wholeNumber) {
-        starArray.push('star');
-      } else if (afterDecimal >= 8) {
-        starArray.push('star');
-      } else if (afterDecimal <= 7 && afterDecimal >= 3) {
-        starArray.push('star-half');
-      } else {
-        starArray.push('star-border');
-      }
-    }
-    setStars(starArray);
-  }, [state.restaurants, index]);
+  const restaurants = useSelector(state => state.restaurants);
+  const details = useSelector(state => state.details);
 
   useEffect(() => {
-    createStars();
-  }, [createStars, state.restaurants]);
+    createStars(undefined, restaurants.restaurants[index], setStars);
+  }, [index, restaurants.restaurants]);
 
   return (
     <View style={styles.container}>
@@ -38,36 +22,40 @@ const Details = ({ index, showDetails }) => {
         <>
           <View style={styles.ratingContainer}>
             <Text style={styles.ratingsTotalText}>
-              ({state.restaurants[index].user_ratings_total})
+              ({restaurants.restaurants[index].user_ratings_total})
             </Text>
-            <Icon name={stars[0]} size={25} color="gold" />
-            <Icon name={stars[1]} size={25} color="gold" />
-            <Icon name={stars[2]} size={25} color="gold" />
-            <Icon name={stars[3]} size={25} color="gold" />
-            <Icon name={stars[4]} size={25} color="gold" />
+            <Stars stars={stars} size={25} />
           </View>
-          <PriceRating index={index} />
+          <View style={styles.priceContainer}>
+            <PriceRating index={index} size={25} />
+          </View>
         </>
       ) : null}
-      <Text style={styles.restaurantName}>{state.restaurants[index].name}</Text>
-      {!showDetails ? <CurrentDay index={index} /> : null}
+      <Text style={styles.restaurantName}>
+        {restaurants.restaurants[index].name}
+      </Text>
+      <View style={styles.dayContainer}>
+        {!showDetails ? <CurrentDay index={index} /> : null}
+      </View>
       <View style={styles.contactContainer}>
-        {state.restaurants[index].formatted_phone_number ? (
+        {details.details[index].formatted_phone_number ? (
           <Text
             style={styles.text}
             onPress={() =>
               Linking.openURL(
-                `tel:${state.restaurants[index].formatted_phone_number}`,
+                `tel:${details.details[index].formatted_phone_number}`,
               )
             }>
-            <Icon name="phone" size={15} />
-            {state.restaurants[index].formatted_phone_number}
+            <Icon name="call" size={18} />
+            {details.details[index].formatted_phone_number}
           </Text>
         ) : null}
         <Text
-          onPress={() => Linking.openURL(state.restaurants[index].website)}
+          onPress={() =>
+            Linking.openURL(restaurants.restaurants[index].website)
+          }
           style={[styles.website, styles.text]}>
-          {state.restaurants[index].name}
+          {restaurants.restaurants[index].name}
         </Text>
       </View>
       {!showDetails ? (
@@ -75,7 +63,7 @@ const Details = ({ index, showDetails }) => {
           <View style={styles.addressContainer}>
             <View style={styles.address}>
               <Text style={[styles.text, styles.addressText]}>
-                {state.restaurants[index].formatted_address}
+                {restaurants.restaurants[index].formatted_address}
               </Text>
             </View>
           </View>
@@ -127,6 +115,13 @@ const styles = StyleSheet.create({
   },
   addressText: {
     textAlign: 'center',
+  },
+  priceContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+  },
+  dayContainer: {
+    paddingVertical: 5,
   },
 });
 

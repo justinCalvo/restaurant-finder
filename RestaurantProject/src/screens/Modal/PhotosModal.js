@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import {
   View,
-  Text,
   Image,
   StyleSheet,
   Dimensions,
@@ -12,9 +11,9 @@ import {
   Directions,
   State,
 } from 'react-native-gesture-handler';
-import axios from 'axios';
-import config from '../../../config';
-import { getNextPhotos } from '../../API/getNextPhotos';
+import PhotoDots from '../../components/Photos/PhotoDots';
+
+// import { getNextPhotos } from '../../API/getNextPhotos';
 import { CommonActions } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
 import { useIsFocused } from '@react-navigation/native';
@@ -28,8 +27,7 @@ const PhotosModal = ({ route }) => {
   const navigation = useNavigation();
   const isFocused = useIsFocused();
   const dispatch = useDispatch();
-  const state = useSelector(state => state.details);
-  const restaurants = useSelector(state => state.restaurants);
+  const details = useSelector(state => state.details);
 
   const SwipeRight = useCallback(() => {
     setSwipedRight(true);
@@ -46,16 +44,25 @@ const PhotosModal = ({ route }) => {
     }
 
     if (
-      photoIndex < state.details[route.params.index].photos.length - 1 &&
+      photoIndex < details.details[route.params.index].photos.length - 1 &&
       swipedLeft
     ) {
       dispatch(
-        getDetails(state.details, undefined, route.params.index, photoIndex),
+        getDetails(details.details, undefined, route.params.index, photoIndex),
       );
       setPhotoIndex(photoIndex + 1);
       setSwipedLeft(false);
     }
-  }, [isFocused, navigation, swipedLeft, swipedRight, photoIndex]);
+  }, [
+    isFocused,
+    navigation,
+    swipedLeft,
+    swipedRight,
+    photoIndex,
+    details.details,
+    route.params.index,
+    dispatch,
+  ]);
 
   return (
     <FlingGestureHandler
@@ -81,16 +88,13 @@ const PhotosModal = ({ route }) => {
             <Image
               style={styles.photo}
               source={{
-                uri: state.details[route.params.index].photos[photoIndex].url
-                  ? state.details[route.params.index].photos[photoIndex].url
+                uri: details.details[route.params.index].photos[photoIndex].url
+                  ? details.details[route.params.index].photos[photoIndex].url
                   : 'https://i.imgur.com/6nbpbTN.jpeg',
               }}
             />
-            <Text style={styles.text}>
-              {photoIndex} of{' '}
-              {state.details[route.params.index].photos.length - 1}
-            </Text>
           </View>
+          <PhotoDots photoIndex={photoIndex} index={route.params.index} />
           <TouchableWithoutFeedback
             onPress={() => navigation.dispatch(CommonActions.goBack())}>
             <View style={styles.modalClose} />
@@ -115,10 +119,9 @@ const styles = StyleSheet.create({
     height: (38 * width) / 43,
   },
   imageContainer: {
-    width: (38 * width) / 40,
-    height: (38 * width) / 40,
-    backgroundColor: 'black',
-    borderRadius: 20,
+    width: (36 * width) / 40,
+    height: (36 * width) / 40,
+    backgroundColor: '#1C2938',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -128,7 +131,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   text: {
-    color: 'white',
+    color: '#F4F6F6',
   },
 });
 

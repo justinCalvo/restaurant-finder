@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { Text, StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
 
-const CurrentDay = ({ index }) => {
+const CurrentDay = ({ index, openingHours }) => {
   const [displayCurrentSchedule, setDisplayCurrentSchedule] = useState('');
-  const state = useSelector(state => state.details);
+  const details = useSelector(state => state.details);
 
   var today = new Date();
   var day = today.getDay();
@@ -19,31 +19,36 @@ const CurrentDay = ({ index }) => {
       day--;
       currentDay = day;
     }
-    const getIndex = state.details[index].opening_hours.weekday_text[
-      currentDay
-    ].indexOf(':');
-    const timesOnly = state.details[index].opening_hours.weekday_text[
-      currentDay
-    ].substr(getIndex + 1);
+    const getIndex =
+      index === undefined
+        ? openingHours[currentDay].indexOf(':')
+        : details.details[index].opening_hours.weekday_text[currentDay].indexOf(
+            ':',
+          );
+
+    const timesOnly =
+      index === undefined
+        ? openingHours[currentDay].substr(getIndex + 1)
+        : details.details[index].opening_hours.weekday_text[currentDay].substr(
+            getIndex + 1,
+          );
+
     setDisplayCurrentSchedule(timesOnly);
-  }, [day, index, state.details]);
+  }, [day, index, openingHours, details.details]);
 
   useEffect(() => {
     currentSchedule();
   }, [currentSchedule, day]);
 
   return (
-    <View style={styles.container}>
+    <>
       <Text style={styles.text}>Today:</Text>
       <Text style={styles.text}>{displayCurrentSchedule}</Text>
-    </View>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    paddingVertical: 5,
-  },
   text: {
     textAlign: 'center',
     fontSize: 18,

@@ -13,13 +13,11 @@ import {
 } from 'react-native-gesture-handler';
 import Expanded from '../../components/Details/Expanded';
 import Photos from '../../components/Photos/Photos';
-import Matches from '../../components/Matches/Matches';
 import Details from '../../components/Details/Details';
-import axios from 'axios';
-import config from '../../../config';
-import { getNext, getNextTwenty } from '../../API/getNextDetails';
+// import { getNext, getNextTwenty } from '../../API/getNextDetails';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDetails } from '../../redux/actions/detailsActions';
+import { setMatches } from '../../redux/actions/matchesActions';
 
 const Restaurants = ({ route, navigation }) => {
   const [index, setIndex] = useState(0);
@@ -32,6 +30,7 @@ const Restaurants = ({ route, navigation }) => {
   const dispatch = useDispatch();
   const details = useSelector(state => state.details);
   const restaurants = useSelector(state => state.restaurants);
+  const matches = useSelector(state => state.matches);
 
   const MainAction = async () => {
     if (restaurants.restaurants[index + 1]) {
@@ -53,10 +52,12 @@ const Restaurants = ({ route, navigation }) => {
     //   getNextTwenty(route, axios, index, config);
     // }
   };
-
-  // const RightActions = () => {
-  // TODO: add selected data to database as a potential "match"
-  // };
+  // console.log(details.details[0]);
+  const RightActions = async () => {
+    await dispatch(
+      setMatches(restaurants.restaurants, details.details, index, matches),
+    );
+  };
 
   useEffect(() => {
     const backAction = () => {
@@ -91,16 +92,12 @@ const Restaurants = ({ route, navigation }) => {
         direction={Directions.RIGHT}
         onHandlerStateChange={({ nativeEvent }) => {
           if (nativeEvent.state === State.ACTIVE) {
+            RightActions();
             MainAction();
-            // RightActions();
           }
         }}>
         <SafeAreaView style={styles.container}>
-          <Photos
-            index={index}
-            navigation={navigation}
-            showDetails={showDetails}
-          />
+          <Photos index={index} showDetails={showDetails} />
           <Details index={index} showDetails={showDetails} />
           <Expanded
             index={index}

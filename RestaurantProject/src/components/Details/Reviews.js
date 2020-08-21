@@ -19,7 +19,6 @@ const Reviews = ({
   const [buttonTitle, setButtonTitle] = useState('View Reviews');
   const [reviewData, setReviewData] = useState([]);
   const details = useSelector(state => state.details);
-  const restaurants = useSelector(state => state.restaurants);
 
   const updateReviewData = useCallback(() => {
     let temp = [];
@@ -75,9 +74,9 @@ const Reviews = ({
     if (wholeNumber) {
       for (var i = 1; i <= 5; i++) {
         if (i <= wholeNumber) {
-          customerRatingArray.push('star');
+          customerRatingArray.push('star-sharp');
         } else {
-          customerRatingArray.push('star-border');
+          customerRatingArray.push('star-outline');
         }
       }
       setCustomerRating(oldArray => [...oldArray, customerRatingArray]);

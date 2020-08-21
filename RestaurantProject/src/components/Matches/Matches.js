@@ -1,59 +1,54 @@
-import React, { useEffect } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import {
-  FlingGestureHandler,
-  Directions,
-  State,
-} from 'react-native-gesture-handler';
-import { useNavigation } from '@react-navigation/native';
-import { Routes } from '../../constants/NavConst';
-import { useSelector } from 'react-redux';
-// import { getDetails } from '../../redux/actions/detailsActions';
+import React, { useState, useEffect, useCallback } from 'react';
+import { View, StyleSheet, Dimensions, Alert } from 'react-native';
+import MatchesScreen from '../../screens/Matches/MatchesScreen';
 
-const Matches = () => {
-  // const dispatch = useDispatch();
-  const navigation = useNavigation();
-  const rest = useSelector(state => state.restaurants);
-  const deet = useSelector(state => state.details);
+import { createStars } from '../../helper/CreateStars';
+import { useSelector, useDispatch } from 'react-redux';
+import { setMatches } from '../../redux/actions/matchesActions';
 
-  const openModal = () => {
-    navigation.navigate(Routes.MatchesModal);
-  };
-  // console.log('restaurante', rest);
-  // console.log('give me the ', deet);
+const Matches = ({ navigation }) => {
+  const [stars, setStars] = useState([]);
 
-  // useEffect(() => {
-  //   if (state.details.length === 0) {
-  //     dispatch(getDetails([], state.restaurants, 0));
-  //   }
-  // }, [state.details]);
+  const matches = useSelector(state => state.matches);
+  const displayMatches = useSelector(state => state.matches);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const resetTabBarBadge = navigation.addListener('tabPress', e => {
+      if (displayMatches.displayMatches.length > 0) {
+        dispatch(setMatches(undefined, undefined, undefined, matches));
+      } else {
+        e.preventDefault();
+        Alert.alert('Keep Swiping!', 'No matches found yet!');
+      }
+    });
+    return resetTabBarBadge;
+  }, [dispatch, displayMatches, matches, navigation]);
+
+  const sendCreateStars = useCallback(() => {
+    createStars(displayMatches.displayMatches, undefined, setStars);
+  }, [displayMatches]);
+
+  useEffect(() => {
+    sendCreateStars();
+  }, [sendCreateStars, matches.matches]);
 
   return (
-    <FlingGestureHandler
-      direction={Directions.DOWN}
-      onHandlerStateChange={({ nativeEvent }) => {
-        if (nativeEvent.state === State.ACTIVE) {
-          openModal();
-        }
-      }}>
-      <View style={styles.container}>
-        <Text style={styles.banner}>lol</Text>
-      </View>
-    </FlingGestureHandler>
+    <View style={styles.container}>
+      {stars.length === displayMatches.displayMatches.length ? (
+        <MatchesScreen stars={stars} />
+      ) : null}
+    </View>
   );
 };
 
+const { width, height } = Dimensions.get('window');
+
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 10,
-    paddingBottom: 10,
-    marginBottom: 10,
-    marginTop: 10,
-  },
-  banner: {
-    textAlign: 'center',
-    fontWeight: 'bold',
-    fontSize: 18,
+    width: width,
+    height: height,
+    backgroundColor: 'white',
   },
 });
 
