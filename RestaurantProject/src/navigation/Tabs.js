@@ -31,7 +31,7 @@ const Tabs = () => {
       })}
       tabBarOptions={{
         activeTintColor: 'tomato',
-        inactiveTintColor: 'gray',
+        inactiveTintColor: '#1C2938',
       }}
       lazy={false}>
       <AppTabs.Screen name={Routes.Restaurants} component={Restaurants} />
