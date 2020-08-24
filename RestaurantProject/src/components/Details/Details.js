@@ -6,8 +6,6 @@ import { useSelector } from 'react-redux';
 import PriceRating from '../../utils/PriceRating';
 import Stars from '../../utils/Stars';
 import CurrentDay from '../../utils/CurrentDay';
-import LikeButton from '../../utils/LikeButton';
-import DislikeButton from '../../utils/DislikeButton';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -38,19 +36,7 @@ const Details = ({ index, showDetails, MainAction, RightActions }) => {
       <Text style={styles.restaurantName}>
         {restaurants.restaurants[index].name}
       </Text>
-      {!showDetails ? (
-        <View style={styles.scheduleWithButtonsContainer}>
-          <LikeButton
-            size={50}
-            MainAction={MainAction}
-            RightActions={RightActions}
-          />
-          <View style={styles.dayContainer}>
-            <CurrentDay index={index} />
-          </View>
-          <DislikeButton size={50} MainAction={MainAction} />
-        </View>
-      ) : null}
+      {!showDetails ? <CurrentDay index={index} /> : null}
       <View style={styles.contactContainer}>
         {details.details[index].formatted_phone_number ? (
           <Text
@@ -134,11 +120,6 @@ const styles = StyleSheet.create({
   },
   dayContainer: {
     paddingVertical: 5,
-  },
-  scheduleWithButtonsContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-around',
   },
 });
 

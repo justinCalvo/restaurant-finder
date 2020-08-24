@@ -98,12 +98,7 @@ const Restaurants = ({ route, navigation }) => {
         }}>
         <SafeAreaView style={styles.container}>
           <Photos index={index} showDetails={showDetails} />
-          <Details
-            index={index}
-            showDetails={showDetails}
-            MainAction={MainAction}
-            RightActions={RightActions}
-          />
+          <Details index={index} showDetails={showDetails} />
           <Expanded
             index={index}
             showDetails={showDetails}
@@ -118,6 +113,8 @@ const Restaurants = ({ route, navigation }) => {
             setNum={setNum}
             scrollReviewsToTop={scrollReviewsToTop}
             setScrollReviewsToTop={setScrollReviewsToTop}
+            MainAction={MainAction}
+            RightActions={RightActions}
           />
         </SafeAreaView>
       </FlingGestureHandler>

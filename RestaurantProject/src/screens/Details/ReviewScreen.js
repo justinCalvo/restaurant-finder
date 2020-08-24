@@ -113,7 +113,7 @@ const { width } = Dimensions.get('window');
 const styles = StyleSheet.create({
   reviewDisplay: {
     display: 'flex',
-    marginBottom: 80,
+    marginBottom: 50,
     paddingHorizontal: 10,
   },
   reviewHide: {
