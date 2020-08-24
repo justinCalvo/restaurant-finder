@@ -3,6 +3,7 @@ import { TouchableOpacity } from 'react-native';
 import { DrawerActions } from '@react-navigation/native';
 
 import { createStackNavigator } from '@react-navigation/stack';
+import { CommonActions } from '@react-navigation/native';
 import { Routes } from '../constants/NavConst';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -43,7 +44,18 @@ const MainStack = () => {
           ),
         })}
       />
-      <Stack.Screen name={Routes.MatchDetails} component={MatchDetails} />
+      <Stack.Screen
+        name={Routes.MatchDetails}
+        component={MatchDetails}
+        options={({ navigation }) => ({
+          headerLeft: () => (
+            <TouchableOpacity
+              onPress={() => navigation.dispatch(CommonActions.goBack())}>
+              <Ionicons name="arrow-back-outline" size={30} color="black" />
+            </TouchableOpacity>
+          ),
+        })}
+      />
     </Stack.Navigator>
   );
 };

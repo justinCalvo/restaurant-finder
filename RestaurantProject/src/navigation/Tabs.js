@@ -38,6 +38,7 @@ const AppTabs = () => {
       swipeEnabled={false}
       lazy={false}>
       <Tabs.Screen name={Routes.Restaurants} component={Restaurants} />
+      {/* TODO: Fix tab bar badges, currently not displaying with top tab bar */}
       <Tabs.Screen
         name={Routes.Matches}
         component={Matches}
