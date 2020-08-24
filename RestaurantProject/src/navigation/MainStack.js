@@ -1,9 +1,14 @@
 import React from 'react';
+import { TouchableOpacity } from 'react-native';
+import { DrawerActions } from '@react-navigation/native';
+
 import { createStackNavigator } from '@react-navigation/stack';
-import Home from '../screens/Landing/Home';
 import { Routes } from '../constants/NavConst';
-import Tabs from './Tabs';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
 import MatchDetails from '../screens/Matches/MatchDetails';
+import Drawer from './Drawer';
+import HomeDrawer from './HomeDrawer';
 
 const Stack = createStackNavigator();
 
@@ -16,13 +21,27 @@ const MainStack = () => {
       }}>
       <Stack.Screen
         name={Routes.Home}
-        component={Home}
-        options={{ title: null }}
+        component={HomeDrawer}
+        options={({ navigation }) => ({
+          headerLeft: () => (
+            <TouchableOpacity
+              onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}>
+              <Ionicons name="menu-outline" size={30} color="black" />
+            </TouchableOpacity>
+          ),
+        })}
       />
       <Stack.Screen
         name={Routes.Restaurants}
-        component={Tabs}
-        options={{ headerLeft: null }}
+        component={Drawer}
+        options={({ navigation }) => ({
+          headerLeft: () => (
+            <TouchableOpacity
+              onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}>
+              <Ionicons name="menu-outline" size={30} color="black" />
+            </TouchableOpacity>
+          ),
+        })}
       />
       <Stack.Screen name={Routes.MatchDetails} component={MatchDetails} />
     </Stack.Navigator>
