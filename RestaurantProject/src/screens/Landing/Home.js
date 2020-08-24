@@ -21,7 +21,8 @@ const Home = () => {
       style={styles.keyboardColor}
       resetScrollToCoords={{ x: 0, y: 0 }}
       contentContainerStyle={styles.container}
-      scrollEnabled={false}>
+      scrollEnabled={false}
+      extraScrollHeight={20}>
       <View style={styles.buttonContainer}>
         <View style={styles.headerContainer}>
           <Text style={styles.header}>Rair</Text>
@@ -63,7 +64,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     width: width,
-    height: height / 1.5,
+    height: height / 1.75,
     justifyContent: 'flex-end',
     alignItems: 'center',
   },

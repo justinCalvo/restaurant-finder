@@ -113,6 +113,8 @@ const Restaurants = ({ route, navigation }) => {
             setNum={setNum}
             scrollReviewsToTop={scrollReviewsToTop}
             setScrollReviewsToTop={setScrollReviewsToTop}
+            MainAction={MainAction}
+            RightActions={RightActions}
           />
         </SafeAreaView>
       </FlingGestureHandler>

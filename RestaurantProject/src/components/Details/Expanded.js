@@ -8,6 +8,9 @@ import {
 import Reviews from './Reviews';
 import { useSelector } from 'react-redux';
 
+import LikeButton from '../../utils/LikeButton';
+import DislikeButton from '../../utils/DislikeButton';
+
 const Expanded = ({
   index,
   showDetails,
@@ -22,6 +25,8 @@ const Expanded = ({
   setNum,
   scrollReviewsToTop,
   setScrollReviewsToTop,
+  MainAction,
+  RightActions,
 }) => {
   const details = useSelector(state => state.details);
 
@@ -80,6 +85,14 @@ const Expanded = ({
               setScrollReviewsToTop={setScrollReviewsToTop}
             />
           </View>
+          <View style={styles.scheduleWithButtonsContainer}>
+            <LikeButton
+              size={50}
+              MainAction={MainAction}
+              RightActions={RightActions}
+            />
+            <DislikeButton size={50} MainAction={MainAction} />
+          </View>
         </View>
       </FlingGestureHandler>
     </FlingGestureHandler>
@@ -121,6 +134,13 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderTopWidth: 1,
     borderColor: 'black',
+  },
+  scheduleWithButtonsContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    width: width,
+    paddingTop: 10,
   },
 });
 

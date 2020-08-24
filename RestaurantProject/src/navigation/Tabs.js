@@ -1,5 +1,5 @@
 import React from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import { Routes } from '../constants/NavConst';
@@ -8,13 +8,13 @@ import { useSelector } from 'react-redux';
 import Restaurants from '../screens/Main/Restaurants';
 import Matches from '../components/Matches/Matches';
 
-const AppTabs = createBottomTabNavigator();
+const Tabs = createMaterialTopTabNavigator();
 
-const Tabs = () => {
+const AppTabs = () => {
   const matches = useSelector(state => state.matches);
 
   return (
-    <AppTabs.Navigator
+    <Tabs.Navigator
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
@@ -26,16 +26,20 @@ const Tabs = () => {
           } else if (route.name === Routes.Matches) {
             iconName = focused ? 'heart-circle' : 'heart-circle-outline';
           }
-          return <Ionicons name={iconName} size={size} color={color} />;
+          return <Ionicons name={iconName} size={25} color={color} />;
         },
       })}
       tabBarOptions={{
+        showIcon: true,
+        indicatorStyle: { backgroundColor: 'tomato' },
         activeTintColor: 'tomato',
-        inactiveTintColor: 'gray',
+        inactiveTintColor: '#1C2938',
       }}
+      swipeEnabled={false}
       lazy={false}>
-      <AppTabs.Screen name={Routes.Restaurants} component={Restaurants} />
-      <AppTabs.Screen
+      <Tabs.Screen name={Routes.Restaurants} component={Restaurants} />
+      {/* TODO: Fix tab bar badges, currently not displaying with top tab bar */}
+      <Tabs.Screen
         name={Routes.Matches}
         component={Matches}
         options={{
@@ -43,8 +47,8 @@ const Tabs = () => {
             matches.newMatchesCounter === 0 ? null : matches.newMatchesCounter,
         }}
       />
-    </AppTabs.Navigator>
+    </Tabs.Navigator>
   );
 };
 
-export default Tabs;
+export default AppTabs;

@@ -47,8 +47,8 @@ const styles = StyleSheet.create({
     paddingTop: 10,
   },
   photo: {
-    width: width - 10,
-    height: width - 10,
+    width: width / 1.3,
+    height: width / 1.3,
     marginLeft: 5,
     marginRight: 5,
   },

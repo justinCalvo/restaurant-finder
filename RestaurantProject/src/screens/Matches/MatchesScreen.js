@@ -9,8 +9,11 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
+
 import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
+import { Routes } from '../../constants/NavConst';
+
 import PriceRating from '../../utils/PriceRating';
 import Stars from '../../utils/Stars';
 
@@ -22,7 +25,7 @@ const MatchesScreen = ({ stars }) => {
     return (
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate('MatchDetails', {
+          navigation.navigate(Routes.MatchDetails, {
             item: item,
             stars: stars,
           });

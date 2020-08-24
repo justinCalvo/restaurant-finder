@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Linking, Dimensions } from 'react-native';
 import { createStars } from '../../helper/CreateStars';
+import { useSelector } from 'react-redux';
+
 import PriceRating from '../../utils/PriceRating';
 import Stars from '../../utils/Stars';
 import CurrentDay from '../../utils/CurrentDay';
-import { useSelector } from 'react-redux';
+
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const Details = ({ index, showDetails }) => {
+const Details = ({ index, showDetails, MainAction, RightActions }) => {
   const [stars, setStars] = useState([]);
   const restaurants = useSelector(state => state.restaurants);
   const details = useSelector(state => state.details);
@@ -34,9 +36,7 @@ const Details = ({ index, showDetails }) => {
       <Text style={styles.restaurantName}>
         {restaurants.restaurants[index].name}
       </Text>
-      <View style={styles.dayContainer}>
-        {!showDetails ? <CurrentDay index={index} /> : null}
-      </View>
+      {!showDetails ? <CurrentDay index={index} /> : null}
       <View style={styles.contactContainer}>
         {details.details[index].formatted_phone_number ? (
           <Text
@@ -51,9 +51,7 @@ const Details = ({ index, showDetails }) => {
           </Text>
         ) : null}
         <Text
-          onPress={() =>
-            Linking.openURL(restaurants.restaurants[index].website)
-          }
+          onPress={() => Linking.openURL(details.details[index].website)}
           style={[styles.website, styles.text]}>
           {restaurants.restaurants[index].name}
         </Text>
