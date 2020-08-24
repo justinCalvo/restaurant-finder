@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Linking, Dimensions } from 'react-native';
 import { createStars } from '../../helper/CreateStars';
+import { useSelector } from 'react-redux';
+
 import PriceRating from '../../utils/PriceRating';
 import Stars from '../../utils/Stars';
 import CurrentDay from '../../utils/CurrentDay';
 import LikeButton from '../../utils/LikeButton';
 import DislikeButton from '../../utils/DislikeButton';
-import { useSelector } from 'react-redux';
+
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const Details = ({ index, showDetails, MainAction, RightActions }) => {
