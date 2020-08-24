@@ -18,7 +18,9 @@ const MatchDetails = ({ route }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.restaurantName}>{item.name}</Text>
+      <View style={styles.nameContainer}>
+        <Text style={styles.restaurantName}>{item.name}</Text>
+      </View>
       <View style={styles.ratingContainer}>
         <View style={styles.priceContainer}>
           <PriceRating priceLevel={item.price_level} size={25} />
@@ -71,7 +73,6 @@ const styles = StyleSheet.create({
     width: width,
     height: height,
     backgroundColor: 'white',
-    // justifyContent: 'center',
   },
   photo: {
     width: width - 15,
@@ -87,10 +88,11 @@ const styles = StyleSheet.create({
   },
   ratingContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     paddingHorizontal: 10,
-    paddingBottom: 10,
+    paddingBottom: 5,
     alignItems: 'center',
+    paddingTop: 5,
   },
   restaurantRating: {
     flexDirection: 'row',
@@ -134,6 +136,9 @@ const styles = StyleSheet.create({
   },
   addressText: {
     textAlign: 'center',
+  },
+  nameContainer: {
+    paddingTop: 20,
   },
 });
 
