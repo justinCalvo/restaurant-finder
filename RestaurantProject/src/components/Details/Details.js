@@ -17,7 +17,7 @@ const Details = ({ index, showDetails, MainAction, RightActions }) => {
   useEffect(() => {
     createStars(undefined, restaurants.restaurants[index], setStars);
   }, [index, restaurants.restaurants]);
-  console.log(details.details[index]);
+
   return (
     <View style={styles.container}>
       {!showDetails ? (
