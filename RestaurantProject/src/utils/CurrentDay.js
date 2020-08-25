@@ -52,6 +52,8 @@ const styles = StyleSheet.create({
   text: {
     textAlign: 'center',
     fontSize: 18,
+    fontWeight: 'bold',
+    color: '#1C2938',
   },
 });
 

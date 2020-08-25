@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
   textInput: {
     fontSize: 28,
     borderBottomWidth: 1,
-    borderColor: 'black',
+    borderColor: '#1C2938',
     paddingVertical: 10,
     textAlign: 'center',
   },

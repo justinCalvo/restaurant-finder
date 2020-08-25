@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     height: height,
     flex: 1,
     alignItems: 'center',
-    backgroundColor: 'white',
+    backgroundColor: '#fafafa',
   },
   text: {
     paddingVertical: 10,
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   keyboardColor: {
-    backgroundColor: 'white',
+    backgroundColor: '#fafafa',
   },
 });
 

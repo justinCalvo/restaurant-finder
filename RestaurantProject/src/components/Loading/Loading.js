@@ -4,7 +4,7 @@ import { View, ActivityIndicator, Dimensions, StyleSheet } from 'react-native';
 const Loading = () => {
   return (
     <View style={styles.container}>
-      <ActivityIndicator size="large" color="tomato" />
+      <ActivityIndicator size="large" color="#ee6f57" />
     </View>
   );
 };
