@@ -1,7 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Linking, Dimensions } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Linking,
+  Dimensions,
+  TouchableOpacity,
+} from 'react-native';
 import { createStars } from '../../helper/CreateStars';
 import { useSelector } from 'react-redux';
+import Reviews from './Reviews';
 
 import PriceRating from '../../utils/PriceRating';
 import Stars from '../../utils/Stars';
@@ -9,8 +17,20 @@ import CurrentDay from '../../utils/CurrentDay';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const Details = ({ index, showDetails, MainAction, RightActions }) => {
+const Details = ({
+  index,
+  showDetails,
+  MainAction,
+  RightActions,
+  viewReviews,
+  setViewReviews,
+  customerRating,
+  setCustomerRating,
+  allCustomerRatings,
+  setAllCustomerRatings,
+}) => {
   const [stars, setStars] = useState([]);
+
   const restaurants = useSelector(state => state.restaurants);
   const details = useSelector(state => state.details);
 
@@ -38,23 +58,73 @@ const Details = ({ index, showDetails, MainAction, RightActions }) => {
       </Text>
       {!showDetails ? <CurrentDay index={index} /> : null}
       <View style={styles.contactContainer}>
-        {details.details[index].formatted_phone_number ? (
-          <Text
-            style={styles.text}
+        {details.details[index].formatted_phone_number && !showDetails ? (
+          <TouchableOpacity
             onPress={() =>
               Linking.openURL(
                 `tel:${details.details[index].formatted_phone_number}`,
               )
             }>
-            <Icon name="call" size={18} />
-            {details.details[index].formatted_phone_number}
-          </Text>
+            <View style={styles.align}>
+              <View style={styles.websiteContainer}>
+                <Icon name="call" size={18} color="#cb3737" />
+              </View>
+              <Text style={styles.text}>
+                {details.details[index].formatted_phone_number}
+              </Text>
+            </View>
+          </TouchableOpacity>
         ) : null}
-        <Text
-          onPress={() => Linking.openURL(details.details[index].website)}
-          style={[styles.website, styles.text]}>
-          {restaurants.restaurants[index].name}
-        </Text>
+        {details.details[index].website && !showDetails ? (
+          <TouchableOpacity
+            onPress={() => Linking.openURL(details.details[index].website)}>
+            <View style={styles.align}>
+              <View style={styles.websiteContainer}>
+                <Icon name="globe-outline" size={18} color="#cb3737" />
+              </View>
+              <Text style={styles.text}>Website</Text>
+            </View>
+          </TouchableOpacity>
+        ) : null}
+      </View>
+      <View style={styles.whileViewingDetails}>
+        <View>
+          {details.details[index].website && showDetails ? (
+            <TouchableOpacity
+              onPress={() => Linking.openURL(details.details[index].website)}>
+              <View style={[styles.align, styles.website]}>
+                <Icon name="globe-outline" size={18} color="#cb3737" />
+                <View style={styles.websiteContainer}>
+                  <Text style={styles.text}>Website</Text>
+                </View>
+              </View>
+            </TouchableOpacity>
+          ) : null}
+          {details.details[index].formatted_phone_number && showDetails ? (
+            <TouchableOpacity
+              onPress={() =>
+                Linking.openURL(
+                  `tel:${details.details[index].formatted_phone_number}`,
+                )
+              }>
+              <View style={styles.align}>
+                <Icon name="call" size={18} color="#cb3737" />
+                <View style={styles.websiteContainer}>
+                  <Text style={styles.text}>
+                    {details.details[index].formatted_phone_number}
+                  </Text>
+                </View>
+              </View>
+            </TouchableOpacity>
+          ) : null}
+        </View>
+        {showDetails ? (
+          <Reviews
+            index={index}
+            viewReviews={viewReviews}
+            setViewReviews={setViewReviews}
+          />
+        ) : null}
       </View>
       {!showDetails ? (
         <>
@@ -76,16 +146,19 @@ const { width } = Dimensions.get('window');
 const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
+    alignItems: 'center',
   },
   restaurantName: {
     fontSize: 24,
     fontWeight: 'bold',
     textAlign: 'center',
+    color: '#1C2938',
   },
   ratingContainer: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
     alignItems: 'center',
+    width: width / 1.3,
   },
   ratingsTotalText: {
     paddingHorizontal: 5,
@@ -93,16 +166,15 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 18,
-  },
-  website: {
-    color: 'blue',
-    textDecorationLine: 'underline',
+    fontWeight: 'bold',
+    color: '#1C2938',
   },
   contactContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    padding: 10,
+    paddingTop: 5,
     flexWrap: 'wrap',
+    width: width,
   },
   addressContainer: {
     alignItems: 'center',
@@ -117,9 +189,24 @@ const styles = StyleSheet.create({
   priceContainer: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
+    width: width / 1.3,
   },
   dayContainer: {
     paddingVertical: 5,
+  },
+  whileViewingDetails: {
+    flexDirection: 'row',
+    width: width,
+    justifyContent: 'space-around',
+  },
+  align: {
+    flexDirection: 'row',
+  },
+  website: {
+    paddingBottom: 5,
+  },
+  websiteContainer: {
+    paddingHorizontal: 5,
   },
 });
 

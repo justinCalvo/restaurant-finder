@@ -12,70 +12,70 @@ const PhotoDots = ({ photoIndex, index }) => {
         <Icon
           name="ellipse"
           size={10}
-          color={photoIndex === 1 ? 'white' : '#1C2938'}
+          color={photoIndex === 1 ? '#fafafa' : '#1C2938'}
         />
       ) : null}
       {details.details[index].photos.length - 1 >= 2 ? (
         <Icon
           name="ellipse"
           size={10}
-          color={photoIndex === 2 ? 'white' : '#1C2938'}
+          color={photoIndex === 2 ? '#fafafa' : '#1C2938'}
         />
       ) : null}
       {details.details[index].photos.length - 1 >= 3 ? (
         <Icon
           name="ellipse"
           size={10}
-          color={photoIndex === 3 ? 'white' : '#1C2938'}
+          color={photoIndex === 3 ? '#fafafa' : '#1C2938'}
         />
       ) : null}
       {details.details[index].photos.length - 1 >= 4 ? (
         <Icon
           name="ellipse"
           size={10}
-          color={photoIndex === 4 ? 'white' : '#1C2938'}
+          color={photoIndex === 4 ? '#fafafa' : '#1C2938'}
         />
       ) : null}
       {details.details[index].photos.length - 1 >= 5 ? (
         <Icon
           name="ellipse"
           size={10}
-          color={photoIndex === 5 ? 'white' : '#1C2938'}
+          color={photoIndex === 5 ? '#fafafa' : '#1C2938'}
         />
       ) : null}
       {details.details[index].photos.length - 1 >= 6 ? (
         <Icon
           name="ellipse"
           size={10}
-          color={photoIndex === 6 ? 'white' : '#1C2938'}
+          color={photoIndex === 6 ? '#fafafa' : '#1C2938'}
         />
       ) : null}
       {details.details[index].photos.length - 1 >= 7 ? (
         <Icon
           name="ellipse"
           size={10}
-          color={photoIndex === 7 ? 'white' : '#1C2938'}
+          color={photoIndex === 7 ? '#fafafa' : '#1C2938'}
         />
       ) : null}
       {details.details[index].photos.length - 1 >= 8 ? (
         <Icon
           name="ellipse"
           size={10}
-          color={photoIndex === 8 ? 'white' : '#1C2938'}
+          color={photoIndex === 8 ? '#fafafa' : '#1C2938'}
         />
       ) : null}
       {details.details[index].photos.length - 1 >= 9 ? (
         <Icon
           name="ellipse"
           size={10}
-          color={photoIndex === 9 ? 'white' : '#1C2938'}
+          color={photoIndex === 9 ? '#fafafa' : '#1C2938'}
         />
       ) : null}
       {details.details[index].photos.length - 1 >= 10 ? (
         <Icon
           name="ellipse"
           size={10}
-          color={photoIndex === 10 ? 'white' : '#1C2938'}
+          color={photoIndex === 10 ? '#fafafa' : '#1C2938'}
         />
       ) : null}
     </View>

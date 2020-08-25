@@ -98,7 +98,12 @@ const Restaurants = ({ route, navigation }) => {
         }}>
         <SafeAreaView style={styles.container}>
           <Photos index={index} showDetails={showDetails} />
-          <Details index={index} showDetails={showDetails} />
+          <Details
+            index={index}
+            showDetails={showDetails}
+            viewReviews={viewReviews}
+            setViewReviews={setViewReviews}
+          />
           <Expanded
             index={index}
             showDetails={showDetails}
@@ -129,7 +134,7 @@ const styles = StyleSheet.create({
     width: width,
     height: height,
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: '#fafafa',
   },
 });
 

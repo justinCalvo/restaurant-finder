@@ -31,8 +31,8 @@ const AppTabs = () => {
       })}
       tabBarOptions={{
         showIcon: true,
-        indicatorStyle: { backgroundColor: 'tomato' },
-        activeTintColor: 'tomato',
+        indicatorStyle: { backgroundColor: '#ee6f57' },
+        activeTintColor: '#ee6f57',
         inactiveTintColor: '#1C2938',
       }}
       swipeEnabled={false}

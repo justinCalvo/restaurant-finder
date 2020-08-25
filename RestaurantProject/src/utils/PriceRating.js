@@ -15,7 +15,7 @@ const PriceRating = ({ index, priceLevel, size }) => {
       <FontAwesome
         name="dollar"
         size={size}
-        color="black"
+        color="#1C2938"
         style={
           checkPriceLevel >= 1 ? styles.showDollarOne : styles.hideDollarOne
         }
@@ -23,7 +23,7 @@ const PriceRating = ({ index, priceLevel, size }) => {
       <FontAwesome
         name="dollar"
         size={size}
-        color="black"
+        color="#1C2938"
         style={
           checkPriceLevel >= 2 ? styles.showDollarTwo : styles.hideDollarTwo
         }
@@ -31,7 +31,7 @@ const PriceRating = ({ index, priceLevel, size }) => {
       <FontAwesome
         name="dollar"
         size={size}
-        color="black"
+        color="#1C2938"
         style={
           checkPriceLevel >= 3 ? styles.showDollarThree : styles.hideDollarThree
         }
@@ -39,7 +39,7 @@ const PriceRating = ({ index, priceLevel, size }) => {
       <FontAwesome
         name="dollar"
         size={size}
-        color="black"
+        color="#1C2938"
         style={
           checkPriceLevel >= 4 ? styles.showDollarFour : styles.hideDollarFour
         }

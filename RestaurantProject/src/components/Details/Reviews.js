@@ -1,62 +1,20 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import ReviewScreen from '../../screens/Details/ReviewScreen';
 import { useSelector } from 'react-redux';
 
-const Reviews = ({
-  index,
-  viewReviews,
-  setViewReviews,
-  customerRating,
-  setCustomerRating,
-  allCustomerRatings,
-  setAllCustomerRatings,
-  num,
-  setNum,
-  scrollReviewsToTop,
-  setScrollReviewsToTop,
-}) => {
-  const [buttonTitle, setButtonTitle] = useState('View Reviews');
-  const [reviewData, setReviewData] = useState([]);
-  const details = useSelector(state => state.details);
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
-  const updateReviewData = useCallback(() => {
-    let temp = [];
-    let nextNumber = 0;
-    if (details.details[index].reviews) {
-      const currentData = details.details[index].reviews;
-      for (var i = 0; i < currentData.length; i++) {
-        temp.push({
-          author_name: currentData[i].author_name,
-          rating: currentData[i].rating,
-          relative_time_description: currentData[i].relative_time_description,
-          text: currentData[i].text,
-          next: nextNumber,
-        });
-        nextNumber++;
-      }
-      setReviewData(temp);
-    }
-  }, [details.details, index, setReviewData]);
+const Reviews = ({ index, viewReviews, setViewReviews }) => {
+  const [buttonTitle, setButtonTitle] = useState('View Reviews');
+  const details = useSelector(state => state.details);
 
   const checkViewState = useCallback(() => {
     if (viewReviews) {
-      setButtonTitle('Hide Reviews');
+      setButtonTitle('minus');
     } else {
-      setButtonTitle('View Reviews');
+      setButtonTitle('plus');
     }
   }, [viewReviews]);
-
-  const allRatings = useCallback(() => {
-    let temp = [];
-    if (details.details[index].reviews) {
-      const currentData = details.details[index].reviews;
-      for (var i = 0; i < currentData.length; i++) {
-        temp.push(currentData[i].rating);
-      }
-      setAllCustomerRatings(temp);
-    }
-  }, [details.details, index, setAllCustomerRatings]);
 
   const handleViewReviews = useCallback(() => {
     if (!viewReviews) {
@@ -66,65 +24,36 @@ const Reviews = ({
     }
   }, [setViewReviews, viewReviews]);
 
-  const createStars = useCallback(() => {
-    const wholeNumber = allCustomerRatings[num]
-      ? allCustomerRatings[num]
-      : null;
-    let customerRatingArray = [];
-    if (wholeNumber) {
-      for (var i = 1; i <= 5; i++) {
-        if (i <= wholeNumber) {
-          customerRatingArray.push('star-sharp');
-        } else {
-          customerRatingArray.push('star-outline');
-        }
-      }
-      setCustomerRating(oldArray => [...oldArray, customerRatingArray]);
-      setNum(num + 1);
-    }
-  }, [allCustomerRatings, num, setCustomerRating, setNum]);
-
-  useEffect(() => {
-    createStars();
-  }, [createStars, allRatings, details.details, viewReviews]);
-
   useEffect(() => {
     checkViewState();
-    allRatings();
-  }, [allRatings, checkViewState, viewReviews, details.details]);
-
-  useEffect(() => {
-    updateReviewData();
-  }, [updateReviewData, details.details]);
+  }, [checkViewState, viewReviews, details.details]);
 
   return (
     <View style={styles.container}>
       {details.details[index].reviews ? (
-        <TouchableOpacity onPress={handleViewReviews}>
-          <Text style={[styles.reviews, styles.reviewsTouchable]}>
-            {buttonTitle}
-          </Text>
-        </TouchableOpacity>
+        <View style={styles.viewReviewsContainer}>
+          <TouchableOpacity onPress={handleViewReviews}>
+            <View style={styles.viewContainer}>
+              <FontAwesome name={buttonTitle} size={15} color="#cb3737" />
+              <View style={styles.reviewContainer}>
+                <Text style={[styles.reviews, styles.reviewsTouchable]}>
+                  Reviews
+                </Text>
+              </View>
+            </View>
+          </TouchableOpacity>
+        </View>
       ) : (
         <Text style={styles.reviews}>No Reviews</Text>
       )}
-      {customerRating ? (
-        <ReviewScreen
-          customerRating={customerRating}
-          allRatings={allRatings}
-          num={num}
-          viewReviews={viewReviews}
-          index={index}
-          reviewData={reviewData}
-          scrollReviewsToTop={scrollReviewsToTop}
-          setScrollReviewsToTop={setScrollReviewsToTop}
-        />
-      ) : null}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    paddingBottom: 10,
+  },
   reviewDisplay: {
     display: 'flex',
   },
@@ -132,19 +61,29 @@ const styles = StyleSheet.create({
     display: 'none',
   },
   reviews: {
-    fontSize: 22,
+    fontSize: 18,
     fontWeight: 'bold',
     textAlign: 'center',
-  },
-  text: {
-    fontSize: 18,
   },
   ratingContainer: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
   },
   reviewsTouchable: {
-    color: 'blue',
+    color: '#1C2938',
+  },
+  viewReviewsContainer: {
+    paddingBottom: 10,
+    height: 58,
+    justifyContent: 'flex-end',
+  },
+  viewContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  reviewContainer: {
+    paddingRight: 10,
+    paddingLeft: 5,
   },
 });
 

@@ -27,7 +27,7 @@ const MainStack = () => {
           headerLeft: () => (
             <TouchableOpacity
               onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}>
-              <Ionicons name="menu-outline" size={30} color="black" />
+              <Ionicons name="menu-outline" size={30} color="#1C2938" />
             </TouchableOpacity>
           ),
         })}
@@ -39,7 +39,7 @@ const MainStack = () => {
           headerLeft: () => (
             <TouchableOpacity
               onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}>
-              <Ionicons name="menu-outline" size={30} color="black" />
+              <Ionicons name="menu-outline" size={30} color="#1C2938" />
             </TouchableOpacity>
           ),
         })}
@@ -51,7 +51,7 @@ const MainStack = () => {
           headerLeft: () => (
             <TouchableOpacity
               onPress={() => navigation.dispatch(CommonActions.goBack())}>
-              <Ionicons name="arrow-back-outline" size={30} color="black" />
+              <Ionicons name="arrow-back-outline" size={30} color="#1C2938" />
             </TouchableOpacity>
           ),
         })}

@@ -22,7 +22,7 @@ const CreateReviews = ({ item, onPress, style, selectedId }) => (
           onPress={onPress}>
           <Text style={styles.text}>
             {item.text.substr(0, 100)}
-            <Text style={styles.readMore}> ...Read More</Text>
+            <Text style={styles.readMore}> ... Read More</Text>
           </Text>
         </TouchableWithoutFeedback>
       </View>
@@ -93,7 +93,7 @@ const ReviewScreen = ({
   }, [handleScrollReviewsToTop, scrollReviewsToTop]);
 
   return (
-    <View>
+    <View style={styles.container}>
       <FlatList
         style={viewReviews ? styles.reviewDisplay : styles.reviewHide}
         data={reviewData}
@@ -111,9 +111,11 @@ const ReviewScreen = ({
 const { width } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
+  // container: {
+  //   alignItems: 'center',
+  // },
   reviewDisplay: {
     display: 'flex',
-    marginBottom: 50,
     paddingHorizontal: 10,
   },
   reviewHide: {
@@ -145,7 +147,7 @@ const styles = StyleSheet.create({
   underline: {
     width: width / 1.5,
     height: 1,
-    backgroundColor: 'black',
+    backgroundColor: '#1C2938',
     margin: 15,
   },
   displayFullReview: {
@@ -164,8 +166,9 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
   },
   readMore: {
-    color: 'blue',
+    color: '#cb3737',
     fontSize: 16,
+    fontWeight: 'bold',
   },
 });
 

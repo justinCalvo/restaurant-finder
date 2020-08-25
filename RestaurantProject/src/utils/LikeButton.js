@@ -11,7 +11,7 @@ const LikeButton = ({ size, MainAction, RightActions }) => {
   return (
     <>
       <TouchableOpacity onPress={likeButton}>
-        <Icon name="heart-circle" size={size} color="tomato" />
+        <Icon name="heart-circle" size={size} color="#ee6f57" />
       </TouchableOpacity>
     </>
   );

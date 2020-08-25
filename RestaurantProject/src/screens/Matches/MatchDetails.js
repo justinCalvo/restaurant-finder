@@ -7,6 +7,7 @@ import {
   Dimensions,
   Image,
   Linking,
+  TouchableOpacity,
 } from 'react-native';
 import PriceRating from '../../utils/PriceRating';
 import Stars from '../../utils/Stars';
@@ -40,20 +41,28 @@ const MatchDetails = ({ route }) => {
       </View>
       <View style={styles.contactContainer}>
         {item.formatted_phone_number ? (
-          <Text
-            style={styles.text}
+          <TouchableOpacity
             onPress={() =>
               Linking.openURL(`tel:${item.formatted_phone_number}`)
             }>
-            <Icon name="call" size={18} />
-            {item.formatted_phone_number}
-          </Text>
+            <View style={styles.align}>
+              <View style={styles.websiteContainer}>
+                <Icon name="call" size={18} color="#cb3737" />
+              </View>
+              <Text style={styles.text}>{item.formatted_phone_number}</Text>
+            </View>
+          </TouchableOpacity>
         ) : null}
-        <Text
-          onPress={() => Linking.openURL(item.website)}
-          style={[styles.website, styles.text]}>
-          {item.name}
-        </Text>
+        {item.website ? (
+          <TouchableOpacity onPress={() => Linking.openURL(item.website)}>
+            <View style={styles.align}>
+              <View style={styles.websiteContainer}>
+                <Icon name="globe-outline" size={18} color="#cb3737" />
+              </View>
+              <Text style={styles.text}>Website</Text>
+            </View>
+          </TouchableOpacity>
+        ) : null}
       </View>
       <View style={styles.addressContainer}>
         <View style={styles.address}>
@@ -72,19 +81,19 @@ const styles = StyleSheet.create({
   container: {
     width: width,
     height: height,
-    backgroundColor: 'white',
+    backgroundColor: '#fafafa',
   },
   photo: {
-    width: width - 15,
-    height: width - 15,
+    width: width / 1.3,
+    height: width / 1.3,
     marginLeft: 5,
     marginRight: 5,
-    borderRadius: 200,
   },
   restaurantName: {
     fontSize: 24,
     fontWeight: 'bold',
     textAlign: 'center',
+    color: '#1C2938',
   },
   ratingContainer: {
     flexDirection: 'row',
@@ -122,10 +131,11 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 18,
+    fontWeight: 'bold',
+    color: '#1C2938',
   },
-  website: {
-    color: 'blue',
-    textDecorationLine: 'underline',
+  align: {
+    flexDirection: 'row',
   },
   addressContainer: {
     alignItems: 'center',
@@ -139,6 +149,9 @@ const styles = StyleSheet.create({
   },
   nameContainer: {
     paddingTop: 20,
+  },
+  websiteContainer: {
+    paddingHorizontal: 5,
   },
 });
 
