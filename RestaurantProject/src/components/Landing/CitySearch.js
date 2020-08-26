@@ -96,11 +96,13 @@ const styles = StyleSheet.create({
     borderColor: '#1C2938',
     paddingVertical: 10,
     textAlign: 'center',
+    color: '#1C2938',
   },
   text: {
     fontSize: 22,
     fontWeight: 'bold',
     textAlign: 'center',
+    color: '#1C2938',
   },
   textContainer: {
     paddingTop: 30,

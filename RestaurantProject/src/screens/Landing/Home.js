@@ -56,11 +56,13 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     fontSize: 28,
     fontWeight: 'bold',
+    color: '#1C2938',
   },
   header: {
     fontSize: 44,
     fontWeight: 'bold',
     alignItems: 'center',
+    color: '#1C2938',
   },
   buttonContainer: {
     width: width,
