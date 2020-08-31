@@ -3,6 +3,7 @@ import { SafeAreaView, View, StyleSheet } from 'react-native';
 import { Drawer, Text, TouchableRipple, Switch } from 'react-native-paper';
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 import Icon from 'react-native-vector-icons/Ionicons';
+import RNRestart from 'react-native-restart';
 
 export function DrawerContent(props) {
   const [isDark, setIsDark] = useState(false);
@@ -41,7 +42,7 @@ export function DrawerContent(props) {
             )}
             label="Leave Session"
             onPress={() => {
-              props.navigation.navigate('Home');
+              RNRestart.Restart();
             }}
             inactiveTintColor="#1C2938"
             inactiveBackgroundColor="#e3e3e3"
