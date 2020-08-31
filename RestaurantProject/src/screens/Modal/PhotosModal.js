@@ -24,10 +24,12 @@ const PhotosModal = ({ route }) => {
   const [swipedRight, setSwipedRight] = useState(false);
   const [swipedLeft, setSwipedLeft] = useState(false);
   const [photoIndex, setPhotoIndex] = useState(1);
+
+  const details = useSelector(state => state.details);
+
   const navigation = useNavigation();
   const isFocused = useIsFocused();
   const dispatch = useDispatch();
-  const details = useSelector(state => state.details);
 
   const SwipeRight = useCallback(() => {
     setSwipedRight(true);

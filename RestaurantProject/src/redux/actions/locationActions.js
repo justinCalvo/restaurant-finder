@@ -7,6 +7,9 @@ export const getLocation = (city, states, zipcode) => async dispatch => {
       type: 'RESET_RESTAURANTS',
       payload: {
         restaurants: [],
+        details: [],
+        matches: {},
+        displayMatches: [],
       },
     });
     dispatch({
@@ -67,8 +70,8 @@ export const getLocation = (city, states, zipcode) => async dispatch => {
     }`;
 
     const finalData = await axios.get(url);
-
     newData[0].photos[1].url = finalData.config.url;
+
     dispatch({
       type: 'SUCCESS_DETAILS',
       payload: {

@@ -1,13 +1,15 @@
 import axios from 'axios';
 import config from '../../../config';
 
-export const getRestaurants = (city, states, zipcode) => async dispatch => {
+export const getRestaurants = () => async dispatch => {
   try {
     dispatch({
       type: 'RESET_RESTAURANTS',
       payload: {
         restaurants: [],
         details: [],
+        matches: {},
+        displayMatches: [],
       },
     });
 
@@ -20,11 +22,18 @@ export const getRestaurants = (city, states, zipcode) => async dispatch => {
     }`;
 
     const restaurants = await axios.get(url);
+    let placeIdData = [],
+      i;
+    for (i = 0; i < restaurants.data.results.length; i++) {
+      if (restaurants.data.results[i].place_id) {
+        placeIdData.push(restaurants.data.results[i].place_id);
+      }
+    }
 
     dispatch({
       type: 'SUCCESS_RESTAURANTS',
       payload: {
-        restaurants: restaurants.data.results,
+        restaurants: placeIdData,
         nextPageToken: restaurants.data.next_page_token,
       },
     });
@@ -34,11 +43,10 @@ export const getRestaurants = (city, states, zipcode) => async dispatch => {
     });
 
     url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${
-      restaurants.data.results[0].place_id
-    }&fields=formatted_phone_number,opening_hours/weekday_text,website,photo,reviews&key=${
+      placeIdData[0]
+    }&fields=formatted_phone_number,opening_hours/weekday_text,website,photo,reviews,rating,user_ratings_total,price_level,formatted_address,name&key=${
       config.API_KEY
     }`;
-
     const deets = await axios.get(url);
     // deets.data.result.place_id = restaurants.data.results[0].place_id;
     let newData = [deets.data.result];
@@ -56,14 +64,14 @@ export const getRestaurants = (city, states, zipcode) => async dispatch => {
     const initialOneData = await axios.get(url);
     newData[0].photos[1].url = initialOneData.config.url;
 
-    url = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=${
-      newData[0].photos[2].width
-    }&photoreference=${newData[0].photos[2].photo_reference}&key=${
-      config.API_KEY
-    }`;
+    // url = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=${
+    //   newData[0].photos[2].width
+    // }&photoreference=${newData[0].photos[2].photo_reference}&key=${
+    //   config.API_KEY
+    // }`;
 
-    const initialTwoData = await axios.get(url);
-    newData[0].photos[2].url = initialTwoData.config.url;
+    // const initialTwoData = await axios.get(url);
+    // newData[0].photos[2].url = initialTwoData.config.url;
 
     dispatch({
       type: 'SUCCESS_DETAILS',

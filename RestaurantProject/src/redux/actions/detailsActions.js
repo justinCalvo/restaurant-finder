@@ -41,8 +41,8 @@ export const getDetails = (
     if (restaurants) {
       newData = details;
       url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${
-        restaurants[index + 1].place_id
-      }&fields=formatted_phone_number,opening_hours/weekday_text,website,photo,reviews&key=${
+        restaurants[index + 1]
+      }&fields=formatted_phone_number,opening_hours/weekday_text,website,photo,reviews,rating,user_ratings_total,price_level,formatted_address,name&key=${
         config.API_KEY
       }`;
 
