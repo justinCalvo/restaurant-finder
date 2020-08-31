@@ -36,11 +36,18 @@ export const getLocation = (city, states, zipcode) => async dispatch => {
     }`;
 
     const restaurants = await axios.get(url);
+    let placeIdData = [],
+      i;
+    for (i = 0; i < restaurants.data.results.length; i++) {
+      if (restaurants.data.results[i].place_id) {
+        placeIdData.push(restaurants.data.results[i].place_id);
+      }
+    }
 
     dispatch({
       type: 'SUCCESS_RESTAURANTS',
       payload: {
-        restaurants: restaurants.data.results,
+        restaurants: placeIdData,
         nextPageToken: restaurants.data.next_page_token,
       },
     });
@@ -49,9 +56,7 @@ export const getLocation = (city, states, zipcode) => async dispatch => {
       type: 'AWAITING_DETAILS',
     });
 
-    url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${
-      restaurants.data.results[0].place_id
-    }&fields=formatted_phone_number,opening_hours/weekday_text,website,photo,reviews&key=${
+    url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeIdData}&fields=formatted_phone_number,opening_hours/weekday_text,website,photo,reviews&key=${
       config.API_KEY
     }`;
 
