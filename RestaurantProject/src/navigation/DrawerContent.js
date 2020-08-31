@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SafeAreaView, View, StyleSheet } from 'react-native';
+import { SafeAreaView, View, StyleSheet, Alert } from 'react-native';
 import { Drawer, Text, TouchableRipple, Switch } from 'react-native-paper';
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -42,13 +42,21 @@ export function DrawerContent(props) {
             )}
             label="Leave Session"
             onPress={() => {
-              RNRestart.Restart();
+              Alert.alert(
+                'Hold on!',
+                'Are you sure you want to leave your current session?',
+                [
+                  {
+                    text: 'Cancel',
+                    onPress: () => null,
+                    style: 'cancel',
+                  },
+                  { text: 'YES', onPress: () => RNRestart.Restart() },
+                ],
+              );
             }}
             inactiveTintColor="#1C2938"
             inactiveBackgroundColor="#e3e3e3"
-            activeBackgroundColor="#cb3737"
-            activeTintColor="#fafafa"
-            // focused={true}
           />
         </Drawer.Section>
       </DrawerContentScrollView>
