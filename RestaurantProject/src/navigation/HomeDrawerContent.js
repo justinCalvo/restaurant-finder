@@ -5,6 +5,7 @@ import { DrawerContentScrollView } from '@react-navigation/drawer';
 
 export function HomeDrawerContent(props) {
   const [isDark, setIsDark] = useState(false);
+
   return (
     <SafeAreaView style={styles.container}>
       <DrawerContentScrollView {...props}>

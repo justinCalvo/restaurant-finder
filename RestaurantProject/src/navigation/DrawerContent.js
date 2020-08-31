@@ -7,24 +7,10 @@ import RNRestart from 'react-native-restart';
 
 export function DrawerContent(props) {
   const [isDark, setIsDark] = useState(false);
+
   return (
     <SafeAreaView style={styles.container}>
       <DrawerContentScrollView {...props}>
-        {/* <Drawer.Section>
-          <DrawerItem
-            icon={({ focused, color, size }) => (
-              <Icon name="home" color={color} size={size} />
-            )}
-            label="Current Session"
-            onPress={() => {
-              props.navigation.navigate('Restaurants');
-            }}
-            inactiveTintColor="#1C2938"
-            inactiveBackgroundColor="#e3e3e3"
-            activeBackgroundColor="#cb3737"
-            activeTintColor="#fafafa"
-          />
-        </Drawer.Section> */}
         <Drawer.Section style={styles.preferenceContainer} title="Preferences">
           <TouchableRipple onPress={() => setIsDark(!isDark)}>
             <View style={styles.preference}>
