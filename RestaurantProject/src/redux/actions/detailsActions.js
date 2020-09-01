@@ -15,13 +15,12 @@ export const getDetails = (
     let pData = details,
       url;
 
-    if (pIndex && !pData[index].photos[pIndex + 2].url) {
+    if (pIndex !== undefined && !pData[index].photos[pIndex + 2].url) {
       url = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=${
         details[index].photos[pIndex + 2].width
       }&photoreference=${
         details[index].photos[pIndex + 2].photo_reference
       }&key=${config.API_KEY}`;
-
       const data = await axios.get(url);
       pData[index].photos[pIndex + 2].url = data.config.url;
     }
@@ -41,8 +40,8 @@ export const getDetails = (
     if (restaurants) {
       newData = details;
       url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${
-        restaurants[index + 1].place_id
-      }&fields=formatted_phone_number,opening_hours/weekday_text,website,photo,reviews&key=${
+        restaurants[index + 1]
+      }&fields=formatted_phone_number,opening_hours/weekday_text,website,photo,reviews,rating,user_ratings_total,price_level,formatted_address,name&key=${
         config.API_KEY
       }`;
 
@@ -65,15 +64,6 @@ export const getDetails = (
 
       const initialOneData = await axios.get(url);
       newData[index + 1].photos[1].url = initialOneData.config.url;
-
-      url = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=${
-        newData[index + 1].photos[2].width
-      }&photoreference=${newData[index + 1].photos[2].photo_reference}&key=${
-        config.API_KEY
-      }`;
-
-      const initialTwoData = await axios.get(url);
-      newData[index + 1].photos[2].url = initialTwoData.config.url;
     }
 
     dispatch({

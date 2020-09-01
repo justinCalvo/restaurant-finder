@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   View,
   Image,
@@ -11,14 +11,28 @@ import { Routes } from '../../constants/NavConst';
 import { useSelector } from 'react-redux';
 
 const Photos = ({ index, photoIndex, showDetails }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const navigation = useNavigation();
+
   const details = useSelector(state => state.details);
 
   const handlePhotosModal = () => {
-    navigation.navigate(Routes.PhotosModal, {
-      index: index,
-    });
+    setIsModalOpen(true);
   };
+
+  const openModal = useCallback(() => {
+    if (isModalOpen) {
+      navigation.navigate(Routes.PhotosModal, {
+        index: index,
+        isModalOpen: isModalOpen,
+        setIsModalOpen: setIsModalOpen,
+      });
+    }
+  }, [isModalOpen, navigation, index]);
+
+  useEffect(() => {
+    openModal();
+  }, [openModal, isModalOpen]);
 
   return (
     <View>

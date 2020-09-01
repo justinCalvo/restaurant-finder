@@ -24,10 +24,12 @@ const PhotosModal = ({ route }) => {
   const [swipedRight, setSwipedRight] = useState(false);
   const [swipedLeft, setSwipedLeft] = useState(false);
   const [photoIndex, setPhotoIndex] = useState(1);
+
+  const details = useSelector(state => state.details);
+
   const navigation = useNavigation();
   const isFocused = useIsFocused();
   const dispatch = useDispatch();
-  const details = useSelector(state => state.details);
 
   const SwipeRight = useCallback(() => {
     setSwipedRight(true);
@@ -38,15 +40,16 @@ const PhotosModal = ({ route }) => {
   }, []);
 
   useEffect(() => {
+    if (route.params.isModalOpen) {
+      dispatch(getDetails(details.details, undefined, route.params.index, 0));
+      route.params.setIsModalOpen(false);
+    }
     if (photoIndex > 1 && swipedRight) {
       setPhotoIndex(photoIndex - 1);
       setSwipedRight(false);
     }
 
-    if (
-      photoIndex < details.details[route.params.index].photos.length - 1 &&
-      swipedLeft
-    ) {
+    if (photoIndex < 5 && swipedLeft) {
       dispatch(
         getDetails(details.details, undefined, route.params.index, photoIndex),
       );
@@ -60,8 +63,8 @@ const PhotosModal = ({ route }) => {
     swipedRight,
     photoIndex,
     details.details,
-    route.params.index,
     dispatch,
+    route.params,
   ]);
 
   return (

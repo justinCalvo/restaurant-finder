@@ -31,12 +31,11 @@ const Details = ({
 }) => {
   const [stars, setStars] = useState([]);
 
-  const restaurants = useSelector(state => state.restaurants);
   const details = useSelector(state => state.details);
 
   useEffect(() => {
-    createStars(undefined, restaurants.restaurants[index], setStars);
-  }, [index, restaurants.restaurants]);
+    createStars(undefined, details.details[index], setStars);
+  }, [index, details.details]);
 
   return (
     <View style={styles.container}>
@@ -44,7 +43,7 @@ const Details = ({
         <>
           <View style={styles.ratingContainer}>
             <Text style={styles.ratingsTotalText}>
-              ({restaurants.restaurants[index].user_ratings_total})
+              ({details.details[index].user_ratings_total})
             </Text>
             <Stars stars={stars} size={25} />
           </View>
@@ -53,9 +52,7 @@ const Details = ({
           </View>
         </>
       ) : null}
-      <Text style={styles.restaurantName}>
-        {restaurants.restaurants[index].name}
-      </Text>
+      <Text style={styles.restaurantName}>{details.details[index].name}</Text>
       {!showDetails ? <CurrentDay index={index} /> : null}
       <View style={styles.contactContainer}>
         {details.details[index].formatted_phone_number && !showDetails ? (
@@ -131,7 +128,7 @@ const Details = ({
           <View style={styles.addressContainer}>
             <View style={styles.address}>
               <Text style={[styles.text, styles.addressText]}>
-                {restaurants.restaurants[index].formatted_address}
+                {details.details[index].formatted_address}
               </Text>
             </View>
           </View>

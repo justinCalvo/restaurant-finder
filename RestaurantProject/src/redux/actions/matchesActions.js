@@ -12,6 +12,7 @@ export const setMatches = (
     if (!restaurants && !index) {
       var counter = 0;
     }
+
     dispatch({
       type: 'SUCCESS_RESET',
       payload: {
@@ -26,30 +27,29 @@ export const setMatches = (
     let matchObj;
     if (!matches.matches) {
       matchObj = {};
-      matchObj[restaurants[index].place_id] = [index, 1];
+      matchObj[restaurants[index]] = [index, 1];
     } else {
       matchObj = matches.matches;
-      matchObj[restaurants[index].place_id] = [index, 1];
+      matchObj[restaurants[index]] = [index, 1];
     }
 
     let item,
       newMatches = [],
       next = 0;
-
     for (item in matchObj) {
       for (let i = 0; i < restaurants.length; i++) {
-        if (restaurants[i].place_id === item) {
+        if (restaurants[i] === item) {
           newMatches.push({
             formatted_phone_number: details[i].formatted_phone_number,
             opening_hours: details[i].opening_hours,
             photos: details[i].photos,
             reviews: details[i].reviews,
             website: details[i].website,
-            formatted_address: restaurants[i].formatted_address,
-            name: restaurants[i].name,
-            price_level: restaurants[i].price_level,
-            rating: restaurants[i].rating,
-            user_ratings_total: restaurants[i].user_ratings_total,
+            formatted_address: details[i].formatted_address,
+            name: details[i].name,
+            price_level: details[i].price_level,
+            rating: details[i].rating,
+            user_ratings_total: details[i].user_ratings_total,
             nextStars: next,
           });
           next++;

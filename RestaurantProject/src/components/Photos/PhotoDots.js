@@ -43,41 +43,6 @@ const PhotoDots = ({ photoIndex, index }) => {
           color={photoIndex === 5 ? '#fafafa' : '#1C2938'}
         />
       ) : null}
-      {details.details[index].photos.length - 1 >= 6 ? (
-        <Icon
-          name="ellipse"
-          size={10}
-          color={photoIndex === 6 ? '#fafafa' : '#1C2938'}
-        />
-      ) : null}
-      {details.details[index].photos.length - 1 >= 7 ? (
-        <Icon
-          name="ellipse"
-          size={10}
-          color={photoIndex === 7 ? '#fafafa' : '#1C2938'}
-        />
-      ) : null}
-      {details.details[index].photos.length - 1 >= 8 ? (
-        <Icon
-          name="ellipse"
-          size={10}
-          color={photoIndex === 8 ? '#fafafa' : '#1C2938'}
-        />
-      ) : null}
-      {details.details[index].photos.length - 1 >= 9 ? (
-        <Icon
-          name="ellipse"
-          size={10}
-          color={photoIndex === 9 ? '#fafafa' : '#1C2938'}
-        />
-      ) : null}
-      {details.details[index].photos.length - 1 >= 10 ? (
-        <Icon
-          name="ellipse"
-          size={10}
-          color={photoIndex === 10 ? '#fafafa' : '#1C2938'}
-        />
-      ) : null}
     </View>
   );
 };

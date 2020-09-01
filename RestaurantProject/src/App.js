@@ -1,9 +1,11 @@
 import 'react-native-gesture-handler';
 import React from 'react';
+import { Provider as PaperProvider } from 'react-native-paper';
 import { NavigationContainer } from '@react-navigation/native';
-import RootStack from './navigation/RootStack';
 import { YellowBox } from 'react-native';
 import { Provider } from 'react-redux';
+
+import RootStack from './navigation/RootStack';
 import store from './redux/store';
 
 YellowBox.ignoreWarnings([
@@ -15,9 +17,11 @@ console.disableYellowBox = true;
 const App = () => {
   return (
     <Provider store={store}>
-      <NavigationContainer>
-        <RootStack />
-      </NavigationContainer>
+      <PaperProvider>
+        <NavigationContainer>
+          <RootStack />
+        </NavigationContainer>
+      </PaperProvider>
     </Provider>
   );
 };

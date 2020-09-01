@@ -12,6 +12,8 @@ const restaurantsReducer = (state = initalState, action) => {
         ...state,
         restaurants: payload.restaurants,
         details: payload.details,
+        matches: payload.matches,
+        displayMatches: payload.displayMatches,
       };
     case 'AWAITING_LOCATION':
       return {

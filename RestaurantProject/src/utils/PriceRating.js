@@ -4,11 +4,9 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { useSelector } from 'react-redux';
 
 const PriceRating = ({ index, priceLevel, size }) => {
-  const restaurants = useSelector(state => state.restaurants);
+  const details = useSelector(state => state.details);
   const checkPriceLevel =
-    index !== undefined
-      ? restaurants.restaurants[index].price_level
-      : priceLevel;
+    index !== undefined ? details.details[index].price_level : priceLevel;
 
   return (
     <>
