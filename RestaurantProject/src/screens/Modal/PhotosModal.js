@@ -49,10 +49,7 @@ const PhotosModal = ({ route }) => {
       setSwipedRight(false);
     }
 
-    if (
-      photoIndex < details.details[route.params.index].photos.length - 1 &&
-      swipedLeft
-    ) {
+    if (photoIndex < 5 && swipedLeft) {
       dispatch(
         getDetails(details.details, undefined, route.params.index, photoIndex),
       );
