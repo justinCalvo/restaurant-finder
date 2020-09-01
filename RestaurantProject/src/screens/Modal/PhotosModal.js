@@ -40,6 +40,10 @@ const PhotosModal = ({ route }) => {
   }, []);
 
   useEffect(() => {
+    if (route.params.isModalOpen) {
+      dispatch(getDetails(details.details, undefined, route.params.index, 0));
+      route.params.setIsModalOpen(false);
+    }
     if (photoIndex > 1 && swipedRight) {
       setPhotoIndex(photoIndex - 1);
       setSwipedRight(false);
@@ -62,8 +66,8 @@ const PhotosModal = ({ route }) => {
     swipedRight,
     photoIndex,
     details.details,
-    route.params.index,
     dispatch,
+    route.params,
   ]);
 
   return (

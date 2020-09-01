@@ -48,7 +48,7 @@ export const getRestaurants = () => async dispatch => {
       config.API_KEY
     }`;
     const deets = await axios.get(url);
-    // deets.data.result.place_id = restaurants.data.results[0].place_id;
+
     let newData = [deets.data.result];
 
     dispatch({
@@ -63,15 +63,6 @@ export const getRestaurants = () => async dispatch => {
 
     const initialOneData = await axios.get(url);
     newData[0].photos[1].url = initialOneData.config.url;
-
-    // url = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=${
-    //   newData[0].photos[2].width
-    // }&photoreference=${newData[0].photos[2].photo_reference}&key=${
-    //   config.API_KEY
-    // }`;
-
-    // const initialTwoData = await axios.get(url);
-    // newData[0].photos[2].url = initialTwoData.config.url;
 
     dispatch({
       type: 'SUCCESS_DETAILS',
