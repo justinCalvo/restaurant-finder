@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  SafeAreaView,
   View,
   Text,
   StyleSheet,
@@ -16,6 +15,7 @@ import { Routes } from '../../constants/NavConst';
 
 import PriceRating from '../../utils/PriceRating';
 import Stars from '../../utils/Stars';
+import PoweredByGoogle from '../../utils/PoweredByGoogle';
 
 const MatchesScreen = ({ stars }) => {
   const navigation = useNavigation();
@@ -54,25 +54,20 @@ const MatchesScreen = ({ stars }) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <FlatList
-        style={styles.display}
-        data={displayMatches.displayMatches}
-        keyExtractor={item => item.nextStars.toString()}
-        extraData={stars}
-        renderItem={renderItem}
-      />
-    </SafeAreaView>
+    <FlatList
+      style={styles.display}
+      data={displayMatches.displayMatches}
+      keyExtractor={item => item.nextStars.toString()}
+      extraData={stars}
+      renderItem={renderItem}
+      ListFooterComponent={PoweredByGoogle}
+    />
   );
 };
 
-const { width, height } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
-  container: {
-    height: height,
-    width: width,
-  },
   condensed: {
     width: width / 5,
     height: width / 5,

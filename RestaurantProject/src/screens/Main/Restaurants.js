@@ -14,6 +14,7 @@ import {
 import Expanded from '../../components/Details/Expanded';
 import Photos from '../../components/Photos/Photos';
 import Details from '../../components/Details/Details';
+import PoweredByGoogle from '../../utils/PoweredByGoogle';
 // import { getNext, getNextTwenty } from '../../API/getNextDetails';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDetails } from '../../redux/actions/detailsActions';
@@ -121,6 +122,7 @@ const Restaurants = ({ route, navigation }) => {
             MainAction={MainAction}
             RightActions={RightActions}
           />
+          <PoweredByGoogle />
         </SafeAreaView>
       </FlingGestureHandler>
     </FlingGestureHandler>
