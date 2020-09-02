@@ -19,6 +19,7 @@ import PoweredByGoogle from '../../utils/PoweredByGoogle';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDetails } from '../../redux/actions/detailsActions';
 import { setMatches } from '../../redux/actions/matchesActions';
+import { getNextTwenty } from '../../redux/actions/nextTwentyActions';
 
 const Restaurants = ({ route, navigation }) => {
   const [index, setIndex] = useState(0);
@@ -49,11 +50,13 @@ const Restaurants = ({ route, navigation }) => {
       // TODO: better ending to list
       Alert.alert('End of List');
     }
-    // if (index === 15 || index === 35) {
-    //   getNextTwenty(route, axios, index, config);
-    // }
+    if (index === 15 || index === 35) {
+      await dispatch(
+        getNextTwenty(restaurants.restaurants, restaurants.nextPageToken),
+      );
+    }
   };
-  // console.log(details.details[0]);
+
   const RightActions = async () => {
     await dispatch(
       setMatches(restaurants.restaurants, details.details, index, matches),

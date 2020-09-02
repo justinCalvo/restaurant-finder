@@ -37,6 +37,20 @@ const restaurantsReducer = (state = initalState, action) => {
         restaurants: payload.restaurants,
         nextPageToken: payload.nextPageToken,
       };
+    case 'AWAITING_NEXT_TWENTY_RESTAURANTS':
+      return {
+        ...state,
+      };
+    case 'SUCCESS_NEXT_TWENTY_RESTAURANTS':
+      return {
+        ...state,
+        restaurants: payload.restaurants,
+        nextPageToken: payload.nextPageToken,
+      };
+    case 'REJECTED_NEXT_TWENTY_RESTAURANTS':
+      return {
+        ...state,
+      };
     default:
       return state;
   }
