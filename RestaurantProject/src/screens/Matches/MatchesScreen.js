@@ -54,18 +54,24 @@ const MatchesScreen = ({ stars }) => {
   };
 
   return (
-    <FlatList
-      style={styles.display}
-      data={displayMatches.displayMatches}
-      keyExtractor={item => item.nextStars.toString()}
-      extraData={stars}
-      renderItem={renderItem}
-      ListFooterComponent={PoweredByGoogle}
-    />
+    <>
+      <View style={styles.listContainer}>
+        <FlatList
+          style={styles.display}
+          data={displayMatches.displayMatches}
+          keyExtractor={item => item.nextStars.toString()}
+          extraData={stars}
+          renderItem={renderItem}
+        />
+      </View>
+      <View>
+        <PoweredByGoogle />
+      </View>
+    </>
   );
 };
 
-const { width } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   condensed: {
@@ -103,8 +109,11 @@ const styles = StyleSheet.create({
   },
   display: {
     display: 'flex',
-    marginBottom: 170,
+    marginBottom: 10,
     paddingHorizontal: 10,
+  },
+  listContainer: {
+    height: height / 1.3,
   },
 });
 

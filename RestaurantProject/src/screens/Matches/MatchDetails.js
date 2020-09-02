@@ -158,8 +158,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
   },
   poweredByGoogle: {
-    flex: 1,
-    justifyContent: 'center',
+    height: height / 4.8,
+    justifyContent: 'flex-end',
   },
 });
 
