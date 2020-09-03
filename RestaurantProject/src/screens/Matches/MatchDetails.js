@@ -12,6 +12,7 @@ import {
 import PriceRating from '../../utils/PriceRating';
 import Stars from '../../utils/Stars';
 import CurrentDay from '../../utils/CurrentDay';
+import PoweredByGoogle from '../../utils/PoweredByGoogle';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const MatchDetails = ({ route }) => {
@@ -70,6 +71,9 @@ const MatchDetails = ({ route }) => {
             {item.formatted_address}
           </Text>
         </View>
+      </View>
+      <View style={styles.poweredByGoogle}>
+        <PoweredByGoogle />
       </View>
     </SafeAreaView>
   );
@@ -152,6 +156,10 @@ const styles = StyleSheet.create({
   },
   websiteContainer: {
     paddingHorizontal: 5,
+  },
+  poweredByGoogle: {
+    height: height / 4.8,
+    justifyContent: 'flex-end',
   },
 });
 
