@@ -7,14 +7,19 @@ import {
   Dimensions,
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import Icon from 'react-native-vector-icons/Ionicons';
+
 import ProximitySearch from '../../components/Landing/ProximitySearch';
 import CitySearch from '../../components/Landing/CitySearch';
-import Icon from 'react-native-vector-icons/Ionicons';
+import MinMax from '../../components/Landing/MinMax';
 import Loading from '../../components/Loading/Loading';
 
 const Home = () => {
   const [toggleCitySearch, setToggleCitySearch] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  const [min, setMin] = useState(1);
+  const [max, setMax] = useState(4);
 
   return (
     <KeyboardAwareScrollView
@@ -28,6 +33,7 @@ const Home = () => {
           <Text style={styles.header}>Rair</Text>
         </View>
         {isLoading ? <Loading /> : null}
+        <MinMax min={min} setMin={setMin} max={max} setMax={setMax} />
         <ProximitySearch isLoading={isLoading} setIsLoading={setIsLoading} />
         <TouchableOpacity
           onPress={() => setToggleCitySearch(!toggleCitySearch)}>

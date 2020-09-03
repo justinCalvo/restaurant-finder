@@ -24,13 +24,17 @@ import { getNextTwenty } from '../../redux/actions/nextTwentyActions';
 
 const Restaurants = ({ route, navigation }) => {
   const [index, setIndex] = useState(0);
+  const [num, setNum] = useState(0);
+
   const [showDetails, setShowDetails] = useState(false);
   const [viewReviews, setViewReviews] = useState(false);
   const [scrollReviewsToTop, setScrollReviewsToTop] = useState(false);
+
   const [customerRating, setCustomerRating] = useState([]);
   const [allCustomerRatings, setAllCustomerRatings] = useState([]);
-  const [num, setNum] = useState(0);
+
   const dispatch = useDispatch();
+
   const details = useSelector(state => state.details);
   const restaurants = useSelector(state => state.restaurants);
   const matches = useSelector(state => state.matches);
