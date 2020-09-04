@@ -34,16 +34,27 @@ const Home = () => {
         </View>
         {isLoading ? <Loading /> : null}
         <MinMax min={min} setMin={setMin} max={max} setMax={setMax} />
-        <ProximitySearch isLoading={isLoading} setIsLoading={setIsLoading} />
+        <ProximitySearch
+          isLoading={isLoading}
+          setIsLoading={setIsLoading}
+          min={min}
+          max={max}
+        />
         <TouchableOpacity
           onPress={() => setToggleCitySearch(!toggleCitySearch)}>
           <Text style={styles.text}>
-            <Icon name="search-sharp" size={24} /> Search Location
+            <Icon name="search-sharp" size={24} color="#cb3737" /> Search
+            Location
           </Text>
         </TouchableOpacity>
       </View>
       {toggleCitySearch ? (
-        <CitySearch isLoading={isLoading} setIsLoading={setIsLoading} />
+        <CitySearch
+          isLoading={isLoading}
+          setIsLoading={setIsLoading}
+          min={min}
+          max={max}
+        />
       ) : null}
     </KeyboardAwareScrollView>
   );

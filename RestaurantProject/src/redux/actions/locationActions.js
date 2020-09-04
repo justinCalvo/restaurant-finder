@@ -1,7 +1,13 @@
 import axios from 'axios';
 import config from '../../../config';
 
-export const getLocation = (city, states, zipcode) => async dispatch => {
+export const getLocation = (
+  city,
+  states,
+  zipcode,
+  min,
+  max,
+) => async dispatch => {
   try {
     dispatch({
       type: 'RESET_RESTAURANTS',
@@ -31,7 +37,7 @@ export const getLocation = (city, states, zipcode) => async dispatch => {
 
     let url = '';
 
-    url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=restaurant&opennow&location=${lat},${lng}&radius=16093.44&type=restaurant&opennow&key=${
+    url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=restaurant&opennow&location=${lat},${lng}&minprice=${min}&maxprice=${max}&radius=8046.72&key=${
       config.API_KEY
     }`;
 
@@ -56,7 +62,9 @@ export const getLocation = (city, states, zipcode) => async dispatch => {
       type: 'AWAITING_DETAILS',
     });
 
-    url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeIdData}&fields=formatted_phone_number,opening_hours/weekday_text,website,photo,reviews&key=${
+    url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${
+      placeIdData[0]
+    }&fields=formatted_phone_number,opening_hours/weekday_text,website,photo,reviews,rating,user_ratings_total,price_level,formatted_address,name&key=${
       config.API_KEY
     }`;
 

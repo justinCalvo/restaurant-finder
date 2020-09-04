@@ -6,13 +6,13 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { useDispatch } from 'react-redux';
 import { getRestaurants } from '../../redux/actions/restaurantsActions';
 
-const ProximitySearch = ({ isLoading, setIsLoading }) => {
+const ProximitySearch = ({ isLoading, setIsLoading, min, max }) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
   const getNearby = async () => {
     setIsLoading(true);
-    await dispatch(getRestaurants());
+    await dispatch(getRestaurants(min, max));
     setIsLoading(false);
     navigation.navigate(Routes.Restaurants);
   };
@@ -21,7 +21,8 @@ const ProximitySearch = ({ isLoading, setIsLoading }) => {
     <View>
       <TouchableOpacity onPress={getNearby} title="Nearby Search">
         <Text style={styles.text}>
-          <Icon name="navigate-sharp" size={24} /> Current Location
+          <Icon name="navigate-sharp" size={24} color="#cb3737" /> Current
+          Location
         </Text>
       </TouchableOpacity>
     </View>

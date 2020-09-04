@@ -14,7 +14,7 @@ import { Routes } from '../../constants/NavConst';
 import { useDispatch } from 'react-redux';
 import { getLocation } from '../../redux/actions/locationActions';
 
-const CitySearch = ({ isLoading, setIsLoading }) => {
+const CitySearch = ({ isLoading, setIsLoading, min, max }) => {
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
   const [zipcode, setZipcode] = useState('');
@@ -27,7 +27,7 @@ const CitySearch = ({ isLoading, setIsLoading }) => {
   const getCity = async () => {
     if ((city && state) || zipcode) {
       setIsLoading(true);
-      await dispatch(getLocation(city, state, zipcode));
+      await dispatch(getLocation(city, state, zipcode, min, max));
       setIsLoading(false);
       navigation.navigate(Routes.Restaurants);
     } else {

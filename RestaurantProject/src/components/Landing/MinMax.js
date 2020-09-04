@@ -7,6 +7,7 @@ import {
   Dimensions,
 } from 'react-native';
 import { Picker } from '@react-native-community/picker';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 import PriceRating from '../../utils/PriceRating';
 
@@ -44,17 +45,21 @@ const MinMax = ({ min, setMin, max, setMax }) => {
     <View style={styles.container}>
       <View style={styles.minMaxContainer}>
         <TouchableOpacity onPress={() => handleSetMin()}>
-          <Text style={styles.text}>Set Min</Text>
+          <Text style={styles.text}>
+            Set Min <Icon name="caret-down" size={20} color="#cb3737" />
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => handleSetMax()}>
-          <Text style={styles.text}>Set Max</Text>
+          <Text style={styles.text}>
+            Set Max <Icon name="caret-down" size={20} color="#cb3737" />
+          </Text>
         </TouchableOpacity>
       </View>
       <View style={styles.priceContainer}>
-        <View style={[styles.dollarSigns, styles.minDollarSigns]}>
+        <View style={[styles.dollarSigns, styles.minMaxDollarSigns]}>
           <PriceRating priceLevel={min} size={20} />
         </View>
-        <View style={[styles.dollarSigns, styles.maxDollarSigns]}>
+        <View style={[styles.dollarSigns, styles.minMaxDollarSigns]}>
           <PriceRating priceLevel={max} size={20} />
         </View>
       </View>
@@ -111,29 +116,28 @@ const styles = StyleSheet.create({
   priceContainer: {
     paddingVertical: 10,
     flexDirection: 'row',
-    paddingHorizontal: 70,
   },
   text: {
     fontWeight: 'bold',
     fontSize: 18,
+    color: '#1C2938',
   },
   dollarSigns: {
     flexDirection: 'row',
     flex: 1,
     paddingHorizontal: 10,
   },
-  minDollarSigns: {
-    justifyContent: 'flex-start',
-  },
-  maxDollarSigns: {
-    justifyContent: 'flex-end',
+  minMaxDollarSigns: {
+    justifyContent: 'center',
+    right: 10,
   },
   picker: {
-    width: width / 3,
+    width: width / 4,
   },
   pickerContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
+    flex: 1,
   },
   pickers: {
     justifyContent: 'flex-end',
