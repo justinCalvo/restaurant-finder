@@ -1,7 +1,8 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { useSelector } from 'react-redux';
+
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 const PriceRating = ({ index, priceLevel, size }) => {
   const details = useSelector(state => state.details);

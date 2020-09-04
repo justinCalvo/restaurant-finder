@@ -7,6 +7,7 @@ export const getLocation = (
   zipcode,
   min,
   max,
+  meters,
 ) => async dispatch => {
   try {
     dispatch({
@@ -37,7 +38,7 @@ export const getLocation = (
 
     let url = '';
 
-    url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=restaurant&opennow&location=${lat},${lng}&minprice=${min}&maxprice=${max}&radius=8046.72&key=${
+    url = `https://maps.googleapis.com/maps/api/place/textsearch/json?type=restaurant&opennow&location=${lat},${lng}&minprice=${min}&maxprice=${max}&radius=${meters}&key=${
       config.API_KEY
     }`;
 
