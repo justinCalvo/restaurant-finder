@@ -25,7 +25,7 @@ const Home = () => {
   const [min, setMin] = useState('0');
   const [max, setMax] = useState('4');
   const [meters, setMeters] = useState('8046.72');
-  const [types, setTypes] = useState('restaurant');
+  const [type, setType] = useState('restaurant');
 
   return (
     <KeyboardAwareScrollView
@@ -35,14 +35,16 @@ const Home = () => {
       scrollEnabled={false}
       extraScrollHeight={20}>
       <View style={styles.buttonContainer}>
-        <View style={styles.headerContainer}>
-          <Text style={styles.header}>Rair</Text>
+        <View style={styles.topContainer}>
+          <View style={styles.headerContainer}>
+            <Text style={styles.header}>Rair</Text>
+          </View>
           <Types
             toggleTypes={toggleTypes}
             setToggleTypes={setToggleTypes}
             setToggleOptions={setToggleOptions}
-            types={types}
-            setTypes={setTypes}
+            type={type}
+            setType={setType}
           />
         </View>
         {isLoading ? <Loading /> : null}
@@ -62,7 +64,7 @@ const Home = () => {
           min={min}
           max={max}
           meters={meters}
-          types={types}
+          type={type}
         />
         <TouchableOpacity
           onPress={() => setToggleCitySearch(!toggleCitySearch)}>
@@ -79,7 +81,7 @@ const Home = () => {
           min={min}
           max={max}
           meters={meters}
-          types={types}
+          type={type}
         />
       ) : null}
     </KeyboardAwareScrollView>
@@ -113,7 +115,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'center',
   },
-  headerContainer: {
+  topContainer: {
     width: width,
     height: height / 5,
     justifyContent: 'center',
@@ -121,6 +123,9 @@ const styles = StyleSheet.create({
   },
   keyboardColor: {
     backgroundColor: '#fafafa',
+  },
+  headerContainer: {
+    paddingVertical: 10,
   },
 });
 

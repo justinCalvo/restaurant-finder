@@ -12,14 +12,14 @@ const ProximitySearch = ({
   min,
   max,
   meters,
-  types,
+  type,
 }) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
   const getNearby = async () => {
     setIsLoading(true);
-    await dispatch(getPlaceIds(min, max, meters, types));
+    await dispatch(getPlaceIds(min, max, meters, type));
     setIsLoading(false);
     navigation.navigate(Routes.Place);
   };

@@ -13,7 +13,6 @@ import {
 } from 'react-native-gesture-handler';
 import PhotoDots from '../../components/Photos/PhotoDots';
 
-// import { getNextPhotos } from '../../API/getNextPhotos';
 import { CommonActions } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
 import { useIsFocused } from '@react-navigation/native';

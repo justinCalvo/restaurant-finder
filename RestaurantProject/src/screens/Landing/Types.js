@@ -1,5 +1,7 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
+import { updateType } from '../../redux/actions/typeActions';
 
 import CaretButton from '../../utils/CaretButton';
 import Selector from '../../utils/Selector';
@@ -8,10 +10,12 @@ const Types = ({
   toggleTypes,
   setToggleTypes,
   setToggleOptions,
-  types,
-  setTypes,
+  type,
+  setType,
 }) => {
-  const [typeName, setTypeName] = useState('Restaurants');
+  const types = useSelector(state => state.types);
+
+  const dispatch = useDispatch();
 
   const handleSetType = () => {
     setToggleTypes(!toggleTypes);
@@ -19,18 +23,18 @@ const Types = ({
   };
 
   const updateTypeName = useCallback(() => {
-    if (types === 'restaurant') {
-      setTypeName('Restaurants');
-    } else if (types === 'cafe') {
-      setTypeName('Cafes');
+    if (type === 'restaurant') {
+      dispatch(updateType('Restaurants'));
+    } else if (type === 'cafe') {
+      dispatch(updateType('Cafes'));
     } else {
-      setTypeName('Bars');
+      dispatch(updateType('Bars'));
     }
-  }, [types]);
+  }, [dispatch, type]);
 
   useEffect(() => {
     updateTypeName();
-  }, [updateTypeName, types]);
+  }, [updateTypeName, type]);
 
   return (
     <View style={toggleTypes ? styles.container : null}>
@@ -40,12 +44,12 @@ const Types = ({
         title="Where to?"
       />
       <View style={styles.typesContainer}>
-        <Text style={styles.text}>{typeName}</Text>
+        <Text style={styles.text}>{types.typeName}</Text>
       </View>
       <Selector
         toggle={toggleTypes}
-        value={types}
-        setValue={setTypes}
+        value={type}
+        setValue={setType}
         title="Set Type"
         labels={['Restaurants', 'Cafes', 'Bars']}
         values={['restaurant', 'cafe', 'bar']}

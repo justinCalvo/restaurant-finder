@@ -12,6 +12,7 @@ const Tabs = createMaterialTopTabNavigator();
 
 const AppTabs = () => {
   const matches = useSelector(state => state.matches);
+  const types = useSelector(state => state.types);
 
   return (
     <Tabs.Navigator
@@ -37,7 +38,11 @@ const AppTabs = () => {
       }}
       swipeEnabled={false}
       lazy={false}>
-      <Tabs.Screen name={Routes.Place} component={MainScreen} />
+      <Tabs.Screen
+        name={Routes.Place}
+        component={MainScreen}
+        options={{ title: types.typeName }}
+      />
       {/* TODO: Fix tab bar badges, currently not displaying with top tab bar */}
       <Tabs.Screen
         name={Routes.Matches}

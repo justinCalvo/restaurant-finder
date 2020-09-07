@@ -22,7 +22,7 @@ import { getDetails } from '../../redux/actions/detailsActions';
 import { setMatches } from '../../redux/actions/matchesActions';
 import { getNextTwenty } from '../../redux/actions/nextTwentyActions';
 
-const MainScreen = ({ route, navigation }) => {
+const MainScreen = () => {
   const [index, setIndex] = useState(0);
   const [num, setNum] = useState(0);
 
@@ -34,7 +34,7 @@ const MainScreen = ({ route, navigation }) => {
   const [allCustomerRatings, setAllCustomerRatings] = useState([]);
 
   const dispatch = useDispatch();
-  console.log(index);
+
   const details = useSelector(state => state.details);
   const places = useSelector(state => state.places);
   const matches = useSelector(state => state.matches);
