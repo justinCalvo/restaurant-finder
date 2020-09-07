@@ -69,8 +69,8 @@ const Preferences = ({ min, setMin, max, setMax, setMeters }) => {
           value={max}
           setValue={setMax}
           title="Set Max"
-          labels={['Min', '$', '$$', '$$$', '$$$$']}
-          values={['0', '1', '2', '3', '4']}
+          labels={['$$$$', '$$$', '$$', '$', 'Min']}
+          values={['4', '3', '2', '1', '0']}
         />
       </View>
       <CaretButton
