@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
+  View,
   SafeAreaView,
   StyleSheet,
   Dimensions,
@@ -104,7 +105,9 @@ const MainScreen = () => {
           }
         }}>
         <SafeAreaView style={styles.container}>
-          <Photos index={index} showDetails={showDetails} />
+          <View style={styles.photoContainer}>
+            <Photos index={index} showDetails={showDetails} />
+          </View>
           <Details
             index={index}
             showDetails={showDetails}
@@ -143,6 +146,9 @@ const styles = StyleSheet.create({
     height: height,
     flex: 1,
     backgroundColor: '#fafafa',
+  },
+  photoContainer: {
+    alignItems: 'center',
   },
 });
 

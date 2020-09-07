@@ -35,9 +35,9 @@ const Photos = ({ index, photoIndex, showDetails }) => {
   }, [openModal, isModalOpen]);
 
   return (
-    <View>
+    <View style={styles.container}>
       <TouchableHighlight underlayColor="#1C2938" onPress={handlePhotosModal}>
-        <View style={styles.container}>
+        <View style={styles.photoContainer}>
           <Image
             style={showDetails ? styles.condensed : styles.photo}
             source={{
@@ -56,6 +56,9 @@ const { width } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   container: {
+    width: width / 1.2,
+  },
+  photoContainer: {
     justifyContent: 'center',
     alignItems: 'center',
     paddingTop: 10,
