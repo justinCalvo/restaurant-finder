@@ -6,13 +6,20 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { useDispatch } from 'react-redux';
 import { getPlaceIds } from '../../redux/actions/currentLocationActions';
 
-const ProximitySearch = ({ isLoading, setIsLoading, min, max, meters }) => {
+const ProximitySearch = ({
+  isLoading,
+  setIsLoading,
+  min,
+  max,
+  meters,
+  types,
+}) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
   const getNearby = async () => {
     setIsLoading(true);
-    await dispatch(getPlaceIds(min, max, meters));
+    await dispatch(getPlaceIds(min, max, meters, types));
     setIsLoading(false);
     navigation.navigate(Routes.Place);
   };

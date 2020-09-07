@@ -1,7 +1,7 @@
 import axios from 'axios';
 import config from '../../../config';
 
-export const getPlaceIds = (min, max, meters) => async dispatch => {
+export const getPlaceIds = (min, max, meters, types) => async dispatch => {
   try {
     dispatch({
       type: 'RESET_PLACE_IDS',
@@ -17,7 +17,7 @@ export const getPlaceIds = (min, max, meters) => async dispatch => {
       type: 'AWAITING_PLACE_IDS',
     });
 
-    let url = `https://maps.googleapis.com/maps/api/place/textsearch/json?type=restaurant&opennow&minprice=${min}&maxprice=${max}&radius=${meters}&key=${
+    let url = `https://maps.googleapis.com/maps/api/place/textsearch/json?type=${types}&opennow&minprice=${min}&maxprice=${max}&radius=${meters}&key=${
       config.API_KEY
     }`;
     const places = await axios.get(url);

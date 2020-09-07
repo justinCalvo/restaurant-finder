@@ -4,8 +4,13 @@ import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import CaretButton from '../../utils/CaretButton';
 import Selector from '../../utils/Selector';
 
-const Types = ({ toggleTypes, setToggleTypes, setToggleOptions }) => {
-  const [types, setTypes] = useState('restaurant');
+const Types = ({
+  toggleTypes,
+  setToggleTypes,
+  setToggleOptions,
+  types,
+  setTypes,
+}) => {
   const [typeName, setTypeName] = useState('Restaurants');
 
   const handleSetType = () => {

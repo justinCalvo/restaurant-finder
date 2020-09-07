@@ -25,6 +25,7 @@ const Home = () => {
   const [min, setMin] = useState('0');
   const [max, setMax] = useState('4');
   const [meters, setMeters] = useState('8046.72');
+  const [types, setTypes] = useState('restaurant');
 
   return (
     <KeyboardAwareScrollView
@@ -40,6 +41,8 @@ const Home = () => {
             toggleTypes={toggleTypes}
             setToggleTypes={setToggleTypes}
             setToggleOptions={setToggleOptions}
+            types={types}
+            setTypes={setTypes}
           />
         </View>
         {isLoading ? <Loading /> : null}
@@ -59,6 +62,7 @@ const Home = () => {
           min={min}
           max={max}
           meters={meters}
+          types={types}
         />
         <TouchableOpacity
           onPress={() => setToggleCitySearch(!toggleCitySearch)}>
@@ -75,6 +79,7 @@ const Home = () => {
           min={min}
           max={max}
           meters={meters}
+          types={types}
         />
       ) : null}
     </KeyboardAwareScrollView>
