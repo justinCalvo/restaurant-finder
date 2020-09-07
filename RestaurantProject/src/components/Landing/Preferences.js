@@ -76,7 +76,7 @@ const Preferences = ({ min, setMin, max, setMax, setMeters }) => {
       <CaretButton
         toggle={toggleRadius}
         handleSetting={handleSetRadius}
-        title="Radius"
+        title="Set Radius"
       />
       <View style={styles.radiusContainer}>
         <Text style={styles.text}>{miles}</Text>
@@ -85,12 +85,12 @@ const Preferences = ({ min, setMin, max, setMax, setMeters }) => {
         <CaretButton
           toggle={toggleMin}
           handleSetting={handleSetMin}
-          title="Min"
+          title="Set Min"
         />
         <CaretButton
           toggle={toggleMax}
           handleSetting={handleSetMax}
-          title="Max"
+          title="Set Max"
         />
       </View>
       <View style={styles.priceContainer}>
@@ -118,7 +118,7 @@ const { width, height } = Dimensions.get('window');
 const styles = StyleSheet.create({
   container: {
     width: width,
-    height: height / 4,
+    height: height / 3,
     alignItems: 'center',
   },
   minMaxContainer: {
@@ -145,16 +145,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     right: 10,
   },
-  picker: {
-    width: width / 4,
-  },
   pickerContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
     flex: 1,
-  },
-  pickers: {
-    justifyContent: 'flex-end',
   },
   radiusContainer: {
     paddingVertical: 10,

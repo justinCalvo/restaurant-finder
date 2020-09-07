@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 50,
   },
   textInput: {
-    fontSize: 28,
+    fontSize: 18,
     borderBottomWidth: 1,
     borderColor: '#1C2938',
     paddingVertical: 10,
@@ -99,13 +99,13 @@ const styles = StyleSheet.create({
     color: '#1C2938',
   },
   text: {
-    fontSize: 22,
+    fontSize: 16,
     fontWeight: 'bold',
     textAlign: 'center',
     color: '#1C2938',
   },
   textContainer: {
-    paddingTop: 30,
+    paddingTop: 10,
   },
 });
 

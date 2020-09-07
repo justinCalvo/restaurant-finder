@@ -1,11 +1,24 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
 import Preferences from '../../components/Landing/Preferences';
 
 import PlusMinusButton from '../../utils/PlusMinusButton';
 
-const PreferencesScreen = ({ min, setMin, max, setMax, setMeters }) => {
-  const [toggleOptions, setToggleOptions] = useState(false);
+const PreferencesScreen = ({
+  min,
+  setMin,
+  max,
+  setMax,
+  setMeters,
+  toggleOptions,
+  setToggleOptions,
+  setToggleTypes,
+}) => {
+  useEffect(() => {
+    if (toggleOptions) {
+      setToggleTypes(false);
+    }
+  }, [setToggleTypes, toggleOptions]);
 
   return (
     <View style={styles.container}>

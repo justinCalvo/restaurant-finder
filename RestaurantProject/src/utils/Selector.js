@@ -22,8 +22,12 @@ const Selector = ({ toggle, value, setValue, title, labels, values }) => {
             <Picker.Item label={labels[0]} value={values[0]} />
             <Picker.Item label={labels[1]} value={values[1]} />
             <Picker.Item label={labels[2]} value={values[2]} />
-            <Picker.Item label={labels[3]} value={values[3]} />
-            <Picker.Item label={labels[4]} value={values[4]} />
+            {labels.length > 3 ? (
+              <Picker.Item label={labels[3]} value={values[3]} />
+            ) : null}
+            {labels.length > 4 ? (
+              <Picker.Item label={labels[4]} value={values[4]} />
+            ) : null}
           </Picker>
         </View>
       ) : null}
@@ -35,7 +39,7 @@ const { width } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   picker: {
-    width: width / 4,
+    width: width / 3.8,
   },
   pickers: {
     justifyContent: 'flex-end',

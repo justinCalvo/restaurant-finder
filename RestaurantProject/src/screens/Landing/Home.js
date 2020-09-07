@@ -14,9 +14,12 @@ import CitySearch from '../../components/Landing/CitySearch';
 import Loading from '../../components/Loading/Loading';
 
 import PreferencesScreen from './PreferencesScreen';
+import Types from './Types';
 
 const Home = () => {
   const [toggleCitySearch, setToggleCitySearch] = useState(false);
+  const [toggleOptions, setToggleOptions] = useState(false);
+  const [toggleTypes, setToggleTypes] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const [min, setMin] = useState('0');
@@ -33,6 +36,11 @@ const Home = () => {
       <View style={styles.buttonContainer}>
         <View style={styles.headerContainer}>
           <Text style={styles.header}>Rair</Text>
+          <Types
+            toggleTypes={toggleTypes}
+            setToggleTypes={setToggleTypes}
+            setToggleOptions={setToggleOptions}
+          />
         </View>
         {isLoading ? <Loading /> : null}
         <PreferencesScreen
@@ -41,6 +49,9 @@ const Home = () => {
           max={max}
           setMax={setMax}
           setMeters={setMeters}
+          toggleOptions={toggleOptions}
+          setToggleOptions={setToggleOptions}
+          setToggleTypes={setToggleTypes}
         />
         <ProximitySearch
           isLoading={isLoading}
@@ -93,7 +104,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     width: width,
-    height: height / 1.75,
+    height: height / 1.5,
     justifyContent: 'flex-end',
     alignItems: 'center',
   },

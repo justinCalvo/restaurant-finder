@@ -6,7 +6,7 @@ const CaretButton = ({ toggle, handleSetting, title }) => {
   return (
     <TouchableOpacity onPress={() => handleSetting()}>
       <Text style={styles.text}>
-        Set {title}{' '}
+        {title}{' '}
         <Icon
           name={toggle ? 'caret-up' : 'caret-down'}
           size={20}

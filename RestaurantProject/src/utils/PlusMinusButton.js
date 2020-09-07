@@ -6,7 +6,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 const PlusMinusButton = ({ bool, setBool, buttonName }) => {
   const [buttonTitle, setButtonTitle] = useState('plus');
 
-  const handleViewReviews = useCallback(() => {
+  const handleBool = useCallback(() => {
     if (!bool) {
       setBool(true);
     } else {
@@ -27,13 +27,11 @@ const PlusMinusButton = ({ bool, setBool, buttonName }) => {
   }, [checkViewState, bool]);
 
   return (
-    <TouchableOpacity onPress={handleViewReviews}>
+    <TouchableOpacity onPress={handleBool}>
       <View style={styles.viewContainer}>
         <FontAwesome name={buttonTitle} size={15} color="#cb3737" />
-        <View style={styles.reviewContainer}>
-          <Text style={[styles.reviews, styles.reviewsTouchable]}>
-            {buttonName}
-          </Text>
+        <View style={styles.dataContainer}>
+          <Text style={[styles.data, styles.dataTouchable]}>{buttonName}</Text>
         </View>
       </View>
     </TouchableOpacity>
@@ -45,16 +43,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  reviewContainer: {
+  dataContainer: {
     paddingRight: 10,
     paddingLeft: 5,
   },
-  reviews: {
+  data: {
     fontSize: 18,
     fontWeight: 'bold',
     textAlign: 'center',
   },
-  reviewsTouchable: {
+  dataTouchable: {
     color: '#1C2938',
   },
 });
