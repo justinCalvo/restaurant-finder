@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
+
 import PriceRating from '../../utils/PriceRating';
 import Selector from '../../utils/Selector';
 import CaretButton from '../../utils/CaretButton';

@@ -12,6 +12,7 @@ const Types = ({
   setToggleOptions,
   type,
   setType,
+  setToggleCitySearch,
 }) => {
   const types = useSelector(state => state.types);
 
@@ -20,6 +21,7 @@ const Types = ({
   const handleSetType = () => {
     setToggleTypes(!toggleTypes);
     setToggleOptions(false);
+    setToggleCitySearch(false);
   };
 
   const updateTypeName = useCallback(() => {

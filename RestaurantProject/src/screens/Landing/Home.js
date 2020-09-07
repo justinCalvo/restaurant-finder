@@ -27,6 +27,12 @@ const Home = () => {
   const [meters, setMeters] = useState('8046.72');
   const [type, setType] = useState('restaurant');
 
+  const handleSearchLocationPress = () => {
+    setToggleTypes(false);
+    setToggleOptions(false);
+    setToggleCitySearch(!toggleCitySearch);
+  };
+
   return (
     <KeyboardAwareScrollView
       style={styles.keyboardColor}
@@ -43,6 +49,7 @@ const Home = () => {
             toggleTypes={toggleTypes}
             setToggleTypes={setToggleTypes}
             setToggleOptions={setToggleOptions}
+            setToggleCitySearch={setToggleCitySearch}
             type={type}
             setType={setType}
           />
@@ -57,6 +64,7 @@ const Home = () => {
           toggleOptions={toggleOptions}
           setToggleOptions={setToggleOptions}
           setToggleTypes={setToggleTypes}
+          setToggleCitySearch={setToggleCitySearch}
         />
         <ProximitySearch
           isLoading={isLoading}
@@ -66,8 +74,7 @@ const Home = () => {
           meters={meters}
           type={type}
         />
-        <TouchableOpacity
-          onPress={() => setToggleCitySearch(!toggleCitySearch)}>
+        <TouchableOpacity onPress={() => handleSearchLocationPress()}>
           <Text style={styles.text}>
             <Icon name="search-sharp" size={24} color="#cb3737" /> Search
             Location

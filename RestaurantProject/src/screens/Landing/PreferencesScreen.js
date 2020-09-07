@@ -13,12 +13,14 @@ const PreferencesScreen = ({
   toggleOptions,
   setToggleOptions,
   setToggleTypes,
+  setToggleCitySearch,
 }) => {
   useEffect(() => {
     if (toggleOptions) {
       setToggleTypes(false);
+      setToggleCitySearch(false);
     }
-  }, [setToggleTypes, toggleOptions]);
+  }, [setToggleCitySearch, setToggleTypes, toggleOptions]);
 
   return (
     <View style={styles.container}>
