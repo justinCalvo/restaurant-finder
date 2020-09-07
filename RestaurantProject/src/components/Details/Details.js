@@ -52,7 +52,7 @@ const Details = ({
           </View>
         </>
       ) : null}
-      <Text style={styles.restaurantName}>{details.details[index].name}</Text>
+      <Text style={styles.placeName}>{details.details[index].name}</Text>
       {!showDetails ? <CurrentDay index={index} /> : null}
       <View style={styles.contactContainer}>
         {details.details[index].formatted_phone_number && !showDetails ? (
@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  restaurantName: {
+  placeName: {
     fontSize: 24,
     fontWeight: 'bold',
     textAlign: 'center',

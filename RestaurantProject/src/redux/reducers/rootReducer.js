@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
-import restaurantsReducer from './restaurantsReducer';
+import placeIdsReducer from './placeIdsReducer';
 import detailsReducer from './detailsReducer';
 import matchesReducer from './matchesReducer';
 
 const rootReducer = combineReducers({
-  restaurants: restaurantsReducer,
+  places: placeIdsReducer,
   details: detailsReducer,
   matches: matchesReducer,
 });

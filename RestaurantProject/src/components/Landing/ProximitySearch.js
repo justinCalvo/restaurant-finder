@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Routes } from '../../constants/NavConst';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useDispatch } from 'react-redux';
-import { getRestaurants } from '../../redux/actions/restaurantsActions';
+import { getPlaceIds } from '../../redux/actions/currentLocationActions';
 
 const ProximitySearch = ({ isLoading, setIsLoading, min, max, meters }) => {
   const dispatch = useDispatch();
@@ -12,9 +12,9 @@ const ProximitySearch = ({ isLoading, setIsLoading, min, max, meters }) => {
 
   const getNearby = async () => {
     setIsLoading(true);
-    await dispatch(getRestaurants(min, max, meters));
+    await dispatch(getPlaceIds(min, max, meters));
     setIsLoading(false);
-    navigation.navigate(Routes.Restaurants);
+    navigation.navigate(Routes.Place);
   };
 
   return (

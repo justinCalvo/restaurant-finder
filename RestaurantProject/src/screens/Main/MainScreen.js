@@ -22,7 +22,7 @@ import { getDetails } from '../../redux/actions/detailsActions';
 import { setMatches } from '../../redux/actions/matchesActions';
 import { getNextTwenty } from '../../redux/actions/nextTwentyActions';
 
-const Restaurants = ({ route, navigation }) => {
+const MainScreen = ({ route, navigation }) => {
   const [index, setIndex] = useState(0);
   const [num, setNum] = useState(0);
 
@@ -34,15 +34,15 @@ const Restaurants = ({ route, navigation }) => {
   const [allCustomerRatings, setAllCustomerRatings] = useState([]);
 
   const dispatch = useDispatch();
-
+  console.log(index);
   const details = useSelector(state => state.details);
-  const restaurants = useSelector(state => state.restaurants);
+  const places = useSelector(state => state.places);
   const matches = useSelector(state => state.matches);
 
   const MainAction = async () => {
-    if (restaurants.restaurants[index + 1]) {
+    if (places.placeIds[index + 1]) {
       await dispatch(
-        getDetails(details.details, restaurants.restaurants, index, undefined),
+        getDetails(details.details, places.placeIds, index, undefined),
       );
       setIndex(index + 1);
       setShowDetails(false);
@@ -56,15 +56,13 @@ const Restaurants = ({ route, navigation }) => {
       Alert.alert('End of List');
     }
     if (index === 15 || index === 35) {
-      await dispatch(
-        getNextTwenty(restaurants.restaurants, restaurants.nextPageToken),
-      );
+      await dispatch(getNextTwenty(places.placeIds, places.nextPageToken));
     }
   };
 
   const RightActions = async () => {
     await dispatch(
-      setMatches(restaurants.restaurants, details.details, index, matches),
+      setMatches(places.placeIds, details.details, index, matches),
     );
   };
 
@@ -148,4 +146,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Restaurants;
+export default MainScreen;

@@ -29,7 +29,7 @@ const CitySearch = ({ isLoading, setIsLoading, min, max, meters }) => {
       setIsLoading(true);
       await dispatch(getLocation(city, state, zipcode, min, max, meters));
       setIsLoading(false);
-      navigation.navigate(Routes.Restaurants);
+      navigation.navigate(Routes.Place);
     } else {
       Alert.alert('Please enter city and state or zip code');
     }

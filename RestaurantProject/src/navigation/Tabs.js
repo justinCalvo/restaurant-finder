@@ -5,7 +5,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Routes } from '../constants/NavConst';
 import { useSelector } from 'react-redux';
 
-import Restaurants from '../screens/Main/Restaurants';
+import MainScreen from '../screens/Main/MainScreen';
 import Matches from '../components/Matches/Matches';
 
 const Tabs = createMaterialTopTabNavigator();
@@ -19,7 +19,7 @@ const AppTabs = () => {
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
 
-          if (route.name === Routes.Restaurants) {
+          if (route.name === Routes.Place) {
             iconName = focused
               ? 'ios-information-circle'
               : 'ios-information-circle-outline';
@@ -37,7 +37,7 @@ const AppTabs = () => {
       }}
       swipeEnabled={false}
       lazy={false}>
-      <Tabs.Screen name={Routes.Restaurants} component={Restaurants} />
+      <Tabs.Screen name={Routes.Place} component={MainScreen} />
       {/* TODO: Fix tab bar badges, currently not displaying with top tab bar */}
       <Tabs.Screen
         name={Routes.Matches}

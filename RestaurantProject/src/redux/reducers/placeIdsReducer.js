@@ -1,16 +1,16 @@
 const initalState = {
-  restaurants: [],
+  placeIds: [],
   nextPageToken: '',
 };
 
-const restaurantsReducer = (state = initalState, action) => {
+const placeIdsReducer = (state = initalState, action) => {
   const { type, payload } = action;
 
   switch (type) {
-    case 'RESET_RESTAURANTS':
+    case 'RESET_PLACE_IDS':
       return {
         ...state,
-        restaurants: payload.restaurants,
+        placeIds: payload.placeIds,
         details: payload.details,
         matches: payload.matches,
         displayMatches: payload.displayMatches,
@@ -23,31 +23,31 @@ const restaurantsReducer = (state = initalState, action) => {
       return {
         ...state,
       };
-    case 'AWAITING_RESTAURANTS':
+    case 'AWAITING_PLACE_IDS':
       return {
         ...state,
       };
-    case 'REJECTED_RESTAURANTS':
+    case 'REJECTED_PLACE_IDS':
       return {
         ...state,
       };
-    case 'SUCCESS_RESTAURANTS':
+    case 'SUCCESS_PLACE_IDS':
       return {
         ...state,
-        restaurants: payload.restaurants,
+        placeIds: payload.placeIds,
         nextPageToken: payload.nextPageToken,
       };
-    case 'AWAITING_NEXT_TWENTY_RESTAURANTS':
+    case 'AWAITING_NEXT_TWENTY_PLACE_IDS':
       return {
         ...state,
       };
-    case 'SUCCESS_NEXT_TWENTY_RESTAURANTS':
+    case 'SUCCESS_NEXT_TWENTY_PLACE_IDS':
       return {
         ...state,
-        restaurants: payload.restaurants,
+        placeIds: payload.placeIds,
         nextPageToken: payload.nextPageToken,
       };
-    case 'REJECTED_NEXT_TWENTY_RESTAURANTS':
+    case 'REJECTED_NEXT_TWENTY_PLACE_IDS':
       return {
         ...state,
       };
@@ -56,4 +56,4 @@ const restaurantsReducer = (state = initalState, action) => {
   }
 };
 
-export default restaurantsReducer;
+export default placeIdsReducer;

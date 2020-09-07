@@ -21,13 +21,13 @@ const MatchDetails = ({ route }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.nameContainer}>
-        <Text style={styles.restaurantName}>{item.name}</Text>
+        <Text style={styles.placeName}>{item.name}</Text>
       </View>
       <View style={styles.ratingContainer}>
         <View style={styles.priceContainer}>
           <PriceRating priceLevel={item.price_level} size={25} />
         </View>
-        <View style={styles.restaurantRating}>
+        <View style={styles.placeRating}>
           <Text style={styles.ratingsTotalText}>
             ({item.user_ratings_total})
           </Text>
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     marginRight: 5,
   },
-  restaurantName: {
+  placeName: {
     fontSize: 24,
     fontWeight: 'bold',
     textAlign: 'center',
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingTop: 5,
   },
-  restaurantRating: {
+  placeRating: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
     alignItems: 'center',
