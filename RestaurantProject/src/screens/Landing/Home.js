@@ -19,8 +19,8 @@ const Home = () => {
   const [toggleCitySearch, setToggleCitySearch] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const [min, setMin] = useState(0);
-  const [max, setMax] = useState(4);
+  const [min, setMin] = useState('0');
+  const [max, setMax] = useState('4');
   const [meters, setMeters] = useState('8046.72');
 
   return (

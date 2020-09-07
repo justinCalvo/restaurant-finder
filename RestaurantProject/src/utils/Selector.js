@@ -3,20 +3,9 @@ import { View, StyleSheet, Dimensions } from 'react-native';
 
 import { Picker } from '@react-native-community/picker';
 
-const Selector = ({
-  toggle,
-  value,
-  setValue,
-  setToggle,
-  title,
-  labels,
-  values,
-}) => {
-  const handlePicker = (itemValue, setNum, setToggleNum) => {
+const Selector = ({ toggle, value, setValue, title, labels, values }) => {
+  const handlePicker = (itemValue, setNum) => {
     setNum(itemValue);
-    setTimeout(() => {
-      setToggleNum(false);
-    }, 200);
   };
 
   return (
@@ -27,7 +16,7 @@ const Selector = ({
             selectedValue={value}
             style={styles.picker}
             onValueChange={(itemValue, itemIndex) =>
-              handlePicker(itemValue, setValue, setToggle)
+              handlePicker(itemValue, setValue)
             }>
             <Picker.Item label={title} value={values[0]} />
             <Picker.Item label={labels[0]} value={values[0]} />

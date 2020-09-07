@@ -13,14 +13,18 @@ const Preferences = ({ min, setMin, max, setMax, setMeters }) => {
 
   const handleSetRadius = () => {
     setToggleRadius(!toggleRadius);
+    setToggleMax(false);
+    setToggleMin(false);
   };
 
   const handleSetMin = () => {
     setToggleMin(!toggleMin);
+    setToggleRadius(false);
   };
 
   const handleSetMax = () => {
     setToggleMax(!toggleMax);
+    setToggleRadius(false);
   };
 
   const convertMilesToMeters = useCallback(() => {
@@ -48,7 +52,6 @@ const Preferences = ({ min, setMin, max, setMax, setMeters }) => {
           toggle={toggleRadius}
           value={miles}
           setValue={setMiles}
-          setToggle={setToggleRadius}
           title="Set Miles"
           labels={['5', '10', '15', '20', '25']}
           values={['5 Miles', '10 Miles', '15 Miles', '20 Miles', '25 Miles']}
@@ -57,7 +60,6 @@ const Preferences = ({ min, setMin, max, setMax, setMeters }) => {
           toggle={toggleMin}
           value={min}
           setValue={setMin}
-          setToggle={setToggleMin}
           title="Set Min"
           labels={['Min', '$', '$$', '$$$', '$$$$']}
           values={['0', '1', '2', '3', '4']}
@@ -66,7 +68,6 @@ const Preferences = ({ min, setMin, max, setMax, setMeters }) => {
           toggle={toggleMax}
           value={max}
           setValue={setMax}
-          setToggle={setToggleMax}
           title="Set Max"
           labels={['Min', '$', '$$', '$$$', '$$$$']}
           values={['0', '1', '2', '3', '4']}
