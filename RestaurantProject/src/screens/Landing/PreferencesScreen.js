@@ -12,15 +12,15 @@ const PreferencesScreen = ({
   setMeters,
   toggleOptions,
   setToggleOptions,
-  setToggleTypes,
   setToggleCitySearch,
+  type,
+  setType,
 }) => {
   useEffect(() => {
     if (toggleOptions) {
-      setToggleTypes(false);
       setToggleCitySearch(false);
     }
-  }, [setToggleCitySearch, setToggleTypes, toggleOptions]);
+  }, [setToggleCitySearch, toggleOptions]);
 
   return (
     <View style={styles.container}>
@@ -31,6 +31,8 @@ const PreferencesScreen = ({
           max={max}
           setMax={setMax}
           setMeters={setMeters}
+          type={type}
+          setType={setType}
         />
       ) : null}
       <PlusMinusButton

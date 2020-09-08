@@ -14,12 +14,10 @@ import CitySearch from '../../components/Landing/CitySearch';
 import Loading from '../../components/Loading/Loading';
 
 import PreferencesScreen from './PreferencesScreen';
-import Types from './Types';
 
 const Home = () => {
   const [toggleCitySearch, setToggleCitySearch] = useState(false);
   const [toggleOptions, setToggleOptions] = useState(false);
-  const [toggleTypes, setToggleTypes] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const [min, setMin] = useState('0');
@@ -28,7 +26,6 @@ const Home = () => {
   const [type, setType] = useState('restaurant');
 
   const handleSearchLocationPress = () => {
-    setToggleTypes(false);
     setToggleOptions(false);
     setToggleCitySearch(!toggleCitySearch);
   };
@@ -45,14 +42,6 @@ const Home = () => {
           <View style={styles.headerContainer}>
             <Text style={styles.header}>Rair</Text>
           </View>
-          <Types
-            toggleTypes={toggleTypes}
-            setToggleTypes={setToggleTypes}
-            setToggleOptions={setToggleOptions}
-            setToggleCitySearch={setToggleCitySearch}
-            type={type}
-            setType={setType}
-          />
         </View>
         {isLoading ? <Loading /> : null}
         <PreferencesScreen
@@ -63,8 +52,9 @@ const Home = () => {
           setMeters={setMeters}
           toggleOptions={toggleOptions}
           setToggleOptions={setToggleOptions}
-          setToggleTypes={setToggleTypes}
           setToggleCitySearch={setToggleCitySearch}
+          type={type}
+          setType={setType}
         />
         <ProximitySearch
           isLoading={isLoading}

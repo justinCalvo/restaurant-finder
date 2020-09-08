@@ -1,31 +1,47 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
+import { updateType } from '../../redux/actions/typeActions';
 
 import PriceRating from '../../utils/PriceRating';
 import Selector from '../../utils/Selector';
 import CaretButton from '../../utils/CaretButton';
 
-const Preferences = ({ min, setMin, max, setMax, setMeters }) => {
-  const [toggleMin, setToggleMin] = useState(false);
-  const [toggleMax, setToggleMax] = useState(false);
+const Preferences = ({
+  min,
+  setMin,
+  max,
+  setMax,
+  setMeters,
+  type,
+  setType,
+}) => {
+  const [togglePriceRange, setTogglePriceRange] = useState(true);
   const [toggleRadius, setToggleRadius] = useState(false);
+  const [toggleTypes, setToggleTypes] = useState(false);
 
   const [miles, setMiles] = useState('5 Miles');
 
+  const types = useSelector(state => state.types);
+
+  const dispatch = useDispatch();
+
   const handleSetRadius = () => {
     setToggleRadius(!toggleRadius);
-    setToggleMax(false);
-    setToggleMin(false);
+    setTogglePriceRange(false);
+    setToggleTypes(false);
   };
 
-  const handleSetMin = () => {
-    setToggleMin(!toggleMin);
+  const handleSetPriceRange = () => {
+    setTogglePriceRange(!togglePriceRange);
     setToggleRadius(false);
+    setToggleTypes(false);
   };
 
-  const handleSetMax = () => {
-    setToggleMax(!toggleMax);
+  const handleSetType = () => {
+    setToggleTypes(!toggleTypes);
     setToggleRadius(false);
+    setTogglePriceRange(false);
   };
 
   const convertMilesToMeters = useCallback(() => {
@@ -46,9 +62,31 @@ const Preferences = ({ min, setMin, max, setMax, setMeters }) => {
     convertMilesToMeters();
   }, [convertMilesToMeters, miles]);
 
+  const updateTypeName = useCallback(() => {
+    if (type === 'restaurant') {
+      dispatch(updateType('Restaurants'));
+    } else if (type === 'cafe') {
+      dispatch(updateType('Cafes'));
+    } else {
+      dispatch(updateType('Bars'));
+    }
+  }, [dispatch, type]);
+
+  useEffect(() => {
+    updateTypeName();
+  }, [updateTypeName, type]);
+
   return (
     <View style={styles.container}>
       <View style={styles.pickerContainer}>
+        <Selector
+          toggle={toggleTypes}
+          value={type}
+          setValue={setType}
+          title="Set Type"
+          labels={['Restaurants', 'Cafes', 'Bars']}
+          values={['restaurant', 'cafe', 'bar']}
+        />
         <Selector
           toggle={toggleRadius}
           value={miles}
@@ -58,7 +96,7 @@ const Preferences = ({ min, setMin, max, setMax, setMeters }) => {
           values={['5 Miles', '10 Miles', '15 Miles', '20 Miles', '25 Miles']}
         />
         <Selector
-          toggle={toggleMin}
+          toggle={togglePriceRange}
           value={min}
           setValue={setMin}
           title="Set Min"
@@ -66,7 +104,7 @@ const Preferences = ({ min, setMin, max, setMax, setMeters }) => {
           values={['0', '1', '2', '3', '4']}
         />
         <Selector
-          toggle={toggleMax}
+          toggle={togglePriceRange}
           value={max}
           setValue={setMax}
           title="Set Max"
@@ -75,39 +113,44 @@ const Preferences = ({ min, setMin, max, setMax, setMeters }) => {
         />
       </View>
       <CaretButton
-        toggle={toggleRadius}
-        handleSetting={handleSetRadius}
-        title="Set Radius"
+        toggle={togglePriceRange}
+        handleSetting={handleSetPriceRange}
+        title="Price Range"
       />
-      <View style={styles.radiusContainer}>
-        <Text style={styles.text}>{miles}</Text>
-      </View>
-      <View style={styles.minMaxContainer}>
-        <CaretButton
-          toggle={toggleMin}
-          handleSetting={handleSetMin}
-          title="Set Min"
-        />
-        <CaretButton
-          toggle={toggleMax}
-          handleSetting={handleSetMax}
-          title="Set Max"
-        />
-      </View>
       <View style={styles.priceContainer}>
         <View style={[styles.dollarSigns, styles.minMaxDollarSigns]}>
           {min === '0' ? (
-            <Text style={styles.text}>Min</Text>
+            <Text style={styles.valueText}>Min</Text>
           ) : (
-            <PriceRating priceLevel={min} size={20} />
+            <PriceRating priceLevel={min} size={18} />
           )}
         </View>
         <View style={[styles.dollarSigns, styles.minMaxDollarSigns]}>
           {max === '0' ? (
-            <Text style={styles.text}>Min</Text>
+            <Text style={styles.valueText}>Min</Text>
           ) : (
-            <PriceRating priceLevel={max} size={20} />
+            <PriceRating priceLevel={max} size={18} />
           )}
+        </View>
+      </View>
+      <View style={styles.minMaxContainer}>
+        <CaretButton
+          toggle={toggleTypes}
+          handleSetting={handleSetType}
+          title="Where to?"
+        />
+        <CaretButton
+          toggle={toggleRadius}
+          handleSetting={handleSetRadius}
+          title="Radius"
+        />
+      </View>
+      <View style={styles.priceContainer}>
+        <View style={[styles.dollarSigns, styles.minMaxDollarSigns]}>
+          <Text style={styles.valueText}>{types.typeName}</Text>
+        </View>
+        <View style={[styles.dollarSigns, styles.minMaxDollarSigns]}>
+          <Text style={styles.valueText}>{miles}</Text>
         </View>
       </View>
     </View>
@@ -131,27 +174,33 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     flexDirection: 'row',
     width: width / 1.5,
+    alignItems: 'center',
   },
   text: {
     fontWeight: 'bold',
     fontSize: 18,
     color: '#1C2938',
   },
+  valueText: {
+    fontWeight: 'bold',
+    fontSize: 16,
+    color: '#1C2938',
+  },
   dollarSigns: {
     flexDirection: 'row',
     flex: 1,
     paddingHorizontal: 10,
+    paddingVertical: 5,
   },
   minMaxDollarSigns: {
     justifyContent: 'center',
-    right: 10,
   },
   pickerContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
     flex: 1,
   },
-  radiusContainer: {
+  optionsContainer: {
     paddingVertical: 10,
   },
 });
