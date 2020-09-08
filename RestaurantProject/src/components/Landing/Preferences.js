@@ -100,16 +100,16 @@ const Preferences = ({
           value={min}
           setValue={setMin}
           title="Set Min"
-          labels={['Min', '$', '$$', '$$$', '$$$$']}
-          values={['0', '1', '2', '3', '4']}
+          labels={['$', '$$', '$$$', '$$$$']}
+          values={['1', '2', '3', '4']}
         />
         <Selector
           toggle={togglePriceRange}
           value={max}
           setValue={setMax}
           title="Set Max"
-          labels={['$$$$', '$$$', '$$', '$', 'Min']}
-          values={['4', '3', '2', '1', '0']}
+          labels={['$$$$', '$$$', '$$', '$']}
+          values={['4', '3', '2', '1']}
         />
       </View>
       <CaretButton
@@ -119,18 +119,10 @@ const Preferences = ({
       />
       <View style={styles.priceContainer}>
         <View style={[styles.dollarSigns, styles.minMaxDollarSigns]}>
-          {min === '0' ? (
-            <Text style={styles.valueText}>Min</Text>
-          ) : (
-            <PriceRating priceLevel={min} size={16} />
-          )}
+          <PriceRating priceLevel={min} size={16} />
         </View>
         <View style={[styles.dollarSigns, styles.minMaxDollarSigns]}>
-          {max === '0' ? (
-            <Text style={styles.valueText}>Min</Text>
-          ) : (
-            <PriceRating priceLevel={max} size={16} />
-          )}
+          <PriceRating priceLevel={max} size={16} />
         </View>
       </View>
       <View style={styles.minMaxContainer}>

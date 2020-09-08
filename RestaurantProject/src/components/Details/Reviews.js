@@ -4,12 +4,13 @@ import { useSelector } from 'react-redux';
 
 import PlusMinusButton from '../../utils/PlusMinusButton';
 
-const Reviews = ({ index, viewReviews, setViewReviews }) => {
+const Reviews = ({ index, viewReviews, setViewReviews, item }) => {
   const details = useSelector(state => state.details);
+  const theDetails = item ? item : details.details[index];
 
   return (
     <View style={styles.container}>
-      {details.details[index].reviews ? (
+      {theDetails.reviews ? (
         <View style={styles.viewReviewsContainer}>
           <PlusMinusButton
             bool={viewReviews}
