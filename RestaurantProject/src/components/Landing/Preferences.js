@@ -122,14 +122,14 @@ const Preferences = ({
           {min === '0' ? (
             <Text style={styles.valueText}>Min</Text>
           ) : (
-            <PriceRating priceLevel={min} size={18} />
+            <PriceRating priceLevel={min} size={16} />
           )}
         </View>
         <View style={[styles.dollarSigns, styles.minMaxDollarSigns]}>
           {max === '0' ? (
             <Text style={styles.valueText}>Min</Text>
           ) : (
-            <PriceRating priceLevel={max} size={18} />
+            <PriceRating priceLevel={max} size={16} />
           )}
         </View>
       </View>
@@ -183,7 +183,7 @@ const styles = StyleSheet.create({
   },
   valueText: {
     fontWeight: 'bold',
-    fontSize: 16,
+    fontSize: 14,
     color: '#1C2938',
   },
   dollarSigns: {
