@@ -1,12 +1,12 @@
 import axios from 'axios';
 import config from '../../../config';
 
-export const getRestaurants = () => async dispatch => {
+export const getPlaceIds = (min, max, meters, types) => async dispatch => {
   try {
     dispatch({
-      type: 'RESET_RESTAURANTS',
+      type: 'RESET_PLACE_IDS',
       payload: {
-        restaurants: [],
+        placeIds: [],
         details: [],
         matches: {},
         displayMatches: [],
@@ -14,27 +14,27 @@ export const getRestaurants = () => async dispatch => {
     });
 
     dispatch({
-      type: 'AWAITING_RESTAURANTS',
+      type: 'AWAITING_PLACE_IDS',
     });
 
-    let url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=restaurant&opennow&key=${
+    let url = `https://maps.googleapis.com/maps/api/place/textsearch/json?type=${types}&opennow&minprice=${min}&maxprice=${max}&radius=${meters}&key=${
       config.API_KEY
     }`;
+    const places = await axios.get(url);
 
-    const restaurants = await axios.get(url);
     let placeIdData = [],
       i;
-    for (i = 0; i < restaurants.data.results.length; i++) {
-      if (restaurants.data.results[i].place_id) {
-        placeIdData.push(restaurants.data.results[i].place_id);
+    for (i = 0; i < places.data.results.length; i++) {
+      if (places.data.results[i].place_id) {
+        placeIdData.push(places.data.results[i].place_id);
       }
     }
 
     dispatch({
-      type: 'SUCCESS_RESTAURANTS',
+      type: 'SUCCESS_PLACE_IDS',
       payload: {
-        restaurants: placeIdData,
-        nextPageToken: restaurants.data.next_page_token,
+        placeIds: placeIdData,
+        nextPageToken: places.data.next_page_token,
       },
     });
 
@@ -72,7 +72,7 @@ export const getRestaurants = () => async dispatch => {
     });
   } catch (e) {
     dispatch({
-      type: 'REJECTED_RESTAURANTS',
+      type: 'REJECTED_PLACE_IDS',
       // TODO: handle error D:
     });
   }

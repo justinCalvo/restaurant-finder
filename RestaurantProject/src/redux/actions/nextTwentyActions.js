@@ -1,13 +1,13 @@
 import axios from 'axios';
 import config from '../../../config';
 
-export const getNextTwenty = (restaurants, nextPageToken) => async dispatch => {
+export const getNextTwenty = (placeIds, nextPageToken) => async dispatch => {
   try {
     dispatch({
-      type: 'AWAITING_NEXT_TWENTY_RESTAURANTS',
+      type: 'AWAITING_NEXT_TWENTY_PLACE_IDS',
     });
 
-    let temp = restaurants;
+    let temp = placeIds;
 
     const url = `https://maps.googleapis.com/maps/api/place/textsearch/json?pagetoken=${nextPageToken}&key=${
       config.API_KEY
@@ -23,15 +23,15 @@ export const getNextTwenty = (restaurants, nextPageToken) => async dispatch => {
     }
 
     dispatch({
-      type: 'SUCCESS_NEXT_TWENTY_RESTAURANTS',
+      type: 'SUCCESS_NEXT_TWENTY_PLACE_IDS',
       payload: {
-        restaurants: temp,
+        placeIds: temp,
         nextPageToken: data.data.next_page_token,
       },
     });
   } catch (e) {
     dispatch({
-      type: 'REJECTED_NEXT_TWENTY_RESTAURANTS',
+      type: 'REJECTED_NEXT_TWENTY_PLACE_IDS',
       // TODO: handle error D:
     });
   }

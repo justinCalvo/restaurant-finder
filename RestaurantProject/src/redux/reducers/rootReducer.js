@@ -1,14 +1,14 @@
 import { combineReducers } from 'redux';
-import restaurantsReducer from './restaurantsReducer';
+import placeIdsReducer from './placeIdsReducer';
 import detailsReducer from './detailsReducer';
-import photosReducer from './photosReducer';
 import matchesReducer from './matchesReducer';
+import typesReducer from './typesReducer';
 
 const rootReducer = combineReducers({
-  restaurants: restaurantsReducer,
+  places: placeIdsReducer,
   details: detailsReducer,
-  photos: photosReducer,
   matches: matchesReducer,
+  types: typesReducer,
 });
 
 export default rootReducer;

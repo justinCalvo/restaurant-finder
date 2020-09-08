@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
+  View,
   SafeAreaView,
   StyleSheet,
   Dimensions,
@@ -22,23 +23,27 @@ import { getDetails } from '../../redux/actions/detailsActions';
 import { setMatches } from '../../redux/actions/matchesActions';
 import { getNextTwenty } from '../../redux/actions/nextTwentyActions';
 
-const Restaurants = ({ route, navigation }) => {
+const MainScreen = () => {
   const [index, setIndex] = useState(0);
+  const [num, setNum] = useState(0);
+
   const [showDetails, setShowDetails] = useState(false);
   const [viewReviews, setViewReviews] = useState(false);
   const [scrollReviewsToTop, setScrollReviewsToTop] = useState(false);
+
   const [customerRating, setCustomerRating] = useState([]);
   const [allCustomerRatings, setAllCustomerRatings] = useState([]);
-  const [num, setNum] = useState(0);
+
   const dispatch = useDispatch();
+
   const details = useSelector(state => state.details);
-  const restaurants = useSelector(state => state.restaurants);
+  const places = useSelector(state => state.places);
   const matches = useSelector(state => state.matches);
 
   const MainAction = async () => {
-    if (restaurants.restaurants[index + 1]) {
+    if (places.placeIds[index + 1]) {
       await dispatch(
-        getDetails(details.details, restaurants.restaurants, index, undefined),
+        getDetails(details.details, places.placeIds, index, undefined),
       );
       setIndex(index + 1);
       setShowDetails(false);
@@ -52,15 +57,13 @@ const Restaurants = ({ route, navigation }) => {
       Alert.alert('End of List');
     }
     if (index === 15 || index === 35) {
-      await dispatch(
-        getNextTwenty(restaurants.restaurants, restaurants.nextPageToken),
-      );
+      await dispatch(getNextTwenty(places.placeIds, places.nextPageToken));
     }
   };
 
   const RightActions = async () => {
     await dispatch(
-      setMatches(restaurants.restaurants, details.details, index, matches),
+      setMatches(places.placeIds, details.details, index, matches),
     );
   };
 
@@ -102,7 +105,9 @@ const Restaurants = ({ route, navigation }) => {
           }
         }}>
         <SafeAreaView style={styles.container}>
-          <Photos index={index} showDetails={showDetails} />
+          <View style={styles.photoContainer}>
+            <Photos index={index} showDetails={showDetails} />
+          </View>
           <Details
             index={index}
             showDetails={showDetails}
@@ -142,6 +147,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fafafa',
   },
+  photoContainer: {
+    alignItems: 'center',
+  },
 });
 
-export default Restaurants;
+export default MainScreen;

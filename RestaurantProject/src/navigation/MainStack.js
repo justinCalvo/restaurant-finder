@@ -33,7 +33,7 @@ const MainStack = () => {
         })}
       />
       <Stack.Screen
-        name={Routes.Restaurants}
+        name={Routes.Place}
         component={Drawer}
         options={({ navigation }) => ({
           headerLeft: () => (

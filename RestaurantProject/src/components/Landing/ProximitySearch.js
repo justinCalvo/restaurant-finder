@@ -4,24 +4,32 @@ import { useNavigation } from '@react-navigation/native';
 import { Routes } from '../../constants/NavConst';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useDispatch } from 'react-redux';
-import { getRestaurants } from '../../redux/actions/restaurantsActions';
+import { getPlaceIds } from '../../redux/actions/currentLocationActions';
 
-const ProximitySearch = ({ isLoading, setIsLoading }) => {
+const ProximitySearch = ({
+  isLoading,
+  setIsLoading,
+  min,
+  max,
+  meters,
+  type,
+}) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
   const getNearby = async () => {
     setIsLoading(true);
-    await dispatch(getRestaurants());
+    await dispatch(getPlaceIds(min, max, meters, type));
     setIsLoading(false);
-    navigation.navigate(Routes.Restaurants);
+    navigation.navigate(Routes.Place);
   };
 
   return (
     <View>
       <TouchableOpacity onPress={getNearby} title="Nearby Search">
         <Text style={styles.text}>
-          <Icon name="navigate-sharp" size={24} /> Current Location
+          <Icon name="navigate-sharp" size={24} color="#cb3737" /> Current
+          Location
         </Text>
       </TouchableOpacity>
     </View>

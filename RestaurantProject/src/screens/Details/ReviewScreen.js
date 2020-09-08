@@ -111,9 +111,6 @@ const ReviewScreen = ({
 const { width } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
-  // container: {
-  //   alignItems: 'center',
-  // },
   reviewDisplay: {
     display: 'flex',
     paddingHorizontal: 10,

@@ -4,7 +4,7 @@ import {
   Image,
   StyleSheet,
   Dimensions,
-  TouchableHighlight,
+  TouchableOpacity,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Routes } from '../../constants/NavConst';
@@ -35,9 +35,9 @@ const Photos = ({ index, photoIndex, showDetails }) => {
   }, [openModal, isModalOpen]);
 
   return (
-    <View>
-      <TouchableHighlight underlayColor="#1C2938" onPress={handlePhotosModal}>
-        <View style={styles.container}>
+    <View style={styles.container}>
+      <TouchableOpacity onPress={handlePhotosModal}>
+        <View style={styles.photoContainer}>
           <Image
             style={showDetails ? styles.condensed : styles.photo}
             source={{
@@ -47,7 +47,7 @@ const Photos = ({ index, photoIndex, showDetails }) => {
             }}
           />
         </View>
-      </TouchableHighlight>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -56,6 +56,9 @@ const { width } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   container: {
+    width: width / 1.2,
+  },
+  photoContainer: {
     justifyContent: 'center',
     alignItems: 'center',
     paddingTop: 10,

@@ -3,7 +3,7 @@ import config from '../../../config';
 
 export const getDetails = (
   details,
-  restaurants,
+  places,
   index,
   pIndex,
 ) => async dispatch => {
@@ -37,10 +37,10 @@ export const getDetails = (
     });
 
     let newData;
-    if (restaurants) {
+    if (places) {
       newData = details;
       url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${
-        restaurants[index + 1]
+        places[index + 1]
       }&fields=formatted_phone_number,opening_hours/weekday_text,website,photo,reviews,rating,user_ratings_total,price_level,formatted_address,name&key=${
         config.API_KEY
       }`;
@@ -55,7 +55,7 @@ export const getDetails = (
       type: 'AWAITING_INITIAL_PHOTOS',
     });
 
-    if (restaurants) {
+    if (places) {
       url = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=${
         newData[index + 1].photos[1].width
       }&photoreference=${newData[index + 1].photos[1].photo_reference}&key=${

@@ -28,16 +28,18 @@ const Expanded = ({
   setScrollReviewsToTop,
   MainAction,
   RightActions,
+  item,
 }) => {
   const details = useSelector(state => state.details);
+  const theDetails = item ? item : details.details[index];
 
   const [reviewData, setReviewData] = useState([]);
 
   const updateReviewData = useCallback(() => {
     let temp = [];
     let nextNumber = 0;
-    if (details.details[index].reviews) {
-      const currentData = details.details[index].reviews;
+    if (theDetails.reviews) {
+      const currentData = theDetails.reviews;
       for (var i = 0; i < currentData.length; i++) {
         temp.push({
           author_name: currentData[i].author_name,
@@ -50,18 +52,18 @@ const Expanded = ({
       }
       setReviewData(temp);
     }
-  }, [details.details, index, setReviewData]);
+  }, [theDetails, setReviewData]);
 
   const allRatings = useCallback(() => {
     let temp = [];
-    if (details.details[index].reviews) {
-      const currentData = details.details[index].reviews;
+    if (theDetails.reviews) {
+      const currentData = theDetails.reviews;
       for (var i = 0; i < currentData.length; i++) {
         temp.push(currentData[i].rating);
       }
       setAllCustomerRatings(temp);
     }
-  }, [details.details, index, setAllCustomerRatings]);
+  }, [theDetails, setAllCustomerRatings]);
 
   const createStars = useCallback(() => {
     const wholeNumber = allCustomerRatings[num]
@@ -83,15 +85,15 @@ const Expanded = ({
 
   useEffect(() => {
     createStars();
-  }, [createStars, allRatings, details.details, viewReviews]);
+  }, [createStars, allRatings, theDetails, viewReviews]);
 
   useEffect(() => {
     allRatings();
-  }, [allRatings, viewReviews, details.details]);
+  }, [allRatings, viewReviews, theDetails]);
 
   useEffect(() => {
     updateReviewData();
-  }, [updateReviewData, details.details]);
+  }, [updateReviewData, theDetails]);
 
   return (
     <FlingGestureHandler
@@ -127,19 +129,19 @@ const Expanded = ({
           <View style={[showDetails ? styles.display : styles.hide]}>
             {!viewReviews ? (
               <Text style={[styles.scheduleText, styles.text]}>
-                {details.details[index].opening_hours.weekday_text[0]}
+                {theDetails.opening_hours.weekday_text[0]}
                 {'\n'}
-                {details.details[index].opening_hours.weekday_text[1]}
+                {theDetails.opening_hours.weekday_text[1]}
                 {'\n'}
-                {details.details[index].opening_hours.weekday_text[2]}
+                {theDetails.opening_hours.weekday_text[2]}
                 {'\n'}
-                {details.details[index].opening_hours.weekday_text[3]}
+                {theDetails.opening_hours.weekday_text[3]}
                 {'\n'}
-                {details.details[index].opening_hours.weekday_text[4]}
+                {theDetails.opening_hours.weekday_text[4]}
                 {'\n'}
-                {details.details[index].opening_hours.weekday_text[5]}
+                {theDetails.opening_hours.weekday_text[5]}
                 {'\n'}
-                {details.details[index].opening_hours.weekday_text[6]}
+                {theDetails.opening_hours.weekday_text[6]}
               </Text>
             ) : (
               <ReviewScreen
@@ -155,12 +157,16 @@ const Expanded = ({
             )}
           </View>
           <View style={styles.scheduleWithButtonsContainer}>
-            <LikeButton
-              size={50}
-              MainAction={MainAction}
-              RightActions={RightActions}
-            />
-            <DislikeButton size={50} MainAction={MainAction} />
+            {!item ? (
+              <>
+                <LikeButton
+                  size={50}
+                  MainAction={MainAction}
+                  RightActions={RightActions}
+                />
+                <DislikeButton size={50} MainAction={MainAction} />
+              </>
+            ) : null}
           </View>
         </View>
       </FlingGestureHandler>

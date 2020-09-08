@@ -1,15 +1,10 @@
-export const setMatches = (
-  restaurants,
-  details,
-  index,
-  matches,
-) => dispatch => {
+export const setMatches = (places, details, index, matches) => dispatch => {
   try {
     dispatch({
       type: 'RESET_MATCHES_COUNTER',
     });
 
-    if (!restaurants && !index) {
+    if (!places && !index) {
       var counter = 0;
     }
 
@@ -27,18 +22,18 @@ export const setMatches = (
     let matchObj;
     if (!matches.matches) {
       matchObj = {};
-      matchObj[restaurants[index]] = [index, 1];
+      matchObj[places[index]] = [index, 1];
     } else {
       matchObj = matches.matches;
-      matchObj[restaurants[index]] = [index, 1];
+      matchObj[places[index]] = [index, 1];
     }
 
     let item,
       newMatches = [],
       next = 0;
     for (item in matchObj) {
-      for (let i = 0; i < restaurants.length; i++) {
-        if (restaurants[i] === item) {
+      for (let i = 0; i < places.length; i++) {
+        if (places[i] === item) {
           newMatches.push({
             formatted_phone_number: details[i].formatted_phone_number,
             opening_hours: details[i].opening_hours,
@@ -67,7 +62,7 @@ export const setMatches = (
     });
   } catch (e) {
     dispatch({
-      type: 'REJECTED_RESTAURANTS',
+      type: 'REJECTED_places',
       // TODO: handle error D:
     });
   }

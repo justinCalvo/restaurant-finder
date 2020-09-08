@@ -7,14 +7,28 @@ import {
   Dimensions,
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import Icon from 'react-native-vector-icons/Ionicons';
+
 import ProximitySearch from '../../components/Landing/ProximitySearch';
 import CitySearch from '../../components/Landing/CitySearch';
-import Icon from 'react-native-vector-icons/Ionicons';
 import Loading from '../../components/Loading/Loading';
+
+import PreferencesScreen from './PreferencesScreen';
 
 const Home = () => {
   const [toggleCitySearch, setToggleCitySearch] = useState(false);
+  const [toggleOptions, setToggleOptions] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  const [min, setMin] = useState('1');
+  const [max, setMax] = useState('4');
+  const [meters, setMeters] = useState('8046.72');
+  const [type, setType] = useState('restaurant');
+
+  const handleSearchLocationPress = () => {
+    setToggleOptions(false);
+    setToggleCitySearch(!toggleCitySearch);
+  };
 
   return (
     <KeyboardAwareScrollView
@@ -24,20 +38,48 @@ const Home = () => {
       scrollEnabled={false}
       extraScrollHeight={20}>
       <View style={styles.buttonContainer}>
-        <View style={styles.headerContainer}>
-          <Text style={styles.header}>Rair</Text>
+        <View style={styles.topContainer}>
+          <View style={styles.headerContainer}>
+            <Text style={styles.header}>Rair</Text>
+          </View>
         </View>
         {isLoading ? <Loading /> : null}
-        <ProximitySearch isLoading={isLoading} setIsLoading={setIsLoading} />
-        <TouchableOpacity
-          onPress={() => setToggleCitySearch(!toggleCitySearch)}>
+        <PreferencesScreen
+          min={min}
+          setMin={setMin}
+          max={max}
+          setMax={setMax}
+          setMeters={setMeters}
+          toggleOptions={toggleOptions}
+          setToggleOptions={setToggleOptions}
+          setToggleCitySearch={setToggleCitySearch}
+          type={type}
+          setType={setType}
+        />
+        <ProximitySearch
+          isLoading={isLoading}
+          setIsLoading={setIsLoading}
+          min={min}
+          max={max}
+          meters={meters}
+          type={type}
+        />
+        <TouchableOpacity onPress={() => handleSearchLocationPress()}>
           <Text style={styles.text}>
-            <Icon name="search-sharp" size={24} /> Search Location
+            <Icon name="search-sharp" size={24} color="#cb3737" /> Search
+            Location
           </Text>
         </TouchableOpacity>
       </View>
       {toggleCitySearch ? (
-        <CitySearch isLoading={isLoading} setIsLoading={setIsLoading} />
+        <CitySearch
+          isLoading={isLoading}
+          setIsLoading={setIsLoading}
+          min={min}
+          max={max}
+          meters={meters}
+          type={type}
+        />
       ) : null}
     </KeyboardAwareScrollView>
   );
@@ -66,11 +108,11 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     width: width,
-    height: height / 1.75,
+    height: height / 1.5,
     justifyContent: 'flex-end',
     alignItems: 'center',
   },
-  headerContainer: {
+  topContainer: {
     width: width,
     height: height / 5,
     justifyContent: 'center',
@@ -78,6 +120,9 @@ const styles = StyleSheet.create({
   },
   keyboardColor: {
     backgroundColor: '#fafafa',
+  },
+  headerContainer: {
+    paddingVertical: 10,
   },
 });
 

@@ -1,12 +1,20 @@
 import axios from 'axios';
 import config from '../../../config';
 
-export const getLocation = (city, states, zipcode) => async dispatch => {
+export const getLocation = (
+  city,
+  states,
+  zipcode,
+  min,
+  max,
+  meters,
+  types,
+) => async dispatch => {
   try {
     dispatch({
-      type: 'RESET_RESTAURANTS',
+      type: 'RESET_PLACE_IDS',
       payload: {
-        restaurants: [],
+        placeIds: [],
         details: [],
         matches: {},
         displayMatches: [],
@@ -23,7 +31,7 @@ export const getLocation = (city, states, zipcode) => async dispatch => {
     );
 
     dispatch({
-      type: 'AWAITING_RESTAURANTS',
+      type: 'AWAITING_PLACE_IDS',
     });
 
     let lat = location.data.results[0].geometry.location.lat;
@@ -31,24 +39,24 @@ export const getLocation = (city, states, zipcode) => async dispatch => {
 
     let url = '';
 
-    url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=restaurant&opennow&location=${lat},${lng}&radius=16093.44&type=restaurant&opennow&key=${
+    url = `https://maps.googleapis.com/maps/api/place/textsearch/json?type=${types}&opennow&location=${lat},${lng}&minprice=${min}&maxprice=${max}&radius=${meters}&key=${
       config.API_KEY
     }`;
 
-    const restaurants = await axios.get(url);
+    const places = await axios.get(url);
     let placeIdData = [],
       i;
-    for (i = 0; i < restaurants.data.results.length; i++) {
-      if (restaurants.data.results[i].place_id) {
-        placeIdData.push(restaurants.data.results[i].place_id);
+    for (i = 0; i < places.data.results.length; i++) {
+      if (places.data.results[i].place_id) {
+        placeIdData.push(places.data.results[i].place_id);
       }
     }
 
     dispatch({
-      type: 'SUCCESS_RESTAURANTS',
+      type: 'SUCCESS_PLACE_IDS',
       payload: {
-        restaurants: placeIdData,
-        nextPageToken: restaurants.data.next_page_token,
+        placeIds: placeIdData,
+        nextPageToken: places.data.next_page_token,
       },
     });
 
@@ -56,7 +64,9 @@ export const getLocation = (city, states, zipcode) => async dispatch => {
       type: 'AWAITING_DETAILS',
     });
 
-    url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeIdData}&fields=formatted_phone_number,opening_hours/weekday_text,website,photo,reviews&key=${
+    url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${
+      placeIdData[0]
+    }&fields=formatted_phone_number,opening_hours/weekday_text,website,photo,reviews,rating,user_ratings_total,price_level,formatted_address,name&key=${
       config.API_KEY
     }`;
 
@@ -85,7 +95,7 @@ export const getLocation = (city, states, zipcode) => async dispatch => {
     });
   } catch (e) {
     dispatch({
-      type: 'REJECTED_RESTAURANTS',
+      type: 'REJECTED_PLACE_IDS',
       // TODO: handle error D:
     });
   }

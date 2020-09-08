@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   SafeAreaView,
@@ -9,25 +9,38 @@ import {
   Linking,
   TouchableOpacity,
 } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
+
+import Expanded from '../../components/Details/Expanded';
+import Reviews from '../../components/Details/Reviews';
+
 import PriceRating from '../../utils/PriceRating';
 import Stars from '../../utils/Stars';
 import CurrentDay from '../../utils/CurrentDay';
 import PoweredByGoogle from '../../utils/PoweredByGoogle';
-import Icon from 'react-native-vector-icons/Ionicons';
 
 const MatchDetails = ({ route }) => {
   const { stars, item } = route.params;
 
+  const [num, setNum] = useState(0);
+
+  const [showDetails, setShowDetails] = useState(false);
+  const [viewReviews, setViewReviews] = useState(false);
+  const [scrollReviewsToTop, setScrollReviewsToTop] = useState(false);
+
+  const [customerRating, setCustomerRating] = useState([]);
+  const [allCustomerRatings, setAllCustomerRatings] = useState([]);
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.nameContainer}>
-        <Text style={styles.restaurantName}>{item.name}</Text>
+        <Text style={styles.placeName}>{item.name}</Text>
       </View>
       <View style={styles.ratingContainer}>
         <View style={styles.priceContainer}>
           <PriceRating priceLevel={item.price_level} size={25} />
         </View>
-        <View style={styles.restaurantRating}>
+        <View style={styles.placeRating}>
           <Text style={styles.ratingsTotalText}>
             ({item.user_ratings_total})
           </Text>
@@ -35,44 +48,106 @@ const MatchDetails = ({ route }) => {
         </View>
       </View>
       <View style={styles.photoContainer}>
-        <Image style={styles.photo} source={{ uri: item.photos[1].url }} />
+        <Image
+          style={showDetails ? styles.condensed : styles.photo}
+          source={{ uri: item.photos[1].url }}
+        />
       </View>
-      <View style={styles.dayContainer}>
-        <CurrentDay openingHours={item.opening_hours.weekday_text} />
-      </View>
-      <View style={styles.contactContainer}>
-        {item.formatted_phone_number ? (
-          <TouchableOpacity
-            onPress={() =>
-              Linking.openURL(`tel:${item.formatted_phone_number}`)
-            }>
-            <View style={styles.align}>
-              <View style={styles.websiteContainer}>
-                <Icon name="call" size={18} color="#cb3737" />
-              </View>
-              <Text style={styles.text}>{item.formatted_phone_number}</Text>
-            </View>
-          </TouchableOpacity>
+      <View style={!showDetails ? styles.detailsContainer : null}>
+        {!showDetails ? (
+          <View style={styles.dayContainer}>
+            <CurrentDay openingHours={item.opening_hours.weekday_text} />
+          </View>
         ) : null}
-        {item.website ? (
-          <TouchableOpacity onPress={() => Linking.openURL(item.website)}>
-            <View style={styles.align}>
-              <View style={styles.websiteContainer}>
-                <Icon name="globe-outline" size={18} color="#cb3737" />
+        <View style={styles.contactContainer}>
+          {item.formatted_phone_number && !showDetails ? (
+            <TouchableOpacity
+              onPress={() =>
+                Linking.openURL(`tel:${item.formatted_phone_number}`)
+              }>
+              <View style={styles.align}>
+                <View style={styles.websiteContainer}>
+                  <Icon name="call" size={18} color="#cb3737" />
+                </View>
+                <Text style={styles.text}>{item.formatted_phone_number}</Text>
               </View>
-              <Text style={styles.text}>Website</Text>
-            </View>
-          </TouchableOpacity>
-        ) : null}
-      </View>
-      <View style={styles.addressContainer}>
-        <View style={styles.address}>
-          <Text style={[styles.text, styles.addressText]}>
-            {item.formatted_address}
-          </Text>
+            </TouchableOpacity>
+          ) : null}
+          {item.website && !showDetails ? (
+            <TouchableOpacity onPress={() => Linking.openURL(item.website)}>
+              <View style={styles.align}>
+                <View style={styles.websiteContainer}>
+                  <Icon name="globe-outline" size={18} color="#cb3737" />
+                </View>
+                <Text style={styles.text}>Website</Text>
+              </View>
+            </TouchableOpacity>
+          ) : null}
         </View>
+        {!showDetails ? (
+          <View style={styles.addressContainer}>
+            <View style={styles.address}>
+              <Text style={[styles.text, styles.addressText]}>
+                {item.formatted_address}
+              </Text>
+            </View>
+          </View>
+        ) : null}
+        {showDetails ? (
+          <View style={styles.reviewsContainer}>
+            <View>
+              <TouchableOpacity
+                onPress={() =>
+                  Linking.openURL(`tel:${item.formatted_phone_number}`)
+                }>
+                <View style={styles.align}>
+                  <View style={styles.websiteContainer}>
+                    <Icon name="call" size={18} color="#cb3737" />
+                  </View>
+                  <Text style={styles.text}>{item.formatted_phone_number}</Text>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => Linking.openURL(item.website)}>
+                <View style={styles.align}>
+                  <View style={styles.websiteContainer}>
+                    <Icon name="globe-outline" size={18} color="#cb3737" />
+                  </View>
+                  <Text style={styles.text}>Website</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+            <Reviews
+              viewReviews={viewReviews}
+              setViewReviews={setViewReviews}
+              item={item}
+            />
+          </View>
+        ) : null}
       </View>
-      <View style={styles.poweredByGoogle}>
+      <View
+        style={
+          showDetails ? styles.expandedContainer : styles.expandedContainerTwo
+        }>
+        <Expanded
+          showDetails={showDetails}
+          setShowDetails={setShowDetails}
+          viewReviews={viewReviews}
+          setViewReviews={setViewReviews}
+          customerRating={customerRating}
+          setCustomerRating={setCustomerRating}
+          allCustomerRatings={allCustomerRatings}
+          setAllCustomerRatings={setAllCustomerRatings}
+          num={num}
+          setNum={setNum}
+          scrollReviewsToTop={scrollReviewsToTop}
+          setScrollReviewsToTop={setScrollReviewsToTop}
+          item={item}
+        />
+      </View>
+      <View
+        style={
+          showDetails ? styles.poweredByGoogleOn : styles.poweredByGoogleOff
+        }>
         <PoweredByGoogle />
       </View>
     </SafeAreaView>
@@ -93,7 +168,7 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     marginRight: 5,
   },
-  restaurantName: {
+  placeName: {
     fontSize: 24,
     fontWeight: 'bold',
     textAlign: 'center',
@@ -107,7 +182,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingTop: 5,
   },
-  restaurantRating: {
+  placeRating: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
     alignItems: 'center',
@@ -125,11 +200,10 @@ const styles = StyleSheet.create({
   contactContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    padding: 10,
     flexWrap: 'wrap',
   },
   photoContainer: {
-    paddingVertical: 20,
+    paddingTop: 10,
     alignItems: 'center',
     width: width,
   },
@@ -140,6 +214,7 @@ const styles = StyleSheet.create({
   },
   align: {
     flexDirection: 'row',
+    paddingVertical: 5,
   },
   addressContainer: {
     alignItems: 'center',
@@ -157,9 +232,32 @@ const styles = StyleSheet.create({
   websiteContainer: {
     paddingHorizontal: 5,
   },
-  poweredByGoogle: {
-    height: height / 4.8,
-    justifyContent: 'flex-end',
+  poweredByGoogleOn: {
+    flex: 1,
+    justifyContent: 'flex-start',
+  },
+  poweredByGoogleOff: {
+    flex: 1.8,
+    justifyContent: 'flex-start',
+  },
+  condensed: {
+    width: (width - 10) / 2,
+    height: (width - 10) / 2,
+  },
+  reviewsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'flex-end',
+  },
+  expandedContainer: {
+    flex: 4.2,
+  },
+  expandedContainerTwo: {
+    flex: 1,
+  },
+  detailsContainer: {
+    height: height / 3,
+    justifyContent: 'center',
   },
 });
 

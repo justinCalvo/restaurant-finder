@@ -14,7 +14,7 @@ import { Routes } from '../../constants/NavConst';
 import { useDispatch } from 'react-redux';
 import { getLocation } from '../../redux/actions/locationActions';
 
-const CitySearch = ({ isLoading, setIsLoading }) => {
+const CitySearch = ({ isLoading, setIsLoading, min, max, meters, type }) => {
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
   const [zipcode, setZipcode] = useState('');
@@ -27,9 +27,9 @@ const CitySearch = ({ isLoading, setIsLoading }) => {
   const getCity = async () => {
     if ((city && state) || zipcode) {
       setIsLoading(true);
-      await dispatch(getLocation(city, state, zipcode));
+      await dispatch(getLocation(city, state, zipcode, min, max, meters, type));
       setIsLoading(false);
-      navigation.navigate(Routes.Restaurants);
+      navigation.navigate(Routes.Place);
     } else {
       Alert.alert('Please enter city and state or zip code');
     }
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 50,
   },
   textInput: {
-    fontSize: 28,
+    fontSize: 18,
     borderBottomWidth: 1,
     borderColor: '#1C2938',
     paddingVertical: 10,
@@ -99,13 +99,13 @@ const styles = StyleSheet.create({
     color: '#1C2938',
   },
   text: {
-    fontSize: 22,
+    fontSize: 16,
     fontWeight: 'bold',
     textAlign: 'center',
     color: '#1C2938',
   },
   textContainer: {
-    paddingTop: 30,
+    paddingTop: 10,
   },
 });
 
