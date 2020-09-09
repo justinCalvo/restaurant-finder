@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "255885326257",
+    "firebase_url": "https://restaurant-finder-cda3d.firebaseio.com",
+    "project_id": "restaurant-finder-cda3d",
+    "storage_bucket": "restaurant-finder-cda3d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:255885326257:android:a03ac2b5b22c1447d5af90",
+        "android_client_info": {
+          "package_name": "com.restaurantproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "255885326257-r74tnjp785qbkukp2ncovkakeetfgv3i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1DBQMtPKQpfPYKaLyFouEDxKtRED5FyY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "255885326257-r74tnjp785qbkukp2ncovkakeetfgv3i.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "255885326257-gqg5ihtip9uts1kfng7is02klbu2kh55.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.RestaurantProject"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
