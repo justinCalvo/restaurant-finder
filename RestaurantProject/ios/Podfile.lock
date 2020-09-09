@@ -634,6 +634,10 @@ PODS:
   - RNFBApp (8.4.1):
     - Firebase/CoreOnly (~> 6.30.0)
     - React
+  - RNFBFirestore (7.8.0):
+    - Firebase/Firestore (~> 6.30.0)
+    - React
+    - RNFBApp
   - RNGestureHandler (1.7.0):
     - React
   - RNReanimated (2.0.0-alpha.5):
@@ -728,6 +732,7 @@ DEPENDENCIES:
   - "RNCMaskedView (from `../node_modules/@react-native-community/masked-view`)"
   - "RNCPicker (from `../node_modules/@react-native-community/picker`)"
   - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
+  - "RNFBFirestore (from `../node_modules/@react-native-firebase/firestore`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
@@ -826,6 +831,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-community/picker"
   RNFBApp:
     :path: "../node_modules/@react-native-firebase/app"
+  RNFBFirestore:
+    :path: "../node_modules/@react-native-firebase/firestore"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
   RNReanimated:
@@ -896,6 +903,7 @@ SPEC CHECKSUMS:
   RNCMaskedView: f5c7d14d6847b7b44853f7acb6284c1da30a3459
   RNCPicker: 494015f2b7ec4bee5484b6f235aa19691426dcdb
   RNFBApp: e4321cad5dd23b43b3b4f0ca060300b9f85cb7a4
+  RNFBFirestore: e19737a64f9c46b00b1179b45c5cb20cf0c7c3ee
   RNGestureHandler: b6b359bb800ae399a9c8b27032bdbf7c18f08a08
   RNReanimated: 51ba6deb21c1d8758e34d60888ed57d182169a26
   RNScreens: b748efec66e095134c7166ca333b628cd7e6f3e2
@@ -905,4 +913,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: da9fc2b22ac11b8392237d26a9457c724ba762a3
 
-COCOAPODS: 1.9.1
+COCOAPODS: 1.9.3

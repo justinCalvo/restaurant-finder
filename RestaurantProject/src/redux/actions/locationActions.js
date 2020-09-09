@@ -1,5 +1,6 @@
 import axios from 'axios';
 import config from '../../../config';
+import { createSessionInFirestore } from '../../API/createSessionInFirestore';
 
 export const getLocation = (
   city,
@@ -52,11 +53,12 @@ export const getLocation = (
       }
     }
 
+    const nextPageToken = places.data.next_page_token;
+
     dispatch({
       type: 'SUCCESS_PLACE_IDS',
       payload: {
         placeIds: placeIdData,
-        nextPageToken: places.data.next_page_token,
       },
     });
 
@@ -91,6 +93,33 @@ export const getLocation = (
       type: 'SUCCESS_DETAILS',
       payload: {
         details: newData,
+      },
+    });
+
+    dispatch({
+      type: 'AWAITING_NEXT_TWENTY_PLACE_IDS',
+    });
+
+    url = `https://maps.googleapis.com/maps/api/place/textsearch/json?pagetoken=${nextPageToken}&key=${
+      config.API_KEY
+    }`;
+
+    const data = await axios.get(url);
+    const currentData = data.data.results;
+
+    for (var j = 0; j < currentData.length; j++) {
+      if (currentData[j].place_id) {
+        placeIdData.push(currentData[j].place_id);
+      }
+    }
+
+    createSessionInFirestore(placeIdData);
+
+    dispatch({
+      type: 'SUCCESS_NEXT_TWENTY_PLACE_IDS',
+      payload: {
+        placeIds: placeIdData,
+        nextPageToken: nextPageToken,
       },
     });
   } catch (e) {
