@@ -113,7 +113,7 @@ export const getLocation = (
       }
     }
 
-    createSession(placeIdData);
+    createSession(undefined, placeIdData);
 
     dispatch({
       type: 'SUCCESS_NEXT_TWENTY_PLACE_IDS',
