@@ -1,6 +1,6 @@
 import axios from 'axios';
 import config from '../../../config';
-import { createSessionInFirestore } from '../../API/createSessionInFirestore';
+import { createSession } from '../../API/createSession';
 
 export const getPlaceIds = (min, max, meters, types) => async dispatch => {
   try {
@@ -91,7 +91,7 @@ export const getPlaceIds = (min, max, meters, types) => async dispatch => {
       }
     }
 
-    createSessionInFirestore(placeIdData);
+    createSession(undefined, placeIdData);
 
     dispatch({
       type: 'SUCCESS_NEXT_TWENTY_PLACE_IDS',

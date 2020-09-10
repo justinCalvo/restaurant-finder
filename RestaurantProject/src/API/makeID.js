@@ -3,7 +3,7 @@ export const uniqueID = function() {
     temp,
     char;
 
-  let length = Math.floor(Math.random() * (10 - 6) + 6);
+  let length = Math.floor(Math.random() * 8 + 6);
 
   while (id.length < length) {
     temp = Math.round(Math.random());
