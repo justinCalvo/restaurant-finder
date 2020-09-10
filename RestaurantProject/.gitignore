@@ -60,3 +60,6 @@ buck-out/
 
 #config
 config.js
+
+google-services.json
+ios/GoogleService-Info.plist
