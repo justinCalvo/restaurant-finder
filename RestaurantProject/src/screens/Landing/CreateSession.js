@@ -15,7 +15,7 @@ import Loading from '../../components/Loading/Loading';
 
 import PreferencesScreen from './PreferencesScreen';
 
-const Home = () => {
+const CreateSession = () => {
   const [toggleCitySearch, setToggleCitySearch] = useState(false);
   const [toggleOptions, setToggleOptions] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -126,4 +126,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Home;
+export default CreateSession;

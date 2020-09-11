@@ -7,8 +7,11 @@ import {
   Dimensions,
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { Routes } from '../../constants/NavConst';
 import Icon from 'react-native-vector-icons/Ionicons';
+
+import { Routes } from '../../constants/NavConst';
+
+import JoinSession from '../../components/Landing/JoinSession';
 
 const Landing = ({ navigation }) => {
   const [toggleJoinSession, setToggleJoinSession] = useState(false);
@@ -30,7 +33,8 @@ const Landing = ({ navigation }) => {
             <Text style={styles.header}>Rair</Text>
           </View>
         </View>
-        <TouchableOpacity onPress={() => navigation.navigate(Routes.Home)}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate(Routes.CreateSession)}>
           <Text style={styles.text}>
             {/* <Icon name="search-sharp" size={24} color="#cb3737" />  */}
             Create Session
@@ -43,6 +47,7 @@ const Landing = ({ navigation }) => {
           </Text>
         </TouchableOpacity>
       </View>
+      {toggleJoinSession ? <JoinSession /> : null}
     </KeyboardAwareScrollView>
   );
 };
