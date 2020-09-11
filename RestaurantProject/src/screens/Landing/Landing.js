@@ -51,6 +51,7 @@ const Landing = ({ navigation }) => {
     </KeyboardAwareScrollView>
   );
 };
+
 const { width, height } = Dimensions.get('window');
 
 const styles = StyleSheet.create({

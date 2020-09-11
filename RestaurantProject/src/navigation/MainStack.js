@@ -9,6 +9,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import MatchDetails from '../screens/Matches/MatchDetails';
 import CreateSession from '../screens/Landing/CreateSession';
+import ShareToken from '../screens/Details/ShareToken';
+
 import Drawer from './Drawer';
 import HomeDrawer from './HomeDrawer';
 
@@ -48,6 +50,18 @@ const MainStack = () => {
       <Stack.Screen
         name={Routes.CreateSession}
         component={CreateSession}
+        options={({ navigation }) => ({
+          headerLeft: () => (
+            <TouchableOpacity
+              onPress={() => navigation.dispatch(CommonActions.goBack())}>
+              <Ionicons name="arrow-back-outline" size={30} color="#1C2938" />
+            </TouchableOpacity>
+          ),
+        })}
+      />
+      <Stack.Screen
+        name={Routes.ShareToken}
+        component={ShareToken}
         options={({ navigation }) => ({
           headerLeft: () => (
             <TouchableOpacity

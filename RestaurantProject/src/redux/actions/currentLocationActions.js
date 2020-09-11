@@ -93,11 +93,10 @@ export const getPlaceIds = (min, max, meters, types) => async dispatch => {
     }
 
     let sessionID = uniqueID();
-    createSession(sessionID, placeIdData).then(() => {
-      let time = new Date();
-      let hour = time.getUTCHours().toString();
-      sessionID = hour + '-' + sessionID;
-    });
+    let time = new Date();
+    const hour = time.getUTCHours().toString();
+    sessionID = hour + '-' + sessionID;
+    createSession(sessionID, placeIdData);
 
     dispatch({
       type: 'SUCCESS_NEXT_TWENTY_PLACE_IDS',

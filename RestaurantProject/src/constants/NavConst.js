@@ -7,4 +7,5 @@ export class Routes {
   static Main = 'Main';
   static Matches = 'Matches';
   static MatchDetails = 'MatchDetails';
+  static ShareToken = 'ShareToken';
 }
