@@ -8,6 +8,7 @@ import { Routes } from '../constants/NavConst';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import MatchDetails from '../screens/Matches/MatchDetails';
+import Home from '../screens/Landing/Home';
 import Drawer from './Drawer';
 import HomeDrawer from './HomeDrawer';
 
@@ -21,7 +22,7 @@ const MainStack = () => {
         gestureEnabled: false,
       }}>
       <Stack.Screen
-        name={Routes.Home}
+        name={Routes.Landing}
         component={HomeDrawer}
         options={({ navigation }) => ({
           headerLeft: () => (
@@ -40,6 +41,18 @@ const MainStack = () => {
             <TouchableOpacity
               onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}>
               <Ionicons name="menu-outline" size={30} color="#1C2938" />
+            </TouchableOpacity>
+          ),
+        })}
+      />
+      <Stack.Screen
+        name={Routes.Home}
+        component={Home}
+        options={({ navigation }) => ({
+          headerLeft: () => (
+            <TouchableOpacity
+              onPress={() => navigation.dispatch(CommonActions.goBack())}>
+              <Ionicons name="arrow-back-outline" size={30} color="#1C2938" />
             </TouchableOpacity>
           ),
         })}
