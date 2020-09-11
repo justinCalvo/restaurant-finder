@@ -1,6 +1,6 @@
 const initalState = {
   placeIds: [],
-  nextPageToken: '',
+  sessionID: '',
 };
 
 const placeIdsReducer = (state = initalState, action) => {
@@ -45,7 +45,7 @@ const placeIdsReducer = (state = initalState, action) => {
       return {
         ...state,
         placeIds: payload.placeIds,
-        nextPageToken: payload.nextPageToken,
+        sessionID: payload.sessionID,
       };
     case 'REJECTED_NEXT_TWENTY_PLACE_IDS':
       return {

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import config from '../../../config';
 import { createSession } from '../../API/createSession';
+import { uniqueID } from '../../API/makeID.js';
 
 export const getPlaceIds = (min, max, meters, types) => async dispatch => {
   try {
@@ -91,13 +92,18 @@ export const getPlaceIds = (min, max, meters, types) => async dispatch => {
       }
     }
 
-    createSession(undefined, placeIdData);
+    let sessionID = uniqueID();
+    createSession(sessionID, placeIdData).then(() => {
+      let time = new Date();
+      let hour = time.getUTCHours().toString();
+      sessionID = hour + '-' + sessionID;
+    });
 
     dispatch({
       type: 'SUCCESS_NEXT_TWENTY_PLACE_IDS',
       payload: {
         placeIds: placeIdData,
-        nextPageToken: nextPageToken,
+        sessionID: sessionID,
       },
     });
   } catch (e) {

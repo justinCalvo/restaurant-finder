@@ -13,10 +13,15 @@ export const createSession = async function(id, idArr) {
   } else {
     iD = uniqueID();
   }
+  let results = {};
+  results.sessionID = iD;
+  results.createdAt = hour;
 
   for (let i = 0; i < idArr.length; i++) {
     obj[idArr[i]] = 0;
   }
+
+  iD = hour + '-' + iD;
 
   db.collection(hour)
     .doc(iD)
