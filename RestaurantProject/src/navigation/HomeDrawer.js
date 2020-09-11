@@ -4,7 +4,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import { Routes } from '../constants/NavConst';
 
-import Home from '../screens/Landing/Home';
+import Landing from '../screens/Landing/Landing';
 import { HomeDrawerContent } from './HomeDrawerContent';
 
 const Drawer = createDrawerNavigator();
@@ -17,7 +17,7 @@ const HomeDrawer = () => {
         backgroundColor: '#fafafa',
       }}
       drawerContent={props => <HomeDrawerContent {...props} />}>
-      <Drawer.Screen name={Routes.Home} component={Home} />
+      <Drawer.Screen name={Routes.Landing} component={Landing} />
     </Drawer.Navigator>
   );
 };
