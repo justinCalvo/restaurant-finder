@@ -62,14 +62,7 @@ const MainStack = () => {
       <Stack.Screen
         name={Routes.ShareToken}
         component={ShareToken}
-        options={({ navigation }) => ({
-          headerLeft: () => (
-            <TouchableOpacity
-              onPress={() => navigation.dispatch(CommonActions.goBack())}>
-              <Ionicons name="arrow-back-outline" size={30} color="#1C2938" />
-            </TouchableOpacity>
-          ),
-        })}
+        options={{ headerLeft: null }}
       />
       <Stack.Screen
         name={Routes.MatchDetails}
