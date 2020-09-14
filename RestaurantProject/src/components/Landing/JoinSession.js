@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import {
   View,
-  Text,
   TextInput,
   StyleSheet,
   Dimensions,
@@ -56,18 +55,18 @@ const JoinSession = () => {
             color={wasPasted ? 'green' : '#1C2938'}
           />
         </TouchableOpacity>
-        {/* <View> */}
-        <TextInput
-          style={styles.textInput}
-          onChangeText={setToken}
-          value={token}
-          placeholder="enter token"
-          returnKeyType="go"
-          autoCorrect={false}
-          onSubmitEditing={() => {}}
-          blurOnSubmit={false}
-        />
-        {/* </View> */}
+        <View style={styles.inputWidth}>
+          <TextInput
+            style={styles.textInput}
+            onChangeText={setToken}
+            value={token}
+            placeholder="enter token"
+            returnKeyType="go"
+            autoCorrect={false}
+            onSubmitEditing={() => {}}
+            blurOnSubmit={false}
+          />
+        </View>
         <TouchableOpacity onPress={deleteToken}>
           <Ionicons
             name={wasDeleted ? 'close-circle' : 'close-circle-outline'}
@@ -85,7 +84,6 @@ const { width } = Dimensions.get('window');
 const styles = StyleSheet.create({
   container: {
     width: width,
-    paddingHorizontal: 50,
     alignItems: 'center',
   },
   inputContainer: {
@@ -98,6 +96,10 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     textAlign: 'center',
     color: '#1C2938',
+  },
+  inputWidth: {
+    width: width / 1.5,
+    paddingHorizontal: 10,
   },
 });
 
