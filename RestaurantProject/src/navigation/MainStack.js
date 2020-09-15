@@ -8,7 +8,9 @@ import { Routes } from '../constants/NavConst';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import MatchDetails from '../screens/Matches/MatchDetails';
-import Home from '../screens/Landing/Home';
+import CreateSession from '../screens/Landing/CreateSession';
+import ShareToken from '../screens/Details/ShareToken';
+
 import Drawer from './Drawer';
 import HomeDrawer from './HomeDrawer';
 
@@ -46,8 +48,8 @@ const MainStack = () => {
         })}
       />
       <Stack.Screen
-        name={Routes.Home}
-        component={Home}
+        name={Routes.CreateSession}
+        component={CreateSession}
         options={({ navigation }) => ({
           headerLeft: () => (
             <TouchableOpacity
@@ -56,6 +58,11 @@ const MainStack = () => {
             </TouchableOpacity>
           ),
         })}
+      />
+      <Stack.Screen
+        name={Routes.ShareToken}
+        component={ShareToken}
+        options={{ headerLeft: null }}
       />
       <Stack.Screen
         name={Routes.MatchDetails}

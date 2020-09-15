@@ -4,6 +4,7 @@ const db = firestore();
 export const createSession = async function(id, idArr) {
   let obj = {};
   let iD;
+
   if (id) {
     iD = id;
   } else {
@@ -11,9 +12,11 @@ export const createSession = async function(id, idArr) {
   }
   let results = {};
   results.sessionID = iD;
+
   for (let i = 0; i < idArr.length; i++) {
     obj[idArr[i]] = 0;
   }
+
   db.collection(iD.slice(0, 2))
     .doc(iD)
     .set({

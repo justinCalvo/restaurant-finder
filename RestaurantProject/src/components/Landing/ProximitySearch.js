@@ -19,9 +19,9 @@ const ProximitySearch = ({
 
   const getNearby = async () => {
     setIsLoading(true);
+    navigation.navigate(Routes.ShareToken);
     await dispatch(getPlaceIds(min, max, meters, type));
     setIsLoading(false);
-    navigation.navigate(Routes.Place);
   };
 
   return (
