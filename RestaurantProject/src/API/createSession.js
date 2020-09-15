@@ -1,7 +1,6 @@
 import firestore from '@react-native-firebase/firestore';
 import { uniqueID } from './makeID.js';
 const db = firestore();
-
 export const createSession = async function(id, idArr) {
   let obj = {};
   let iD;

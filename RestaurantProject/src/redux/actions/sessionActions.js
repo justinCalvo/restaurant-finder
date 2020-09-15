@@ -1,9 +1,9 @@
 import axios from 'axios';
 import config from '../../../config';
-import { createSession } from '../../API/createSession';
-import { uniqueID } from '../../API/makeID.js';
+// import { createSession } from '../../API/createSession';
+import { findSession } from '../../API/findSession.js';
 
-export const getPlaceIds = (min, max, meters, types) => async dispatch => {
+export const getPlaceIds = id => async dispatch => {
   try {
     dispatch({
       type: 'RESET_PLACE_IDS',
@@ -12,26 +12,22 @@ export const getPlaceIds = (min, max, meters, types) => async dispatch => {
         details: [],
         matches: {},
         displayMatches: [],
-        sessionID: '',
       },
     });
 
     dispatch({
-      type: 'AWAITING_PLACE_IDS',
+      type: 'AWAITING_SESSION',
     });
 
-    let url = `https://maps.googleapis.com/maps/api/place/textsearch/json?type=${types}&opennow&minprice=${min}&maxprice=${max}&radius=${meters}&key=${
-      config.API_KEY
-    }`;
-    const places = await axios.get(url);
-
+    let sessions = findSession(id);
     let placeIdData = [],
       i;
-    for (i = 0; i < places.data.results.length; i++) {
-      if (places.data.results[i].place_id) {
-        placeIdData.push(places.data.results[i].place_id);
-      }
-    }
+
+    // for (i = 0; i < places.data.results.length; i++) {
+    //   if (places.data.results[i].place_id) {
+    //     placeIdData.push(places.data.results[i].place_id);
+    //   }
+    // }
 
     let nextPageToken = places.data.next_page_token;
 
@@ -93,9 +89,12 @@ export const getPlaceIds = (min, max, meters, types) => async dispatch => {
       }
     }
 
-    const sessionID = uniqueID();
-
-    createSession(sessionID, placeIdData);
+    let sessionID = uniqueID();
+    createSession(sessionID, placeIdData).then(() => {
+      let time = new Date();
+      let hour = time.getUTCHours().toString();
+      sessionID = hour + '-' + sessionID;
+    });
 
     dispatch({
       type: 'SUCCESS_NEXT_TWENTY_PLACE_IDS',

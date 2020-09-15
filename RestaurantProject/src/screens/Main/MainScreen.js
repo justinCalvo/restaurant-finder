@@ -26,6 +26,7 @@ import { getNextTwenty } from '../../redux/actions/nextTwentyActions';
 const MainScreen = () => {
   const [index, setIndex] = useState(0);
   const [num, setNum] = useState(0);
+  const [swiped, setSwiped] = useState(false);
 
   const [showDetails, setShowDetails] = useState(false);
   const [viewReviews, setViewReviews] = useState(false);
@@ -52,6 +53,7 @@ const MainScreen = () => {
       setAllCustomerRatings([]);
       setNum(0);
       setScrollReviewsToTop(true);
+      setSwiped(false);
     } else {
       // TODO: better ending to list
       Alert.alert('End of List');
@@ -62,9 +64,26 @@ const MainScreen = () => {
   };
 
   const RightActions = async () => {
-    await dispatch(
-      setMatches(places.placeIds, details.details, index, matches),
-    );
+    if (!swiped) {
+      await setSwiped(true);
+      await dispatch(
+        setMatches(
+          places.placeIds,
+          details.details,
+          index,
+          matches,
+          places.sessionID,
+        ),
+      );
+      await MainAction();
+    }
+  };
+
+  const LeftActions = async () => {
+    if (!swiped) {
+      await setSwiped(true);
+      await MainAction();
+    }
   };
 
   useEffect(() => {
@@ -93,7 +112,7 @@ const MainScreen = () => {
       direction={Directions.LEFT}
       onHandlerStateChange={({ nativeEvent }) => {
         if (nativeEvent.state === State.ACTIVE) {
-          MainAction();
+          LeftActions();
         }
       }}>
       <FlingGestureHandler
@@ -101,7 +120,6 @@ const MainScreen = () => {
         onHandlerStateChange={({ nativeEvent }) => {
           if (nativeEvent.state === State.ACTIVE) {
             RightActions();
-            MainAction();
           }
         }}>
         <SafeAreaView style={styles.container}>
@@ -128,7 +146,7 @@ const MainScreen = () => {
             setNum={setNum}
             scrollReviewsToTop={scrollReviewsToTop}
             setScrollReviewsToTop={setScrollReviewsToTop}
-            MainAction={MainAction}
+            LeftActions={LeftActions}
             RightActions={RightActions}
           />
           <PoweredByGoogle />

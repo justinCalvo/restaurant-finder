@@ -3,7 +3,7 @@ export const uniqueID = function() {
   let id = time.getUTCHours().toString() + '-',
     temp,
     char;
-
+  
   let length = Math.floor(Math.random() * 8 + 9);
 
   while (id.length < length) {

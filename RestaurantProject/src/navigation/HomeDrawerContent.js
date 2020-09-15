@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { SafeAreaView, View, StyleSheet } from 'react-native';
+import { SafeAreaView, View, StyleSheet, Button } from 'react-native';
 import { Drawer, Text, TouchableRipple, Switch } from 'react-native-paper';
 import { DrawerContentScrollView } from '@react-navigation/drawer';
+import { findSession } from '../API/findSession.js';
 
 export function HomeDrawerContent(props) {
   const [isDark, setIsDark] = useState(false);
@@ -13,6 +14,12 @@ export function HomeDrawerContent(props) {
           <TouchableRipple onPress={() => setIsDark(!isDark)}>
             <View style={styles.preference}>
               <Text style={styles.text}>Dark Theme</Text>
+              <Button
+                onPress={() => {
+                  findSession('16-vHyHBDwLGxFkD');
+                }}
+                title="TEST SESSION"
+              />
               <View pointerEvents="none">
                 <Switch value={isDark} />
               </View>
