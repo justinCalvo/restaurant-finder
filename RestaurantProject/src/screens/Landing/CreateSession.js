@@ -24,6 +24,7 @@ const CreateSession = () => {
   const [max, setMax] = useState('4');
   const [meters, setMeters] = useState('8046.72');
   const [type, setType] = useState('restaurant');
+  const [cuisines, setCuisines] = useState('');
 
   const handleSearchLocationPress = () => {
     setToggleOptions(false);
@@ -55,6 +56,8 @@ const CreateSession = () => {
           setToggleCitySearch={setToggleCitySearch}
           type={type}
           setType={setType}
+          cuisines={cuisines}
+          setCuisines={setCuisines}
         />
         <ProximitySearch
           isLoading={isLoading}
@@ -63,6 +66,7 @@ const CreateSession = () => {
           max={max}
           meters={meters}
           type={type}
+          cuisines={cuisines}
         />
         <TouchableOpacity onPress={() => handleSearchLocationPress()}>
           <Text style={styles.text}>
@@ -79,6 +83,7 @@ const CreateSession = () => {
           max={max}
           meters={meters}
           type={type}
+          cuisines={cuisines}
         />
       ) : null}
     </KeyboardAwareScrollView>

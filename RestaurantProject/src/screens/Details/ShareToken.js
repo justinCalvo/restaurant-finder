@@ -53,14 +53,14 @@ const ShareToken = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.sessionIDContainer}>
-        <Text>Share your token:</Text>
+        <Text style={styles.headerText}>Share your token:</Text>
         <TouchableOpacity onPress={() => copyToClipboard()}>
           <View style={styles.sessionToken}>
             <Text style={styles.text}>{places.sessionID}</Text>
             {wasCopied ? <Text style={styles.text}>Copied!</Text> : null}
             <FontAwesome
               name={wasCopied ? 'check-square' : 'copy'}
-              size={22}
+              size={24}
               color={wasCopied ? 'green' : '#1C2938'}
             />
           </View>
@@ -113,6 +113,17 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     alignItems: 'center',
     width: width / 1.4,
+  },
+  headerText: {
+    paddingVertical: 10,
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: '#1C2938',
+  },
+  text: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#1C2938',
   },
 });
 
