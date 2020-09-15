@@ -26,7 +26,7 @@ const Expanded = ({
   setNum,
   scrollReviewsToTop,
   setScrollReviewsToTop,
-  MainAction,
+  LeftActions,
   RightActions,
   item,
 }) => {
@@ -159,12 +159,8 @@ const Expanded = ({
           <View style={styles.scheduleWithButtonsContainer}>
             {!item ? (
               <>
-                <LikeButton
-                  size={50}
-                  MainAction={MainAction}
-                  RightActions={RightActions}
-                />
-                <DislikeButton size={50} MainAction={MainAction} />
+                <LikeButton size={50} RightActions={RightActions} />
+                <DislikeButton size={50} LeftActions={LeftActions} />
               </>
             ) : null}
           </View>

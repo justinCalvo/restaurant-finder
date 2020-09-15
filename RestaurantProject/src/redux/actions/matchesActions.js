@@ -1,4 +1,6 @@
-export const setMatches = (places, details, index, matches) => dispatch => {
+import { editMatches } from '../../API/editMatches.js';
+
+export const setMatches = (places, details, index, matches, id) => dispatch => {
   try {
     dispatch({
       type: 'RESET_MATCHES_COUNTER',
@@ -22,11 +24,13 @@ export const setMatches = (places, details, index, matches) => dispatch => {
     let matchObj;
     if (!matches.matches) {
       matchObj = {};
-      matchObj[places[index]] = [index, 1];
+      matchObj[places[index]] = [index, 1, 1, false];
     } else {
       matchObj = matches.matches;
-      matchObj[places[index]] = [index, 1];
+      matchObj[places[index]] = [index, 1, 1, false];
     }
+
+    editMatches(id, matches);
 
     let item,
       newMatches = [],
