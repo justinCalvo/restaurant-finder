@@ -1,6 +1,7 @@
 import axios from 'axios';
 import config from '../../../config';
 import { createSession } from '../../API/createSession';
+import { uniqueID } from '../../API/makeID.js';
 
 export const getLocation = (
   city,
@@ -19,6 +20,7 @@ export const getLocation = (
         details: [],
         matches: {},
         displayMatches: [],
+        sessionID: '',
       },
     });
     dispatch({
@@ -106,14 +108,16 @@ export const getLocation = (
 
     const data = await axios.get(url);
     const currentData = data.data.results;
+    console.log(currentData);
 
     for (var j = 0; j < currentData.length; j++) {
       if (currentData[j].place_id) {
         placeIdData.push(currentData[j].place_id);
       }
     }
+    const sessionID = uniqueID();
 
-    createSession(undefined, placeIdData);
+    await createSession(sessionID, placeIdData);
 
     dispatch({
       type: 'SUCCESS_NEXT_TWENTY_PLACE_IDS',

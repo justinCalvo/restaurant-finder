@@ -15,6 +15,18 @@ const placeIdsReducer = (state = initalState, action) => {
         matches: payload.matches,
         displayMatches: payload.displayMatches,
       };
+    case 'AWAITING_SESSION':
+      return {
+        ...state,
+      };
+    case 'SUCCESS_SESSION':
+      return {
+        ...state,
+        placeIds: payload.placeIds,
+        details: payload.details,
+        matches: payload.matches,
+        displayMatches: payload.displayMatches,
+      };
     case 'AWAITING_LOCATION':
       return {
         ...state,

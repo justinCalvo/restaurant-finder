@@ -5,7 +5,6 @@ import Icon from 'react-native-vector-icons/Ionicons';
 const LikeButton = ({ size, MainAction, RightActions }) => {
   const likeButton = () => {
     RightActions();
-    MainAction();
   };
 
   return (
