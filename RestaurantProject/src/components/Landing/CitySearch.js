@@ -38,8 +38,8 @@ const CitySearch = ({
       await dispatch(
         getLocation(city, state, zipcode, min, max, meters, type, cuisines),
       );
+      navigation.navigate(Routes.ShareToken);
       setIsLoading(false);
-      navigation.navigate(Routes.Place);
     } else {
       Alert.alert('Please enter city and state or zip code');
     }

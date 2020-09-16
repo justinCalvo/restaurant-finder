@@ -1,11 +1,19 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Dimensions,
+  TouchableOpacity,
+} from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateType } from '../../redux/actions/typeActions';
 
 import PriceRating from '../../utils/PriceRating';
 import Selector from '../../utils/Selector';
 import CaretButton from '../../utils/CaretButton';
+
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const Preferences = ({
   min,
@@ -15,6 +23,8 @@ const Preferences = ({
   setMeters,
   type,
   setType,
+  cuisines,
+  setCuisines,
 }) => {
   const [togglePriceRange, setTogglePriceRange] = useState(true);
   const [toggleRadius, setToggleRadius] = useState(false);
@@ -145,6 +155,23 @@ const Preferences = ({
           <Text style={styles.valueText}>{miles}</Text>
         </View>
       </View>
+      {type === 'restaurant' ? (
+        <>
+          <TouchableOpacity onPress={() => {}}>
+            <Text style={styles.text}>
+              Selected Cuisines{' '}
+              <Icon name="create-sharp" size={20} color="#cb3737" />
+            </Text>
+          </TouchableOpacity>
+          <View style={styles.cuisinesContainer}>
+            <Text style={styles.valueText}>
+              {cuisines.length > 0 ? cuisines : 'All'}
+            </Text>
+          </View>
+        </>
+      ) : (
+        <View style={styles.cuisinesContainer} />
+      )}
     </View>
   );
 };
@@ -193,6 +220,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   optionsContainer: {
+    paddingVertical: 10,
+  },
+  cuisinesContainer: {
     paddingVertical: 10,
   },
 });

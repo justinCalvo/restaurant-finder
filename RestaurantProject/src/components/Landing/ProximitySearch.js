@@ -13,14 +13,15 @@ const ProximitySearch = ({
   max,
   meters,
   type,
+  cuisines,
 }) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
   const getNearby = async () => {
     setIsLoading(true);
+    await dispatch(getPlaceIds(min, max, meters, type, cuisines));
     navigation.navigate(Routes.ShareToken);
-    await dispatch(getPlaceIds(min, max, meters, type));
     setIsLoading(false);
   };
 

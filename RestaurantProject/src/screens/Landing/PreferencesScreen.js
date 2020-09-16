@@ -15,6 +15,8 @@ const PreferencesScreen = ({
   setToggleCitySearch,
   type,
   setType,
+  cuisines,
+  setCuisines,
 }) => {
   useEffect(() => {
     if (toggleOptions) {
@@ -33,6 +35,8 @@ const PreferencesScreen = ({
           setMeters={setMeters}
           type={type}
           setType={setType}
+          cuisines={cuisines}
+          setCuisines={setCuisines}
         />
       ) : null}
       <PlusMinusButton

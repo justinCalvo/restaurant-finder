@@ -13,7 +13,7 @@ export function HomeDrawerContent(props) {
         <Drawer.Section style={styles.preferenceContainer} title="Preferences">
           <TouchableRipple onPress={() => setIsDark(!isDark)}>
             <View style={styles.preference}>
-              <Text style={styles.text}>Dark Theme</Text>
+              <Text style={styles.text}>Dark Mode</Text>
               <Button
                 onPress={() => {
                   findSession('16-vHyHBDwLGxFkD');
