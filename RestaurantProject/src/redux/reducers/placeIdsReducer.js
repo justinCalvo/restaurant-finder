@@ -48,6 +48,7 @@ const placeIdsReducer = (state = initalState, action) => {
         ...state,
         placeIds: payload.placeIds,
         nextPageToken: payload.nextPageToken,
+        sessionID: payload.sessionID,
       };
     case 'AWAITING_NEXT_TWENTY_PLACE_IDS':
       return {
@@ -57,7 +58,7 @@ const placeIdsReducer = (state = initalState, action) => {
       return {
         ...state,
         placeIds: payload.placeIds,
-        sessionID: payload.sessionID,
+        nextPageToken: payload.nextPageToken,
       };
     case 'REJECTED_NEXT_TWENTY_PLACE_IDS':
       return {
