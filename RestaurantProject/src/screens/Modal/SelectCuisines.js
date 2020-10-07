@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import {
   SafeAreaView,
   View,
@@ -7,6 +7,7 @@ import {
   StyleSheet,
   Dimensions,
   FlatList,
+  Platform,
 } from 'react-native';
 import SelectedCuisines from '../../components/Landing/SelectedCuisines';
 import SearchCuisines from '../../components/Landing/SearchCuisines';
@@ -20,6 +21,7 @@ import { CommonActions } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
 
 const SelectCuisines = ({ route }) => {
+  const [limit, setLimit] = useState(false);
   const { cuisines, setCuisines } = route.params;
 
   const counter = useSelector(state => state.counter);
@@ -66,30 +68,47 @@ const SelectCuisines = ({ route }) => {
     [cuisines, setCuisines, counter.counter, dispatch],
   );
 
-  const renderItem = ({ item }) => {
+  const renderIOS = ({ item }) => {
     return (
       <View style={styles.cuisines}>
         <Text style={styles.text}>{item.cuisine}</Text>
-        {counter.counter > 0 ? (
-          <CheckBox
-            tintColor="#1C2938"
-            onTintColor="#ee6f57"
-            onCheckColor="#ee6f57"
-            value={item.selected}
-            onValueChange={() => handleToggle(item.cuisine)}
-          />
-        ) : (
-          <CheckBox
-            tintColor="#1C2938"
-            onTintColor={item.selected ? '#ee6f57' : '#1C2938'}
-            onCheckColor={item.selected ? '#ee6f57' : '#fafafa'}
-            value={item.selected}
-            onValueChange={() => handleToggle(item.cuisine)}
-          />
-        )}
+        <CheckBox
+          tintColor="#1C2938"
+          onTintColor="#ee6f57"
+          onCheckColor="#ee6f57"
+          value={item.selected}
+          onValueChange={() => handleToggle(item.cuisine)}
+          disabled={item.selected ? false : limit}
+        />
       </View>
     );
   };
+
+  const renderAndroid = ({ item }) => {
+    return (
+      <View style={styles.cuisines}>
+        <Text style={styles.text}>{item.cuisine}</Text>
+        <CheckBox
+          tintColors={{ true: '#ee6f57', false: '#1C2938' }}
+          value={item.selected}
+          onValueChange={() => handleToggle(item.cuisine)}
+          disabled={item.selected ? false : limit}
+        />
+      </View>
+    );
+  };
+
+  const handleCheckBoxes = useCallback(() => {
+    if (counter.counter === 0) {
+      setLimit(true);
+    } else {
+      setLimit(false);
+    }
+  }, [counter.counter]);
+
+  useEffect(() => {
+    handleCheckBoxes();
+  }, [handleCheckBoxes, limit]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -117,7 +136,7 @@ const SelectCuisines = ({ route }) => {
               this.flatListRef = ref;
             }}
             keyExtractor={(item, index) => index}
-            renderItem={renderItem}
+            renderItem={Platform.OS === 'ios' ? renderIOS : renderAndroid}
             numColumns={3}
           />
         </View>
