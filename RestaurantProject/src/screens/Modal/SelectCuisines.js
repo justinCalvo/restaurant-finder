@@ -68,32 +68,27 @@ const SelectCuisines = ({ route }) => {
     [cuisines, setCuisines, counter.counter, dispatch],
   );
 
-  const renderIOS = ({ item }) => {
+  const renderItem = ({ item }) => {
     return (
       <View style={styles.cuisines}>
         <Text style={styles.text}>{item.cuisine}</Text>
-        <CheckBox
-          tintColor="#1C2938"
-          onTintColor="#ee6f57"
-          onCheckColor="#ee6f57"
-          value={item.selected}
-          onValueChange={() => handleToggle(item.cuisine)}
-          disabled={item.selected ? false : limit}
-        />
-      </View>
-    );
-  };
-
-  const renderAndroid = ({ item }) => {
-    return (
-      <View style={styles.cuisines}>
-        <Text style={styles.text}>{item.cuisine}</Text>
-        <CheckBox
-          tintColors={{ true: '#ee6f57', false: '#1C2938' }}
-          value={item.selected}
-          onValueChange={() => handleToggle(item.cuisine)}
-          disabled={item.selected ? false : limit}
-        />
+        {Platform.OS === 'ios' ? (
+          <CheckBox
+            tintColor="#1C2938"
+            onTintColor="#ee6f57"
+            onCheckColor="#ee6f57"
+            value={item.selected}
+            onValueChange={() => handleToggle(item.cuisine)}
+            disabled={item.selected ? false : limit}
+          />
+        ) : (
+          <CheckBox
+            tintColors={{ true: '#ee6f57', false: '#1C2938' }}
+            value={item.selected}
+            onValueChange={() => handleToggle(item.cuisine)}
+            disabled={item.selected ? false : limit}
+          />
+        )}
       </View>
     );
   };
@@ -136,7 +131,7 @@ const SelectCuisines = ({ route }) => {
               this.flatListRef = ref;
             }}
             keyExtractor={(item, index) => index}
-            renderItem={Platform.OS === 'ios' ? renderIOS : renderAndroid}
+            renderItem={renderItem}
             numColumns={3}
           />
         </View>
