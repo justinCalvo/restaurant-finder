@@ -58,10 +58,16 @@ export const getLocation = (
 
     const nextPageToken = places.data.next_page_token;
 
+    const sessionID = uniqueID();
+
+    await createSession(sessionID, placeIdData);
+
     dispatch({
       type: 'SUCCESS_PLACE_IDS',
       payload: {
         placeIds: placeIdData,
+        nextPageToken: nextPageToken,
+        sessionID: sessionID,
       },
     });
 
@@ -99,33 +105,34 @@ export const getLocation = (
       },
     });
 
-    dispatch({
-      type: 'AWAITING_NEXT_TWENTY_PLACE_IDS',
-    });
+    // dispatch({
+    //   type: 'AWAITING_NEXT_TWENTY_PLACE_IDS',
+    // });
 
-    url = `https://maps.googleapis.com/maps/api/place/textsearch/json?pagetoken=${nextPageToken}&key=${
-      config.API_KEY
-    }`;
+    // url = `https://maps.googleapis.com/maps/api/place/textsearch/json?pagetoken=${nextPageToken}&key=${
+    //   config.API_KEY
+    // }`;
 
-    const data = await axios.get(url);
-    const currentData = data.data.results;
+    // const data = await axios.get(url);
+    // const currentData = data.data.results;
+    // console.log(currentData);
 
-    for (var j = 0; j < currentData.length; j++) {
-      if (currentData[j].place_id) {
-        placeIdData.push(currentData[j].place_id);
-      }
-    }
-    const sessionID = uniqueID();
+    // for (var j = 0; j < currentData.length; j++) {
+    //   if (currentData[j].place_id) {
+    //     placeIdData.push(currentData[j].place_id);
+    //   }
+    // }
+    // const sessionID = uniqueID();
 
-    createSession(sessionID, placeIdData);
+    // await createSession(sessionID, placeIdData);
 
-    dispatch({
-      type: 'SUCCESS_NEXT_TWENTY_PLACE_IDS',
-      payload: {
-        placeIds: placeIdData,
-        sessionID: sessionID,
-      },
-    });
+    // dispatch({
+    //   type: 'SUCCESS_NEXT_TWENTY_PLACE_IDS',
+    //   payload: {
+    //     placeIds: placeIdData,
+    //     sessionID: sessionID,
+    //   },
+    // });
   } catch (e) {
     dispatch({
       type: 'REJECTED_PLACE_IDS',
