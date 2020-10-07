@@ -3,7 +3,10 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Routes } from '../constants/NavConst';
 import MainStack from './MainStack';
+
 import PhotosModal from '../screens/Modal/PhotosModal';
+import PreferencesModal from '../screens/Modal/PreferencesModal';
+import SelectCuisines from '../screens/Modal/SelectCuisines';
 
 const RootStack = createStackNavigator();
 
@@ -33,6 +36,14 @@ const Root = () => {
       mode="modal">
       <RootStack.Screen name={Routes.Main} component={MainStack} />
       <RootStack.Screen name={Routes.PhotosModal} component={PhotosModal} />
+      <RootStack.Screen
+        name={Routes.PreferencesModal}
+        component={PreferencesModal}
+      />
+      <RootStack.Screen
+        name={Routes.SelectCuisines}
+        component={SelectCuisines}
+      />
     </RootStack.Navigator>
   );
 };

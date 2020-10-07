@@ -8,4 +8,6 @@ export class Routes {
   static Matches = 'Matches';
   static MatchDetails = 'MatchDetails';
   static ShareToken = 'ShareToken';
+  static SelectCuisines = 'SelectCuisines';
+  static PreferencesModal = 'PreferencesModal';
 }

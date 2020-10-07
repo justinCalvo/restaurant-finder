@@ -11,18 +11,10 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Routes } from '../../constants/NavConst';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { getLocation } from '../../redux/actions/locationActions';
 
-const CitySearch = ({
-  isLoading,
-  setIsLoading,
-  min,
-  max,
-  meters,
-  type,
-  cuisines,
-}) => {
+const CitySearch = ({ isLoading, setIsLoading, min, max, meters, type }) => {
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
   const [zipcode, setZipcode] = useState('');
@@ -30,13 +22,24 @@ const CitySearch = ({
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
+  const query = useSelector(s => s.query);
+
   let stateInputRef = React.createRef();
 
   const getCity = async () => {
     if ((city && state) || zipcode) {
       setIsLoading(true);
       await dispatch(
-        getLocation(city, state, zipcode, min, max, meters, type, cuisines),
+        getLocation(
+          city,
+          state,
+          zipcode,
+          min,
+          max,
+          meters,
+          type,
+          query.cuisineQuery,
+        ),
       );
       navigation.navigate(Routes.ShareToken);
       setIsLoading(false);

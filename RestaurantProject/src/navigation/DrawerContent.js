@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { SafeAreaView, View, StyleSheet, Alert } from 'react-native';
+import { SafeAreaView, View, StyleSheet, Alert, FlatList } from 'react-native';
 import { Drawer, Text, TouchableRipple, Switch } from 'react-native-paper';
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 import { useSelector } from 'react-redux';
@@ -13,7 +13,9 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 export function DrawerContent(props) {
   const [isDark, setIsDark] = useState(false);
   const [wasCopied, setWasCopied] = useState(false);
+
   const places = useSelector(state => state.places);
+  const query = useSelector(state => state.query);
 
   const copyToClipboard = () => {
     Clipboard.setString(places.sessionID);
@@ -48,6 +50,23 @@ export function DrawerContent(props) {
             </View>
           </TouchableRipple>
         </Drawer.Section>
+        {query.cuisineList.length > 0 ? (
+          <Drawer.Section
+            style={styles.preferenceContainer}
+            title="Preferred Cuisine(s)">
+            <View style={styles.preference}>
+              <FlatList
+                data={query.cuisineList}
+                keyExtractor={(item, index) => index}
+                renderItem={({ item }) => (
+                  <View style={styles.cuisines}>
+                    <Text style={styles.text}>{item.cuisine}</Text>
+                  </View>
+                )}
+              />
+            </View>
+          </Drawer.Section>
+        ) : null}
         <Drawer.Section style={styles.preferenceContainer} title="Preferences">
           <TouchableRipple onPress={() => setIsDark(!isDark)}>
             <View style={styles.preference}>
@@ -103,5 +122,8 @@ const styles = StyleSheet.create({
   },
   text: {
     color: '#1C2938',
+  },
+  cuisines: {
+    paddingBottom: 5,
   },
 });

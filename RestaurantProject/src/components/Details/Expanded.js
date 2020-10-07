@@ -159,8 +159,8 @@ const Expanded = ({
           <View style={styles.scheduleWithButtonsContainer}>
             {!item ? (
               <>
-                <LikeButton size={50} RightActions={RightActions} />
                 <DislikeButton size={50} LeftActions={LeftActions} />
+                <LikeButton size={50} RightActions={RightActions} />
               </>
             ) : null}
           </View>

@@ -39,13 +39,12 @@ export const getPlaceIds = (
       }
     }
 
-    let nextPageToken = places.data.next_page_token;
+    const nextPageToken = places.data.next_page_token;
 
     dispatch({
       type: 'SUCCESS_PLACE_IDS',
       payload: {
         placeIds: placeIdData,
-        nextPageToken: places.data.next_page_token,
       },
     });
 

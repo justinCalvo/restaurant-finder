@@ -30,7 +30,7 @@ const Landing = ({ navigation }) => {
       <View style={styles.buttonContainer}>
         <View style={styles.topContainer}>
           <View style={styles.headerContainer}>
-            <Text style={styles.header}>Rair</Text>
+            <Text style={styles.header}>WeCide</Text>
           </View>
         </View>
         <TouchableOpacity

@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Routes } from '../../constants/NavConst';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { getPlaceIds } from '../../redux/actions/currentLocationActions';
 
 const ProximitySearch = ({
@@ -13,14 +13,15 @@ const ProximitySearch = ({
   max,
   meters,
   type,
-  cuisines,
 }) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
+  const query = useSelector(state => state.query);
+
   const getNearby = async () => {
     setIsLoading(true);
-    await dispatch(getPlaceIds(min, max, meters, type, cuisines));
+    await dispatch(getPlaceIds(min, max, meters, type, query.cuisineQuery));
     navigation.navigate(Routes.ShareToken);
     setIsLoading(false);
   };
