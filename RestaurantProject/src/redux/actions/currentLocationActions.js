@@ -26,7 +26,7 @@ export const getPlaceIds = (
       type: 'AWAITING_PLACE_IDS',
     });
 
-    let url = `https://maps.googleapis.com/maps/api/place/textsearch/json?${cuisines}type=${types}&opennow&minprice=${min}&maxprice=${max}&radius=${meters}&key=${
+    let url = `https://maps.googleapis.com/maps/api/place/textsearch/json?${cuisines}type=${types}&opennow&minprice=${min}&maxprice=${max}&radius=${meters}&key=${ 
       config.API_KEY
     }`;
     const places = await axios.get(url);
@@ -41,10 +41,28 @@ export const getPlaceIds = (
 
     const nextPageToken = places.data.next_page_token;
 
+    const sessionID = uniqueID();
+
+    i = placeIdData.length - 1;
+    let k;
+    let temp;
+
+    while (i > 0) {
+      k = Math.floor(Math.random() * i);
+      temp = placeIdData[k];
+      placeIdData[k] = placeIdData[i];
+      placeIdData[i] = temp;
+      i--;
+    }
+
+    await createSession(sessionID, placeIdData);
+
     dispatch({
       type: 'SUCCESS_PLACE_IDS',
       payload: {
         placeIds: placeIdData,
+        nextPageToken: nextPageToken,
+        sessionID: sessionID,
       },
     });
 
@@ -81,34 +99,34 @@ export const getPlaceIds = (
       },
     });
 
-    dispatch({
-      type: 'AWAITING_NEXT_TWENTY_PLACE_IDS',
-    });
+    // dispatch({
+    //   type: 'AWAITING_NEXT_TWENTY_PLACE_IDS',
+    // });
 
-    url = `https://maps.googleapis.com/maps/api/place/textsearch/json?pagetoken=${nextPageToken}&key=${
-      config.API_KEY
-    }`;
+    // url = `https://maps.googleapis.com/maps/api/place/textsearch/json?pagetoken=${nextPageToken}&key=${
+    //   config.API_KEY
+    // }`;
 
-    const data = await axios.get(url);
-    const currentData = data.data.results;
+    // const data = await axios.get(url);
+    // const currentData = data.data.results;
+    // console.log(currentData);
 
-    for (var j = 0; j < currentData.length; j++) {
-      if (currentData[j].place_id) {
-        placeIdData.push(currentData[j].place_id);
-      }
-    }
+    // for (var j = 0; j < currentData.length; j++) {
+    //   if (currentData[j].place_id) {
+    //     placeIdData.push(currentData[j].place_id);
+    //   }
+    // }
 
-    const sessionID = uniqueID();
+    // const sessionID = uniqueID();
 
-    createSession(sessionID, placeIdData);
+    // createSession(sessionID, placeIdData);
 
-    dispatch({
-      type: 'SUCCESS_NEXT_TWENTY_PLACE_IDS',
-      payload: {
-        placeIds: placeIdData,
-        sessionID: sessionID,
-      },
-    });
+    // dispatch({
+    //   type: 'SUCCESS_NEXT_TWENTY_PLACE_IDS',
+    //   payload: {
+    //     placeIds: placeIdData,
+    //   },
+    // });
   } catch (e) {
     dispatch({
       type: 'REJECTED_PLACE_IDS',

@@ -3,8 +3,11 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Routes } from '../../constants/NavConst';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { useSelector, useDispatch } from 'react-redux';
+
+import { batch, useDispatch, useSelector } from 'react-redux';
+
 import { getPlaceIds } from '../../redux/actions/currentLocationActions';
+import { getNextTwenty } from '../../redux/actions/nextTwentyActions';
 
 const ProximitySearch = ({
   isLoading,
@@ -16,6 +19,8 @@ const ProximitySearch = ({
 }) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
+  const places = useSelector(state => state.places);
+  // console.log(places);
 
   const query = useSelector(state => state.query);
 

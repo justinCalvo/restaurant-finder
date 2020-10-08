@@ -58,9 +58,11 @@ const MainScreen = () => {
       // TODO: better ending to list
       Alert.alert('End of List');
     }
-    // if (index === 15 || index === 35) {
-    //   await dispatch(getNextTwenty(places.placeIds, places.nextPageToken));
-    // }
+    if (index === 15 || index === 35) {
+      await dispatch(
+        getNextTwenty(places.placeIds, places.nextPageToken, places.sessionID),
+      );
+    }
   };
 
   const RightActions = async () => {
