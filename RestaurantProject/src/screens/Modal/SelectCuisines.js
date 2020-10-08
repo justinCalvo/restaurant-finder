@@ -57,7 +57,7 @@ const SelectCuisines = ({ route }) => {
       }
 
       updatedQuery += '&';
-      console.log(updatedQuery);
+
       if (updatedQuery.length === 7) {
         dispatch(updateQuery('', [], cuisines));
       } else {
