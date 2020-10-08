@@ -48,16 +48,16 @@ const SelectCuisines = ({ route }) => {
           }
         }
         if (temp[i].selected) {
-          updatedQuery += `${temp[i].cuisine} Food + `;
+          updatedQuery += `${temp[i].cuisine}+Food+`;
           list.push({ cuisine: temp[i].cuisine, id: list.length });
         }
       }
       if (updatedQuery.length > 6) {
-        updatedQuery = updatedQuery.substring(0, updatedQuery.length - 3);
+        updatedQuery = updatedQuery.substring(0, updatedQuery.length - 1);
       }
 
       updatedQuery += '&';
-
+      console.log(updatedQuery);
       if (updatedQuery.length === 7) {
         dispatch(updateQuery('', [], cuisines));
       } else {

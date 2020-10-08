@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { SafeAreaView, View, StyleSheet, Alert, FlatList } from 'react-native';
+import { SafeAreaView, View, StyleSheet, Alert } from 'react-native';
 import { Drawer, Text, TouchableRipple, Switch } from 'react-native-paper';
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 import { useSelector } from 'react-redux';
@@ -54,17 +54,24 @@ export function DrawerContent(props) {
           <Drawer.Section
             style={styles.preferenceContainer}
             title="Preferred Cuisine(s)">
-            <View style={styles.preference}>
-              <FlatList
-                data={query.cuisineList}
-                keyExtractor={(item, index) => index}
-                renderItem={({ item }) => (
-                  <View style={styles.cuisines}>
-                    <Text style={styles.text}>{item.cuisine}</Text>
-                  </View>
-                )}
-              />
+            <View style={styles.cuisines}>
+              <Text style={styles.text}>{query.cuisineList[0].cuisine}</Text>
             </View>
+            {query.cuisineList[1] ? (
+              <View style={styles.cuisines}>
+                <Text style={styles.text}>{query.cuisineList[1].cuisine}</Text>
+              </View>
+            ) : null}
+            {query.cuisineList[2] ? (
+              <View style={styles.cuisines}>
+                <Text style={styles.text}>{query.cuisineList[2].cuisine}</Text>
+              </View>
+            ) : null}
+            {query.cuisineList[3] ? (
+              <View style={styles.cuisines}>
+                <Text style={styles.text}>{query.cuisineList[3].cuisine}</Text>
+              </View>
+            ) : null}
           </Drawer.Section>
         ) : null}
         <Drawer.Section style={styles.preferenceContainer} title="Preferences">
@@ -125,5 +132,6 @@ const styles = StyleSheet.create({
   },
   cuisines: {
     paddingBottom: 5,
+    paddingHorizontal: 16,
   },
 });
