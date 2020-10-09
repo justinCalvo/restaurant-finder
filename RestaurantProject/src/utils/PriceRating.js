@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
+import { useTheme } from '@react-navigation/native';
 
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
@@ -9,12 +10,14 @@ const PriceRating = ({ index, priceLevel, size }) => {
   const checkPriceLevel =
     index !== undefined ? details.details[index].price_level : priceLevel;
 
+  const { colors } = useTheme();
+
   return (
     <>
       <FontAwesome
         name="dollar"
         size={size}
-        color="#1C2938"
+        color={colors.text}
         style={
           checkPriceLevel >= 1 ? styles.showDollarOne : styles.hideDollarOne
         }
@@ -22,7 +25,7 @@ const PriceRating = ({ index, priceLevel, size }) => {
       <FontAwesome
         name="dollar"
         size={size}
-        color="#1C2938"
+        color={colors.text}
         style={
           checkPriceLevel >= 2 ? styles.showDollarTwo : styles.hideDollarTwo
         }
@@ -30,7 +33,7 @@ const PriceRating = ({ index, priceLevel, size }) => {
       <FontAwesome
         name="dollar"
         size={size}
-        color="#1C2938"
+        color={colors.text}
         style={
           checkPriceLevel >= 3 ? styles.showDollarThree : styles.hideDollarThree
         }
@@ -38,7 +41,7 @@ const PriceRating = ({ index, priceLevel, size }) => {
       <FontAwesome
         name="dollar"
         size={size}
-        color="#1C2938"
+        color={colors.text}
         style={
           checkPriceLevel >= 4 ? styles.showDollarFour : styles.hideDollarFour
         }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useTheme } from '@react-navigation/native';
 
 const PreferencesScreen = ({
   min,
@@ -109,6 +109,21 @@ const PreferencesScreen = ({
     openPreferences();
   }, [openPreferences, isModalOpen]);
 
+  const { colors } = useTheme();
+
+  const styles = StyleSheet.create({
+    container: {
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    text: {
+      fontSize: 18,
+      fontWeight: 'bold',
+      textAlign: 'center',
+      color: colors.text,
+    },
+  });
+
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={handlePreferencesModal}>
@@ -117,18 +132,5 @@ const PreferencesScreen = ({
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  text: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    color: '#1C2938',
-  },
-});
 
 export default PreferencesScreen;

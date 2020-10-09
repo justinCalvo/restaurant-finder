@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import { useSelector } from 'react-redux';
 import { Routes } from '../../constants/NavConst';
+import { useTheme } from '@react-navigation/native';
 
 import Clipboard from '@react-native-community/clipboard';
 
@@ -50,6 +51,51 @@ const ShareToken = ({ navigation }) => {
     resetWasCopied();
   }, [resetWasCopied, wasCopied]);
 
+  const { colors } = useTheme();
+
+  const { width, height } = Dimensions.get('window');
+
+  const styles = StyleSheet.create({
+    container: {
+      width: width,
+      height: height,
+    },
+    sessionIDContainer: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      flex: 4,
+    },
+    buttonContainer: {
+      flex: 1,
+      justifyContent: 'flex-end',
+      paddingHorizontal: 10,
+      flexDirection: 'row',
+    },
+    continue: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'flex-end',
+    },
+    sessionToken: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      paddingVertical: 10,
+      alignItems: 'center',
+      width: width / 1.4,
+    },
+    headerText: {
+      paddingVertical: 10,
+      fontSize: 28,
+      fontWeight: 'bold',
+      color: colors.text,
+    },
+    text: {
+      fontSize: 18,
+      fontWeight: 'bold',
+      color: colors.text,
+    },
+  });
+
   return (
     <View style={styles.container}>
       <View style={styles.sessionIDContainer}>
@@ -61,7 +107,7 @@ const ShareToken = ({ navigation }) => {
             <FontAwesome
               name={wasCopied ? 'check-square' : 'copy'}
               size={24}
-              color={wasCopied ? 'green' : '#1C2938'}
+              color={wasCopied ? 'green' : colors.text}
             />
           </View>
         </TouchableOpacity>
@@ -70,11 +116,11 @@ const ShareToken = ({ navigation }) => {
         <View style={styles.buttonContainer}>
           <TouchableOpacity onPress={() => navigation.navigate(Routes.Place)}>
             <View style={styles.continue}>
-              <Text>Continue</Text>
+              <Text style={styles.text}>Continue</Text>
               <Ionicons
                 name="arrow-forward-outline"
                 size={30}
-                color="#1C2938"
+                color={colors.text}
               />
             </View>
           </TouchableOpacity>
@@ -83,48 +129,5 @@ const ShareToken = ({ navigation }) => {
     </View>
   );
 };
-
-const { width, height } = Dimensions.get('window');
-
-const styles = StyleSheet.create({
-  container: {
-    width: width,
-    height: height,
-  },
-  sessionIDContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    flex: 4,
-  },
-  buttonContainer: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    paddingHorizontal: 10,
-    flexDirection: 'row',
-  },
-  continue: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-  },
-  sessionToken: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingVertical: 10,
-    alignItems: 'center',
-    width: width / 1.4,
-  },
-  headerText: {
-    paddingVertical: 10,
-    fontSize: 28,
-    fontWeight: 'bold',
-    color: '#1C2938',
-  },
-  text: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#1C2938',
-  },
-});
 
 export default ShareToken;

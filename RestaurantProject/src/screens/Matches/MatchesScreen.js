@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 
 import { useSelector } from 'react-redux';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useTheme } from '@react-navigation/native';
 import { Routes } from '../../constants/NavConst';
 
 import PriceRating from '../../utils/PriceRating';
@@ -53,6 +53,53 @@ const MatchesScreen = ({ stars }) => {
     );
   };
 
+  const { width, height } = Dimensions.get('window');
+  const { colors } = useTheme();
+
+  const styles = StyleSheet.create({
+    condensed: {
+      width: width / 5,
+      height: width / 5,
+    },
+    matchContainer: {
+      flex: 1,
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      paddingVertical: 15,
+      paddingHorizontal: 40,
+    },
+    image: {
+      borderRadius: 40,
+    },
+    text: {
+      fontSize: 16,
+      fontWeight: 'bold',
+      textAlign: 'center',
+      color: colors.text,
+    },
+    detailsContainer: {
+      width: width / 2,
+      alignItems: 'flex-end',
+    },
+    priceContainer: {
+      flexDirection: 'row',
+    },
+    ratingContainer: {
+      flexDirection: 'row',
+      justifyContent: 'flex-end',
+      alignItems: 'center',
+    },
+    display: {
+      display: 'flex',
+      marginBottom: 10,
+      paddingHorizontal: 10,
+    },
+    listContainer: {
+      height: height / 1.3,
+    },
+  });
+
   return (
     <>
       <View style={styles.listContainer}>
@@ -70,51 +117,5 @@ const MatchesScreen = ({ stars }) => {
     </>
   );
 };
-
-const { width, height } = Dimensions.get('window');
-
-const styles = StyleSheet.create({
-  condensed: {
-    width: width / 5,
-    height: width / 5,
-  },
-  matchContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingVertical: 15,
-    paddingHorizontal: 40,
-  },
-  image: {
-    borderRadius: 40,
-  },
-  text: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    color: '#1C2938',
-  },
-  detailsContainer: {
-    width: width / 2,
-    alignItems: 'flex-end',
-  },
-  priceContainer: {
-    flexDirection: 'row',
-  },
-  ratingContainer: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-  },
-  display: {
-    display: 'flex',
-    marginBottom: 10,
-    paddingHorizontal: 10,
-  },
-  listContainer: {
-    height: height / 1.3,
-  },
-});
 
 export default MatchesScreen;

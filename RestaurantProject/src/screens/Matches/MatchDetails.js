@@ -9,6 +9,7 @@ import {
   Linking,
   TouchableOpacity,
 } from 'react-native';
+import { useTheme } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import Expanded from '../../components/Details/Expanded';
@@ -30,6 +31,114 @@ const MatchDetails = ({ route }) => {
 
   const [customerRating, setCustomerRating] = useState([]);
   const [allCustomerRatings, setAllCustomerRatings] = useState([]);
+
+  const { width, height } = Dimensions.get('window');
+  const { colors } = useTheme();
+
+  const styles = StyleSheet.create({
+    container: {
+      width: width,
+      height: height,
+    },
+    photo: {
+      width: width / 1.3,
+      height: width / 1.3,
+      marginLeft: 5,
+      marginRight: 5,
+    },
+    placeName: {
+      fontSize: 24,
+      fontWeight: 'bold',
+      textAlign: 'center',
+      color: colors.text,
+    },
+    ratingContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-around',
+      paddingHorizontal: 10,
+      paddingBottom: 5,
+      alignItems: 'center',
+      paddingTop: 5,
+    },
+    placeRating: {
+      flexDirection: 'row',
+      justifyContent: 'flex-end',
+      alignItems: 'center',
+    },
+    priceContainer: {
+      flexDirection: 'row',
+    },
+    ratingsTotalText: {
+      paddingHorizontal: 5,
+      fontSize: 16,
+      color: colors.text,
+    },
+    dayContainer: {
+      paddingVertical: 5,
+    },
+    contactContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-around',
+      flexWrap: 'wrap',
+    },
+    photoContainer: {
+      paddingTop: 10,
+      alignItems: 'center',
+      width: width,
+    },
+    text: {
+      fontSize: 18,
+      fontWeight: 'bold',
+      color: colors.text,
+    },
+    align: {
+      flexDirection: 'row',
+      paddingVertical: 5,
+    },
+    addressContainer: {
+      alignItems: 'center',
+      paddingVertical: 5,
+    },
+    address: {
+      width: width / 1.5,
+    },
+    addressText: {
+      textAlign: 'center',
+    },
+    nameContainer: {
+      paddingTop: 20,
+    },
+    websiteContainer: {
+      paddingHorizontal: 5,
+    },
+    poweredByGoogleOn: {
+      flex: 1,
+      justifyContent: 'flex-start',
+    },
+    poweredByGoogleOff: {
+      flex: 1.8,
+      justifyContent: 'flex-start',
+    },
+    condensed: {
+      width: (width - 10) / 2,
+      height: (width - 10) / 2,
+    },
+    reviewsContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-around',
+      alignItems: 'flex-end',
+    },
+    expandedContainer: {
+      flex: 4.2,
+    },
+    expandedContainerTwo: {
+      flex: 1,
+    },
+    detailsContainer: {
+      height: height / 3,
+      justifyContent: 'center',
+    },
+  });
 
   return (
     <SafeAreaView style={styles.container}>
@@ -153,112 +262,5 @@ const MatchDetails = ({ route }) => {
     </SafeAreaView>
   );
 };
-
-const { width, height } = Dimensions.get('window');
-
-const styles = StyleSheet.create({
-  container: {
-    width: width,
-    height: height,
-    backgroundColor: '#fafafa',
-  },
-  photo: {
-    width: width / 1.3,
-    height: width / 1.3,
-    marginLeft: 5,
-    marginRight: 5,
-  },
-  placeName: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    color: '#1C2938',
-  },
-  ratingContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    paddingHorizontal: 10,
-    paddingBottom: 5,
-    alignItems: 'center',
-    paddingTop: 5,
-  },
-  placeRating: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-  },
-  priceContainer: {
-    flexDirection: 'row',
-  },
-  ratingsTotalText: {
-    paddingHorizontal: 5,
-    fontSize: 16,
-  },
-  dayContainer: {
-    paddingVertical: 5,
-  },
-  contactContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    flexWrap: 'wrap',
-  },
-  photoContainer: {
-    paddingTop: 10,
-    alignItems: 'center',
-    width: width,
-  },
-  text: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#1C2938',
-  },
-  align: {
-    flexDirection: 'row',
-    paddingVertical: 5,
-  },
-  addressContainer: {
-    alignItems: 'center',
-    paddingVertical: 5,
-  },
-  address: {
-    width: width / 1.5,
-  },
-  addressText: {
-    textAlign: 'center',
-  },
-  nameContainer: {
-    paddingTop: 20,
-  },
-  websiteContainer: {
-    paddingHorizontal: 5,
-  },
-  poweredByGoogleOn: {
-    flex: 1,
-    justifyContent: 'flex-start',
-  },
-  poweredByGoogleOff: {
-    flex: 1.8,
-    justifyContent: 'flex-start',
-  },
-  condensed: {
-    width: (width - 10) / 2,
-    height: (width - 10) / 2,
-  },
-  reviewsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'flex-end',
-  },
-  expandedContainer: {
-    flex: 4.2,
-  },
-  expandedContainerTwo: {
-    flex: 1,
-  },
-  detailsContainer: {
-    height: height / 3,
-    justifyContent: 'center',
-  },
-});
 
 export default MatchDetails;

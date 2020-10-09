@@ -13,9 +13,13 @@ import {
 } from 'react-native-gesture-handler';
 import PhotoDots from '../../components/Photos/PhotoDots';
 
-import { CommonActions } from '@react-navigation/native';
-import { useNavigation } from '@react-navigation/native';
-import { useIsFocused } from '@react-navigation/native';
+import {
+  CommonActions,
+  useNavigation,
+  useIsFocused,
+  useTheme,
+} from '@react-navigation/native';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { getDetails } from '../../redux/actions/detailsActions';
 
@@ -66,6 +70,34 @@ const PhotosModal = ({ route }) => {
     route.params,
   ]);
 
+  const { colors } = useTheme();
+  const { width, height } = Dimensions.get('window');
+
+  const styles = StyleSheet.create({
+    container: {
+      width: width,
+      height: height,
+      justifyContent: 'space-between',
+      alignItems: 'center',
+    },
+    photo: {
+      width: (38 * width) / 43,
+      height: (38 * width) / 43,
+    },
+    imageContainer: {
+      width: (36 * width) / 40,
+      height: (36 * width) / 40,
+      backgroundColor: colors.text,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    modalClose: {
+      height: height * 0.3,
+      width: width,
+      backgroundColor: 'transparent',
+    },
+  });
+
   return (
     <FlingGestureHandler
       direction={Directions.LEFT}
@@ -106,35 +138,5 @@ const PhotosModal = ({ route }) => {
     </FlingGestureHandler>
   );
 };
-
-const { width, height } = Dimensions.get('window');
-
-const styles = StyleSheet.create({
-  container: {
-    width: width,
-    height: height,
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  photo: {
-    width: (38 * width) / 43,
-    height: (38 * width) / 43,
-  },
-  imageContainer: {
-    width: (36 * width) / 40,
-    height: (36 * width) / 40,
-    backgroundColor: '#1C2938',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  modalClose: {
-    height: height * 0.3,
-    width: width,
-    backgroundColor: 'transparent',
-  },
-  text: {
-    color: '#F4F6F6',
-  },
-});
 
 export default PhotosModal;

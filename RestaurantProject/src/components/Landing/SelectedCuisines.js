@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 
 import { useSelector } from 'react-redux';
+import { useTheme } from '@react-navigation/native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -28,6 +29,37 @@ const SelectedCuisines = ({ handleToggle }) => {
     );
   };
 
+  const { colors } = useTheme();
+  const { width } = Dimensions.get('window');
+
+  const styles = StyleSheet.create({
+    container: {
+      flexDirection: 'row',
+    },
+    cuisineListContainer: {
+      alignItems: 'center',
+      paddingBottom: 10,
+    },
+    cuisines: {
+      alignItems: 'center',
+      width: width / 3,
+    },
+    text: {
+      fontSize: 14,
+      fontWeight: 'bold',
+      color: colors.text,
+    },
+    deleteCuisine: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      borderWidth: 1,
+      borderColor: colors.text,
+      borderRadius: 20,
+      marginTop: 10,
+      paddingHorizontal: 5,
+    },
+  });
+
   return (
     <View style={styles.container}>
       <FlatList
@@ -43,35 +75,5 @@ const SelectedCuisines = ({ handleToggle }) => {
     </View>
   );
 };
-
-const { width } = Dimensions.get('window');
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-  },
-  cuisineListContainer: {
-    alignItems: 'center',
-    paddingBottom: 10,
-  },
-  cuisines: {
-    alignItems: 'center',
-    width: width / 3,
-  },
-  text: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    color: '#1C2938',
-  },
-  deleteCuisine: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: '#1C2938',
-    borderRadius: 20,
-    marginTop: 10,
-    paddingHorizontal: 5,
-  },
-});
 
 export default SelectedCuisines;

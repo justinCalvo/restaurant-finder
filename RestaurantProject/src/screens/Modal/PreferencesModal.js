@@ -15,8 +15,11 @@ import { updateType } from '../../redux/actions/typeActions';
 import { updateQuery } from '../../redux/actions/queryActions';
 import { updateNotified } from '../../redux/actions/notificationActions';
 
-import { CommonActions } from '@react-navigation/native';
-import { useNavigation } from '@react-navigation/native';
+import {
+  CommonActions,
+  useNavigation,
+  useTheme,
+} from '@react-navigation/native';
 
 import PriceRating from '../../utils/PriceRating';
 import Selector from '../../utils/Selector';
@@ -173,6 +176,95 @@ const PreferencesModal = ({ route }) => {
     }
   };
 
+  const { colors } = useTheme();
+
+  const { width, height } = Dimensions.get('window');
+
+  const styles = StyleSheet.create({
+    container: {
+      width: width,
+      height: height / 1.5,
+      justifyContent: 'space-between',
+      alignItems: 'center',
+    },
+    modalClose: {
+      height: height * 0.25,
+      width: width,
+    },
+    preferencesContainer: {
+      backgroundColor: colors.background,
+      alignItems: 'center',
+      height: height * 0.45,
+      width: width - 20,
+    },
+    minMaxContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-around',
+      width: width / 1.5,
+    },
+    priceContainer: {
+      paddingVertical: 10,
+      flexDirection: 'row',
+      width: width / 1.5,
+      alignItems: 'center',
+    },
+    text: {
+      fontWeight: 'bold',
+      fontSize: 18,
+      color: colors.text,
+    },
+    valueText: {
+      fontWeight: 'bold',
+      fontSize: 14,
+      color: colors.text,
+    },
+    dollarSigns: {
+      flexDirection: 'row',
+      flex: 1,
+      paddingHorizontal: 10,
+      paddingVertical: 5,
+    },
+    minMaxDollarSigns: {
+      justifyContent: 'center',
+    },
+    pickerContainer: {
+      flexDirection: 'row',
+      justifyContent: 'center',
+      flex: 1,
+    },
+    optionsContainer: {
+      paddingVertical: 10,
+    },
+    cuisinesContainer: {
+      paddingVertical: 10,
+      alignItems: 'center',
+    },
+    selectedCuisines: {
+      paddingTop: 10,
+      alignItems: 'center',
+    },
+    cuisineListContainer: {
+      alignItems: 'center',
+      paddingBottom: 10,
+    },
+    selected: {
+      paddingHorizontal: 10,
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    cuisineNames: {
+      flexDirection: 'row',
+    },
+    line: {
+      marginLeft: 15,
+    },
+    lineText: {
+      fontWeight: 'bold',
+      fontSize: 16,
+      color: '#cb3737',
+    },
+  });
+
   return (
     <SafeAreaView style={styles.container}>
       <TouchableWithoutFeedback
@@ -291,92 +383,5 @@ const PreferencesModal = ({ route }) => {
     </SafeAreaView>
   );
 };
-
-const { width, height } = Dimensions.get('window');
-
-const styles = StyleSheet.create({
-  container: {
-    width: width,
-    height: height / 1.5,
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  modalClose: {
-    height: height * 0.25,
-    width: width,
-  },
-  preferencesContainer: {
-    backgroundColor: '#fafafa',
-    alignItems: 'center',
-    height: height * 0.45,
-    width: width - 20,
-  },
-  minMaxContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    width: width / 1.5,
-  },
-  priceContainer: {
-    paddingVertical: 10,
-    flexDirection: 'row',
-    width: width / 1.5,
-    alignItems: 'center',
-  },
-  text: {
-    fontWeight: 'bold',
-    fontSize: 18,
-    color: '#1C2938',
-  },
-  valueText: {
-    fontWeight: 'bold',
-    fontSize: 14,
-    color: '#1C2938',
-  },
-  dollarSigns: {
-    flexDirection: 'row',
-    flex: 1,
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-  },
-  minMaxDollarSigns: {
-    justifyContent: 'center',
-  },
-  pickerContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    flex: 1,
-  },
-  optionsContainer: {
-    paddingVertical: 10,
-  },
-  cuisinesContainer: {
-    paddingVertical: 10,
-    alignItems: 'center',
-  },
-  selectedCuisines: {
-    paddingTop: 10,
-    alignItems: 'center',
-  },
-  cuisineListContainer: {
-    alignItems: 'center',
-    paddingBottom: 10,
-  },
-  selected: {
-    paddingHorizontal: 10,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  cuisineNames: {
-    flexDirection: 'row',
-  },
-  line: {
-    marginLeft: 15,
-  },
-  lineText: {
-    fontWeight: 'bold',
-    fontSize: 16,
-    color: '#cb3737',
-  },
-});
 
 export default PreferencesModal;

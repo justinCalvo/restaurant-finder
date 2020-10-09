@@ -17,8 +17,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { updateCounter } from '../../redux/actions/counterActions';
 import { updateQuery } from '../../redux/actions/queryActions';
 
-import { CommonActions } from '@react-navigation/native';
-import { useNavigation } from '@react-navigation/native';
+import {
+  CommonActions,
+  useNavigation,
+  useTheme,
+} from '@react-navigation/native';
 
 const SelectCuisines = ({ route }) => {
   const [limit, setLimit] = useState(false);
@@ -42,7 +45,7 @@ const SelectCuisines = ({ route }) => {
           if (!temp[i].selected && counter.counter > 0) {
             temp[i].selected = true;
             dispatch(updateCounter(counter.counter - 1));
-          } else if (temp[i].selected && counter.counter < 4) {
+          } else if (temp[i].selected && counter.counter < 3) {
             temp[i].selected = false;
             dispatch(updateCounter(counter.counter + 1));
           }
@@ -74,7 +77,7 @@ const SelectCuisines = ({ route }) => {
         <Text style={styles.text}>{item.cuisine}</Text>
         {Platform.OS === 'ios' ? (
           <CheckBox
-            tintColor="#1C2938"
+            tintColor={colors.text}
             onTintColor="#ee6f57"
             onCheckColor="#ee6f57"
             value={item.selected}
@@ -83,7 +86,7 @@ const SelectCuisines = ({ route }) => {
           />
         ) : (
           <CheckBox
-            tintColors={{ true: '#ee6f57', false: '#1C2938' }}
+            tintColors={{ true: '#ee6f57', false: colors.text }}
             value={item.selected}
             onValueChange={() => handleToggle(item.cuisine)}
             disabled={item.selected ? false : limit}
@@ -104,6 +107,54 @@ const SelectCuisines = ({ route }) => {
   useEffect(() => {
     handleCheckBoxes();
   }, [handleCheckBoxes, limit]);
+
+  const { colors } = useTheme();
+
+  const { width, height } = Dimensions.get('window');
+
+  const styles = StyleSheet.create({
+    container: {
+      width: width,
+      height: height,
+      justifyContent: 'space-between',
+      alignItems: 'center',
+    },
+    modalClose: {
+      height: height * 0.15,
+      width: width,
+    },
+    text: {
+      color: colors.text,
+      fontSize: 16,
+    },
+    counterText: {
+      fontWeight: 'bold',
+      color: '#ee6f57',
+    },
+    checkBoxContainer: {
+      backgroundColor: colors.background,
+      alignItems: 'center',
+      height: height * 0.6,
+      width: width - 20,
+      paddingBottom: width / 3,
+    },
+    checkBox: {
+      flexDirection: 'row',
+    },
+    cuisines: {
+      alignItems: 'center',
+      width: width / 3.5,
+      paddingBottom: 10,
+    },
+    cuisineListContainer: {
+      alignItems: 'center',
+      paddingBottom: 10,
+    },
+    counterContainer: {
+      paddingVertical: 10,
+      alignItems: 'center',
+    },
+  });
 
   return (
     <SafeAreaView style={styles.container}>
@@ -143,51 +194,5 @@ const SelectCuisines = ({ route }) => {
     </SafeAreaView>
   );
 };
-
-const { width, height } = Dimensions.get('window');
-
-const styles = StyleSheet.create({
-  container: {
-    width: width,
-    height: height,
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  modalClose: {
-    height: height * 0.15,
-    width: width,
-  },
-  text: {
-    color: '#1C2938',
-    fontSize: 16,
-  },
-  counterText: {
-    fontWeight: 'bold',
-    color: '#ee6f57',
-  },
-  checkBoxContainer: {
-    backgroundColor: '#fafafa',
-    alignItems: 'center',
-    height: height * 0.6,
-    width: width - 20,
-    paddingBottom: width / 3,
-  },
-  checkBox: {
-    flexDirection: 'row',
-  },
-  cuisines: {
-    alignItems: 'center',
-    width: width / 3.5,
-    paddingBottom: 10,
-  },
-  cuisineListContainer: {
-    alignItems: 'center',
-    paddingBottom: 10,
-  },
-  counterContainer: {
-    paddingVertical: 10,
-    alignItems: 'center',
-  },
-});
 
 export default SelectCuisines;

@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Dimensions,
 } from 'react-native';
+import { useTheme } from '@react-navigation/native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -29,6 +30,48 @@ const CreateSession = () => {
     setToggleOptions(false);
     setToggleCitySearch(!toggleCitySearch);
   };
+
+  const { width, height } = Dimensions.get('window');
+  const { colors } = useTheme();
+
+  const styles = StyleSheet.create({
+    container: {
+      width: width,
+      height: height,
+      flex: 1,
+      alignItems: 'center',
+    },
+    text: {
+      paddingVertical: 10,
+      fontSize: 28,
+      fontWeight: 'bold',
+      color: colors.text,
+    },
+    header: {
+      fontSize: 44,
+      fontWeight: 'bold',
+      alignItems: 'center',
+      color: colors.text,
+    },
+    buttonContainer: {
+      width: width,
+      height: height / 1.5,
+      justifyContent: 'flex-end',
+      alignItems: 'center',
+    },
+    topContainer: {
+      width: width,
+      height: height / 5,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    // keyboardColor: {
+    //   backgroundColor: '#fafafa',
+    // },
+    headerContainer: {
+      paddingVertical: 10,
+    },
+  });
 
   return (
     <KeyboardAwareScrollView
@@ -79,52 +122,10 @@ const CreateSession = () => {
           max={max}
           meters={meters}
           type={type}
-          // cuisines={cuisines}
         />
       ) : null}
     </KeyboardAwareScrollView>
   );
 };
-const { width, height } = Dimensions.get('window');
-
-const styles = StyleSheet.create({
-  container: {
-    width: width,
-    height: height,
-    flex: 1,
-    alignItems: 'center',
-    backgroundColor: '#fafafa',
-  },
-  text: {
-    paddingVertical: 10,
-    fontSize: 28,
-    fontWeight: 'bold',
-    color: '#1C2938',
-  },
-  header: {
-    fontSize: 44,
-    fontWeight: 'bold',
-    alignItems: 'center',
-    color: '#1C2938',
-  },
-  buttonContainer: {
-    width: width,
-    height: height / 1.5,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-  },
-  topContainer: {
-    width: width,
-    height: height / 5,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  keyboardColor: {
-    backgroundColor: '#fafafa',
-  },
-  headerContainer: {
-    paddingVertical: 10,
-  },
-});
 
 export default CreateSession;

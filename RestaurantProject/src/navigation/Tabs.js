@@ -1,6 +1,7 @@
 import React from 'react';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { useTheme } from '@react-navigation/native';
 
 import { Routes } from '../constants/NavConst';
 import { useSelector } from 'react-redux';
@@ -13,6 +14,8 @@ const Tabs = createMaterialTopTabNavigator();
 const AppTabs = () => {
   const matches = useSelector(state => state.matches);
   const types = useSelector(state => state.types);
+
+  const { colors } = useTheme();
 
   return (
     <Tabs.Navigator
@@ -34,7 +37,8 @@ const AppTabs = () => {
         showIcon: true,
         indicatorStyle: { backgroundColor: '#ee6f57' },
         activeTintColor: '#ee6f57',
-        inactiveTintColor: '#1C2938',
+        inactiveTintColor: colors.text,
+        style: { backgroundColor: colors.background },
       }}
       swipeEnabled={false}
       lazy={false}>

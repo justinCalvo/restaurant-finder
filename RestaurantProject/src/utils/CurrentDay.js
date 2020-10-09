@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Text, StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
+import { useTheme } from '@react-navigation/native';
 
 const CurrentDay = ({ index, openingHours }) => {
   const [displayCurrentSchedule, setDisplayCurrentSchedule] = useState('');
@@ -40,6 +41,17 @@ const CurrentDay = ({ index, openingHours }) => {
     currentSchedule();
   }, [currentSchedule, day]);
 
+  const { colors } = useTheme();
+
+  const styles = StyleSheet.create({
+    text: {
+      textAlign: 'center',
+      fontSize: 18,
+      fontWeight: 'bold',
+      color: colors.text,
+    },
+  });
+
   return (
     <>
       <Text style={styles.text}>Today:</Text>
@@ -47,14 +59,5 @@ const CurrentDay = ({ index, openingHours }) => {
     </>
   );
 };
-
-const styles = StyleSheet.create({
-  text: {
-    textAlign: 'center',
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#1C2938',
-  },
-});
 
 export default CurrentDay;

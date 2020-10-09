@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { useTheme } from '@react-navigation/native';
 
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
@@ -26,6 +27,27 @@ const PlusMinusButton = ({ bool, setBool, buttonName }) => {
     checkViewState();
   }, [checkViewState, bool]);
 
+  const { colors } = useTheme();
+
+  const styles = StyleSheet.create({
+    viewContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    dataContainer: {
+      paddingRight: 10,
+      paddingLeft: 5,
+    },
+    data: {
+      fontSize: 18,
+      fontWeight: 'bold',
+      textAlign: 'center',
+    },
+    dataTouchable: {
+      color: colors.text,
+    },
+  });
+
   return (
     <TouchableOpacity onPress={handleBool}>
       <View style={styles.viewContainer}>
@@ -37,24 +59,5 @@ const PlusMinusButton = ({ bool, setBool, buttonName }) => {
     </TouchableOpacity>
   );
 };
-
-const styles = StyleSheet.create({
-  viewContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  dataContainer: {
-    paddingRight: 10,
-    paddingLeft: 5,
-  },
-  data: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  dataTouchable: {
-    color: '#1C2938',
-  },
-});
 
 export default PlusMinusButton;

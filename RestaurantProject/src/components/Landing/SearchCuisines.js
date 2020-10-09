@@ -9,6 +9,7 @@ import {
 import { useSelector, useDispatch } from 'react-redux';
 
 import { updateQuery } from '../../redux/actions/queryActions';
+import { useTheme } from '@react-navigation/native';
 
 const SearchCuisines = ({ cuisines }) => {
   const [search, setSearch] = useState('');
@@ -44,10 +45,31 @@ const SearchCuisines = ({ cuisines }) => {
     checkSearch();
   }, [checkSearch, search]);
 
+  const theme = useTheme();
+
+  const { colors } = useTheme();
+  const { width } = Dimensions.get('window');
+
+  const styles = StyleSheet.create({
+    container: {
+      width: width / 1.5,
+    },
+    input: {
+      fontSize: 18,
+      borderBottomWidth: 1,
+      borderColor: colors.text,
+      paddingVertical: 10,
+      textAlign: 'center',
+      color: colors.text,
+    },
+  });
+
   return (
     <View style={styles.container}>
       <TextInput
         style={styles.input}
+        keyboardAppearance={theme.dark ? 'dark' : 'light'}
+        placeholderTextColor={colors.text}
         placeholder="Search..."
         returnKeyType="done"
         value={search}
@@ -57,21 +79,5 @@ const SearchCuisines = ({ cuisines }) => {
     </View>
   );
 };
-
-const { width } = Dimensions.get('window');
-
-const styles = StyleSheet.create({
-  container: {
-    width: width / 1.5,
-  },
-  input: {
-    fontSize: 18,
-    borderBottomWidth: 1,
-    borderColor: '#1C2938',
-    paddingVertical: 10,
-    textAlign: 'center',
-    color: '#1C2938',
-  },
-});
 
 export default SearchCuisines;

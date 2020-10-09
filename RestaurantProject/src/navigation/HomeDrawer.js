@@ -13,9 +13,9 @@ const HomeDrawer = () => {
   return (
     <Drawer.Navigator
       edgeWidth={0}
-      drawerStyle={{
-        backgroundColor: '#fafafa',
-      }}
+      // drawerStyle={{
+      //   backgroundColor: '#fafafa',
+      // }}
       drawerContent={props => <HomeDrawerContent {...props} />}>
       <Drawer.Screen name={Routes.Landing} component={Landing} />
     </Drawer.Navigator>

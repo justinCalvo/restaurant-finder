@@ -6,6 +6,7 @@ import {
   State,
 } from 'react-native-gesture-handler';
 import { useSelector } from 'react-redux';
+import { useTheme } from '@react-navigation/native';
 
 import LikeButton from '../../utils/LikeButton';
 import DislikeButton from '../../utils/DislikeButton';
@@ -95,6 +96,59 @@ const Expanded = ({
     updateReviewData();
   }, [updateReviewData, theDetails]);
 
+  const { colors } = useTheme();
+  const { width, height } = Dimensions.get('window');
+
+  const styles = StyleSheet.create({
+    container: {
+      width: width,
+      height: height,
+      alignItems: 'center',
+      flex: 1,
+      justifyContent: 'flex-end',
+    },
+    display: {
+      display: 'flex',
+      width: width,
+      flex: 1,
+      paddingTop: 10,
+    },
+    hide: {
+      display: 'none',
+    },
+    description: {
+      fontSize: 16,
+      fontWeight: 'bold',
+      textAlign: 'center',
+      color: colors.text,
+    },
+    text: {
+      fontSize: 18,
+    },
+    scheduleText: {
+      textAlign: 'center',
+      color: colors.text,
+    },
+    bottomDragContainer: {
+      width: width / 1.5,
+      borderBottomWidth: 1,
+      borderTopWidth: 1,
+      borderColor: colors.text,
+    },
+    scheduleWithButtonsContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-around',
+      width: width,
+      paddingTop: 10,
+    },
+    viewDetailsContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-around',
+      alignItems: 'center',
+    },
+  });
+
   return (
     <FlingGestureHandler
       direction={Directions.UP}
@@ -169,57 +223,5 @@ const Expanded = ({
     </FlingGestureHandler>
   );
 };
-
-const { width, height } = Dimensions.get('window');
-
-const styles = StyleSheet.create({
-  container: {
-    width: width,
-    height: height,
-    alignItems: 'center',
-    flex: 1,
-    justifyContent: 'flex-end',
-  },
-  display: {
-    display: 'flex',
-    width: width,
-    flex: 1,
-    paddingTop: 10,
-  },
-  hide: {
-    display: 'none',
-  },
-  description: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    color: '#1C2938',
-  },
-  text: {
-    fontSize: 18,
-  },
-  scheduleText: {
-    textAlign: 'center',
-    color: '#1C2938',
-  },
-  bottomDragContainer: {
-    width: width / 1.5,
-    borderBottomWidth: 1,
-    borderTopWidth: 1,
-    borderColor: '#1C2938',
-  },
-  scheduleWithButtonsContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-around',
-    width: width,
-    paddingTop: 10,
-  },
-  viewDetailsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-  },
-});
 
 export default Expanded;

@@ -7,9 +7,9 @@ import {
   Dimensions,
   Keyboard,
   Alert,
-  Button,
+  TouchableOpacity,
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useTheme } from '@react-navigation/native';
 import { Routes } from '../../constants/NavConst';
 import { useSelector, useDispatch } from 'react-redux';
 import { getLocation } from '../../redux/actions/locationActions';
@@ -53,10 +53,41 @@ const CitySearch = ({ isLoading, setIsLoading, min, max, meters, type }) => {
     Keyboard.dismiss();
   };
 
+  const theme = useTheme();
+
+  const { width } = Dimensions.get('window');
+  const { colors } = useTheme();
+
+  const styles = StyleSheet.create({
+    container: {
+      width: width,
+      paddingHorizontal: 50,
+    },
+    textInput: {
+      fontSize: 18,
+      borderBottomWidth: 1,
+      borderColor: colors.text,
+      paddingVertical: 10,
+      textAlign: 'center',
+      color: colors.text,
+    },
+    text: {
+      fontSize: 16,
+      fontWeight: 'bold',
+      textAlign: 'center',
+      color: colors.text,
+    },
+    textContainer: {
+      paddingTop: 10,
+    },
+  });
+
   return (
     <View style={styles.container}>
       <TextInput
         style={styles.textInput}
+        keyboardAppearance={theme.dark ? 'dark' : 'light'}
+        placeholderTextColor={colors.text}
         onChangeText={setCity}
         value={city}
         placeholder="city"
@@ -69,6 +100,8 @@ const CitySearch = ({ isLoading, setIsLoading, min, max, meters, type }) => {
       />
       <TextInput
         style={styles.textInput}
+        keyboardAppearance={theme.dark ? 'dark' : 'light'}
+        placeholderTextColor={colors.text}
         onChangeText={setState}
         value={state}
         placeholder="state"
@@ -83,6 +116,8 @@ const CitySearch = ({ isLoading, setIsLoading, min, max, meters, type }) => {
       </View>
       <TextInput
         style={styles.textInput}
+        keyboardAppearance={theme.dark ? 'dark' : 'light'}
+        placeholderTextColor={colors.text}
         onChangeText={setZipcode}
         value={zipcode}
         placeholder="zipcode"
@@ -91,35 +126,11 @@ const CitySearch = ({ isLoading, setIsLoading, min, max, meters, type }) => {
         onSubmitEditing={handleOnPressSubmit}
         blurOnSubmit={false}
       />
-      <Button onPress={getCity} title="Search" />
+      <TouchableOpacity onPress={getCity}>
+        <Text style={styles.text}>Search</Text>
+      </TouchableOpacity>
     </View>
   );
 };
-
-const { width } = Dimensions.get('window');
-
-const styles = StyleSheet.create({
-  container: {
-    width: width,
-    paddingHorizontal: 50,
-  },
-  textInput: {
-    fontSize: 18,
-    borderBottomWidth: 1,
-    borderColor: '#1C2938',
-    paddingVertical: 10,
-    textAlign: 'center',
-    color: '#1C2938',
-  },
-  text: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    color: '#1C2938',
-  },
-  textContainer: {
-    paddingTop: 10,
-  },
-});
 
 export default CitySearch;

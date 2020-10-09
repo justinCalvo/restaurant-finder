@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useTheme } from '@react-navigation/native';
 import { Routes } from '../../constants/NavConst';
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -31,6 +31,17 @@ const ProximitySearch = ({
     setIsLoading(false);
   };
 
+  const { colors } = useTheme();
+
+  const styles = StyleSheet.create({
+    text: {
+      paddingVertical: 10,
+      fontSize: 28,
+      fontWeight: 'bold',
+      color: colors.text,
+    },
+  });
+
   return (
     <View>
       <TouchableOpacity onPress={getNearby} title="Nearby Search">
@@ -42,14 +53,5 @@ const ProximitySearch = ({
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  text: {
-    paddingVertical: 10,
-    fontSize: 28,
-    fontWeight: 'bold',
-    color: '#1C2938',
-  },
-});
 
 export default ProximitySearch;

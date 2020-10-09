@@ -1,6 +1,12 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { SafeAreaView, View, StyleSheet, Alert } from 'react-native';
-import { Drawer, Text, TouchableRipple, Switch } from 'react-native-paper';
+import {
+  Drawer,
+  Text,
+  TouchableRipple,
+  Switch,
+  useTheme,
+} from 'react-native-paper';
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 import { useSelector } from 'react-redux';
 
@@ -10,8 +16,11 @@ import Clipboard from '@react-native-community/clipboard';
 import Icon from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
+import { SettingContext } from './components/Context';
+
 export function DrawerContent(props) {
-  const [isDark, setIsDark] = useState(false);
+  const { toggleTheme } = React.useContext(SettingContext);
+
   const [wasCopied, setWasCopied] = useState(false);
 
   const places = useSelector(state => state.places);
@@ -34,6 +43,30 @@ export function DrawerContent(props) {
     resetWasCopied();
   }, [resetWasCopied, wasCopied]);
 
+  const paperTheme = useTheme();
+  const { colors } = useTheme();
+
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: colors.background,
+    },
+    preference: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      paddingVertical: 12,
+      paddingHorizontal: 16,
+      alignItems: 'center',
+    },
+    text: {
+      color: colors.text,
+    },
+    cuisines: {
+      paddingBottom: 5,
+      paddingHorizontal: 16,
+    },
+  });
+
   return (
     <SafeAreaView style={styles.container}>
       <DrawerContentScrollView {...props}>
@@ -45,7 +78,7 @@ export function DrawerContent(props) {
               <FontAwesome
                 name={wasCopied ? 'check-square' : 'copy'}
                 size={22}
-                color={wasCopied ? 'green' : '#1C2938'}
+                color={wasCopied ? 'green' : colors.text}
               />
             </View>
           </TouchableRipple>
@@ -53,7 +86,11 @@ export function DrawerContent(props) {
         {query.cuisineList.length > 0 ? (
           <Drawer.Section
             style={styles.preferenceContainer}
-            title="Preferred Cuisine(s)">
+            title={
+              query.cuisineList.length > 1
+                ? 'Preferred Cuisines'
+                : 'Preferred Cuisine'
+            }>
             <View style={styles.cuisines}>
               <Text style={styles.text}>{query.cuisineList[0].cuisine}</Text>
             </View>
@@ -75,11 +112,11 @@ export function DrawerContent(props) {
           </Drawer.Section>
         ) : null}
         <Drawer.Section style={styles.preferenceContainer} title="Preferences">
-          <TouchableRipple onPress={() => setIsDark(!isDark)}>
+          <TouchableRipple onPress={() => toggleTheme()}>
             <View style={styles.preference}>
               <Text style={styles.text}>Dark Mode</Text>
               <View pointerEvents="none">
-                <Switch value={isDark} />
+                <Switch value={paperTheme.dark} color="#ee6f57" />
               </View>
             </View>
           </TouchableRipple>
@@ -112,26 +149,3 @@ export function DrawerContent(props) {
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  preference: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    alignItems: 'center',
-  },
-  preferenceContainer: {
-    backgroundColor: '#fafafa',
-  },
-  text: {
-    color: '#1C2938',
-  },
-  cuisines: {
-    paddingBottom: 5,
-    paddingHorizontal: 16,
-  },
-});
