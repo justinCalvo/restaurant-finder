@@ -41,12 +41,12 @@ export function HomeDrawerContent(props) {
           <TouchableRipple onPress={() => toggleTheme()}>
             <View style={styles.preference}>
               <Text style={styles.text}>Dark Mode</Text>
-              <Button
+              {/* <Button
                 onPress={() => {
                   findSession('16-vHyHBDwLGxFkD');
                 }}
                 title="TEST SESSION"
-              />
+              /> */}
               <View pointerEvents="none">
                 <Switch value={paperTheme.dark} color="#ee6f57" />
               </View>

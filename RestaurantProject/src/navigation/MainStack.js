@@ -22,6 +22,8 @@ const Stack = createStackNavigator();
 
 const MainStack = () => {
   const dispatch = useDispatch();
+  const theme = useTheme();
+  const { colors } = useTheme();
 
   const createSessionBackButton = navigation => {
     navigation.dispatch(CommonActions.goBack());
@@ -29,15 +31,13 @@ const MainStack = () => {
     dispatch(updateQuery('', []));
   };
 
-  const { colors } = useTheme();
-
   return (
     <Stack.Navigator
       screenOptions={{
         title: null,
         gestureEnabled: false,
         headerStyle: {
-          backgroundColor: colors.background,
+          backgroundColor: theme.dark ? '#182330' : colors.background,
         },
       }}>
       <Stack.Screen
