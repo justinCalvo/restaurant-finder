@@ -3,9 +3,13 @@ import { TouchableOpacity } from 'react-native';
 import { DrawerActions } from '@react-navigation/native';
 
 import { createStackNavigator } from '@react-navigation/stack';
-import { CommonActions } from '@react-navigation/native';
+import { CommonActions, useTheme } from '@react-navigation/native';
 import { Routes } from '../constants/NavConst';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+
+import { useDispatch } from 'react-redux';
+import { updateCounter } from '../redux/actions/counterActions';
+import { updateQuery } from '../redux/actions/queryActions';
 
 import MatchDetails from '../screens/Matches/MatchDetails';
 import CreateSession from '../screens/Landing/CreateSession';
@@ -17,11 +21,24 @@ import HomeDrawer from './HomeDrawer';
 const Stack = createStackNavigator();
 
 const MainStack = () => {
+  const dispatch = useDispatch();
+  const theme = useTheme();
+  const { colors } = useTheme();
+
+  const createSessionBackButton = navigation => {
+    navigation.dispatch(CommonActions.goBack());
+    dispatch(updateCounter(3));
+    dispatch(updateQuery('', []));
+  };
+
   return (
     <Stack.Navigator
       screenOptions={{
         title: null,
         gestureEnabled: false,
+        headerStyle: {
+          backgroundColor: theme.dark ? '#182330' : colors.background,
+        },
       }}>
       <Stack.Screen
         name={Routes.Landing}
@@ -30,7 +47,7 @@ const MainStack = () => {
           headerLeft: () => (
             <TouchableOpacity
               onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}>
-              <Ionicons name="menu-outline" size={30} color="#1C2938" />
+              <Ionicons name="menu-outline" size={30} color={colors.text} />
             </TouchableOpacity>
           ),
         })}
@@ -42,7 +59,7 @@ const MainStack = () => {
           headerLeft: () => (
             <TouchableOpacity
               onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}>
-              <Ionicons name="menu-outline" size={30} color="#1C2938" />
+              <Ionicons name="menu-outline" size={30} color={colors.text} />
             </TouchableOpacity>
           ),
         })}
@@ -53,8 +70,12 @@ const MainStack = () => {
         options={({ navigation }) => ({
           headerLeft: () => (
             <TouchableOpacity
-              onPress={() => navigation.dispatch(CommonActions.goBack())}>
-              <Ionicons name="arrow-back-outline" size={30} color="#1C2938" />
+              onPress={() => createSessionBackButton(navigation)}>
+              <Ionicons
+                name="arrow-back-outline"
+                size={30}
+                color={colors.text}
+              />
             </TouchableOpacity>
           ),
         })}
@@ -71,7 +92,11 @@ const MainStack = () => {
           headerLeft: () => (
             <TouchableOpacity
               onPress={() => navigation.dispatch(CommonActions.goBack())}>
-              <Ionicons name="arrow-back-outline" size={30} color="#1C2938" />
+              <Ionicons
+                name="arrow-back-outline"
+                size={30}
+                color={colors.text}
+              />
             </TouchableOpacity>
           ),
         })}

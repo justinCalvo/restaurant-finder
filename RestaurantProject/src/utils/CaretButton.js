@@ -1,8 +1,19 @@
 import React from 'react';
 import { Text, TouchableOpacity, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { useTheme } from '@react-navigation/native';
 
 const CaretButton = ({ toggle, handleSetting, title }) => {
+  const { colors } = useTheme();
+
+  const styles = StyleSheet.create({
+    text: {
+      fontWeight: 'bold',
+      fontSize: 18,
+      color: colors.text,
+    },
+  });
+
   return (
     <TouchableOpacity onPress={() => handleSetting()}>
       <Text style={styles.text}>
@@ -16,13 +27,5 @@ const CaretButton = ({ toggle, handleSetting, title }) => {
     </TouchableOpacity>
   );
 };
-
-const styles = StyleSheet.create({
-  text: {
-    fontWeight: 'bold',
-    fontSize: 18,
-    color: '#1C2938',
-  },
-});
 
 export default CaretButton;

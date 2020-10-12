@@ -1,9 +1,11 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useTheme } from '@react-navigation/native';
 import { Routes } from '../../constants/NavConst';
 import Icon from 'react-native-vector-icons/Ionicons';
+
 import { batch, useDispatch, useSelector } from 'react-redux';
+
 import { getPlaceIds } from '../../redux/actions/currentLocationActions';
 import { getNextTwenty } from '../../redux/actions/nextTwentyActions';
 
@@ -20,12 +22,25 @@ const ProximitySearch = ({
   const places = useSelector(state => state.places);
   // console.log(places);
 
+  const query = useSelector(state => state.query);
+
   const getNearby = async () => {
     setIsLoading(true);
+    await dispatch(getPlaceIds(min, max, meters, type, query.cuisineQuery));
     navigation.navigate(Routes.ShareToken);
-    await dispatch(getPlaceIds(min, max, meters, type));
     setIsLoading(false);
   };
+
+  const { colors } = useTheme();
+
+  const styles = StyleSheet.create({
+    text: {
+      paddingVertical: 10,
+      fontSize: 28,
+      fontWeight: 'bold',
+      color: colors.text,
+    },
+  });
 
   return (
     <View>
@@ -38,14 +53,5 @@ const ProximitySearch = ({
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  text: {
-    paddingVertical: 10,
-    fontSize: 28,
-    fontWeight: 'bold',
-    color: '#1C2938',
-  },
-});
 
 export default ProximitySearch;

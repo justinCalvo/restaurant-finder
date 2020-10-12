@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
     width: width,
     height: height,
     flex: 1,
-    backgroundColor: '#fafafa',
+    // backgroundColor: '#fafafa',
   },
   photoContainer: {
     alignItems: 'center',

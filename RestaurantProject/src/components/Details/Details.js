@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { createStars } from '../../helper/CreateStars';
 import { useSelector } from 'react-redux';
+import { useTheme } from '@react-navigation/native';
 import Reviews from './Reviews';
 
 import PriceRating from '../../utils/PriceRating';
@@ -36,6 +37,78 @@ const Details = ({
   useEffect(() => {
     createStars(undefined, details.details[index], setStars);
   }, [index, details.details]);
+
+  const { colors } = useTheme();
+
+  const { width } = Dimensions.get('window');
+
+  const styles = StyleSheet.create({
+    container: {
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    placeName: {
+      fontSize: 24,
+      fontWeight: 'bold',
+      textAlign: 'center',
+      color: colors.text,
+    },
+    ratingContainer: {
+      flexDirection: 'row',
+      justifyContent: 'flex-end',
+      alignItems: 'center',
+      width: width / 1.3,
+    },
+    ratingsTotalText: {
+      paddingHorizontal: 5,
+      fontSize: 16,
+      color: colors.text,
+    },
+    text: {
+      fontSize: 18,
+      fontWeight: 'bold',
+      color: colors.text,
+    },
+    contactContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-around',
+      paddingTop: 5,
+      flexWrap: 'wrap',
+      width: width,
+    },
+    addressContainer: {
+      alignItems: 'center',
+      paddingVertical: 5,
+    },
+    address: {
+      width: width / 1.5,
+    },
+    addressText: {
+      textAlign: 'center',
+    },
+    priceContainer: {
+      flexDirection: 'row',
+      justifyContent: 'flex-end',
+      width: width / 1.3,
+    },
+    dayContainer: {
+      paddingVertical: 5,
+    },
+    whileViewingDetails: {
+      flexDirection: 'row',
+      width: width,
+      justifyContent: 'space-around',
+    },
+    align: {
+      flexDirection: 'row',
+    },
+    website: {
+      paddingBottom: 5,
+    },
+    websiteContainer: {
+      paddingHorizontal: 5,
+    },
+  });
 
   return (
     <View style={styles.container}>
@@ -137,74 +210,5 @@ const Details = ({
     </View>
   );
 };
-
-const { width } = Dimensions.get('window');
-
-const styles = StyleSheet.create({
-  container: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  placeName: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    color: '#1C2938',
-  },
-  ratingContainer: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    width: width / 1.3,
-  },
-  ratingsTotalText: {
-    paddingHorizontal: 5,
-    fontSize: 16,
-  },
-  text: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#1C2938',
-  },
-  contactContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    paddingTop: 5,
-    flexWrap: 'wrap',
-    width: width,
-  },
-  addressContainer: {
-    alignItems: 'center',
-    paddingVertical: 5,
-  },
-  address: {
-    width: width / 1.5,
-  },
-  addressText: {
-    textAlign: 'center',
-  },
-  priceContainer: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    width: width / 1.3,
-  },
-  dayContainer: {
-    paddingVertical: 5,
-  },
-  whileViewingDetails: {
-    flexDirection: 'row',
-    width: width,
-    justifyContent: 'space-around',
-  },
-  align: {
-    flexDirection: 'row',
-  },
-  website: {
-    paddingBottom: 5,
-  },
-  websiteContainer: {
-    paddingHorizontal: 5,
-  },
-});
 
 export default Details;

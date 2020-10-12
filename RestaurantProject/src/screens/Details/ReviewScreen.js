@@ -8,27 +8,54 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native';
 import Stars from '../../utils/Stars';
+import { useTheme } from '@react-navigation/native';
 
-const CreateReviews = ({ item, onPress, style, selectedId }) => (
-  <>
-    {item.next === selectedId || item.text.length <= 100 ? (
-      <Text style={styles.text}>{item.text}</Text>
-    ) : (
-      <View style={styles.textContainer}>
-        <TouchableWithoutFeedback
-          style={
-            item.next === selectedId ? styles.hideButton : styles.showButton
-          }
-          onPress={onPress}>
-          <Text style={styles.text}>
-            {item.text.substr(0, 100)}
-            <Text style={styles.readMore}> ... Read More</Text>
-          </Text>
-        </TouchableWithoutFeedback>
-      </View>
-    )}
-  </>
-);
+const CreateReviews = ({ item, onPress, style, selectedId }) => {
+  const { colors } = useTheme();
+
+  const styles = StyleSheet.create({
+    text: {
+      fontSize: 18,
+      color: colors.text,
+    },
+    textContainer: {
+      flex: 1,
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+    },
+    showButton: {
+      display: 'flex',
+    },
+    hideButton: {
+      display: 'none',
+    },
+    readMore: {
+      color: '#cb3737',
+      fontSize: 16,
+      fontWeight: 'bold',
+    },
+  });
+  return (
+    <>
+      {item.next === selectedId || item.text.length <= 100 ? (
+        <Text style={styles.text}>{item.text}</Text>
+      ) : (
+        <View style={styles.textContainer}>
+          <TouchableWithoutFeedback
+            style={
+              item.next === selectedId ? styles.hideButton : styles.showButton
+            }
+            onPress={onPress}>
+            <Text style={styles.text}>
+              {item.text.substr(0, 100)}
+              <Text style={styles.readMore}> ... Read More</Text>
+            </Text>
+          </TouchableWithoutFeedback>
+        </View>
+      )}
+    </>
+  );
+};
 
 const ReviewScreen = ({
   viewReviews,
@@ -92,6 +119,53 @@ const ReviewScreen = ({
     handleScrollReviewsToTop();
   }, [handleScrollReviewsToTop, scrollReviewsToTop]);
 
+  const { colors } = useTheme();
+  const { width } = Dimensions.get('window');
+
+  const styles = StyleSheet.create({
+    reviewDisplay: {
+      display: 'flex',
+      paddingHorizontal: 10,
+    },
+    reviewHide: {
+      display: 'none',
+    },
+    noReviews: {
+      fontSize: 18,
+      fontWeight: 'bold',
+      textAlign: 'center',
+    },
+    text: {
+      fontSize: 18,
+      color: colors.text,
+    },
+    timeText: {
+      paddingHorizontal: 10,
+    },
+    ratingContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      marginBottom: 5,
+    },
+    authorText: {
+      fontWeight: 'bold',
+    },
+    underlineContainer: {
+      width: width,
+      alignItems: 'center',
+    },
+    underline: {
+      width: width / 1.5,
+      height: 1,
+      backgroundColor: colors.text,
+      margin: 15,
+    },
+    displayFullReview: {
+      flex: 1,
+      flexDirection: 'row',
+    },
+  });
+
   return (
     <View style={styles.container}>
       <FlatList
@@ -107,66 +181,5 @@ const ReviewScreen = ({
     </View>
   );
 };
-
-const { width } = Dimensions.get('window');
-
-const styles = StyleSheet.create({
-  reviewDisplay: {
-    display: 'flex',
-    paddingHorizontal: 10,
-  },
-  reviewHide: {
-    display: 'none',
-  },
-  noReviews: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  text: {
-    fontSize: 18,
-  },
-  timeText: {
-    paddingHorizontal: 10,
-  },
-  ratingContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 5,
-  },
-  authorText: {
-    fontWeight: 'bold',
-  },
-  underlineContainer: {
-    width: width,
-    alignItems: 'center',
-  },
-  underline: {
-    width: width / 1.5,
-    height: 1,
-    backgroundColor: '#1C2938',
-    margin: 15,
-  },
-  displayFullReview: {
-    flex: 1,
-    flexDirection: 'row',
-  },
-  showButton: {
-    display: 'flex',
-  },
-  hideButton: {
-    display: 'none',
-  },
-  textContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-  },
-  readMore: {
-    color: '#cb3737',
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-});
 
 export default ReviewScreen;

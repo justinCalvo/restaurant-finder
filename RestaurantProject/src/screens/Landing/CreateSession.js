@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Dimensions,
 } from 'react-native';
+import { useTheme } from '@react-navigation/native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -24,12 +25,53 @@ const CreateSession = () => {
   const [max, setMax] = useState('4');
   const [meters, setMeters] = useState('8046.72');
   const [type, setType] = useState('restaurant');
-  const [cuisines, setCuisines] = useState('');
 
   const handleSearchLocationPress = () => {
     setToggleOptions(false);
     setToggleCitySearch(!toggleCitySearch);
   };
+
+  const { width, height } = Dimensions.get('window');
+  const { colors } = useTheme();
+
+  const styles = StyleSheet.create({
+    container: {
+      width: width,
+      height: height,
+      flex: 1,
+      alignItems: 'center',
+    },
+    text: {
+      paddingVertical: 10,
+      fontSize: 28,
+      fontWeight: 'bold',
+      color: colors.text,
+    },
+    header: {
+      fontSize: 44,
+      fontWeight: 'bold',
+      alignItems: 'center',
+      color: colors.text,
+    },
+    buttonContainer: {
+      width: width,
+      height: height / 1.5,
+      justifyContent: 'flex-end',
+      alignItems: 'center',
+    },
+    topContainer: {
+      width: width,
+      height: height / 5,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    // keyboardColor: {
+    //   backgroundColor: '#fafafa',
+    // },
+    headerContainer: {
+      paddingVertical: 10,
+    },
+  });
 
   return (
     <KeyboardAwareScrollView
@@ -41,7 +83,7 @@ const CreateSession = () => {
       <View style={styles.buttonContainer}>
         <View style={styles.topContainer}>
           <View style={styles.headerContainer}>
-            <Text style={styles.header}>Rair</Text>
+            <Text style={styles.header}>WeCide</Text>
           </View>
         </View>
         {isLoading ? <Loading /> : null}
@@ -56,8 +98,6 @@ const CreateSession = () => {
           setToggleCitySearch={setToggleCitySearch}
           type={type}
           setType={setType}
-          cuisines={cuisines}
-          setCuisines={setCuisines}
         />
         <ProximitySearch
           isLoading={isLoading}
@@ -66,7 +106,6 @@ const CreateSession = () => {
           max={max}
           meters={meters}
           type={type}
-          cuisines={cuisines}
         />
         <TouchableOpacity onPress={() => handleSearchLocationPress()}>
           <Text style={styles.text}>
@@ -83,52 +122,10 @@ const CreateSession = () => {
           max={max}
           meters={meters}
           type={type}
-          cuisines={cuisines}
         />
       ) : null}
     </KeyboardAwareScrollView>
   );
 };
-const { width, height } = Dimensions.get('window');
-
-const styles = StyleSheet.create({
-  container: {
-    width: width,
-    height: height,
-    flex: 1,
-    alignItems: 'center',
-    backgroundColor: '#fafafa',
-  },
-  text: {
-    paddingVertical: 10,
-    fontSize: 28,
-    fontWeight: 'bold',
-    color: '#1C2938',
-  },
-  header: {
-    fontSize: 44,
-    fontWeight: 'bold',
-    alignItems: 'center',
-    color: '#1C2938',
-  },
-  buttonContainer: {
-    width: width,
-    height: height / 1.5,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-  },
-  topContainer: {
-    width: width,
-    height: height / 5,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  keyboardColor: {
-    backgroundColor: '#fafafa',
-  },
-  headerContainer: {
-    paddingVertical: 10,
-  },
-});
 
 export default CreateSession;

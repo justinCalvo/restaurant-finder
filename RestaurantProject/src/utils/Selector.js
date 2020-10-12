@@ -2,11 +2,28 @@ import React from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 
 import { Picker } from '@react-native-community/picker';
+import { useTheme } from '@react-navigation/native';
 
 const Selector = ({ toggle, value, setValue, title, labels, values }) => {
   const handlePicker = (itemValue, setNum) => {
     setNum(itemValue);
   };
+
+  const { colors } = useTheme();
+
+  const { width } = Dimensions.get('window');
+
+  const styles = StyleSheet.create({
+    picker: {
+      width: width / 3.8,
+    },
+    pickers: {
+      justifyContent: 'flex-end',
+    },
+    pickerText: {
+      color: colors.text,
+    },
+  });
 
   return (
     <>
@@ -15,6 +32,7 @@ const Selector = ({ toggle, value, setValue, title, labels, values }) => {
           <Picker
             selectedValue={value}
             style={styles.picker}
+            itemStyle={styles.pickerText}
             onValueChange={(itemValue, itemIndex) =>
               handlePicker(itemValue, setValue)
             }>
@@ -34,16 +52,5 @@ const Selector = ({ toggle, value, setValue, title, labels, values }) => {
     </>
   );
 };
-
-const { width } = Dimensions.get('window');
-
-const styles = StyleSheet.create({
-  picker: {
-    width: width / 3.8,
-  },
-  pickers: {
-    justifyContent: 'flex-end',
-  },
-});
 
 export default Selector;

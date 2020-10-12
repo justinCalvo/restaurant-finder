@@ -5,7 +5,9 @@ import {
   TouchableOpacity,
   StyleSheet,
   Dimensions,
+  StatusBar,
 } from 'react-native';
+import { useTheme } from '@react-navigation/native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -20,6 +22,50 @@ const Landing = ({ navigation }) => {
     setToggleJoinSession(!toggleJoinSession);
   };
 
+  const theme = useTheme();
+
+  const { colors } = useTheme();
+  const { width, height } = Dimensions.get('window');
+
+  const styles = StyleSheet.create({
+    container: {
+      width: width,
+      height: height,
+      flex: 1,
+      alignItems: 'center',
+    },
+    text: {
+      paddingVertical: 10,
+      fontSize: 28,
+      fontWeight: 'bold',
+      color: colors.text,
+    },
+    header: {
+      fontSize: 44,
+      fontWeight: 'bold',
+      alignItems: 'center',
+      color: colors.text,
+    },
+    buttonContainer: {
+      width: width,
+      height: height / 1.5,
+      justifyContent: 'flex-end',
+      alignItems: 'center',
+    },
+    topContainer: {
+      width: width,
+      height: height / 5,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    // keyboardColor: {
+    //   backgroundColor: colors.background,
+    // },
+    headerContainer: {
+      paddingVertical: 10,
+    },
+  });
+
   return (
     <KeyboardAwareScrollView
       style={styles.keyboardColor}
@@ -28,9 +74,10 @@ const Landing = ({ navigation }) => {
       scrollEnabled={false}
       extraScrollHeight={20}>
       <View style={styles.buttonContainer}>
+        <StatusBar barStyle={theme.dark ? 'light-content' : 'dark-content'} />
         <View style={styles.topContainer}>
           <View style={styles.headerContainer}>
-            <Text style={styles.header}>Rair</Text>
+            <Text style={styles.header}>WeCide</Text>
           </View>
         </View>
         <TouchableOpacity
@@ -51,47 +98,5 @@ const Landing = ({ navigation }) => {
     </KeyboardAwareScrollView>
   );
 };
-
-const { width, height } = Dimensions.get('window');
-
-const styles = StyleSheet.create({
-  container: {
-    width: width,
-    height: height,
-    flex: 1,
-    alignItems: 'center',
-    backgroundColor: '#fafafa',
-  },
-  text: {
-    paddingVertical: 10,
-    fontSize: 28,
-    fontWeight: 'bold',
-    color: '#1C2938',
-  },
-  header: {
-    fontSize: 44,
-    fontWeight: 'bold',
-    alignItems: 'center',
-    color: '#1C2938',
-  },
-  buttonContainer: {
-    width: width,
-    height: height / 1.5,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-  },
-  topContainer: {
-    width: width,
-    height: height / 5,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  keyboardColor: {
-    backgroundColor: '#fafafa',
-  },
-  headerContainer: {
-    paddingVertical: 10,
-  },
-});
 
 export default Landing;

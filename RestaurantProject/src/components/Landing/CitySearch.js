@@ -7,22 +7,14 @@ import {
   Dimensions,
   Keyboard,
   Alert,
-  Button,
+  TouchableOpacity,
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useTheme } from '@react-navigation/native';
 import { Routes } from '../../constants/NavConst';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { getLocation } from '../../redux/actions/locationActions';
 
-const CitySearch = ({
-  isLoading,
-  setIsLoading,
-  min,
-  max,
-  meters,
-  type,
-  cuisines,
-}) => {
+const CitySearch = ({ isLoading, setIsLoading, min, max, meters, type }) => {
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
   const [zipcode, setZipcode] = useState('');
@@ -30,16 +22,27 @@ const CitySearch = ({
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
+  const query = useSelector(s => s.query);
+
   let stateInputRef = React.createRef();
 
   const getCity = async () => {
     if ((city && state) || zipcode) {
       setIsLoading(true);
       await dispatch(
-        getLocation(city, state, zipcode, min, max, meters, type, cuisines),
+        getLocation(
+          city,
+          state,
+          zipcode,
+          min,
+          max,
+          meters,
+          type,
+          query.cuisineQuery,
+        ),
       );
+      navigation.navigate(Routes.ShareToken);
       setIsLoading(false);
-      navigation.navigate(Routes.Place);
     } else {
       Alert.alert('Please enter city and state or zip code');
     }
@@ -50,10 +53,41 @@ const CitySearch = ({
     Keyboard.dismiss();
   };
 
+  const theme = useTheme();
+
+  const { width } = Dimensions.get('window');
+  const { colors } = useTheme();
+
+  const styles = StyleSheet.create({
+    container: {
+      width: width,
+      paddingHorizontal: 50,
+    },
+    textInput: {
+      fontSize: 18,
+      borderBottomWidth: 1,
+      borderColor: colors.text,
+      paddingVertical: 10,
+      textAlign: 'center',
+      color: colors.text,
+    },
+    text: {
+      fontSize: 16,
+      fontWeight: 'bold',
+      textAlign: 'center',
+      color: colors.text,
+    },
+    textContainer: {
+      paddingTop: 10,
+    },
+  });
+
   return (
     <View style={styles.container}>
       <TextInput
         style={styles.textInput}
+        keyboardAppearance={theme.dark ? 'dark' : 'light'}
+        placeholderTextColor={colors.text}
         onChangeText={setCity}
         value={city}
         placeholder="city"
@@ -66,6 +100,8 @@ const CitySearch = ({
       />
       <TextInput
         style={styles.textInput}
+        keyboardAppearance={theme.dark ? 'dark' : 'light'}
+        placeholderTextColor={colors.text}
         onChangeText={setState}
         value={state}
         placeholder="state"
@@ -80,6 +116,8 @@ const CitySearch = ({
       </View>
       <TextInput
         style={styles.textInput}
+        keyboardAppearance={theme.dark ? 'dark' : 'light'}
+        placeholderTextColor={colors.text}
         onChangeText={setZipcode}
         value={zipcode}
         placeholder="zipcode"
@@ -88,35 +126,11 @@ const CitySearch = ({
         onSubmitEditing={handleOnPressSubmit}
         blurOnSubmit={false}
       />
-      <Button onPress={getCity} title="Search" />
+      <TouchableOpacity onPress={getCity}>
+        <Text style={styles.text}>Search</Text>
+      </TouchableOpacity>
     </View>
   );
 };
-
-const { width } = Dimensions.get('window');
-
-const styles = StyleSheet.create({
-  container: {
-    width: width,
-    paddingHorizontal: 50,
-  },
-  textInput: {
-    fontSize: 18,
-    borderBottomWidth: 1,
-    borderColor: '#1C2938',
-    paddingVertical: 10,
-    textAlign: 'center',
-    color: '#1C2938',
-  },
-  text: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    color: '#1C2938',
-  },
-  textContainer: {
-    paddingTop: 10,
-  },
-});
 
 export default CitySearch;

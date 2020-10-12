@@ -3,7 +3,13 @@ import config from '../../../config';
 import { createSession } from '../../API/createSession';
 import { uniqueID } from '../../API/makeID.js';
 
-export const getPlaceIds = (min, max, meters, types) => async dispatch => {
+export const getPlaceIds = (
+  min,
+  max,
+  meters,
+  types,
+  cuisines,
+) => async dispatch => {
   try {
     dispatch({
       type: 'RESET_PLACE_IDS',
@@ -20,9 +26,7 @@ export const getPlaceIds = (min, max, meters, types) => async dispatch => {
       type: 'AWAITING_PLACE_IDS',
     });
 
-    let url = '';
-
-    url = `https://maps.googleapis.com/maps/api/place/textsearch/json?type=${types}&opennow&minprice=${min}&maxprice=${max}&radius=${meters}&key=${
+    let url = `https://maps.googleapis.com/maps/api/place/textsearch/json?${cuisines}type=${types}&opennow&minprice=${min}&maxprice=${max}&radius=${meters}&key=${ 
       config.API_KEY
     }`;
     const places = await axios.get(url);
@@ -36,8 +40,8 @@ export const getPlaceIds = (min, max, meters, types) => async dispatch => {
     }
 
     const nextPageToken = places.data.next_page_token;
+
     const sessionID = uniqueID();
-    // console.log(places);
 
     i = placeIdData.length - 1;
     let k;

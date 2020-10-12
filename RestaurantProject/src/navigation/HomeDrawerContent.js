@@ -1,27 +1,54 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { SafeAreaView, View, StyleSheet, Button } from 'react-native';
-import { Drawer, Text, TouchableRipple, Switch } from 'react-native-paper';
+import {
+  Drawer,
+  Text,
+  TouchableRipple,
+  Switch,
+  useTheme,
+} from 'react-native-paper';
 import { DrawerContentScrollView } from '@react-navigation/drawer';
 import { findSession } from '../API/findSession.js';
+import { SettingContext } from './components/Context';
 
 export function HomeDrawerContent(props) {
-  const [isDark, setIsDark] = useState(false);
+  const { toggleTheme } = React.useContext(SettingContext);
+
+  const paperTheme = useTheme();
+  const { colors } = useTheme();
+
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: colors.background,
+    },
+    preference: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      paddingVertical: 12,
+      paddingHorizontal: 16,
+      alignItems: 'center',
+    },
+    text: {
+      color: colors.text,
+    },
+  });
 
   return (
     <SafeAreaView style={styles.container}>
       <DrawerContentScrollView {...props}>
-        <Drawer.Section style={styles.preferenceContainer} title="Preferences">
-          <TouchableRipple onPress={() => setIsDark(!isDark)}>
+        <Drawer.Section title="Preferences">
+          <TouchableRipple onPress={() => toggleTheme()}>
             <View style={styles.preference}>
-              <Text style={styles.text}>Dark Theme</Text>
-              <Button
+              <Text style={styles.text}>Dark Mode</Text>
+              {/* <Button
                 onPress={() => {
                   findSession('16-vHyHBDwLGxFkD');
                 }}
                 title="TEST SESSION"
-              />
+              /> */}
               <View pointerEvents="none">
-                <Switch value={isDark} />
+                <Switch value={paperTheme.dark} color="#ee6f57" />
               </View>
             </View>
           </TouchableRipple>
@@ -30,22 +57,3 @@ export function HomeDrawerContent(props) {
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  preference: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    alignItems: 'center',
-  },
-  preferenceContainer: {
-    backgroundColor: '#fafafa',
-  },
-  text: {
-    color: '#1C2938',
-  },
-});

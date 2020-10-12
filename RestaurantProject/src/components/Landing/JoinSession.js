@@ -6,6 +6,7 @@ import {
   Dimensions,
   TouchableOpacity,
 } from 'react-native';
+import { useTheme } from '@react-navigation/native';
 
 import Clipboard from '@react-native-community/clipboard';
 
@@ -45,6 +46,34 @@ const JoinSession = () => {
     reset();
   }, [reset, wasPasted, wasDeleted]);
 
+  const theme = useTheme();
+
+  const { colors } = useTheme();
+
+  const { width } = Dimensions.get('window');
+
+  const styles = StyleSheet.create({
+    container: {
+      width: width,
+      alignItems: 'center',
+    },
+    inputContainer: {
+      flexDirection: 'row',
+    },
+    textInput: {
+      fontSize: 18,
+      borderBottomWidth: 1,
+      borderColor: colors.text,
+      paddingVertical: 10,
+      textAlign: 'center',
+      color: colors.text,
+    },
+    inputWidth: {
+      width: width / 1.5,
+      paddingHorizontal: 10,
+    },
+  });
+
   return (
     <View style={styles.container}>
       <View style={styles.inputContainer}>
@@ -52,12 +81,14 @@ const JoinSession = () => {
           <FontAwesome
             name={wasPasted ? 'check-square' : 'paste'}
             size={22}
-            color={wasPasted ? 'green' : '#1C2938'}
+            color={wasPasted ? 'green' : colors.text}
           />
         </TouchableOpacity>
         <View style={styles.inputWidth}>
           <TextInput
             style={styles.textInput}
+            keyboardAppearance={theme.dark ? 'dark' : 'light'}
+            placeholderTextColor={colors.text}
             onChangeText={setToken}
             value={token}
             placeholder="enter token"
@@ -71,36 +102,12 @@ const JoinSession = () => {
           <Ionicons
             name={wasDeleted ? 'close-circle' : 'close-circle-outline'}
             size={30}
-            color={wasDeleted ? '#cb3737' : '#1C2938'}
+            color={wasDeleted ? '#cb3737' : colors.text}
           />
         </TouchableOpacity>
       </View>
     </View>
   );
 };
-
-const { width } = Dimensions.get('window');
-
-const styles = StyleSheet.create({
-  container: {
-    width: width,
-    alignItems: 'center',
-  },
-  inputContainer: {
-    flexDirection: 'row',
-  },
-  textInput: {
-    fontSize: 18,
-    borderBottomWidth: 1,
-    borderColor: '#1C2938',
-    paddingVertical: 10,
-    textAlign: 'center',
-    color: '#1C2938',
-  },
-  inputWidth: {
-    width: width / 1.5,
-    paddingHorizontal: 10,
-  },
-});
 
 export default JoinSession;
