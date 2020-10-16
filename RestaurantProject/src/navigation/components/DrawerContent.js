@@ -16,7 +16,7 @@ import Clipboard from '@react-native-community/clipboard';
 import Icon from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
-import { SettingContext } from './components/Context';
+import { SettingContext } from './Context';
 
 export function DrawerContent(props) {
   const { toggleTheme } = React.useContext(SettingContext);

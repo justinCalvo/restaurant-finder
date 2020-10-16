@@ -1,11 +1,10 @@
-/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import { Routes } from '../constants/NavConst';
 
 import Landing from '../screens/Landing/Landing';
-import { HomeDrawerContent } from './HomeDrawerContent';
+import { HomeDrawerContent } from './components/HomeDrawerContent';
 
 const Drawer = createDrawerNavigator();
 

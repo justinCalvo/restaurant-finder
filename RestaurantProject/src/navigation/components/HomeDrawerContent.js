@@ -8,8 +8,8 @@ import {
   useTheme,
 } from 'react-native-paper';
 import { DrawerContentScrollView } from '@react-navigation/drawer';
-import { findSession } from '../API/findSession.js';
-import { SettingContext } from './components/Context';
+import { findSession } from '../../API/findSession.js';
+import { SettingContext } from './Context';
 
 export function HomeDrawerContent(props) {
   const { toggleTheme } = React.useContext(SettingContext);
