@@ -58,9 +58,6 @@ const Landing = ({ navigation }) => {
       justifyContent: 'center',
       alignItems: 'center',
     },
-    // keyboardColor: {
-    //   backgroundColor: colors.background,
-    // },
     headerContainer: {
       paddingVertical: 10,
     },

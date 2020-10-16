@@ -65,9 +65,6 @@ const CreateSession = () => {
       justifyContent: 'center',
       alignItems: 'center',
     },
-    // keyboardColor: {
-    //   backgroundColor: '#fafafa',
-    // },
     headerContainer: {
       paddingVertical: 10,
     },

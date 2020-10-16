@@ -48,7 +48,6 @@ const styles = StyleSheet.create({
   container: {
     width: width,
     height: height,
-    // backgroundColor: '#fafafa',
   },
 });
 
