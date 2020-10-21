@@ -3,7 +3,6 @@ import {
   View,
   Text,
   StyleSheet,
-  Dimensions,
   FlatList,
   Image,
   TouchableOpacity,
@@ -16,6 +15,11 @@ import { Routes } from '../../constants/NavConst';
 import PriceRating from '../../utils/PriceRating';
 import Stars from '../../utils/Stars';
 import PoweredByGoogle from '../../utils/PoweredByGoogle';
+
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 const MatchesScreen = ({ stars }) => {
   const navigation = useNavigation();
@@ -42,10 +46,10 @@ const MatchesScreen = ({ stars }) => {
               <Text style={styles.text}>{item.name}</Text>
             )}
             <View style={styles.ratingContainer}>
-              <Stars stars={stars} next={item.nextStars} size={20} />
+              <Stars stars={stars} next={item.nextStars} size={hp('2.3%')} />
             </View>
             <View style={styles.priceContainer}>
-              <PriceRating priceLevel={item.price_level} size={18} />
+              <PriceRating priceLevel={item.price_level} size={hp('2%')} />
             </View>
           </View>
         </View>
@@ -53,33 +57,32 @@ const MatchesScreen = ({ stars }) => {
     );
   };
 
-  const { width, height } = Dimensions.get('window');
   const { colors } = useTheme();
 
   const styles = StyleSheet.create({
     condensed: {
-      width: width / 5,
-      height: width / 5,
+      width: wp('20%'),
+      height: wp('20%'),
     },
     matchContainer: {
       flex: 1,
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
-      paddingVertical: 15,
-      paddingHorizontal: 40,
+      paddingVertical: hp('1.7%'),
+      paddingHorizontal: hp('4.5%'),
     },
     image: {
-      borderRadius: 40,
+      borderRadius: hp('4.5%'),
     },
     text: {
-      fontSize: 16,
+      fontSize: hp('1.6%'),
       fontWeight: 'bold',
       textAlign: 'center',
       color: colors.text,
     },
     detailsContainer: {
-      width: width / 2,
+      width: wp('50%'),
       alignItems: 'flex-end',
     },
     priceContainer: {
@@ -92,11 +95,11 @@ const MatchesScreen = ({ stars }) => {
     },
     display: {
       display: 'flex',
-      marginBottom: 10,
-      paddingHorizontal: 10,
+      marginBottom: hp('1.1%'),
+      paddingHorizontal: hp('1.1%'),
     },
     listContainer: {
-      height: height / 1.3,
+      height: hp('77%'),
     },
   });
 

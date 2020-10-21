@@ -18,6 +18,11 @@ import CurrentDay from '../../utils/CurrentDay';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
+
 const Details = ({
   index,
   showDetails,
@@ -48,7 +53,7 @@ const Details = ({
       alignItems: 'center',
     },
     placeName: {
-      fontSize: 24,
+      fontSize: hp('2.7%'),
       fontWeight: 'bold',
       textAlign: 'center',
       color: colors.text,
@@ -57,31 +62,31 @@ const Details = ({
       flexDirection: 'row',
       justifyContent: 'flex-end',
       alignItems: 'center',
-      width: width / 1.3,
+      width: wp('77%'),
     },
     ratingsTotalText: {
-      paddingHorizontal: 5,
-      fontSize: 16,
+      paddingHorizontal: hp('0.6%'),
+      fontSize: hp('1.6%'),
       color: colors.text,
     },
     text: {
-      fontSize: 18,
+      fontSize: hp('2%'),
       fontWeight: 'bold',
       color: colors.text,
     },
     contactContainer: {
       flexDirection: 'row',
       justifyContent: 'space-around',
-      paddingTop: 5,
+      paddingTop: hp('0.6%'),
       flexWrap: 'wrap',
       width: width,
     },
     addressContainer: {
       alignItems: 'center',
-      paddingVertical: 5,
+      paddingVertical: hp('0.6%'),
     },
     address: {
-      width: width / 1.5,
+      width: wp('67%'),
     },
     addressText: {
       textAlign: 'center',
@@ -89,10 +94,10 @@ const Details = ({
     priceContainer: {
       flexDirection: 'row',
       justifyContent: 'flex-end',
-      width: width / 1.3,
+      width: wp('77%'),
     },
     dayContainer: {
-      paddingVertical: 5,
+      paddingVertical: hp('0.6%'),
     },
     whileViewingDetails: {
       flexDirection: 'row',
@@ -103,10 +108,10 @@ const Details = ({
       flexDirection: 'row',
     },
     website: {
-      paddingBottom: 5,
+      paddingBottom: hp('0.6%'),
     },
     websiteContainer: {
-      paddingHorizontal: 5,
+      paddingHorizontal: hp('0.6%'),
     },
   });
 
@@ -118,10 +123,10 @@ const Details = ({
             <Text style={styles.ratingsTotalText}>
               ({details.details[index].user_ratings_total})
             </Text>
-            <Stars stars={stars} size={25} />
+            <Stars stars={stars} size={hp('2.8%')} />
           </View>
           <View style={styles.priceContainer}>
-            <PriceRating index={index} size={25} />
+            <PriceRating index={index} size={hp('2.8%')} />
           </View>
         </>
       ) : null}
@@ -137,7 +142,7 @@ const Details = ({
             }>
             <View style={styles.align}>
               <View style={styles.websiteContainer}>
-                <Icon name="call" size={18} color="#cb3737" />
+                <Icon name="call" size={hp('2%')} color="#cb3737" />
               </View>
               <Text style={styles.text}>
                 {details.details[index].formatted_phone_number}
@@ -150,7 +155,7 @@ const Details = ({
             onPress={() => Linking.openURL(details.details[index].website)}>
             <View style={styles.align}>
               <View style={styles.websiteContainer}>
-                <Icon name="globe-outline" size={18} color="#cb3737" />
+                <Icon name="globe-outline" size={hp('2%')} color="#cb3737" />
               </View>
               <Text style={styles.text}>Website</Text>
             </View>
@@ -163,7 +168,7 @@ const Details = ({
             <TouchableOpacity
               onPress={() => Linking.openURL(details.details[index].website)}>
               <View style={[styles.align, styles.website]}>
-                <Icon name="globe-outline" size={18} color="#cb3737" />
+                <Icon name="globe-outline" size={hp('2%')} color="#cb3737" />
                 <View style={styles.websiteContainer}>
                   <Text style={styles.text}>Website</Text>
                 </View>
@@ -178,7 +183,7 @@ const Details = ({
                 )
               }>
               <View style={styles.align}>
-                <Icon name="call" size={18} color="#cb3737" />
+                <Icon name="call" size={hp('2%')} color="#cb3737" />
                 <View style={styles.websiteContainer}>
                   <Text style={styles.text}>
                     {details.details[index].formatted_phone_number}

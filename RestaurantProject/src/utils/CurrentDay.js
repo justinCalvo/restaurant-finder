@@ -3,6 +3,8 @@ import { Text, StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
 import { useTheme } from '@react-navigation/native';
 
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
+
 const CurrentDay = ({ index, openingHours }) => {
   const [displayCurrentSchedule, setDisplayCurrentSchedule] = useState('');
   const details = useSelector(state => state.details);
@@ -46,7 +48,7 @@ const CurrentDay = ({ index, openingHours }) => {
   const styles = StyleSheet.create({
     text: {
       textAlign: 'center',
-      fontSize: 18,
+      fontSize: hp('2%'),
       fontWeight: 'bold',
       color: colors.text,
     },

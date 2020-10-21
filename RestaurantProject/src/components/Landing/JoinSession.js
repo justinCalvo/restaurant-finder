@@ -1,17 +1,16 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import {
-  View,
-  TextInput,
-  StyleSheet,
-  Dimensions,
-  TouchableOpacity,
-} from 'react-native';
+import { View, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 
 import Clipboard from '@react-native-community/clipboard';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 const JoinSession = () => {
   const [token, setToken] = useState('');
@@ -50,37 +49,31 @@ const JoinSession = () => {
 
   const { colors } = useTheme();
 
-  const { width } = Dimensions.get('window');
-
   const styles = StyleSheet.create({
-    container: {
-      width: width,
-      alignItems: 'center',
-    },
     inputContainer: {
       flexDirection: 'row',
     },
     textInput: {
-      fontSize: 18,
-      borderBottomWidth: 1,
+      fontSize: hp('2%'),
+      borderBottomWidth: wp('0.25%'),
       borderColor: colors.text,
-      paddingVertical: 10,
+      paddingVertical: hp('1.1%'),
       textAlign: 'center',
       color: colors.text,
     },
     inputWidth: {
-      width: width / 1.5,
-      paddingHorizontal: 10,
+      width: wp('65%'),
+      paddingHorizontal: hp('1.1%'),
     },
   });
 
   return (
-    <View style={styles.container}>
+    <>
       <View style={styles.inputContainer}>
         <TouchableOpacity onPress={fetchCopiedText}>
           <FontAwesome
             name={wasPasted ? 'check-square' : 'paste'}
-            size={22}
+            size={hp('2.5%')}
             color={wasPasted ? 'green' : colors.text}
           />
         </TouchableOpacity>
@@ -101,12 +94,12 @@ const JoinSession = () => {
         <TouchableOpacity onPress={deleteToken}>
           <Ionicons
             name={wasDeleted ? 'close-circle' : 'close-circle-outline'}
-            size={30}
+            size={hp('3.4%')}
             color={wasDeleted ? '#cb3737' : colors.text}
           />
         </TouchableOpacity>
       </View>
-    </View>
+    </>
   );
 };
 

@@ -1,11 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  Dimensions,
-} from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
 import { Routes } from '../../constants/NavConst';
 import { useTheme } from '@react-navigation/native';
@@ -14,6 +8,11 @@ import Clipboard from '@react-native-community/clipboard';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 const ShareToken = ({ navigation }) => {
   const [dataReady, setDataReady] = useState(false);
@@ -53,12 +52,10 @@ const ShareToken = ({ navigation }) => {
 
   const { colors } = useTheme();
 
-  const { width, height } = Dimensions.get('window');
-
   const styles = StyleSheet.create({
     container: {
-      width: width,
-      height: height,
+      width: wp('100%'),
+      height: hp('100%'),
     },
     sessionIDContainer: {
       justifyContent: 'center',
@@ -68,7 +65,7 @@ const ShareToken = ({ navigation }) => {
     buttonContainer: {
       flex: 1,
       justifyContent: 'flex-end',
-      paddingHorizontal: 10,
+      paddingHorizontal: hp('1.1%'),
       flexDirection: 'row',
     },
     continue: {
@@ -79,18 +76,18 @@ const ShareToken = ({ navigation }) => {
     sessionToken: {
       flexDirection: 'row',
       justifyContent: 'space-between',
-      paddingVertical: 10,
+      paddingVertical: hp('1.1%'),
       alignItems: 'center',
-      width: width / 1.4,
+      width: wp('71%'),
     },
     headerText: {
-      paddingVertical: 10,
-      fontSize: 28,
+      paddingVertical: hp('1.1%'),
+      fontSize: hp('3.2%'),
       fontWeight: 'bold',
       color: colors.text,
     },
     text: {
-      fontSize: 18,
+      fontSize: hp('2%'),
       fontWeight: 'bold',
       color: colors.text,
     },
@@ -106,7 +103,7 @@ const ShareToken = ({ navigation }) => {
             {wasCopied ? <Text style={styles.text}>Copied!</Text> : null}
             <FontAwesome
               name={wasCopied ? 'check-square' : 'copy'}
-              size={24}
+              size={hp('2.7%')}
               color={wasCopied ? 'green' : colors.text}
             />
           </View>
@@ -119,7 +116,7 @@ const ShareToken = ({ navigation }) => {
               <Text style={styles.text}>Continue</Text>
               <Ionicons
                 name="arrow-forward-outline"
-                size={30}
+                size={hp('3.4%')}
                 color={colors.text}
               />
             </View>

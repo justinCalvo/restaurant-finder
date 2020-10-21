@@ -4,13 +4,17 @@ import {
   SafeAreaView,
   Text,
   StyleSheet,
-  Dimensions,
   Image,
   Linking,
   TouchableOpacity,
 } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
+
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 import Expanded from '../../components/Details/Expanded';
 import Reviews from '../../components/Details/Reviews';
@@ -32,22 +36,20 @@ const MatchDetails = ({ route }) => {
   const [customerRating, setCustomerRating] = useState([]);
   const [allCustomerRatings, setAllCustomerRatings] = useState([]);
 
-  const { width, height } = Dimensions.get('window');
   const { colors } = useTheme();
 
   const styles = StyleSheet.create({
     container: {
-      width: width,
-      height: height,
+      height: hp('100%'),
     },
     photo: {
-      width: width / 1.3,
-      height: width / 1.3,
-      marginLeft: 5,
-      marginRight: 5,
+      width: wp('77%'),
+      height: wp('77%'),
+      marginLeft: hp('0.6%'),
+      marginRight: hp('0.6%'),
     },
     placeName: {
-      fontSize: 24,
+      fontSize: hp('2.7%'),
       fontWeight: 'bold',
       textAlign: 'center',
       color: colors.text,
@@ -55,10 +57,10 @@ const MatchDetails = ({ route }) => {
     ratingContainer: {
       flexDirection: 'row',
       justifyContent: 'space-around',
-      paddingHorizontal: 10,
-      paddingBottom: 5,
+      paddingHorizontal: hp('1.1%'),
+      paddingBottom: hp('0.6%'),
       alignItems: 'center',
-      paddingTop: 5,
+      paddingTop: hp('0.6%'),
     },
     placeRating: {
       flexDirection: 'row',
@@ -69,12 +71,12 @@ const MatchDetails = ({ route }) => {
       flexDirection: 'row',
     },
     ratingsTotalText: {
-      paddingHorizontal: 5,
-      fontSize: 16,
+      paddingHorizontal: hp('0.6%'),
+      fontSize: hp('1.6%'),
       color: colors.text,
     },
     dayContainer: {
-      paddingVertical: 5,
+      paddingVertical: hp('0.6%'),
     },
     contactContainer: {
       flexDirection: 'row',
@@ -82,34 +84,33 @@ const MatchDetails = ({ route }) => {
       flexWrap: 'wrap',
     },
     photoContainer: {
-      paddingTop: 10,
+      paddingTop: hp('1.1%'),
       alignItems: 'center',
-      width: width,
     },
     text: {
-      fontSize: 18,
+      fontSize: hp('2%'),
       fontWeight: 'bold',
       color: colors.text,
     },
     align: {
       flexDirection: 'row',
-      paddingVertical: 5,
+      paddingVertical: hp('0.6%'),
     },
     addressContainer: {
       alignItems: 'center',
-      paddingVertical: 5,
+      paddingVertical: hp('0.6%'),
     },
     address: {
-      width: width / 1.5,
+      width: wp('67%'),
     },
     addressText: {
       textAlign: 'center',
     },
     nameContainer: {
-      paddingTop: 20,
+      paddingTop: hp('2.3%'),
     },
     websiteContainer: {
-      paddingHorizontal: 5,
+      paddingHorizontal: hp('0.6%'),
     },
     poweredByGoogleOn: {
       flex: 1,
@@ -120,8 +121,8 @@ const MatchDetails = ({ route }) => {
       justifyContent: 'flex-start',
     },
     condensed: {
-      width: (width - 10) / 2,
-      height: (width - 10) / 2,
+      width: wp('50%'),
+      height: wp('50%'),
     },
     reviewsContainer: {
       flexDirection: 'row',
@@ -135,7 +136,7 @@ const MatchDetails = ({ route }) => {
       flex: 1,
     },
     detailsContainer: {
-      height: height / 3,
+      height: hp('33.3%'),
       justifyContent: 'center',
     },
   });
@@ -147,13 +148,13 @@ const MatchDetails = ({ route }) => {
       </View>
       <View style={styles.ratingContainer}>
         <View style={styles.priceContainer}>
-          <PriceRating priceLevel={item.price_level} size={25} />
+          <PriceRating priceLevel={item.price_level} size={hp('2.8%')} />
         </View>
         <View style={styles.placeRating}>
           <Text style={styles.ratingsTotalText}>
             ({item.user_ratings_total})
           </Text>
-          <Stars stars={stars} next={item.nextStars} size={25} />
+          <Stars stars={stars} next={item.nextStars} size={hp('2.8%')} />
         </View>
       </View>
       <View style={styles.photoContainer}>
@@ -176,7 +177,7 @@ const MatchDetails = ({ route }) => {
               }>
               <View style={styles.align}>
                 <View style={styles.websiteContainer}>
-                  <Icon name="call" size={18} color="#cb3737" />
+                  <Icon name="call" size={hp('2%')} color="#cb3737" />
                 </View>
                 <Text style={styles.text}>{item.formatted_phone_number}</Text>
               </View>
@@ -186,7 +187,7 @@ const MatchDetails = ({ route }) => {
             <TouchableOpacity onPress={() => Linking.openURL(item.website)}>
               <View style={styles.align}>
                 <View style={styles.websiteContainer}>
-                  <Icon name="globe-outline" size={18} color="#cb3737" />
+                  <Icon name="globe-outline" size={hp('2%')} color="#cb3737" />
                 </View>
                 <Text style={styles.text}>Website</Text>
               </View>
@@ -211,7 +212,7 @@ const MatchDetails = ({ route }) => {
                 }>
                 <View style={styles.align}>
                   <View style={styles.websiteContainer}>
-                    <Icon name="call" size={18} color="#cb3737" />
+                    <Icon name="call" size={hp('2%')} color="#cb3737" />
                   </View>
                   <Text style={styles.text}>{item.formatted_phone_number}</Text>
                 </View>
@@ -219,7 +220,11 @@ const MatchDetails = ({ route }) => {
               <TouchableOpacity onPress={() => Linking.openURL(item.website)}>
                 <View style={styles.align}>
                   <View style={styles.websiteContainer}>
-                    <Icon name="globe-outline" size={18} color="#cb3737" />
+                    <Icon
+                      name="globe-outline"
+                      size={hp('2%')}
+                      color="#cb3737"
+                    />
                   </View>
                   <Text style={styles.text}>Website</Text>
                 </View>

@@ -14,6 +14,11 @@ import { Routes } from '../../constants/NavConst';
 import { useSelector, useDispatch } from 'react-redux';
 import { getLocation } from '../../redux/actions/locationActions';
 
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
+
 const CitySearch = ({ isLoading, setIsLoading, min, max, meters, type }) => {
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
@@ -61,24 +66,24 @@ const CitySearch = ({ isLoading, setIsLoading, min, max, meters, type }) => {
   const styles = StyleSheet.create({
     container: {
       width: width,
-      paddingHorizontal: 50,
+      paddingHorizontal: hp('5.6%'),
     },
     textInput: {
-      fontSize: 18,
-      borderBottomWidth: 1,
+      fontSize: hp('2%'),
+      borderBottomWidth: wp('0.25%'),
       borderColor: colors.text,
-      paddingVertical: 10,
+      paddingVertical: hp('1.1%'),
       textAlign: 'center',
       color: colors.text,
     },
     text: {
-      fontSize: 16,
+      fontSize: hp('1.6%'),
       fontWeight: 'bold',
       textAlign: 'center',
       color: colors.text,
     },
     textContainer: {
-      paddingTop: 10,
+      paddingTop: hp('1.1%'),
     },
   });
 

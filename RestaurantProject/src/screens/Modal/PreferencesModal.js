@@ -3,7 +3,6 @@ import {
   View,
   Text,
   StyleSheet,
-  Dimensions,
   TouchableOpacity,
   SafeAreaView,
   TouchableWithoutFeedback,
@@ -20,6 +19,11 @@ import {
   useNavigation,
   useTheme,
 } from '@react-navigation/native';
+
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 import PriceRating from '../../utils/PriceRating';
 import Selector from '../../utils/Selector';
@@ -178,51 +182,47 @@ const PreferencesModal = ({ route }) => {
 
   const { colors } = useTheme();
 
-  const { width, height } = Dimensions.get('window');
-
   const styles = StyleSheet.create({
     container: {
-      width: width,
-      height: height / 1.5,
       justifyContent: 'space-between',
       alignItems: 'center',
     },
     modalClose: {
-      height: height * 0.25,
-      width: width,
+      height: hp('25%'),
+      width: wp('100%'),
     },
     preferencesContainer: {
       backgroundColor: colors.background,
       alignItems: 'center',
-      height: height * 0.45,
-      width: width - 20,
+      height: hp('45%'),
+      width: wp('94%'),
     },
     minMaxContainer: {
       flexDirection: 'row',
       justifyContent: 'space-around',
-      width: width / 1.5,
+      width: wp('67%'),
     },
     priceContainer: {
-      paddingVertical: 10,
+      paddingVertical: hp('1.1%'),
       flexDirection: 'row',
-      width: width / 1.5,
+      width: wp('67%'),
       alignItems: 'center',
     },
     text: {
       fontWeight: 'bold',
-      fontSize: 18,
+      fontSize: hp('2%'),
       color: colors.text,
     },
     valueText: {
       fontWeight: 'bold',
-      fontSize: 14,
+      fontSize: hp('1.6%'),
       color: colors.text,
     },
     dollarSigns: {
       flexDirection: 'row',
       flex: 1,
-      paddingHorizontal: 10,
-      paddingVertical: 5,
+      paddingHorizontal: hp('1.1%'),
+      paddingVertical: hp('0.6%'),
     },
     minMaxDollarSigns: {
       justifyContent: 'center',
@@ -233,22 +233,22 @@ const PreferencesModal = ({ route }) => {
       flex: 1,
     },
     optionsContainer: {
-      paddingVertical: 10,
+      paddingVertical: hp('1.1%'),
     },
     cuisinesContainer: {
-      paddingVertical: 10,
+      paddingVertical: hp('1.1%'),
       alignItems: 'center',
     },
     selectedCuisines: {
-      paddingTop: 10,
+      paddingTop: hp('1.1%'),
       alignItems: 'center',
     },
     cuisineListContainer: {
       alignItems: 'center',
-      paddingBottom: 10,
+      paddingBottom: hp('1.1%'),
     },
     selected: {
-      paddingHorizontal: 10,
+      paddingHorizontal: hp('1.1%'),
       flexDirection: 'row',
       alignItems: 'center',
     },
@@ -256,11 +256,11 @@ const PreferencesModal = ({ route }) => {
       flexDirection: 'row',
     },
     line: {
-      marginLeft: 15,
+      marginLeft: hp('1.7%'),
     },
     lineText: {
       fontWeight: 'bold',
-      fontSize: 16,
+      fontSize: hp('1.6%'),
       color: '#cb3737',
     },
   });
@@ -277,7 +277,7 @@ const PreferencesModal = ({ route }) => {
             <TouchableOpacity onPress={() => navigateSelectCuisines()}>
               <Text style={styles.text}>
                 Selected Cuisines{' '}
-                <Icon name="create-sharp" size={20} color="#cb3737" />
+                <Icon name="create-sharp" size={hp('2.3%')} color="#cb3737" />
               </Text>
             </TouchableOpacity>
             <View style={styles.cuisinesContainer}>
@@ -349,10 +349,10 @@ const PreferencesModal = ({ route }) => {
         />
         <View style={styles.priceContainer}>
           <View style={[styles.dollarSigns, styles.minMaxDollarSigns]}>
-            <PriceRating priceLevel={minValue} size={16} />
+            <PriceRating priceLevel={minValue} size={hp('1.6%')} />
           </View>
           <View style={[styles.dollarSigns, styles.minMaxDollarSigns]}>
-            <PriceRating priceLevel={maxValue} size={16} />
+            <PriceRating priceLevel={maxValue} size={hp('1.6%')} />
           </View>
         </View>
         <View style={styles.minMaxContainer}>

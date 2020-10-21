@@ -5,13 +5,17 @@ import {
   TouchableOpacity,
   FlatList,
   StyleSheet,
-  Dimensions,
 } from 'react-native';
 
 import { useSelector } from 'react-redux';
 import { useTheme } from '@react-navigation/native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
+
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 const SelectedCuisines = ({ handleToggle }) => {
   const query = useSelector(state => state.query);
@@ -22,7 +26,7 @@ const SelectedCuisines = ({ handleToggle }) => {
         <TouchableOpacity onPress={() => handleToggle(item.cuisine)}>
           <View style={styles.deleteCuisine}>
             <Text style={styles.text}>{item.cuisine}</Text>
-            <Icon name="close" size={18} color="#cb3737" />
+            <Icon name="close" size={hp('2%')} color="#cb3737" />
           </View>
         </TouchableOpacity>
       </View>
@@ -30,7 +34,6 @@ const SelectedCuisines = ({ handleToggle }) => {
   };
 
   const { colors } = useTheme();
-  const { width } = Dimensions.get('window');
 
   const styles = StyleSheet.create({
     container: {
@@ -38,25 +41,25 @@ const SelectedCuisines = ({ handleToggle }) => {
     },
     cuisineListContainer: {
       alignItems: 'center',
-      paddingBottom: 10,
+      paddingBottom: hp('1.1%'),
     },
     cuisines: {
       alignItems: 'center',
-      width: width / 3,
+      width: wp('33.3%'),
     },
     text: {
-      fontSize: 14,
+      fontSize: hp('1.6%'),
       fontWeight: 'bold',
       color: colors.text,
     },
     deleteCuisine: {
       flexDirection: 'row',
       alignItems: 'center',
-      borderWidth: 1,
+      borderWidth: wp('0.25%'),
       borderColor: colors.text,
-      borderRadius: 20,
-      marginTop: 10,
-      paddingHorizontal: 5,
+      borderRadius: hp('2.3%'),
+      marginTop: hp('1.1%'),
+      paddingHorizontal: hp('0.6%'),
     },
   });
 

@@ -1,14 +1,10 @@
 import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  Dimensions,
-} from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Icon from 'react-native-vector-icons/Ionicons';
+
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 import ProximitySearch from '../../components/Landing/ProximitySearch';
 import CitySearch from '../../components/Landing/CitySearch';
@@ -31,42 +27,32 @@ const CreateSession = () => {
     setToggleCitySearch(!toggleCitySearch);
   };
 
-  const { width, height } = Dimensions.get('window');
   const { colors } = useTheme();
 
   const styles = StyleSheet.create({
-    container: {
-      width: width,
-      height: height,
-      flex: 1,
-      alignItems: 'center',
-    },
     text: {
-      paddingVertical: 10,
-      fontSize: 28,
+      paddingVertical: hp('1.1%'),
+      fontSize: hp('3.2%'),
       fontWeight: 'bold',
       color: colors.text,
     },
     header: {
-      fontSize: 44,
+      fontSize: hp('4.9%'),
       fontWeight: 'bold',
-      alignItems: 'center',
       color: colors.text,
     },
     buttonContainer: {
-      width: width,
-      height: height / 1.5,
+      height: hp('66.5%'),
       justifyContent: 'flex-end',
       alignItems: 'center',
     },
     topContainer: {
-      width: width,
-      height: height / 5,
+      height: hp('20%'),
       justifyContent: 'center',
       alignItems: 'center',
     },
     headerContainer: {
-      paddingVertical: 10,
+      paddingVertical: hp('1.1%'),
     },
   });
 
@@ -74,9 +60,8 @@ const CreateSession = () => {
     <KeyboardAwareScrollView
       style={styles.keyboardColor}
       resetScrollToCoords={{ x: 0, y: 0 }}
-      contentContainerStyle={styles.container}
       scrollEnabled={false}
-      extraScrollHeight={20}>
+      extraScrollHeight={hp('2.3%')}>
       <View style={styles.buttonContainer}>
         <View style={styles.topContainer}>
           <View style={styles.headerContainer}>
@@ -106,8 +91,8 @@ const CreateSession = () => {
         />
         <TouchableOpacity onPress={() => handleSearchLocationPress()}>
           <Text style={styles.text}>
-            <Icon name="search-sharp" size={24} color="#cb3737" /> Search
-            Location
+            <Icon name="search-sharp" size={hp('2.7%')} color="#cb3737" />{' '}
+            Search Location
           </Text>
         </TouchableOpacity>
       </View>

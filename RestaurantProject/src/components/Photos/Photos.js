@@ -1,14 +1,13 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import {
-  View,
-  Image,
-  StyleSheet,
-  Dimensions,
-  TouchableOpacity,
-} from 'react-native';
+import { View, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Routes } from '../../constants/NavConst';
 import { useSelector } from 'react-redux';
+
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 const Photos = ({ index, photoIndex, showDetails }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -52,26 +51,24 @@ const Photos = ({ index, photoIndex, showDetails }) => {
   );
 };
 
-const { width } = Dimensions.get('window');
-
 const styles = StyleSheet.create({
   container: {
-    width: width / 1.2,
+    width: wp('83%'),
   },
   photoContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    paddingTop: 10,
+    paddingTop: hp('1.1%'),
   },
   photo: {
-    width: width / 1.3,
-    height: width / 1.3,
-    marginLeft: 5,
-    marginRight: 5,
+    width: wp('77%'),
+    height: wp('77%'),
+    marginLeft: hp('0.6%'),
+    marginRight: hp('0.6%'),
   },
   condensed: {
-    width: (width - 10) / 2,
-    height: (width - 10) / 2,
+    width: wp('50%'),
+    height: wp('50%'),
   },
 });
 

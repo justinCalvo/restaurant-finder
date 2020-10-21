@@ -4,18 +4,22 @@ import {
   Text,
   FlatList,
   StyleSheet,
-  Dimensions,
   TouchableWithoutFeedback,
 } from 'react-native';
 import Stars from '../../utils/Stars';
 import { useTheme } from '@react-navigation/native';
+
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 const CreateReviews = ({ item, onPress, style, selectedId }) => {
   const { colors } = useTheme();
 
   const styles = StyleSheet.create({
     text: {
-      fontSize: 18,
+      fontSize: hp('2%'),
       color: colors.text,
     },
     textContainer: {
@@ -31,7 +35,7 @@ const CreateReviews = ({ item, onPress, style, selectedId }) => {
     },
     readMore: {
       color: '#cb3737',
-      fontSize: 16,
+      fontSize: hp('1.6%'),
       fontWeight: 'bold',
     },
   });
@@ -81,7 +85,11 @@ const ReviewScreen = ({
           </Text>
           {customerRating.length > 0 && customerRating[item.next] ? (
             <View style={styles.ratingContainer}>
-              <Stars stars={customerRating} next={item.next} size={25} />
+              <Stars
+                stars={customerRating}
+                next={item.next}
+                size={hp('2.8%')}
+              />
             </View>
           ) : null}
         </View>
@@ -120,45 +128,43 @@ const ReviewScreen = ({
   }, [handleScrollReviewsToTop, scrollReviewsToTop]);
 
   const { colors } = useTheme();
-  const { width } = Dimensions.get('window');
 
   const styles = StyleSheet.create({
     reviewDisplay: {
       display: 'flex',
-      paddingHorizontal: 10,
+      paddingHorizontal: hp('1.1%'),
     },
     reviewHide: {
       display: 'none',
     },
     noReviews: {
-      fontSize: 18,
+      fontSize: hp('2%'),
       fontWeight: 'bold',
       textAlign: 'center',
     },
     text: {
-      fontSize: 18,
+      fontSize: hp('2%'),
       color: colors.text,
     },
     timeText: {
-      paddingHorizontal: 10,
+      paddingHorizontal: hp('1.1%'),
     },
     ratingContainer: {
       flexDirection: 'row',
       justifyContent: 'space-between',
-      marginBottom: 5,
+      marginBottom: hp('0.6%'),
     },
     authorText: {
       fontWeight: 'bold',
     },
     underlineContainer: {
-      width: width,
       alignItems: 'center',
     },
     underline: {
-      width: width / 1.5,
-      height: 1,
+      width: wp('67%'),
+      height: wp('0.25%'),
       backgroundColor: colors.text,
-      margin: 15,
+      margin: hp('1.7%'),
     },
     displayFullReview: {
       flex: 1,

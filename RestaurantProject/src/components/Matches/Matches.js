@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, StyleSheet, Dimensions, Alert } from 'react-native';
+import { Alert } from 'react-native';
 import MatchesScreen from '../../screens/Matches/MatchesScreen';
 
 import { createStars } from '../../helper/CreateStars';
@@ -34,21 +34,12 @@ const Matches = ({ navigation }) => {
   }, [sendCreateStars, matches.matches]);
 
   return (
-    <View style={styles.container}>
+    <>
       {stars.length === displayMatches.displayMatches.length ? (
         <MatchesScreen stars={stars} />
       ) : null}
-    </View>
+    </>
   );
 };
-
-const { width, height } = Dimensions.get('window');
-
-const styles = StyleSheet.create({
-  container: {
-    width: width,
-    height: height,
-  },
-});
 
 export default Matches;

@@ -9,6 +9,8 @@ import { useSelector } from 'react-redux';
 import MainScreen from '../screens/Main/MainScreen';
 import Matches from '../components/Matches/Matches';
 
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
+
 const Tabs = createMaterialTopTabNavigator();
 
 const AppTabs = () => {
@@ -30,7 +32,7 @@ const AppTabs = () => {
           } else if (route.name === Routes.Matches) {
             iconName = focused ? 'heart-circle' : 'heart-circle-outline';
           }
-          return <Ionicons name={iconName} size={25} color={color} />;
+          return <Ionicons name={iconName} size={hp('2.8%')} color={color} />;
         },
       })}
       tabBarOptions={{

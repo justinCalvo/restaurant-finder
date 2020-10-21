@@ -5,7 +5,6 @@ import {
   Text,
   TouchableWithoutFeedback,
   StyleSheet,
-  Dimensions,
   FlatList,
   Platform,
 } from 'react-native';
@@ -23,6 +22,11 @@ import {
   useTheme,
 } from '@react-navigation/native';
 
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
+
 const SelectCuisines = ({ route }) => {
   const [limit, setLimit] = useState(false);
   const { cuisines, setCuisines } = route.params;
@@ -32,6 +36,8 @@ const SelectCuisines = ({ route }) => {
 
   const navigation = useNavigation();
   const dispatch = useDispatch();
+
+  const columns = wp('100%') <= 350 ? 2 : 3;
 
   const handleToggle = useCallback(
     selected => {
@@ -110,22 +116,19 @@ const SelectCuisines = ({ route }) => {
 
   const { colors } = useTheme();
 
-  const { width, height } = Dimensions.get('window');
-
   const styles = StyleSheet.create({
     container: {
-      width: width,
-      height: height,
+      height: hp('100%'),
       justifyContent: 'space-between',
       alignItems: 'center',
     },
     modalClose: {
-      height: height * 0.15,
-      width: width,
+      height: hp('15%'),
+      width: wp('100%'),
     },
     text: {
       color: colors.text,
-      fontSize: 16,
+      fontSize: hp('1.8%'),
     },
     counterText: {
       fontWeight: 'bold',
@@ -134,24 +137,24 @@ const SelectCuisines = ({ route }) => {
     checkBoxContainer: {
       backgroundColor: colors.background,
       alignItems: 'center',
-      height: height * 0.6,
-      width: width - 20,
-      paddingBottom: width / 3,
+      height: hp('60%'),
+      width: wp('94%'),
+      paddingBottom: wp('33.3%'),
     },
     checkBox: {
       flexDirection: 'row',
     },
     cuisines: {
       alignItems: 'center',
-      width: width / 3.5,
-      paddingBottom: 10,
+      width: wp('28.5%'),
+      paddingBottom: hp('1.1%'),
     },
     cuisineListContainer: {
       alignItems: 'center',
-      paddingBottom: 10,
+      paddingBottom: hp('1.1%'),
     },
     counterContainer: {
-      paddingVertical: 10,
+      paddingVertical: hp('1.1%'),
       alignItems: 'center',
     },
   });
@@ -183,7 +186,7 @@ const SelectCuisines = ({ route }) => {
             }}
             keyExtractor={(item, index) => index}
             renderItem={renderItem}
-            numColumns={3}
+            numColumns={columns}
           />
         </View>
       </View>
