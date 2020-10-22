@@ -11,10 +11,7 @@ import {
 import { useTheme } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
+import { Sizes } from '../../constants/ResponsiveSizes';
 
 import Expanded from '../../components/Details/Expanded';
 import Reviews from '../../components/Details/Reviews';
@@ -40,16 +37,16 @@ const MatchDetails = ({ route }) => {
 
   const styles = StyleSheet.create({
     container: {
-      height: hp('100%'),
+      height: Sizes.hp_full,
     },
     photo: {
-      width: wp('77%'),
-      height: wp('77%'),
-      marginLeft: hp('0.6%'),
-      marginRight: hp('0.6%'),
+      width: Sizes.wp4_5th,
+      height: Sizes.wp4_5th,
+      marginLeft: Sizes.hp5,
+      marginRight: Sizes.hp5,
     },
     placeName: {
-      fontSize: hp('2.7%'),
+      fontSize: Sizes.hp24,
       fontWeight: 'bold',
       textAlign: 'center',
       color: colors.text,
@@ -57,10 +54,10 @@ const MatchDetails = ({ route }) => {
     ratingContainer: {
       flexDirection: 'row',
       justifyContent: 'space-around',
-      paddingHorizontal: hp('1.1%'),
-      paddingBottom: hp('0.6%'),
+      paddingHorizontal: Sizes.hp10,
+      paddingBottom: Sizes.hp5,
       alignItems: 'center',
-      paddingTop: hp('0.6%'),
+      paddingTop: Sizes.hp5,
     },
     placeRating: {
       flexDirection: 'row',
@@ -71,12 +68,12 @@ const MatchDetails = ({ route }) => {
       flexDirection: 'row',
     },
     ratingsTotalText: {
-      paddingHorizontal: hp('0.6%'),
-      fontSize: hp('1.6%'),
+      paddingHorizontal: Sizes.hp5,
+      fontSize: Sizes.hp14,
       color: colors.text,
     },
     dayContainer: {
-      paddingVertical: hp('0.6%'),
+      paddingVertical: Sizes.hp5,
     },
     contactContainer: {
       flexDirection: 'row',
@@ -84,33 +81,33 @@ const MatchDetails = ({ route }) => {
       flexWrap: 'wrap',
     },
     photoContainer: {
-      paddingTop: hp('1.1%'),
+      paddingTop: Sizes.hp10,
       alignItems: 'center',
     },
     text: {
-      fontSize: hp('2%'),
+      fontSize: Sizes.hp18,
       fontWeight: 'bold',
       color: colors.text,
     },
     align: {
       flexDirection: 'row',
-      paddingVertical: hp('0.6%'),
+      paddingVertical: Sizes.hp5,
     },
     addressContainer: {
       alignItems: 'center',
-      paddingVertical: hp('0.6%'),
+      paddingVertical: Sizes.hp5,
     },
     address: {
-      width: wp('67%'),
+      width: Sizes.wp2_3rd,
     },
     addressText: {
       textAlign: 'center',
     },
     nameContainer: {
-      paddingTop: hp('2.3%'),
+      paddingTop: Sizes.hp20,
     },
     websiteContainer: {
-      paddingHorizontal: hp('0.6%'),
+      paddingHorizontal: Sizes.hp5,
     },
     poweredByGoogleOn: {
       flex: 1,
@@ -121,8 +118,8 @@ const MatchDetails = ({ route }) => {
       justifyContent: 'flex-start',
     },
     condensed: {
-      width: wp('50%'),
-      height: wp('50%'),
+      width: Sizes.wp_half,
+      height: Sizes.wp_half,
     },
     reviewsContainer: {
       flexDirection: 'row',
@@ -136,7 +133,7 @@ const MatchDetails = ({ route }) => {
       flex: 1,
     },
     detailsContainer: {
-      height: hp('33.3%'),
+      height: Sizes.hp1_3rd,
       justifyContent: 'center',
     },
   });
@@ -148,13 +145,13 @@ const MatchDetails = ({ route }) => {
       </View>
       <View style={styles.ratingContainer}>
         <View style={styles.priceContainer}>
-          <PriceRating priceLevel={item.price_level} size={hp('2.8%')} />
+          <PriceRating priceLevel={item.price_level} size={Sizes.hp25} />
         </View>
         <View style={styles.placeRating}>
           <Text style={styles.ratingsTotalText}>
             ({item.user_ratings_total})
           </Text>
-          <Stars stars={stars} next={item.nextStars} size={hp('2.8%')} />
+          <Stars stars={stars} next={item.nextStars} size={Sizes.hp25} />
         </View>
       </View>
       <View style={styles.photoContainer}>
@@ -177,7 +174,7 @@ const MatchDetails = ({ route }) => {
               }>
               <View style={styles.align}>
                 <View style={styles.websiteContainer}>
-                  <Icon name="call" size={hp('2%')} color="#cb3737" />
+                  <Icon name="call" size={Sizes.hp18} color="#cb3737" />
                 </View>
                 <Text style={styles.text}>{item.formatted_phone_number}</Text>
               </View>
@@ -187,7 +184,11 @@ const MatchDetails = ({ route }) => {
             <TouchableOpacity onPress={() => Linking.openURL(item.website)}>
               <View style={styles.align}>
                 <View style={styles.websiteContainer}>
-                  <Icon name="globe-outline" size={hp('2%')} color="#cb3737" />
+                  <Icon
+                    name="globe-outline"
+                    size={Sizes.hp18}
+                    color="#cb3737"
+                  />
                 </View>
                 <Text style={styles.text}>Website</Text>
               </View>
@@ -212,7 +213,7 @@ const MatchDetails = ({ route }) => {
                 }>
                 <View style={styles.align}>
                   <View style={styles.websiteContainer}>
-                    <Icon name="call" size={hp('2%')} color="#cb3737" />
+                    <Icon name="call" size={Sizes.hp18} color="#cb3737" />
                   </View>
                   <Text style={styles.text}>{item.formatted_phone_number}</Text>
                 </View>
@@ -222,7 +223,7 @@ const MatchDetails = ({ route }) => {
                   <View style={styles.websiteContainer}>
                     <Icon
                       name="globe-outline"
-                      size={hp('2%')}
+                      size={Sizes.hp18}
                       color="#cb3737"
                     />
                   </View>

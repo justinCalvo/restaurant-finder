@@ -9,17 +9,14 @@ import {
 import Stars from '../../utils/Stars';
 import { useTheme } from '@react-navigation/native';
 
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
+import { Sizes } from '../../constants/ResponsiveSizes';
 
 const CreateReviews = ({ item, onPress, style, selectedId }) => {
   const { colors } = useTheme();
 
   const styles = StyleSheet.create({
     text: {
-      fontSize: hp('2%'),
+      fontSize: Sizes.hp18,
       color: colors.text,
     },
     textContainer: {
@@ -35,7 +32,7 @@ const CreateReviews = ({ item, onPress, style, selectedId }) => {
     },
     readMore: {
       color: '#cb3737',
-      fontSize: hp('1.6%'),
+      fontSize: Sizes.hp14,
       fontWeight: 'bold',
     },
   });
@@ -80,15 +77,13 @@ const ReviewScreen = ({
       <View>
         <Text style={[styles.text, styles.authorText]}>{item.author_name}</Text>
         <View style={styles.ratingContainer}>
-          <Text style={[styles.text, styles.timeText]}>
-            {item.relative_time_description}
-          </Text>
+          <Text style={styles.text}>{item.relative_time_description}</Text>
           {customerRating.length > 0 && customerRating[item.next] ? (
             <View style={styles.ratingContainer}>
               <Stars
                 stars={customerRating}
                 next={item.next}
-                size={hp('2.8%')}
+                size={Sizes.hp25}
               />
             </View>
           ) : null}
@@ -132,27 +127,24 @@ const ReviewScreen = ({
   const styles = StyleSheet.create({
     reviewDisplay: {
       display: 'flex',
-      paddingHorizontal: hp('1.1%'),
+      paddingHorizontal: Sizes.hp10,
     },
     reviewHide: {
       display: 'none',
     },
     noReviews: {
-      fontSize: hp('2%'),
+      fontSize: Sizes.hp18,
       fontWeight: 'bold',
       textAlign: 'center',
     },
     text: {
-      fontSize: hp('2%'),
+      fontSize: Sizes.hp18,
       color: colors.text,
-    },
-    timeText: {
-      paddingHorizontal: hp('1.1%'),
     },
     ratingContainer: {
       flexDirection: 'row',
       justifyContent: 'space-between',
-      marginBottom: hp('0.6%'),
+      marginBottom: Sizes.hp5,
     },
     authorText: {
       fontWeight: 'bold',
@@ -161,10 +153,10 @@ const ReviewScreen = ({
       alignItems: 'center',
     },
     underline: {
-      width: wp('67%'),
-      height: wp('0.25%'),
+      width: Sizes.wp2_3rd,
+      height: Sizes.wp1,
       backgroundColor: colors.text,
-      margin: hp('1.7%'),
+      margin: Sizes.hp15,
     },
     displayFullReview: {
       flex: 1,

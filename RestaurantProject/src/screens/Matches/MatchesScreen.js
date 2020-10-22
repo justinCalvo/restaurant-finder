@@ -16,10 +16,7 @@ import PriceRating from '../../utils/PriceRating';
 import Stars from '../../utils/Stars';
 import PoweredByGoogle from '../../utils/PoweredByGoogle';
 
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
+import { Sizes } from '../../constants/ResponsiveSizes';
 
 const MatchesScreen = ({ stars }) => {
   const navigation = useNavigation();
@@ -46,10 +43,10 @@ const MatchesScreen = ({ stars }) => {
               <Text style={styles.text}>{item.name}</Text>
             )}
             <View style={styles.ratingContainer}>
-              <Stars stars={stars} next={item.nextStars} size={hp('2.3%')} />
+              <Stars stars={stars} next={item.nextStars} size={Sizes.hp20} />
             </View>
             <View style={styles.priceContainer}>
-              <PriceRating priceLevel={item.price_level} size={hp('2%')} />
+              <PriceRating priceLevel={item.price_level} size={Sizes.hp18} />
             </View>
           </View>
         </View>
@@ -61,28 +58,28 @@ const MatchesScreen = ({ stars }) => {
 
   const styles = StyleSheet.create({
     condensed: {
-      width: wp('20%'),
-      height: wp('20%'),
+      width: Sizes.wp1_5th,
+      height: Sizes.wp1_5th,
     },
     matchContainer: {
       flex: 1,
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
-      paddingVertical: hp('1.7%'),
-      paddingHorizontal: hp('4.5%'),
+      paddingVertical: Sizes.hp15,
+      paddingHorizontal: Sizes.hp40,
     },
     image: {
-      borderRadius: hp('4.5%'),
+      borderRadius: Sizes.hp40,
     },
     text: {
-      fontSize: hp('1.6%'),
+      fontSize: Sizes.hp14,
       fontWeight: 'bold',
       textAlign: 'center',
       color: colors.text,
     },
     detailsContainer: {
-      width: wp('50%'),
+      width: Sizes.wp_half,
       alignItems: 'flex-end',
     },
     priceContainer: {
@@ -95,11 +92,11 @@ const MatchesScreen = ({ stars }) => {
     },
     display: {
       display: 'flex',
-      marginBottom: hp('1.1%'),
-      paddingHorizontal: hp('1.1%'),
+      marginBottom: Sizes.hp10,
+      paddingHorizontal: Sizes.hp10,
     },
     listContainer: {
-      height: hp('77%'),
+      height: Sizes.hp3_4th,
     },
   });
 

@@ -4,7 +4,7 @@ import { useNavigation, useTheme } from '@react-navigation/native';
 import { Routes } from '../../constants/NavConst';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { Sizes } from '../../constants/ResponsiveSizes';
 
 import { batch, useDispatch, useSelector } from 'react-redux';
 
@@ -37,8 +37,8 @@ const ProximitySearch = ({
 
   const styles = StyleSheet.create({
     text: {
-      paddingVertical: hp('1.1%'),
-      fontSize: hp('3.2%'),
+      paddingVertical: Sizes.hp10,
+      fontSize: Sizes.hp28,
       fontWeight: 'bold',
       color: colors.text,
     },
@@ -48,7 +48,7 @@ const ProximitySearch = ({
     <View>
       <TouchableOpacity onPress={getNearby} title="Nearby Search">
         <Text style={styles.text}>
-          <Icon name="navigate-sharp" size={hp('2.7%')} color="#cb3737" />{' '}
+          <Icon name="navigate-sharp" size={Sizes.hp24} color="#cb3737" />{' '}
           Current Location
         </Text>
       </TouchableOpacity>

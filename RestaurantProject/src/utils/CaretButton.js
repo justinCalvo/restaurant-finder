@@ -3,7 +3,7 @@ import { Text, TouchableOpacity, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useTheme } from '@react-navigation/native';
 
-import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { Sizes } from '../constants/ResponsiveSizes';
 
 const CaretButton = ({ toggle, handleSetting, title }) => {
   const { colors } = useTheme();
@@ -11,7 +11,7 @@ const CaretButton = ({ toggle, handleSetting, title }) => {
   const styles = StyleSheet.create({
     text: {
       fontWeight: 'bold',
-      fontSize: hp('2%'),
+      fontSize: Sizes.hp18,
       color: colors.text,
     },
   });
@@ -22,7 +22,7 @@ const CaretButton = ({ toggle, handleSetting, title }) => {
         {title}{' '}
         <Icon
           name={toggle ? 'caret-up' : 'caret-down'}
-          size={hp('2.3%')}
+          size={Sizes.hp20}
           color="#cb3737"
         />
       </Text>

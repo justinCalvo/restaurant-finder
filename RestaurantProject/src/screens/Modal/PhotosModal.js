@@ -19,10 +19,9 @@ import {
   useTheme,
 } from '@react-navigation/native';
 
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+
+import { Sizes } from '../../constants/ResponsiveSizes';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { getDetails } from '../../redux/actions/detailsActions';
@@ -93,8 +92,8 @@ const PhotosModal = ({ route }) => {
       alignItems: 'center',
     },
     modalClose: {
-      height: hp('30%'),
-      width: wp('100%'),
+      height: Sizes.hp1_3rd,
+      width: Sizes.wp_full,
       backgroundColor: 'transparent',
     },
   });

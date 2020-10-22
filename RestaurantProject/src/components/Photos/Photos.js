@@ -9,6 +9,8 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 
+import { Sizes } from '../../constants/ResponsiveSizes';
+
 const Photos = ({ index, photoIndex, showDetails }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigation = useNavigation();
@@ -58,17 +60,17 @@ const styles = StyleSheet.create({
   photoContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    paddingTop: hp('1.1%'),
+    paddingTop: Sizes.hp10,
   },
   photo: {
-    width: wp('77%'),
-    height: wp('77%'),
-    marginLeft: hp('0.6%'),
-    marginRight: hp('0.6%'),
+    width: Sizes.wp4_5th,
+    height: Sizes.wp4_5th,
+    marginLeft: Sizes.hp5,
+    marginRight: Sizes.hp5,
   },
   condensed: {
-    width: wp('50%'),
-    height: wp('50%'),
+    width: Sizes.wp_half,
+    height: Sizes.wp_half,
   },
 });
 

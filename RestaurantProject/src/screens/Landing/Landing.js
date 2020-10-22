@@ -8,10 +8,8 @@ import {
 } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
+
+import { Sizes } from '../../constants/ResponsiveSizes';
 
 // import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -32,35 +30,35 @@ const Landing = ({ navigation }) => {
 
   const styles = StyleSheet.create({
     container: {
-      width: wp('100%'),
-      height: hp('100%'),
+      width: Sizes.wp_full,
+      height: Sizes.hp_full,
       flex: 1,
       alignItems: 'center',
     },
     text: {
-      paddingVertical: hp('1.1%'),
-      fontSize: hp('3.1%'),
+      paddingVertical: Sizes.hp10,
+      fontSize: Sizes.hp28,
       fontWeight: 'bold',
       color: colors.text,
     },
     header: {
-      fontSize: hp('4.9%'),
+      fontSize: Sizes.hp44,
       fontWeight: 'bold',
       alignItems: 'center',
       color: colors.text,
     },
     buttonContainer: {
-      height: hp('65%'),
+      height: Sizes.hp2_3rd,
       justifyContent: 'flex-end',
       alignItems: 'center',
     },
     topContainer: {
-      height: hp('20%'),
+      height: Sizes.hp1_5th,
       justifyContent: 'center',
       alignItems: 'center',
     },
     headerContainer: {
-      paddingVertical: hp('1.1%'),
+      paddingVertical: Sizes.hp10,
     },
   });
 
@@ -70,7 +68,7 @@ const Landing = ({ navigation }) => {
       resetScrollToCoords={{ x: 0, y: 0 }}
       contentContainerStyle={styles.container}
       scrollEnabled={false}
-      extraScrollHeight={hp('2.3%')}>
+      extraScrollHeight={Sizes.hp20}>
       <View style={styles.buttonContainer}>
         <StatusBar barStyle={theme.dark ? 'light-content' : 'dark-content'} />
         <View style={styles.topContainer}>

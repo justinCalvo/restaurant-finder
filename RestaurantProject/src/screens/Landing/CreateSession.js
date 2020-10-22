@@ -4,7 +4,7 @@ import { useTheme } from '@react-navigation/native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { Sizes } from '../../constants/ResponsiveSizes';
 
 import ProximitySearch from '../../components/Landing/ProximitySearch';
 import CitySearch from '../../components/Landing/CitySearch';
@@ -31,28 +31,28 @@ const CreateSession = () => {
 
   const styles = StyleSheet.create({
     text: {
-      paddingVertical: hp('1.1%'),
-      fontSize: hp('3.2%'),
+      paddingVertical: Sizes.hp10,
+      fontSize: Sizes.hp28,
       fontWeight: 'bold',
       color: colors.text,
     },
     header: {
-      fontSize: hp('4.9%'),
+      fontSize: Sizes.hp44,
       fontWeight: 'bold',
       color: colors.text,
     },
     buttonContainer: {
-      height: hp('66.5%'),
+      height: Sizes.hp2_3rd,
       justifyContent: 'flex-end',
       alignItems: 'center',
     },
     topContainer: {
-      height: hp('20%'),
+      height: Sizes.hp1_5th,
       justifyContent: 'center',
       alignItems: 'center',
     },
     headerContainer: {
-      paddingVertical: hp('1.1%'),
+      paddingVertical: Sizes.hp10,
     },
   });
 
@@ -61,7 +61,7 @@ const CreateSession = () => {
       style={styles.keyboardColor}
       resetScrollToCoords={{ x: 0, y: 0 }}
       scrollEnabled={false}
-      extraScrollHeight={hp('2.3%')}>
+      extraScrollHeight={Sizes.hp20}>
       <View style={styles.buttonContainer}>
         <View style={styles.topContainer}>
           <View style={styles.headerContainer}>
@@ -91,7 +91,7 @@ const CreateSession = () => {
         />
         <TouchableOpacity onPress={() => handleSearchLocationPress()}>
           <Text style={styles.text}>
-            <Icon name="search-sharp" size={hp('2.7%')} color="#cb3737" />{' '}
+            <Icon name="search-sharp" size={Sizes.hp24} color="#cb3737" />{' '}
             Search Location
           </Text>
         </TouchableOpacity>

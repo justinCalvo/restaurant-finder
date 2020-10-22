@@ -13,10 +13,7 @@ import DislikeButton from '../../utils/DislikeButton';
 import Icon from 'react-native-vector-icons/Ionicons';
 import ReviewScreen from '../../screens/Details/ReviewScreen';
 
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
+import { Sizes } from '../../constants/ResponsiveSizes';
 
 const Expanded = ({
   index,
@@ -116,28 +113,28 @@ const Expanded = ({
       display: 'flex',
       width: width,
       flex: 1,
-      paddingTop: hp('1.1%'),
+      paddingTop: Sizes.hp10,
     },
     hide: {
       display: 'none',
     },
     description: {
-      fontSize: hp('1.6%'),
+      fontSize: Sizes.hp14,
       fontWeight: 'bold',
       textAlign: 'center',
       color: colors.text,
     },
     text: {
-      fontSize: hp('2%'),
+      fontSize: Sizes.hp18,
     },
     scheduleText: {
       textAlign: 'center',
       color: colors.text,
     },
     bottomDragContainer: {
-      width: wp('67%'),
-      borderBottomWidth: wp('0.25%'),
-      borderTopWidth: wp('0.25%'),
+      width: Sizes.wp2_3rd,
+      borderBottomWidth: Sizes.wp1,
+      borderTopWidth: Sizes.wp1,
       borderColor: colors.text,
     },
     scheduleWithButtonsContainer: {
@@ -145,7 +142,7 @@ const Expanded = ({
       alignItems: 'center',
       justifyContent: 'space-around',
       width: width,
-      paddingTop: hp('1.1%'),
+      paddingTop: Sizes.hp10,
     },
     viewDetailsContainer: {
       flexDirection: 'row',
@@ -175,13 +172,13 @@ const Expanded = ({
               <View style={styles.viewDetailsContainer}>
                 <Icon
                   name="chevron-down-outline"
-                  size={hp('2.8%')}
+                  size={Sizes.hp25}
                   color="#cb3737"
                 />
                 <Text style={styles.description}>Hide Details</Text>
                 <Icon
                   name="chevron-down-outline"
-                  size={hp('2.8%')}
+                  size={Sizes.hp25}
                   color="#cb3737"
                 />
               </View>
@@ -189,13 +186,13 @@ const Expanded = ({
               <View style={styles.viewDetailsContainer}>
                 <Icon
                   name="chevron-up-outline"
-                  size={hp('2.8%')}
+                  size={Sizes.hp25}
                   color="#cb3737"
                 />
                 <Text style={styles.description}>View Details</Text>
                 <Icon
                   name="chevron-up-outline"
-                  size={hp('2.8%')}
+                  size={Sizes.hp25}
                   color="#cb3737"
                 />
               </View>
@@ -234,8 +231,8 @@ const Expanded = ({
           <View style={styles.scheduleWithButtonsContainer}>
             {!item ? (
               <>
-                <DislikeButton size={hp('5.6%')} LeftActions={LeftActions} />
-                <LikeButton size={hp('5.6%')} RightActions={RightActions} />
+                <DislikeButton size={Sizes.hp50} LeftActions={LeftActions} />
+                <LikeButton size={Sizes.hp50} RightActions={RightActions} />
               </>
             ) : null}
           </View>

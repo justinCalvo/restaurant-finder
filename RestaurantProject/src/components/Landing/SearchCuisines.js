@@ -5,10 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { updateQuery } from '../../redux/actions/queryActions';
 import { useTheme } from '@react-navigation/native';
 
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
+import { Sizes } from '../../constants/ResponsiveSizes';
 
 const SearchCuisines = ({ cuisines }) => {
   const [search, setSearch] = useState('');
@@ -50,13 +47,13 @@ const SearchCuisines = ({ cuisines }) => {
 
   const styles = StyleSheet.create({
     container: {
-      width: wp('67%'),
+      width: Sizes.wp2_3rd,
     },
     input: {
-      fontSize: hp('2%'),
-      borderBottomWidth: wp('0.25%'),
+      fontSize: Sizes.hp18,
+      borderBottomWidth: Sizes.wp1,
       borderColor: colors.text,
-      paddingVertical: hp('1.1%'),
+      paddingVertical: Sizes.hp10,
       textAlign: 'center',
       color: colors.text,
     },

@@ -7,10 +7,7 @@ import Clipboard from '@react-native-community/clipboard';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
+import { Sizes } from '../../constants/ResponsiveSizes';
 
 const JoinSession = () => {
   const [token, setToken] = useState('');
@@ -54,16 +51,16 @@ const JoinSession = () => {
       flexDirection: 'row',
     },
     textInput: {
-      fontSize: hp('2%'),
-      borderBottomWidth: wp('0.25%'),
+      fontSize: Sizes.hp18,
+      borderBottomWidth: Sizes.wp1,
       borderColor: colors.text,
-      paddingVertical: hp('1.1%'),
+      paddingVertical: Sizes.hp10,
       textAlign: 'center',
       color: colors.text,
     },
     inputWidth: {
-      width: wp('65%'),
-      paddingHorizontal: hp('1.1%'),
+      width: Sizes.wp2_3rd,
+      paddingHorizontal: Sizes.hp10,
     },
   });
 
@@ -73,7 +70,7 @@ const JoinSession = () => {
         <TouchableOpacity onPress={fetchCopiedText}>
           <FontAwesome
             name={wasPasted ? 'check-square' : 'paste'}
-            size={hp('2.5%')}
+            size={Sizes.hp22}
             color={wasPasted ? 'green' : colors.text}
           />
         </TouchableOpacity>
@@ -94,7 +91,7 @@ const JoinSession = () => {
         <TouchableOpacity onPress={deleteToken}>
           <Ionicons
             name={wasDeleted ? 'close-circle' : 'close-circle-outline'}
-            size={hp('3.4%')}
+            size={Sizes.hp30}
             color={wasDeleted ? '#cb3737' : colors.text}
           />
         </TouchableOpacity>

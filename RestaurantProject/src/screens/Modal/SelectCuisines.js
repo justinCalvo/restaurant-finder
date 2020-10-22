@@ -22,10 +22,9 @@ import {
   useTheme,
 } from '@react-navigation/native';
 
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+
+import { Sizes } from '../../constants/ResponsiveSizes';
 
 const SelectCuisines = ({ route }) => {
   const [limit, setLimit] = useState(false);
@@ -37,7 +36,7 @@ const SelectCuisines = ({ route }) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
-  const columns = wp('100%') <= 350 ? 2 : 3;
+  const columns = Sizes.wp_full <= 350 ? 2 : 3;
 
   const handleToggle = useCallback(
     selected => {
@@ -118,17 +117,17 @@ const SelectCuisines = ({ route }) => {
 
   const styles = StyleSheet.create({
     container: {
-      height: hp('100%'),
+      height: Sizes.hp_full,
       justifyContent: 'space-between',
       alignItems: 'center',
     },
     modalClose: {
-      height: hp('15%'),
-      width: wp('100%'),
+      height: Sizes.hp1_5th,
+      width: Sizes.wp_full,
     },
     text: {
       color: colors.text,
-      fontSize: hp('1.8%'),
+      fontSize: Sizes.hp16,
     },
     counterText: {
       fontWeight: 'bold',
@@ -137,9 +136,9 @@ const SelectCuisines = ({ route }) => {
     checkBoxContainer: {
       backgroundColor: colors.background,
       alignItems: 'center',
-      height: hp('60%'),
+      height: Sizes.hp_half,
       width: wp('94%'),
-      paddingBottom: wp('33.3%'),
+      paddingBottom: Sizes.wp1_3rd,
     },
     checkBox: {
       flexDirection: 'row',
@@ -147,14 +146,14 @@ const SelectCuisines = ({ route }) => {
     cuisines: {
       alignItems: 'center',
       width: wp('28.5%'),
-      paddingBottom: hp('1.1%'),
+      paddingBottom: Sizes.hp10,
     },
     cuisineListContainer: {
       alignItems: 'center',
-      paddingBottom: hp('1.1%'),
+      paddingBottom: Sizes.hp10,
     },
     counterContainer: {
-      paddingVertical: hp('1.1%'),
+      paddingVertical: Sizes.hp10,
       alignItems: 'center',
     },
   });

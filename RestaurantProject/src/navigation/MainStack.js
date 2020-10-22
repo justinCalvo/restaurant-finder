@@ -18,7 +18,7 @@ import ShareToken from '../screens/Details/ShareToken';
 import Drawer from './Drawer';
 import HomeDrawer from './HomeDrawer';
 
-import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { Sizes } from '../constants/ResponsiveSizes';
 
 const Stack = createStackNavigator();
 
@@ -51,7 +51,7 @@ const MainStack = () => {
               onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}>
               <Ionicons
                 name="menu-outline"
-                size={hp('3.4%')}
+                size={Sizes.hp30}
                 color={colors.text}
               />
             </TouchableOpacity>
@@ -67,7 +67,7 @@ const MainStack = () => {
               onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}>
               <Ionicons
                 name="menu-outline"
-                size={hp('3.4%')}
+                size={Sizes.hp30}
                 color={colors.text}
               />
             </TouchableOpacity>
@@ -83,7 +83,7 @@ const MainStack = () => {
               onPress={() => createSessionBackButton(navigation)}>
               <Ionicons
                 name="arrow-back-outline"
-                size={hp('3.4%')}
+                size={Sizes.hp30}
                 color={colors.text}
               />
             </TouchableOpacity>
@@ -104,7 +104,7 @@ const MainStack = () => {
               onPress={() => navigation.dispatch(CommonActions.goBack())}>
               <Ionicons
                 name="arrow-back-outline"
-                size={hp('3.4%')}
+                size={Sizes.hp30}
                 color={colors.text}
               />
             </TouchableOpacity>

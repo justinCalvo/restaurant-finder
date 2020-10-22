@@ -11,7 +11,7 @@ import { DrawerContentScrollView } from '@react-navigation/drawer';
 import { findSession } from '../../API/findSession.js';
 import { SettingContext } from './Context';
 
-import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { Sizes } from '../../constants/ResponsiveSizes';
 
 export function HomeDrawerContent(props) {
   const { toggleTheme } = React.useContext(SettingContext);
@@ -27,8 +27,8 @@ export function HomeDrawerContent(props) {
     preference: {
       flexDirection: 'row',
       justifyContent: 'space-between',
-      paddingVertical: hp('1.35%'),
-      paddingHorizontal: hp('1.6%'),
+      paddingVertical: Sizes.hp12,
+      paddingHorizontal: Sizes.hp14,
       alignItems: 'center',
     },
     text: {

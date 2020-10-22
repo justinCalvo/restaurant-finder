@@ -18,10 +18,7 @@ import CurrentDay from '../../utils/CurrentDay';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
+import { Sizes } from '../../constants/ResponsiveSizes';
 
 const Details = ({
   index,
@@ -53,7 +50,7 @@ const Details = ({
       alignItems: 'center',
     },
     placeName: {
-      fontSize: hp('2.7%'),
+      fontSize: Sizes.hp24,
       fontWeight: 'bold',
       textAlign: 'center',
       color: colors.text,
@@ -62,31 +59,31 @@ const Details = ({
       flexDirection: 'row',
       justifyContent: 'flex-end',
       alignItems: 'center',
-      width: wp('77%'),
+      width: Sizes.wp4_5th,
     },
     ratingsTotalText: {
-      paddingHorizontal: hp('0.6%'),
-      fontSize: hp('1.6%'),
+      paddingHorizontal: Sizes.hp5,
+      fontSize: Sizes.hp14,
       color: colors.text,
     },
     text: {
-      fontSize: hp('2%'),
+      fontSize: Sizes.hp18,
       fontWeight: 'bold',
       color: colors.text,
     },
     contactContainer: {
       flexDirection: 'row',
       justifyContent: 'space-around',
-      paddingTop: hp('0.6%'),
+      paddingTop: Sizes.hp5,
       flexWrap: 'wrap',
       width: width,
     },
     addressContainer: {
       alignItems: 'center',
-      paddingVertical: hp('0.6%'),
+      paddingVertical: Sizes.hp5,
     },
     address: {
-      width: wp('67%'),
+      width: Sizes.wp2_3rd,
     },
     addressText: {
       textAlign: 'center',
@@ -94,10 +91,10 @@ const Details = ({
     priceContainer: {
       flexDirection: 'row',
       justifyContent: 'flex-end',
-      width: wp('77%'),
+      width: Sizes.wp4_5th,
     },
     dayContainer: {
-      paddingVertical: hp('0.6%'),
+      paddingVertical: Sizes.hp5,
     },
     whileViewingDetails: {
       flexDirection: 'row',
@@ -108,10 +105,10 @@ const Details = ({
       flexDirection: 'row',
     },
     website: {
-      paddingBottom: hp('0.6%'),
+      paddingBottom: Sizes.hp5,
     },
     websiteContainer: {
-      paddingHorizontal: hp('0.6%'),
+      paddingHorizontal: Sizes.hp5,
     },
   });
 
@@ -123,10 +120,10 @@ const Details = ({
             <Text style={styles.ratingsTotalText}>
               ({details.details[index].user_ratings_total})
             </Text>
-            <Stars stars={stars} size={hp('2.8%')} />
+            <Stars stars={stars} size={Sizes.hp25} />
           </View>
           <View style={styles.priceContainer}>
-            <PriceRating index={index} size={hp('2.8%')} />
+            <PriceRating index={index} size={Sizes.hp25} />
           </View>
         </>
       ) : null}
@@ -142,7 +139,7 @@ const Details = ({
             }>
             <View style={styles.align}>
               <View style={styles.websiteContainer}>
-                <Icon name="call" size={hp('2%')} color="#cb3737" />
+                <Icon name="call" size={Sizes.hp18} color="#cb3737" />
               </View>
               <Text style={styles.text}>
                 {details.details[index].formatted_phone_number}
@@ -155,7 +152,7 @@ const Details = ({
             onPress={() => Linking.openURL(details.details[index].website)}>
             <View style={styles.align}>
               <View style={styles.websiteContainer}>
-                <Icon name="globe-outline" size={hp('2%')} color="#cb3737" />
+                <Icon name="globe-outline" size={Sizes.hp18} color="#cb3737" />
               </View>
               <Text style={styles.text}>Website</Text>
             </View>
@@ -168,7 +165,7 @@ const Details = ({
             <TouchableOpacity
               onPress={() => Linking.openURL(details.details[index].website)}>
               <View style={[styles.align, styles.website]}>
-                <Icon name="globe-outline" size={hp('2%')} color="#cb3737" />
+                <Icon name="globe-outline" size={Sizes.hp18} color="#cb3737" />
                 <View style={styles.websiteContainer}>
                   <Text style={styles.text}>Website</Text>
                 </View>
@@ -183,7 +180,7 @@ const Details = ({
                 )
               }>
               <View style={styles.align}>
-                <Icon name="call" size={hp('2%')} color="#cb3737" />
+                <Icon name="call" size={Sizes.hp18} color="#cb3737" />
                 <View style={styles.websiteContainer}>
                   <Text style={styles.text}>
                     {details.details[index].formatted_phone_number}

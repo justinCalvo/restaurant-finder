@@ -16,7 +16,7 @@ import Clipboard from '@react-native-community/clipboard';
 import Icon from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
-import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { Sizes } from '../../constants/ResponsiveSizes';
 
 import { SettingContext } from './Context';
 
@@ -56,16 +56,16 @@ export function DrawerContent(props) {
     preference: {
       flexDirection: 'row',
       justifyContent: 'space-between',
-      paddingVertical: hp('1.35%'),
-      paddingHorizontal: hp('1.6%'),
+      paddingVertical: Sizes.hp12,
+      paddingHorizontal: Sizes.hp14,
       alignItems: 'center',
     },
     text: {
       color: colors.text,
     },
     cuisines: {
-      paddingBottom: hp('0.6%'),
-      paddingHorizontal: hp('1.6%'),
+      paddingBottom: Sizes.hp5,
+      paddingHorizontal: Sizes.hp14,
     },
   });
 

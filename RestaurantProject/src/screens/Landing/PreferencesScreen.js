@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation, useTheme } from '@react-navigation/native';
 
-import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { Sizes } from '../../constants/ResponsiveSizes';
 
 const PreferencesScreen = ({
   min,
@@ -119,7 +119,7 @@ const PreferencesScreen = ({
       justifyContent: 'center',
     },
     text: {
-      fontSize: hp('2%'),
+      fontSize: Sizes.hp18,
       fontWeight: 'bold',
       textAlign: 'center',
       color: colors.text,

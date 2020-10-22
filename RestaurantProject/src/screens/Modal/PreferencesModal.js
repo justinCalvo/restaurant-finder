@@ -25,6 +25,8 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 
+import { Sizes } from '../../constants/ResponsiveSizes';
+
 import PriceRating from '../../utils/PriceRating';
 import Selector from '../../utils/Selector';
 import CaretButton from '../../utils/CaretButton';
@@ -188,8 +190,8 @@ const PreferencesModal = ({ route }) => {
       alignItems: 'center',
     },
     modalClose: {
-      height: hp('25%'),
-      width: wp('100%'),
+      height: Sizes.hp1_4th,
+      width: Sizes.wp_full,
     },
     preferencesContainer: {
       backgroundColor: colors.background,
@@ -200,29 +202,29 @@ const PreferencesModal = ({ route }) => {
     minMaxContainer: {
       flexDirection: 'row',
       justifyContent: 'space-around',
-      width: wp('67%'),
+      width: Sizes.wp2_3rd,
     },
     priceContainer: {
-      paddingVertical: hp('1.1%'),
+      paddingVertical: Sizes.hp10,
       flexDirection: 'row',
-      width: wp('67%'),
+      width: Sizes.wp2_3rd,
       alignItems: 'center',
     },
     text: {
       fontWeight: 'bold',
-      fontSize: hp('2%'),
+      fontSize: Sizes.hp18,
       color: colors.text,
     },
     valueText: {
       fontWeight: 'bold',
-      fontSize: hp('1.6%'),
+      fontSize: Sizes.hp14,
       color: colors.text,
     },
     dollarSigns: {
       flexDirection: 'row',
       flex: 1,
-      paddingHorizontal: hp('1.1%'),
-      paddingVertical: hp('0.6%'),
+      paddingHorizontal: Sizes.hp10,
+      paddingVertical: Sizes.hp5,
     },
     minMaxDollarSigns: {
       justifyContent: 'center',
@@ -233,22 +235,22 @@ const PreferencesModal = ({ route }) => {
       flex: 1,
     },
     optionsContainer: {
-      paddingVertical: hp('1.1%'),
+      paddingVertical: Sizes.hp10,
     },
     cuisinesContainer: {
-      paddingVertical: hp('1.1%'),
+      paddingVertical: Sizes.hp10,
       alignItems: 'center',
     },
     selectedCuisines: {
-      paddingTop: hp('1.1%'),
+      paddingTop: Sizes.hp10,
       alignItems: 'center',
     },
     cuisineListContainer: {
       alignItems: 'center',
-      paddingBottom: hp('1.1%'),
+      paddingBottom: Sizes.hp10,
     },
     selected: {
-      paddingHorizontal: hp('1.1%'),
+      paddingHorizontal: Sizes.hp10,
       flexDirection: 'row',
       alignItems: 'center',
     },
@@ -256,11 +258,11 @@ const PreferencesModal = ({ route }) => {
       flexDirection: 'row',
     },
     line: {
-      marginLeft: hp('1.7%'),
+      marginLeft: Sizes.hp15,
     },
     lineText: {
       fontWeight: 'bold',
-      fontSize: hp('1.6%'),
+      fontSize: Sizes.hp14,
       color: '#cb3737',
     },
   });
@@ -277,7 +279,7 @@ const PreferencesModal = ({ route }) => {
             <TouchableOpacity onPress={() => navigateSelectCuisines()}>
               <Text style={styles.text}>
                 Selected Cuisines{' '}
-                <Icon name="create-sharp" size={hp('2.3%')} color="#cb3737" />
+                <Icon name="create-sharp" size={Sizes.hp20} color="#cb3737" />
               </Text>
             </TouchableOpacity>
             <View style={styles.cuisinesContainer}>
@@ -349,10 +351,10 @@ const PreferencesModal = ({ route }) => {
         />
         <View style={styles.priceContainer}>
           <View style={[styles.dollarSigns, styles.minMaxDollarSigns]}>
-            <PriceRating priceLevel={minValue} size={hp('1.6%')} />
+            <PriceRating priceLevel={minValue} size={Sizes.hp14} />
           </View>
           <View style={[styles.dollarSigns, styles.minMaxDollarSigns]}>
-            <PriceRating priceLevel={maxValue} size={hp('1.6%')} />
+            <PriceRating priceLevel={maxValue} size={Sizes.hp14} />
           </View>
         </View>
         <View style={styles.minMaxContainer}>
