@@ -96,13 +96,19 @@ const MatchesScreen = ({ stars }) => {
       paddingHorizontal: Sizes.hp10,
     },
     listContainer: {
-      height: Sizes.hp3_4th,
+      flex: 1,
+    },
+    flatListContainer: {
+      flex: 2,
+    },
+    poweredByGoogleContainer: {
+      flex: 0.1,
     },
   });
 
   return (
-    <>
-      <View style={styles.listContainer}>
+    <View style={styles.listContainer}>
+      <View style={styles.flatListContainer}>
         <FlatList
           style={styles.display}
           data={displayMatches.displayMatches}
@@ -111,10 +117,10 @@ const MatchesScreen = ({ stars }) => {
           renderItem={renderItem}
         />
       </View>
-      <View>
+      <View style={styles.poweredByGoogleContainer}>
         <PoweredByGoogle />
       </View>
-    </>
+    </View>
   );
 };
 
