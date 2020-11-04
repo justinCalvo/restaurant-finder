@@ -37,7 +37,7 @@ export function DrawerContent(props) {
     if (wasCopied) {
       setTimeout(() => {
         setWasCopied(false);
-      }, 3000);
+      }, 1500);
     }
   }, [wasCopied]);
 

@@ -46,7 +46,7 @@ const ShareToken = ({ navigation }) => {
     if (wasCopied) {
       setTimeout(() => {
         setWasCopied(false);
-      }, 3000);
+      }, 1500);
     }
   }, [wasCopied]);
 
