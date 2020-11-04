@@ -62,6 +62,7 @@ export function DrawerContent(props) {
     },
     text: {
       color: colors.text,
+      fontSize: Sizes.hp14,
     },
     cuisines: {
       paddingBottom: Sizes.hp5,
@@ -129,6 +130,7 @@ export function DrawerContent(props) {
               <Icon name="exit-outline" color={color} size={size} />
             )}
             label="Leave Session"
+            labelStyle={{ fontSize: Sizes.hp16 }}
             onPress={() => {
               Alert.alert(
                 'Hold on!',

@@ -33,6 +33,7 @@ export function HomeDrawerContent(props) {
     },
     text: {
       color: colors.text,
+      fontSize: Sizes.hp14,
     },
   });
 
