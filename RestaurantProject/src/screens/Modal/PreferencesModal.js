@@ -265,13 +265,21 @@ const PreferencesModal = ({ route }) => {
       fontSize: Sizes.hp14,
       color: '#cb3737',
     },
+    close: {
+      justifyContent: 'flex-end',
+      alignItems: 'flex-end',
+      height: Sizes.hp1_4th,
+      width: wp('94%'),
+    },
   });
 
   return (
     <SafeAreaView style={styles.container}>
       <TouchableWithoutFeedback
         onPress={() => navigation.dispatch(CommonActions.goBack())}>
-        <View style={styles.modalClose} />
+        <View style={styles.close}>
+          <Icon name="close-circle-outline" size={Sizes.hp40} color="#fafafa" />
+        </View>
       </TouchableWithoutFeedback>
       <View style={styles.preferencesContainer}>
         {typeValue === 'restaurant' ? (

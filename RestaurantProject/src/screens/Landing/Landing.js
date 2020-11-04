@@ -14,7 +14,7 @@ import { Sizes } from '../../constants/ResponsiveSizes';
 import { useDispatch } from 'react-redux';
 import { updatePhotoSize } from '../../redux/actions/photoSizeActions';
 
-// import Icon from 'react-native-vector-icons/Ionicons';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { Routes } from '../../constants/NavConst';
 
@@ -96,14 +96,14 @@ const Landing = ({ navigation }) => {
         <TouchableOpacity
           onPress={() => navigation.navigate(Routes.CreateSession)}>
           <Text style={styles.text}>
-            {/* <Icon name="search-sharp" size={24} color="#cb3737" />  */}
+            <Icon name="add-circle-outline" size={Sizes.hp28} color="#cb3737" />{' '}
             Create Session
           </Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => handleJoinSessionInput()}>
           <Text style={styles.text}>
-            {/* <Icon name="search-sharp" size={24} color="#cb3737" />  */}
-            Join Session
+            <Icon name="group-add" size={Sizes.hp28} color="#cb3737" /> Join
+            Session
           </Text>
         </TouchableOpacity>
       </View>

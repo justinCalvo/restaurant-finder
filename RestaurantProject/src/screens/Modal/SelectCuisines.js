@@ -26,6 +26,8 @@ import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
 import { Sizes } from '../../constants/ResponsiveSizes';
 
+import Icon from 'react-native-vector-icons/Ionicons';
+
 const SelectCuisines = ({ route }) => {
   const [limit, setLimit] = useState(false);
   const { cuisines, setCuisines } = route.params;
@@ -122,7 +124,7 @@ const SelectCuisines = ({ route }) => {
       alignItems: 'center',
     },
     modalClose: {
-      height: Sizes.hp1_5th,
+      height: Sizes.hp1_4th,
       width: Sizes.wp_full,
     },
     text: {
@@ -156,13 +158,21 @@ const SelectCuisines = ({ route }) => {
       paddingVertical: Sizes.hp10,
       alignItems: 'center',
     },
+    close: {
+      justifyContent: 'flex-end',
+      alignItems: 'flex-end',
+      height: Sizes.hp1_4th,
+      width: wp('94%'),
+    },
   });
 
   return (
     <SafeAreaView style={styles.container}>
       <TouchableWithoutFeedback
         onPress={() => navigation.dispatch(CommonActions.goBack())}>
-        <View style={styles.modalClose} />
+        <View style={styles.close}>
+          <Icon name="close-circle-outline" size={Sizes.hp40} color="#fafafa" />
+        </View>
       </TouchableWithoutFeedback>
       <View style={styles.checkBoxContainer}>
         <SearchCuisines cuisines={cuisines} />
