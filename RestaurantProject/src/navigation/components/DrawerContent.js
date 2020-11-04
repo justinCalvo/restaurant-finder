@@ -98,6 +98,16 @@ export function DrawerContent(props) {
     <SafeAreaView style={styles.container}>
       <DrawerContentScrollView {...props}>
         <Drawer.Section style={styles.preferenceContainer} title="Share Token">
+          <TouchableRipple onPress={shareAndCopy}>
+            <View style={styles.preference}>
+              <Text style={styles.text}>Send Token</Text>
+              <FontAwesome
+                name="share-alt"
+                size={Sizes.hp24}
+                color={colors.text}
+              />
+            </View>
+          </TouchableRipple>
           <TouchableRipple onPress={() => copyToClipboard()}>
             <View style={styles.preference}>
               <Text style={styles.text}>{places.sessionID}</Text>
@@ -106,16 +116,6 @@ export function DrawerContent(props) {
                 name={wasCopied ? 'check-square' : 'copy'}
                 size={22}
                 color={wasCopied ? 'green' : colors.text}
-              />
-            </View>
-          </TouchableRipple>
-          <TouchableRipple onPress={shareAndCopy}>
-            <View style={styles.preference}>
-              <Text style={styles.text}>Send Token</Text>
-              <FontAwesome
-                name="share-alt"
-                size={Sizes.hp24}
-                color={colors.text}
               />
             </View>
           </TouchableRipple>
