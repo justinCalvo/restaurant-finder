@@ -35,6 +35,7 @@ const Details = ({
   const [stars, setStars] = useState([]);
 
   const details = useSelector(state => state.details);
+  const photoSize = useSelector(state => state.photoSize);
 
   useEffect(() => {
     createStars(undefined, details.details[index], setStars);
@@ -59,7 +60,7 @@ const Details = ({
       flexDirection: 'row',
       justifyContent: 'flex-end',
       alignItems: 'center',
-      width: Sizes.wp4_5th,
+      width: photoSize.photoSize,
     },
     ratingsTotalText: {
       paddingHorizontal: Sizes.hp5,
@@ -91,7 +92,7 @@ const Details = ({
     priceContainer: {
       flexDirection: 'row',
       justifyContent: 'flex-end',
-      width: Sizes.wp4_5th,
+      width: photoSize.photoSize,
     },
     dayContainer: {
       paddingVertical: Sizes.hp5,

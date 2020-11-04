@@ -127,7 +127,7 @@ const ReviewScreen = ({
   const styles = StyleSheet.create({
     reviewDisplay: {
       display: 'flex',
-      paddingHorizontal: Sizes.hp10,
+      paddingHorizontal: Sizes.hp50,
     },
     reviewHide: {
       display: 'none',

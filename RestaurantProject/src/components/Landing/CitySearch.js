@@ -4,7 +4,6 @@ import {
   Text,
   TextInput,
   StyleSheet,
-  Dimensions,
   Keyboard,
   Alert,
   TouchableOpacity,
@@ -57,12 +56,10 @@ const CitySearch = ({ isLoading, setIsLoading, min, max, meters, type }) => {
 
   const theme = useTheme();
 
-  const { width } = Dimensions.get('window');
   const { colors } = useTheme();
 
   const styles = StyleSheet.create({
     container: {
-      width: width,
       paddingHorizontal: Sizes.hp50,
     },
     textInput: {
@@ -78,6 +75,12 @@ const CitySearch = ({ isLoading, setIsLoading, min, max, meters, type }) => {
       fontWeight: 'bold',
       textAlign: 'center',
       color: colors.text,
+    },
+    buttonText: {
+      fontSize: Sizes.hp18,
+      fontWeight: 'bold',
+      textAlign: 'center',
+      color: '#cb3737',
     },
     textContainer: {
       paddingTop: Sizes.hp10,
@@ -129,7 +132,7 @@ const CitySearch = ({ isLoading, setIsLoading, min, max, meters, type }) => {
         blurOnSubmit={false}
       />
       <TouchableOpacity onPress={getCity}>
-        <Text style={styles.text}>Search</Text>
+        <Text style={styles.buttonText}>Search</Text>
       </TouchableOpacity>
     </View>
   );

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import {
   View,
   Text,
@@ -11,6 +11,9 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 
 import { Sizes } from '../../constants/ResponsiveSizes';
 
+import { useDispatch } from 'react-redux';
+import { updatePhotoSize } from '../../redux/actions/photoSizeActions';
+
 // import Icon from 'react-native-vector-icons/Ionicons';
 
 import { Routes } from '../../constants/NavConst';
@@ -20,9 +23,25 @@ import JoinSession from '../../components/Landing/JoinSession';
 const Landing = ({ navigation }) => {
   const [toggleJoinSession, setToggleJoinSession] = useState(false);
 
+  const dispatch = useDispatch();
+
   const handleJoinSessionInput = () => {
     setToggleJoinSession(!toggleJoinSession);
   };
+
+  const fixPhotoSize = useCallback(() => {
+    if (Sizes.hp_full < Sizes.wp_full * 2) {
+      const normalSize = Sizes.hp1_3rd;
+      const condensedSize = Sizes.hp1_4th;
+      dispatch(updatePhotoSize(normalSize, condensedSize));
+    } else {
+      dispatch(updatePhotoSize(Sizes.wp4_5th, Sizes.wp_half));
+    }
+  }, [dispatch]);
+
+  useEffect(() => {
+    fixPhotoSize();
+  }, [fixPhotoSize]);
 
   const theme = useTheme();
 
@@ -30,8 +49,6 @@ const Landing = ({ navigation }) => {
 
   const styles = StyleSheet.create({
     container: {
-      width: Sizes.wp_full,
-      height: Sizes.hp_full,
       flex: 1,
       alignItems: 'center',
     },
@@ -48,7 +65,7 @@ const Landing = ({ navigation }) => {
       color: colors.text,
     },
     buttonContainer: {
-      height: Sizes.hp2_3rd,
+      height: Sizes.hp_half,
       justifyContent: 'flex-end',
       alignItems: 'center',
     },

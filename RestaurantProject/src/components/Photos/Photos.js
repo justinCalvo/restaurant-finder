@@ -4,18 +4,15 @@ import { useNavigation } from '@react-navigation/native';
 import { Routes } from '../../constants/NavConst';
 import { useSelector } from 'react-redux';
 
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
-
 import { Sizes } from '../../constants/ResponsiveSizes';
 
 const Photos = ({ index, photoIndex, showDetails }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
   const navigation = useNavigation();
 
   const details = useSelector(state => state.details);
+  const photoSize = useSelector(state => state.photoSize);
 
   const handlePhotosModal = () => {
     setIsModalOpen(true);
@@ -35,8 +32,26 @@ const Photos = ({ index, photoIndex, showDetails }) => {
     openModal();
   }, [openModal, isModalOpen]);
 
+  const styles = StyleSheet.create({
+    photoContainer: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      paddingTop: Sizes.hp10,
+    },
+    photo: {
+      width: photoSize.photoSize,
+      height: photoSize.photoSize,
+      marginLeft: Sizes.hp5,
+      marginRight: Sizes.hp5,
+    },
+    condensed: {
+      width: photoSize.condensedPhotoSize,
+      height: photoSize.condensedPhotoSize,
+    },
+  });
+
   return (
-    <View style={styles.container}>
+    <>
       <TouchableOpacity onPress={handlePhotosModal}>
         <View style={styles.photoContainer}>
           <Image
@@ -49,29 +64,8 @@ const Photos = ({ index, photoIndex, showDetails }) => {
           />
         </View>
       </TouchableOpacity>
-    </View>
+    </>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    width: wp('83%'),
-  },
-  photoContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingTop: Sizes.hp10,
-  },
-  photo: {
-    width: Sizes.wp4_5th,
-    height: Sizes.wp4_5th,
-    marginLeft: Sizes.hp5,
-    marginRight: Sizes.hp5,
-  },
-  condensed: {
-    width: Sizes.wp_half,
-    height: Sizes.wp_half,
-  },
-});
 
 export default Photos;

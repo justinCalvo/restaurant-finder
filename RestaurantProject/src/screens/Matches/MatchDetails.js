@@ -11,6 +11,8 @@ import {
 import { useTheme } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
+import { useSelector } from 'react-redux';
+
 import { Sizes } from '../../constants/ResponsiveSizes';
 
 import Expanded from '../../components/Details/Expanded';
@@ -33,15 +35,17 @@ const MatchDetails = ({ route }) => {
   const [customerRating, setCustomerRating] = useState([]);
   const [allCustomerRatings, setAllCustomerRatings] = useState([]);
 
+  const photoSize = useSelector(state => state.photoSize);
+
   const { colors } = useTheme();
 
   const styles = StyleSheet.create({
     container: {
-      height: Sizes.hp_full,
+      flex: 1,
     },
     photo: {
-      width: Sizes.wp4_5th,
-      height: Sizes.wp4_5th,
+      width: photoSize.photoSize,
+      height: photoSize.photoSize,
       marginLeft: Sizes.hp5,
       marginRight: Sizes.hp5,
     },
@@ -53,11 +57,16 @@ const MatchDetails = ({ route }) => {
     },
     ratingContainer: {
       flexDirection: 'row',
-      justifyContent: 'space-around',
+      justifyContent: 'space-between',
       paddingHorizontal: Sizes.hp10,
       paddingBottom: Sizes.hp5,
       alignItems: 'center',
       paddingTop: Sizes.hp5,
+      width: photoSize.photoSize,
+    },
+    topRatingContainer: {
+      width: Sizes.wp_full,
+      alignItems: 'center',
     },
     placeRating: {
       flexDirection: 'row',
@@ -118,8 +127,8 @@ const MatchDetails = ({ route }) => {
       justifyContent: 'flex-start',
     },
     condensed: {
-      width: Sizes.wp_half,
-      height: Sizes.wp_half,
+      width: photoSize.condensedPhotoSize,
+      height: photoSize.condensedPhotoSize,
     },
     reviewsContainer: {
       flexDirection: 'row',
@@ -127,13 +136,10 @@ const MatchDetails = ({ route }) => {
       alignItems: 'flex-end',
     },
     expandedContainer: {
-      flex: 4.2,
-    },
-    expandedContainerTwo: {
-      flex: 1,
+      flex: 9,
     },
     detailsContainer: {
-      height: Sizes.hp1_3rd,
+      paddingTop: Sizes.hp10,
       justifyContent: 'center',
     },
   });
@@ -143,15 +149,17 @@ const MatchDetails = ({ route }) => {
       <View style={styles.nameContainer}>
         <Text style={styles.placeName}>{item.name}</Text>
       </View>
-      <View style={styles.ratingContainer}>
-        <View style={styles.priceContainer}>
-          <PriceRating priceLevel={item.price_level} size={Sizes.hp25} />
-        </View>
-        <View style={styles.placeRating}>
-          <Text style={styles.ratingsTotalText}>
-            ({item.user_ratings_total})
-          </Text>
-          <Stars stars={stars} next={item.nextStars} size={Sizes.hp25} />
+      <View style={styles.topRatingContainer}>
+        <View style={styles.ratingContainer}>
+          <View style={styles.priceContainer}>
+            <PriceRating priceLevel={item.price_level} size={Sizes.hp25} />
+          </View>
+          <View style={styles.placeRating}>
+            <Text style={styles.ratingsTotalText}>
+              ({item.user_ratings_total})
+            </Text>
+            <Stars stars={stars} next={item.nextStars} size={Sizes.hp25} />
+          </View>
         </View>
       </View>
       <View style={styles.photoContainer}>
@@ -239,10 +247,7 @@ const MatchDetails = ({ route }) => {
           </View>
         ) : null}
       </View>
-      <View
-        style={
-          showDetails ? styles.expandedContainer : styles.expandedContainerTwo
-        }>
+      <View style={styles.expandedContainer}>
         <Expanded
           showDetails={showDetails}
           setShowDetails={setShowDetails}

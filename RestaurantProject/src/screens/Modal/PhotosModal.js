@@ -77,8 +77,9 @@ const PhotosModal = ({ route }) => {
 
   const styles = StyleSheet.create({
     container: {
-      justifyContent: 'space-between',
       alignItems: 'center',
+      height: Sizes.hp_full,
+      width: Sizes.wp_full,
     },
     photo: {
       width: wp('88%'),
@@ -92,9 +93,9 @@ const PhotosModal = ({ route }) => {
       alignItems: 'center',
     },
     modalClose: {
-      height: Sizes.hp1_3rd,
       width: Sizes.wp_full,
       backgroundColor: 'transparent',
+      flex: 1,
     },
   });
 

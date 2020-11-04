@@ -32,7 +32,13 @@ const AppTabs = () => {
           } else if (route.name === Routes.Matches) {
             iconName = focused ? 'heart-circle' : 'heart-circle-outline';
           }
-          return <Ionicons name={iconName} size={Sizes.hp25} color={color} />;
+          return (
+            <Ionicons
+              name={iconName}
+              size={Sizes.hp_full > 1000 ? Sizes.hp18 : Sizes.hp25}
+              color={color}
+            />
+          );
         },
       })}
       tabBarOptions={{
@@ -41,6 +47,8 @@ const AppTabs = () => {
         activeTintColor: '#ee6f57',
         inactiveTintColor: colors.text,
         style: { backgroundColor: colors.background },
+        labelStyle: { fontSize: Sizes.hp12 },
+        tabStyle: { height: Sizes.hp76 },
       }}
       swipeEnabled={false}
       lazy={false}>

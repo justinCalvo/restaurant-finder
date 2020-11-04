@@ -42,9 +42,10 @@ const CreateSession = () => {
       color: colors.text,
     },
     buttonContainer: {
-      height: Sizes.hp2_3rd,
+      height: Sizes.hp_half,
       justifyContent: 'flex-end',
       alignItems: 'center',
+      flex: 1,
     },
     topContainer: {
       height: Sizes.hp1_5th,

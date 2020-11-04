@@ -103,6 +103,7 @@ const MatchesScreen = ({ stars }) => {
     },
     poweredByGoogleContainer: {
       flex: 0.1,
+      width: Sizes.wp_full,
     },
   });
 

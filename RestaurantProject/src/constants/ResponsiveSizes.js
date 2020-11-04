@@ -18,6 +18,7 @@ export class Sizes {
   static hp40 = hp('4.5%');
   static hp44 = hp('4.9%');
   static hp50 = hp('5.6%');
+  static hp76 = hp('8.5%');
   static hp5 = hp('0.6%');
   static hp10 = hp('1.1%');
   static hp_full = hp('100%');

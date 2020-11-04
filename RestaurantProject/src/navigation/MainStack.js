@@ -40,6 +40,7 @@ const MainStack = () => {
         gestureEnabled: false,
         headerStyle: {
           backgroundColor: theme.dark ? '#182330' : colors.background,
+          height: Sizes.hp76,
         },
       }}>
       <Stack.Screen
