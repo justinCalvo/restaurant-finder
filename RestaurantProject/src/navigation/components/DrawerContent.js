@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { SafeAreaView, View, StyleSheet, Alert } from 'react-native';
+import { SafeAreaView, View, StyleSheet, Alert, Share } from 'react-native';
 import {
   Drawer,
   Text,
@@ -45,6 +45,30 @@ export function DrawerContent(props) {
     resetWasCopied();
   }, [resetWasCopied, wasCopied]);
 
+  const onShare = async () => {
+    try {
+      const result = await Share.share({
+        message: 'Where would you like to send this token?',
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // shared with activity type of result.activityType
+        } else {
+          // shared
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // dismissed
+      }
+    } catch (error) {
+      Alert.alert(error.message);
+    }
+  };
+
+  const shareAndCopy = () => {
+    copyToClipboard();
+    onShare();
+  };
+
   const paperTheme = useTheme();
   const { colors } = useTheme();
 
@@ -82,6 +106,16 @@ export function DrawerContent(props) {
                 name={wasCopied ? 'check-square' : 'copy'}
                 size={22}
                 color={wasCopied ? 'green' : colors.text}
+              />
+            </View>
+          </TouchableRipple>
+          <TouchableRipple onPress={shareAndCopy}>
+            <View style={styles.preference}>
+              <Text style={styles.text}>Send Token</Text>
+              <FontAwesome
+                name="share-alt"
+                size={Sizes.hp24}
+                color={colors.text}
               />
             </View>
           </TouchableRipple>

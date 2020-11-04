@@ -1,5 +1,12 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Alert,
+  Share,
+} from 'react-native';
 import { useSelector } from 'react-redux';
 import { Routes } from '../../constants/NavConst';
 import { useTheme } from '@react-navigation/native';
@@ -47,6 +54,30 @@ const ShareToken = ({ navigation }) => {
     resetWasCopied();
   }, [resetWasCopied, wasCopied]);
 
+  const onShare = async () => {
+    try {
+      const result = await Share.share({
+        message: 'Where would you like to send this token?',
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // shared with activity type of result.activityType
+        } else {
+          // shared
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // dismissed
+      }
+    } catch (error) {
+      Alert.alert(error.message);
+    }
+  };
+
+  const shareAndCopy = () => {
+    copyToClipboard();
+    onShare();
+  };
+
   const { colors } = useTheme();
 
   const styles = StyleSheet.create({
@@ -88,12 +119,21 @@ const ShareToken = ({ navigation }) => {
       fontWeight: 'bold',
       color: colors.text,
     },
+    shareTokenContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
   });
 
   return (
     <View style={styles.container}>
       <View style={styles.sessionIDContainer}>
-        <Text style={styles.headerText}>Share your token:</Text>
+        <TouchableOpacity onPress={shareAndCopy}>
+          <View style={styles.shareTokenContainer}>
+            <Text style={styles.headerText}>Share your token </Text>
+            <FontAwesome name="share-alt" size={Sizes.hp24} color="#cb3737" />
+          </View>
+        </TouchableOpacity>
         <TouchableOpacity onPress={() => copyToClipboard()}>
           <View style={styles.sessionToken}>
             <Text style={styles.text}>{places.sessionID}</Text>
