@@ -8,6 +8,7 @@ import {
   TouchableWithoutFeedback,
   FlatList,
   Alert,
+  Platform,
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateType } from '../../redux/actions/typeActions';
@@ -223,7 +224,6 @@ const PreferencesModal = ({ route }) => {
     dollarSigns: {
       flexDirection: 'row',
       flex: 1,
-      paddingHorizontal: Sizes.hp10,
       paddingVertical: Sizes.hp5,
     },
     minMaxDollarSigns: {
@@ -270,6 +270,14 @@ const PreferencesModal = ({ route }) => {
       alignItems: 'flex-end',
       height: Sizes.hp1_4th,
       width: wp('94%'),
+    },
+    androidRadius: {
+      flex: 0.9,
+      alignItems: 'center',
+    },
+    androidWhereTo: {
+      flex: 0.5,
+      alignItems: 'center',
     },
   });
 
@@ -319,70 +327,153 @@ const PreferencesModal = ({ route }) => {
           <View style={styles.cuisinesContainer} />
         )}
         <View style={styles.pickerContainer}>
-          <Selector
-            toggle={toggleTypes}
-            value={typeValue}
-            setValue={setTypeValue}
-            title="Set Type"
-            labels={['Restaurants', 'Cafes', 'Bars']}
-            values={['restaurant', 'cafe', 'bar']}
-          />
-          <Selector
-            toggle={toggleRadius}
-            value={mileValue}
-            setValue={setMileValue}
-            title="Set Miles"
-            labels={['5', '10', '15', '20', '25']}
-            values={['5 Miles', '10 Miles', '15 Miles', '20 Miles', '25 Miles']}
-          />
-          <Selector
-            toggle={togglePriceRange}
-            value={minValue}
-            setValue={setMinValue}
-            title="Set Min"
-            labels={['$', '$$', '$$$', '$$$$']}
-            values={['1', '2', '3', '4']}
-          />
-          <Selector
-            toggle={togglePriceRange}
-            value={maxValue}
-            setValue={setMaxValue}
-            title="Set Max"
-            labels={['$$$$', '$$$', '$$', '$']}
-            values={['4', '3', '2', '1']}
-          />
+          {Platform.OS === 'ios' ? (
+            <>
+              <Selector
+                toggle={toggleTypes}
+                value={typeValue}
+                setValue={setTypeValue}
+                title="Set Type"
+                labels={['Restaurants', 'Cafes', 'Bars']}
+                values={['restaurant', 'cafe', 'bar']}
+              />
+              <Selector
+                toggle={toggleRadius}
+                value={mileValue}
+                setValue={setMileValue}
+                title="Set Miles"
+                labels={['5', '10', '15', '20', '25']}
+                values={[
+                  '5 Miles',
+                  '10 Miles',
+                  '15 Miles',
+                  '20 Miles',
+                  '25 Miles',
+                ]}
+              />
+              <Selector
+                toggle={togglePriceRange}
+                value={minValue}
+                setValue={setMinValue}
+                title="Set Min"
+                labels={['$', '$$', '$$$', '$$$$']}
+                values={['1', '2', '3', '4']}
+              />
+              <Selector
+                toggle={togglePriceRange}
+                value={maxValue}
+                setValue={setMaxValue}
+                title="Set Max"
+                labels={['$$$$', '$$$', '$$', '$']}
+                values={['4', '3', '2', '1']}
+              />
+            </>
+          ) : null}
         </View>
-        <CaretButton
-          toggle={togglePriceRange}
-          handleSetting={handleSetPriceRange}
-          title="Price Range"
-        />
+        {Platform.OS === 'ios' ? (
+          <CaretButton
+            toggle={togglePriceRange}
+            handleSetting={handleSetPriceRange}
+            title="Price Range"
+          />
+        ) : (
+          <Text style={styles.text}>Price Range</Text>
+        )}
         <View style={styles.priceContainer}>
           <View style={[styles.dollarSigns, styles.minMaxDollarSigns]}>
-            <PriceRating priceLevel={minValue} size={Sizes.hp14} />
+            {Platform.OS === 'ios' ? (
+              <PriceRating priceLevel={minValue} size={Sizes.hp14} />
+            ) : (
+              <Selector
+                toggle={true}
+                value={minValue}
+                setValue={setMinValue}
+                title="Set Min"
+                labels={['$', '$$', '$$$', '$$$$']}
+                values={['1', '2', '3', '4']}
+              />
+            )}
           </View>
           <View style={[styles.dollarSigns, styles.minMaxDollarSigns]}>
-            <PriceRating priceLevel={maxValue} size={Sizes.hp14} />
+            {Platform.OS === 'ios' ? (
+              <PriceRating priceLevel={maxValue} size={Sizes.hp14} />
+            ) : (
+              <Selector
+                toggle={true}
+                value={maxValue}
+                setValue={setMaxValue}
+                title="Set Max"
+                labels={['$$$$', '$$$', '$$', '$']}
+                values={['4', '3', '2', '1']}
+              />
+            )}
           </View>
         </View>
         <View style={styles.minMaxContainer}>
-          <CaretButton
-            toggle={toggleTypes}
-            handleSetting={handleSetType}
-            title="Where to?"
-          />
-          <CaretButton
-            toggle={toggleRadius}
-            handleSetting={handleSetRadius}
-            title="Radius"
-          />
+          {Platform.OS === 'ios' ? (
+            <>
+              <CaretButton
+                toggle={toggleTypes}
+                handleSetting={handleSetType}
+                title="Where to?"
+              />
+              <CaretButton
+                toggle={toggleRadius}
+                handleSetting={handleSetRadius}
+                title="Radius"
+              />
+            </>
+          ) : (
+            <>
+              <View style={styles.androidWhereTo}>
+                <Text style={styles.text}>Where to?</Text>
+              </View>
+              <View style={styles.androidRadius}>
+                <Text style={styles.text}>Radius</Text>
+              </View>
+            </>
+          )}
         </View>
         <View style={styles.priceContainer}>
           <View style={[styles.dollarSigns, styles.minMaxDollarSigns]}>
-            <Text style={styles.valueText}>{types.typeName}</Text>
+            {Platform.OS === 'ios' ? (
+              <Text style={styles.valueText}>{types.typeName}</Text>
+            ) : (
+              <Selector
+                toggle={true}
+                value={typeValue}
+                setValue={setTypeValue}
+                title="Set Type"
+                labels={['Restaurants', 'Cafes', 'Bars']}
+                values={['restaurant', 'cafe', 'bar']}
+              />
+            )}
           </View>
           <View style={[styles.dollarSigns, styles.minMaxDollarSigns]}>
-            <Text style={styles.valueText}>{mileValue}</Text>
+            {Platform.OS === 'ios' ? (
+              <Text style={styles.valueText}>{mileValue}</Text>
+            ) : (
+              <Selector
+                toggle={true}
+                value={mileValue}
+                setValue={setMileValue}
+                title="Set Miles"
+                labels={[
+                  '5 Miles',
+                  '10 Miles',
+                  '15 Miles',
+                  '20 Miles',
+                  '25 Miles',
+                ]}
+                values={[
+                  '5 Miles',
+                  '10 Miles',
+                  '15 Miles',
+                  '20 Miles',
+                  '25 Miles',
+                ]}
+              />
+            )}
           </View>
         </View>
       </View>
