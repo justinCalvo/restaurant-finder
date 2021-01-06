@@ -4,6 +4,10 @@ import { useSelector } from 'react-redux';
 
 import PlusMinusButton from '../../utils/PlusMinusButton';
 
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
+
+import { Sizes } from '../../constants/ResponsiveSizes';
+
 const Reviews = ({ index, viewReviews, setViewReviews, item }) => {
   const details = useSelector(state => state.details);
   const theDetails = item ? item : details.details[index];
@@ -27,7 +31,7 @@ const Reviews = ({ index, viewReviews, setViewReviews, item }) => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingBottom: 10,
+    paddingBottom: Sizes.hp10,
   },
   reviewDisplay: {
     display: 'flex',
@@ -40,8 +44,8 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   viewReviewsContainer: {
-    paddingBottom: 10,
-    height: 58,
+    paddingBottom: Sizes.hp10,
+    height: hp('6.5%'),
     justifyContent: 'flex-end',
   },
 });

@@ -18,6 +18,8 @@ import CurrentDay from '../../utils/CurrentDay';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 
+import { Sizes } from '../../constants/ResponsiveSizes';
+
 const Details = ({
   index,
   showDetails,
@@ -33,6 +35,7 @@ const Details = ({
   const [stars, setStars] = useState([]);
 
   const details = useSelector(state => state.details);
+  const photoSize = useSelector(state => state.photoSize);
 
   useEffect(() => {
     createStars(undefined, details.details[index], setStars);
@@ -48,7 +51,7 @@ const Details = ({
       alignItems: 'center',
     },
     placeName: {
-      fontSize: 24,
+      fontSize: Sizes.hp24,
       fontWeight: 'bold',
       textAlign: 'center',
       color: colors.text,
@@ -57,31 +60,31 @@ const Details = ({
       flexDirection: 'row',
       justifyContent: 'flex-end',
       alignItems: 'center',
-      width: width / 1.3,
+      width: photoSize.photoSize,
     },
     ratingsTotalText: {
-      paddingHorizontal: 5,
-      fontSize: 16,
+      paddingHorizontal: Sizes.hp5,
+      fontSize: Sizes.hp14,
       color: colors.text,
     },
     text: {
-      fontSize: 18,
+      fontSize: Sizes.hp18,
       fontWeight: 'bold',
       color: colors.text,
     },
     contactContainer: {
       flexDirection: 'row',
       justifyContent: 'space-around',
-      paddingTop: 5,
+      paddingTop: Sizes.hp5,
       flexWrap: 'wrap',
       width: width,
     },
     addressContainer: {
       alignItems: 'center',
-      paddingVertical: 5,
+      paddingVertical: Sizes.hp5,
     },
     address: {
-      width: width / 1.5,
+      width: Sizes.wp2_3rd,
     },
     addressText: {
       textAlign: 'center',
@@ -89,10 +92,10 @@ const Details = ({
     priceContainer: {
       flexDirection: 'row',
       justifyContent: 'flex-end',
-      width: width / 1.3,
+      width: photoSize.photoSize,
     },
     dayContainer: {
-      paddingVertical: 5,
+      paddingVertical: Sizes.hp5,
     },
     whileViewingDetails: {
       flexDirection: 'row',
@@ -103,10 +106,10 @@ const Details = ({
       flexDirection: 'row',
     },
     website: {
-      paddingBottom: 5,
+      paddingBottom: Sizes.hp5,
     },
     websiteContainer: {
-      paddingHorizontal: 5,
+      paddingHorizontal: Sizes.hp5,
     },
   });
 
@@ -118,10 +121,10 @@ const Details = ({
             <Text style={styles.ratingsTotalText}>
               ({details.details[index].user_ratings_total})
             </Text>
-            <Stars stars={stars} size={25} />
+            <Stars stars={stars} size={Sizes.hp25} />
           </View>
           <View style={styles.priceContainer}>
-            <PriceRating index={index} size={25} />
+            <PriceRating index={index} size={Sizes.hp25} />
           </View>
         </>
       ) : null}
@@ -137,7 +140,7 @@ const Details = ({
             }>
             <View style={styles.align}>
               <View style={styles.websiteContainer}>
-                <Icon name="call" size={18} color="#cb3737" />
+                <Icon name="call" size={Sizes.hp18} color="#cb3737" />
               </View>
               <Text style={styles.text}>
                 {details.details[index].formatted_phone_number}
@@ -150,7 +153,7 @@ const Details = ({
             onPress={() => Linking.openURL(details.details[index].website)}>
             <View style={styles.align}>
               <View style={styles.websiteContainer}>
-                <Icon name="globe-outline" size={18} color="#cb3737" />
+                <Icon name="globe-outline" size={Sizes.hp18} color="#cb3737" />
               </View>
               <Text style={styles.text}>Website</Text>
             </View>
@@ -163,7 +166,7 @@ const Details = ({
             <TouchableOpacity
               onPress={() => Linking.openURL(details.details[index].website)}>
               <View style={[styles.align, styles.website]}>
-                <Icon name="globe-outline" size={18} color="#cb3737" />
+                <Icon name="globe-outline" size={Sizes.hp18} color="#cb3737" />
                 <View style={styles.websiteContainer}>
                   <Text style={styles.text}>Website</Text>
                 </View>
@@ -178,7 +181,7 @@ const Details = ({
                 )
               }>
               <View style={styles.align}>
-                <Icon name="call" size={18} color="#cb3737" />
+                <Icon name="call" size={Sizes.hp18} color="#cb3737" />
                 <View style={styles.websiteContainer}>
                   <Text style={styles.text}>
                     {details.details[index].formatted_phone_number}

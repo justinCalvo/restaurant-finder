@@ -3,12 +3,12 @@ import {
   View,
   Text,
   StyleSheet,
-  Dimensions,
   TouchableOpacity,
   SafeAreaView,
   TouchableWithoutFeedback,
   FlatList,
   Alert,
+  Platform,
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateType } from '../../redux/actions/typeActions';
@@ -20,6 +20,13 @@ import {
   useNavigation,
   useTheme,
 } from '@react-navigation/native';
+
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
+
+import { Sizes } from '../../constants/ResponsiveSizes';
 
 import PriceRating from '../../utils/PriceRating';
 import Selector from '../../utils/Selector';
@@ -178,51 +185,46 @@ const PreferencesModal = ({ route }) => {
 
   const { colors } = useTheme();
 
-  const { width, height } = Dimensions.get('window');
-
   const styles = StyleSheet.create({
     container: {
-      width: width,
-      height: height / 1.5,
       justifyContent: 'space-between',
       alignItems: 'center',
     },
     modalClose: {
-      height: height * 0.25,
-      width: width,
+      height: Sizes.hp1_4th,
+      width: Sizes.wp_full,
     },
     preferencesContainer: {
       backgroundColor: colors.background,
       alignItems: 'center',
-      height: height * 0.45,
-      width: width - 20,
+      height: hp('45%'),
+      width: wp('94%'),
     },
     minMaxContainer: {
       flexDirection: 'row',
       justifyContent: 'space-around',
-      width: width / 1.5,
+      width: Sizes.wp2_3rd,
     },
     priceContainer: {
-      paddingVertical: 10,
+      paddingVertical: Sizes.hp10,
       flexDirection: 'row',
-      width: width / 1.5,
+      width: Sizes.wp2_3rd,
       alignItems: 'center',
     },
     text: {
       fontWeight: 'bold',
-      fontSize: 18,
+      fontSize: Sizes.hp18,
       color: colors.text,
     },
     valueText: {
       fontWeight: 'bold',
-      fontSize: 14,
+      fontSize: Sizes.hp14,
       color: colors.text,
     },
     dollarSigns: {
       flexDirection: 'row',
       flex: 1,
-      paddingHorizontal: 10,
-      paddingVertical: 5,
+      paddingVertical: Sizes.hp5,
     },
     minMaxDollarSigns: {
       justifyContent: 'center',
@@ -233,22 +235,22 @@ const PreferencesModal = ({ route }) => {
       flex: 1,
     },
     optionsContainer: {
-      paddingVertical: 10,
+      paddingVertical: Sizes.hp10,
     },
     cuisinesContainer: {
-      paddingVertical: 10,
+      paddingVertical: Sizes.hp10,
       alignItems: 'center',
     },
     selectedCuisines: {
-      paddingTop: 10,
+      paddingTop: Sizes.hp10,
       alignItems: 'center',
     },
     cuisineListContainer: {
       alignItems: 'center',
-      paddingBottom: 10,
+      paddingBottom: Sizes.hp10,
     },
     selected: {
-      paddingHorizontal: 10,
+      paddingHorizontal: Sizes.hp10,
       flexDirection: 'row',
       alignItems: 'center',
     },
@@ -256,12 +258,26 @@ const PreferencesModal = ({ route }) => {
       flexDirection: 'row',
     },
     line: {
-      marginLeft: 15,
+      marginLeft: Sizes.hp15,
     },
     lineText: {
       fontWeight: 'bold',
-      fontSize: 16,
+      fontSize: Sizes.hp14,
       color: '#cb3737',
+    },
+    close: {
+      justifyContent: 'flex-end',
+      alignItems: 'flex-end',
+      height: Sizes.hp1_4th,
+      width: wp('94%'),
+    },
+    androidRadius: {
+      flex: 0.9,
+      alignItems: 'center',
+    },
+    androidWhereTo: {
+      flex: 0.5,
+      alignItems: 'center',
     },
   });
 
@@ -269,7 +285,9 @@ const PreferencesModal = ({ route }) => {
     <SafeAreaView style={styles.container}>
       <TouchableWithoutFeedback
         onPress={() => navigation.dispatch(CommonActions.goBack())}>
-        <View style={styles.modalClose} />
+        <View style={styles.close}>
+          <Icon name="close-circle-outline" size={Sizes.hp40} color="#fafafa" />
+        </View>
       </TouchableWithoutFeedback>
       <View style={styles.preferencesContainer}>
         {typeValue === 'restaurant' ? (
@@ -277,7 +295,7 @@ const PreferencesModal = ({ route }) => {
             <TouchableOpacity onPress={() => navigateSelectCuisines()}>
               <Text style={styles.text}>
                 Selected Cuisines{' '}
-                <Icon name="create-sharp" size={20} color="#cb3737" />
+                <Icon name="create-sharp" size={Sizes.hp20} color="#cb3737" />
               </Text>
             </TouchableOpacity>
             <View style={styles.cuisinesContainer}>
@@ -309,70 +327,153 @@ const PreferencesModal = ({ route }) => {
           <View style={styles.cuisinesContainer} />
         )}
         <View style={styles.pickerContainer}>
-          <Selector
-            toggle={toggleTypes}
-            value={typeValue}
-            setValue={setTypeValue}
-            title="Set Type"
-            labels={['Restaurants', 'Cafes', 'Bars']}
-            values={['restaurant', 'cafe', 'bar']}
-          />
-          <Selector
-            toggle={toggleRadius}
-            value={mileValue}
-            setValue={setMileValue}
-            title="Set Miles"
-            labels={['5', '10', '15', '20', '25']}
-            values={['5 Miles', '10 Miles', '15 Miles', '20 Miles', '25 Miles']}
-          />
-          <Selector
-            toggle={togglePriceRange}
-            value={minValue}
-            setValue={setMinValue}
-            title="Set Min"
-            labels={['$', '$$', '$$$', '$$$$']}
-            values={['1', '2', '3', '4']}
-          />
-          <Selector
-            toggle={togglePriceRange}
-            value={maxValue}
-            setValue={setMaxValue}
-            title="Set Max"
-            labels={['$$$$', '$$$', '$$', '$']}
-            values={['4', '3', '2', '1']}
-          />
+          {Platform.OS === 'ios' ? (
+            <>
+              <Selector
+                toggle={toggleTypes}
+                value={typeValue}
+                setValue={setTypeValue}
+                title="Set Type"
+                labels={['Restaurants', 'Cafes', 'Bars']}
+                values={['restaurant', 'cafe', 'bar']}
+              />
+              <Selector
+                toggle={toggleRadius}
+                value={mileValue}
+                setValue={setMileValue}
+                title="Set Miles"
+                labels={['5', '10', '15', '20', '25']}
+                values={[
+                  '5 Miles',
+                  '10 Miles',
+                  '15 Miles',
+                  '20 Miles',
+                  '25 Miles',
+                ]}
+              />
+              <Selector
+                toggle={togglePriceRange}
+                value={minValue}
+                setValue={setMinValue}
+                title="Set Min"
+                labels={['$', '$$', '$$$', '$$$$']}
+                values={['1', '2', '3', '4']}
+              />
+              <Selector
+                toggle={togglePriceRange}
+                value={maxValue}
+                setValue={setMaxValue}
+                title="Set Max"
+                labels={['$$$$', '$$$', '$$', '$']}
+                values={['4', '3', '2', '1']}
+              />
+            </>
+          ) : null}
         </View>
-        <CaretButton
-          toggle={togglePriceRange}
-          handleSetting={handleSetPriceRange}
-          title="Price Range"
-        />
+        {Platform.OS === 'ios' ? (
+          <CaretButton
+            toggle={togglePriceRange}
+            handleSetting={handleSetPriceRange}
+            title="Price Range"
+          />
+        ) : (
+          <Text style={styles.text}>Price Range</Text>
+        )}
         <View style={styles.priceContainer}>
           <View style={[styles.dollarSigns, styles.minMaxDollarSigns]}>
-            <PriceRating priceLevel={minValue} size={16} />
+            {Platform.OS === 'ios' ? (
+              <PriceRating priceLevel={minValue} size={Sizes.hp14} />
+            ) : (
+              <Selector
+                toggle={true}
+                value={minValue}
+                setValue={setMinValue}
+                title="Set Min"
+                labels={['$', '$$', '$$$', '$$$$']}
+                values={['1', '2', '3', '4']}
+              />
+            )}
           </View>
           <View style={[styles.dollarSigns, styles.minMaxDollarSigns]}>
-            <PriceRating priceLevel={maxValue} size={16} />
+            {Platform.OS === 'ios' ? (
+              <PriceRating priceLevel={maxValue} size={Sizes.hp14} />
+            ) : (
+              <Selector
+                toggle={true}
+                value={maxValue}
+                setValue={setMaxValue}
+                title="Set Max"
+                labels={['$$$$', '$$$', '$$', '$']}
+                values={['4', '3', '2', '1']}
+              />
+            )}
           </View>
         </View>
         <View style={styles.minMaxContainer}>
-          <CaretButton
-            toggle={toggleTypes}
-            handleSetting={handleSetType}
-            title="Where to?"
-          />
-          <CaretButton
-            toggle={toggleRadius}
-            handleSetting={handleSetRadius}
-            title="Radius"
-          />
+          {Platform.OS === 'ios' ? (
+            <>
+              <CaretButton
+                toggle={toggleTypes}
+                handleSetting={handleSetType}
+                title="Where to?"
+              />
+              <CaretButton
+                toggle={toggleRadius}
+                handleSetting={handleSetRadius}
+                title="Radius"
+              />
+            </>
+          ) : (
+            <>
+              <View style={styles.androidWhereTo}>
+                <Text style={styles.text}>Where to?</Text>
+              </View>
+              <View style={styles.androidRadius}>
+                <Text style={styles.text}>Radius</Text>
+              </View>
+            </>
+          )}
         </View>
         <View style={styles.priceContainer}>
           <View style={[styles.dollarSigns, styles.minMaxDollarSigns]}>
-            <Text style={styles.valueText}>{types.typeName}</Text>
+            {Platform.OS === 'ios' ? (
+              <Text style={styles.valueText}>{types.typeName}</Text>
+            ) : (
+              <Selector
+                toggle={true}
+                value={typeValue}
+                setValue={setTypeValue}
+                title="Set Type"
+                labels={['Restaurants', 'Cafes', 'Bars']}
+                values={['restaurant', 'cafe', 'bar']}
+              />
+            )}
           </View>
           <View style={[styles.dollarSigns, styles.minMaxDollarSigns]}>
-            <Text style={styles.valueText}>{mileValue}</Text>
+            {Platform.OS === 'ios' ? (
+              <Text style={styles.valueText}>{mileValue}</Text>
+            ) : (
+              <Selector
+                toggle={true}
+                value={mileValue}
+                setValue={setMileValue}
+                title="Set Miles"
+                labels={[
+                  '5 Miles',
+                  '10 Miles',
+                  '15 Miles',
+                  '20 Miles',
+                  '25 Miles',
+                ]}
+                values={[
+                  '5 Miles',
+                  '10 Miles',
+                  '15 Miles',
+                  '20 Miles',
+                  '25 Miles',
+                ]}
+              />
+            )}
           </View>
         </View>
       </View>

@@ -3,7 +3,6 @@ import {
   View,
   SafeAreaView,
   StyleSheet,
-  Dimensions,
   Alert,
   BackHandler,
 } from 'react-native';
@@ -158,12 +157,8 @@ const MainScreen = () => {
   );
 };
 
-const { width, height } = Dimensions.get('window');
-
 const styles = StyleSheet.create({
   container: {
-    width: width,
-    height: height,
     flex: 1,
   },
   photoContainer: {

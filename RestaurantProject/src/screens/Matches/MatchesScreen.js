@@ -3,7 +3,6 @@ import {
   View,
   Text,
   StyleSheet,
-  Dimensions,
   FlatList,
   Image,
   TouchableOpacity,
@@ -16,6 +15,8 @@ import { Routes } from '../../constants/NavConst';
 import PriceRating from '../../utils/PriceRating';
 import Stars from '../../utils/Stars';
 import PoweredByGoogle from '../../utils/PoweredByGoogle';
+
+import { Sizes } from '../../constants/ResponsiveSizes';
 
 const MatchesScreen = ({ stars }) => {
   const navigation = useNavigation();
@@ -42,10 +43,10 @@ const MatchesScreen = ({ stars }) => {
               <Text style={styles.text}>{item.name}</Text>
             )}
             <View style={styles.ratingContainer}>
-              <Stars stars={stars} next={item.nextStars} size={20} />
+              <Stars stars={stars} next={item.nextStars} size={Sizes.hp20} />
             </View>
             <View style={styles.priceContainer}>
-              <PriceRating priceLevel={item.price_level} size={18} />
+              <PriceRating priceLevel={item.price_level} size={Sizes.hp18} />
             </View>
           </View>
         </View>
@@ -53,33 +54,32 @@ const MatchesScreen = ({ stars }) => {
     );
   };
 
-  const { width, height } = Dimensions.get('window');
   const { colors } = useTheme();
 
   const styles = StyleSheet.create({
     condensed: {
-      width: width / 5,
-      height: width / 5,
+      width: Sizes.wp1_5th,
+      height: Sizes.wp1_5th,
     },
     matchContainer: {
       flex: 1,
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
-      paddingVertical: 15,
-      paddingHorizontal: 40,
+      paddingVertical: Sizes.hp15,
+      paddingHorizontal: Sizes.hp40,
     },
     image: {
-      borderRadius: 40,
+      borderRadius: Sizes.hp40,
     },
     text: {
-      fontSize: 16,
+      fontSize: Sizes.hp14,
       fontWeight: 'bold',
       textAlign: 'center',
       color: colors.text,
     },
     detailsContainer: {
-      width: width / 2,
+      width: Sizes.wp_half,
       alignItems: 'flex-end',
     },
     priceContainer: {
@@ -92,17 +92,24 @@ const MatchesScreen = ({ stars }) => {
     },
     display: {
       display: 'flex',
-      marginBottom: 10,
-      paddingHorizontal: 10,
+      marginBottom: Sizes.hp10,
+      paddingHorizontal: Sizes.hp10,
     },
     listContainer: {
-      height: height / 1.3,
+      flex: 1,
+    },
+    flatListContainer: {
+      flex: 2,
+    },
+    poweredByGoogleContainer: {
+      flex: 0.1,
+      width: Sizes.wp_full,
     },
   });
 
   return (
-    <>
-      <View style={styles.listContainer}>
+    <View style={styles.listContainer}>
+      <View style={styles.flatListContainer}>
         <FlatList
           style={styles.display}
           data={displayMatches.displayMatches}
@@ -111,10 +118,10 @@ const MatchesScreen = ({ stars }) => {
           renderItem={renderItem}
         />
       </View>
-      <View>
+      <View style={styles.poweredByGoogleContainer}>
         <PoweredByGoogle />
       </View>
-    </>
+    </View>
   );
 };
 

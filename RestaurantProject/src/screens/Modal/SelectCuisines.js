@@ -5,7 +5,6 @@ import {
   Text,
   TouchableWithoutFeedback,
   StyleSheet,
-  Dimensions,
   FlatList,
   Platform,
 } from 'react-native';
@@ -23,6 +22,12 @@ import {
   useTheme,
 } from '@react-navigation/native';
 
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+
+import { Sizes } from '../../constants/ResponsiveSizes';
+
+import Icon from 'react-native-vector-icons/Ionicons';
+
 const SelectCuisines = ({ route }) => {
   const [limit, setLimit] = useState(false);
   const { cuisines, setCuisines } = route.params;
@@ -32,6 +37,8 @@ const SelectCuisines = ({ route }) => {
 
   const navigation = useNavigation();
   const dispatch = useDispatch();
+
+  const columns = Sizes.wp_full <= 350 ? 2 : 3;
 
   const handleToggle = useCallback(
     selected => {
@@ -110,22 +117,19 @@ const SelectCuisines = ({ route }) => {
 
   const { colors } = useTheme();
 
-  const { width, height } = Dimensions.get('window');
-
   const styles = StyleSheet.create({
     container: {
-      width: width,
-      height: height,
+      height: Sizes.hp_full,
       justifyContent: 'space-between',
       alignItems: 'center',
     },
     modalClose: {
-      height: height * 0.15,
-      width: width,
+      height: Sizes.hp1_4th,
+      width: Sizes.wp_full,
     },
     text: {
       color: colors.text,
-      fontSize: 16,
+      fontSize: Sizes.hp16,
     },
     counterText: {
       fontWeight: 'bold',
@@ -134,25 +138,31 @@ const SelectCuisines = ({ route }) => {
     checkBoxContainer: {
       backgroundColor: colors.background,
       alignItems: 'center',
-      height: height * 0.6,
-      width: width - 20,
-      paddingBottom: width / 3,
+      height: Sizes.hp_half,
+      width: wp('94%'),
+      paddingBottom: Sizes.wp1_3rd,
     },
     checkBox: {
       flexDirection: 'row',
     },
     cuisines: {
       alignItems: 'center',
-      width: width / 3.5,
-      paddingBottom: 10,
+      width: wp('28.5%'),
+      paddingBottom: Sizes.hp10,
     },
     cuisineListContainer: {
       alignItems: 'center',
-      paddingBottom: 10,
+      paddingBottom: Sizes.hp10,
     },
     counterContainer: {
-      paddingVertical: 10,
+      paddingVertical: Sizes.hp10,
       alignItems: 'center',
+    },
+    close: {
+      justifyContent: 'flex-end',
+      alignItems: 'flex-end',
+      height: Sizes.hp1_4th,
+      width: wp('94%'),
     },
   });
 
@@ -160,7 +170,9 @@ const SelectCuisines = ({ route }) => {
     <SafeAreaView style={styles.container}>
       <TouchableWithoutFeedback
         onPress={() => navigation.dispatch(CommonActions.goBack())}>
-        <View style={styles.modalClose} />
+        <View style={styles.close}>
+          <Icon name="close-circle-outline" size={Sizes.hp40} color="#fafafa" />
+        </View>
       </TouchableWithoutFeedback>
       <View style={styles.checkBoxContainer}>
         <SearchCuisines cuisines={cuisines} />
@@ -183,7 +195,7 @@ const SelectCuisines = ({ route }) => {
             }}
             keyExtractor={(item, index) => index}
             renderItem={renderItem}
-            numColumns={3}
+            numColumns={columns}
           />
         </View>
       </View>

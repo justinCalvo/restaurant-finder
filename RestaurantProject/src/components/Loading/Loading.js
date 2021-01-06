@@ -1,5 +1,7 @@
 import React from 'react';
-import { View, ActivityIndicator, Dimensions, StyleSheet } from 'react-native';
+import { View, ActivityIndicator, StyleSheet } from 'react-native';
+
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 const Loading = () => {
   return (
@@ -9,12 +11,10 @@ const Loading = () => {
   );
 };
 
-const { height } = Dimensions.get('window');
-
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
-    paddingBottom: height / 7,
+    paddingBottom: hp('14.3%'),
   },
 });
 

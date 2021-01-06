@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { SafeAreaView, View, StyleSheet, Alert } from 'react-native';
+import { SafeAreaView, View, StyleSheet, Alert, Share } from 'react-native';
 import {
   Drawer,
   Text,
@@ -15,6 +15,8 @@ import Clipboard from '@react-native-community/clipboard';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+
+import { Sizes } from '../../constants/ResponsiveSizes';
 
 import { SettingContext } from './Context';
 
@@ -35,13 +37,37 @@ export function DrawerContent(props) {
     if (wasCopied) {
       setTimeout(() => {
         setWasCopied(false);
-      }, 3000);
+      }, 1500);
     }
   }, [wasCopied]);
 
   useEffect(() => {
     resetWasCopied();
   }, [resetWasCopied, wasCopied]);
+
+  const onShare = async () => {
+    try {
+      const result = await Share.share({
+        message: 'Where would you like to send this token?',
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // shared with activity type of result.activityType
+        } else {
+          // shared
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // dismissed
+      }
+    } catch (error) {
+      Alert.alert(error.message);
+    }
+  };
+
+  const shareAndCopy = () => {
+    copyToClipboard();
+    onShare();
+  };
 
   const paperTheme = useTheme();
   const { colors } = useTheme();
@@ -54,16 +80,17 @@ export function DrawerContent(props) {
     preference: {
       flexDirection: 'row',
       justifyContent: 'space-between',
-      paddingVertical: 12,
-      paddingHorizontal: 16,
+      paddingVertical: Sizes.hp12,
+      paddingHorizontal: Sizes.hp14,
       alignItems: 'center',
     },
     text: {
       color: colors.text,
+      fontSize: Sizes.hp14,
     },
     cuisines: {
-      paddingBottom: 5,
-      paddingHorizontal: 16,
+      paddingBottom: Sizes.hp5,
+      paddingHorizontal: Sizes.hp14,
     },
   });
 
@@ -71,6 +98,16 @@ export function DrawerContent(props) {
     <SafeAreaView style={styles.container}>
       <DrawerContentScrollView {...props}>
         <Drawer.Section style={styles.preferenceContainer} title="Share Token">
+          <TouchableRipple onPress={shareAndCopy}>
+            <View style={styles.preference}>
+              <Text style={styles.text}>Send Token</Text>
+              <FontAwesome
+                name="share-alt"
+                size={Sizes.hp24}
+                color={colors.text}
+              />
+            </View>
+          </TouchableRipple>
           <TouchableRipple onPress={() => copyToClipboard()}>
             <View style={styles.preference}>
               <Text style={styles.text}>{places.sessionID}</Text>
@@ -127,6 +164,7 @@ export function DrawerContent(props) {
               <Icon name="exit-outline" color={color} size={size} />
             )}
             label="Leave Session"
+            labelStyle={{ fontSize: Sizes.hp16 }}
             onPress={() => {
               Alert.alert(
                 'Hold on!',

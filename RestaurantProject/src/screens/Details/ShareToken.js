@@ -4,7 +4,8 @@ import {
   Text,
   TouchableOpacity,
   StyleSheet,
-  Dimensions,
+  Alert,
+  Share,
 } from 'react-native';
 import { useSelector } from 'react-redux';
 import { Routes } from '../../constants/NavConst';
@@ -14,6 +15,8 @@ import Clipboard from '@react-native-community/clipboard';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+
+import { Sizes } from '../../constants/ResponsiveSizes';
 
 const ShareToken = ({ navigation }) => {
   const [dataReady, setDataReady] = useState(false);
@@ -43,7 +46,7 @@ const ShareToken = ({ navigation }) => {
     if (wasCopied) {
       setTimeout(() => {
         setWasCopied(false);
-      }, 3000);
+      }, 1500);
     }
   }, [wasCopied]);
 
@@ -51,14 +54,36 @@ const ShareToken = ({ navigation }) => {
     resetWasCopied();
   }, [resetWasCopied, wasCopied]);
 
-  const { colors } = useTheme();
+  const onShare = async () => {
+    try {
+      const result = await Share.share({
+        message: 'Where would you like to send this token?',
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // shared with activity type of result.activityType
+        } else {
+          // shared
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // dismissed
+      }
+    } catch (error) {
+      Alert.alert(error.message);
+    }
+  };
 
-  const { width, height } = Dimensions.get('window');
+  const shareAndCopy = () => {
+    copyToClipboard();
+    onShare();
+  };
+
+  const { colors } = useTheme();
 
   const styles = StyleSheet.create({
     container: {
-      width: width,
-      height: height,
+      width: Sizes.wp_full,
+      height: Sizes.hp_full,
     },
     sessionIDContainer: {
       justifyContent: 'center',
@@ -68,7 +93,7 @@ const ShareToken = ({ navigation }) => {
     buttonContainer: {
       flex: 1,
       justifyContent: 'flex-end',
-      paddingHorizontal: 10,
+      paddingHorizontal: Sizes.hp10,
       flexDirection: 'row',
     },
     continue: {
@@ -79,34 +104,43 @@ const ShareToken = ({ navigation }) => {
     sessionToken: {
       flexDirection: 'row',
       justifyContent: 'space-between',
-      paddingVertical: 10,
+      paddingVertical: Sizes.hp10,
       alignItems: 'center',
-      width: width / 1.4,
+      width: Sizes.wp4_5th,
     },
     headerText: {
-      paddingVertical: 10,
-      fontSize: 28,
+      paddingVertical: Sizes.hp10,
+      fontSize: Sizes.hp28,
       fontWeight: 'bold',
       color: colors.text,
     },
     text: {
-      fontSize: 18,
+      fontSize: Sizes.hp18,
       fontWeight: 'bold',
       color: colors.text,
+    },
+    shareTokenContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
     },
   });
 
   return (
     <View style={styles.container}>
       <View style={styles.sessionIDContainer}>
-        <Text style={styles.headerText}>Share your token:</Text>
+        <TouchableOpacity onPress={shareAndCopy}>
+          <View style={styles.shareTokenContainer}>
+            <Text style={styles.headerText}>Share your token </Text>
+            <FontAwesome name="share-alt" size={Sizes.hp24} color="#cb3737" />
+          </View>
+        </TouchableOpacity>
         <TouchableOpacity onPress={() => copyToClipboard()}>
           <View style={styles.sessionToken}>
             <Text style={styles.text}>{places.sessionID}</Text>
             {wasCopied ? <Text style={styles.text}>Copied!</Text> : null}
             <FontAwesome
               name={wasCopied ? 'check-square' : 'copy'}
-              size={24}
+              size={Sizes.hp24}
               color={wasCopied ? 'green' : colors.text}
             />
           </View>
@@ -119,7 +153,7 @@ const ShareToken = ({ navigation }) => {
               <Text style={styles.text}>Continue</Text>
               <Ionicons
                 name="arrow-forward-outline"
-                size={30}
+                size={Sizes.hp30}
                 color={colors.text}
               />
             </View>

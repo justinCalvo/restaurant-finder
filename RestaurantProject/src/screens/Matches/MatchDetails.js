@@ -4,13 +4,16 @@ import {
   SafeAreaView,
   Text,
   StyleSheet,
-  Dimensions,
   Image,
   Linking,
   TouchableOpacity,
 } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
+
+import { useSelector } from 'react-redux';
+
+import { Sizes } from '../../constants/ResponsiveSizes';
 
 import Expanded from '../../components/Details/Expanded';
 import Reviews from '../../components/Details/Reviews';
@@ -32,33 +35,38 @@ const MatchDetails = ({ route }) => {
   const [customerRating, setCustomerRating] = useState([]);
   const [allCustomerRatings, setAllCustomerRatings] = useState([]);
 
-  const { width, height } = Dimensions.get('window');
+  const photoSize = useSelector(state => state.photoSize);
+
   const { colors } = useTheme();
 
   const styles = StyleSheet.create({
     container: {
-      width: width,
-      height: height,
+      flex: 1,
     },
     photo: {
-      width: width / 1.3,
-      height: width / 1.3,
-      marginLeft: 5,
-      marginRight: 5,
+      width: photoSize.photoSize,
+      height: photoSize.photoSize,
+      marginLeft: Sizes.hp5,
+      marginRight: Sizes.hp5,
     },
     placeName: {
-      fontSize: 24,
+      fontSize: Sizes.hp24,
       fontWeight: 'bold',
       textAlign: 'center',
       color: colors.text,
     },
     ratingContainer: {
       flexDirection: 'row',
-      justifyContent: 'space-around',
-      paddingHorizontal: 10,
-      paddingBottom: 5,
+      justifyContent: 'space-between',
+      paddingHorizontal: Sizes.hp10,
+      paddingBottom: Sizes.hp5,
       alignItems: 'center',
-      paddingTop: 5,
+      paddingTop: Sizes.hp5,
+      width: photoSize.photoSize,
+    },
+    topRatingContainer: {
+      width: Sizes.wp_full,
+      alignItems: 'center',
     },
     placeRating: {
       flexDirection: 'row',
@@ -69,12 +77,12 @@ const MatchDetails = ({ route }) => {
       flexDirection: 'row',
     },
     ratingsTotalText: {
-      paddingHorizontal: 5,
-      fontSize: 16,
+      paddingHorizontal: Sizes.hp5,
+      fontSize: Sizes.hp14,
       color: colors.text,
     },
     dayContainer: {
-      paddingVertical: 5,
+      paddingVertical: Sizes.hp5,
     },
     contactContainer: {
       flexDirection: 'row',
@@ -82,34 +90,33 @@ const MatchDetails = ({ route }) => {
       flexWrap: 'wrap',
     },
     photoContainer: {
-      paddingTop: 10,
+      paddingTop: Sizes.hp10,
       alignItems: 'center',
-      width: width,
     },
     text: {
-      fontSize: 18,
+      fontSize: Sizes.hp18,
       fontWeight: 'bold',
       color: colors.text,
     },
     align: {
       flexDirection: 'row',
-      paddingVertical: 5,
+      paddingVertical: Sizes.hp5,
     },
     addressContainer: {
       alignItems: 'center',
-      paddingVertical: 5,
+      paddingVertical: Sizes.hp5,
     },
     address: {
-      width: width / 1.5,
+      width: Sizes.wp2_3rd,
     },
     addressText: {
       textAlign: 'center',
     },
     nameContainer: {
-      paddingTop: 20,
+      paddingTop: Sizes.hp20,
     },
     websiteContainer: {
-      paddingHorizontal: 5,
+      paddingHorizontal: Sizes.hp5,
     },
     poweredByGoogleOn: {
       flex: 1,
@@ -120,8 +127,8 @@ const MatchDetails = ({ route }) => {
       justifyContent: 'flex-start',
     },
     condensed: {
-      width: (width - 10) / 2,
-      height: (width - 10) / 2,
+      width: photoSize.condensedPhotoSize,
+      height: photoSize.condensedPhotoSize,
     },
     reviewsContainer: {
       flexDirection: 'row',
@@ -129,13 +136,10 @@ const MatchDetails = ({ route }) => {
       alignItems: 'flex-end',
     },
     expandedContainer: {
-      flex: 4.2,
-    },
-    expandedContainerTwo: {
-      flex: 1,
+      flex: 9,
     },
     detailsContainer: {
-      height: height / 3,
+      paddingTop: Sizes.hp10,
       justifyContent: 'center',
     },
   });
@@ -145,15 +149,17 @@ const MatchDetails = ({ route }) => {
       <View style={styles.nameContainer}>
         <Text style={styles.placeName}>{item.name}</Text>
       </View>
-      <View style={styles.ratingContainer}>
-        <View style={styles.priceContainer}>
-          <PriceRating priceLevel={item.price_level} size={25} />
-        </View>
-        <View style={styles.placeRating}>
-          <Text style={styles.ratingsTotalText}>
-            ({item.user_ratings_total})
-          </Text>
-          <Stars stars={stars} next={item.nextStars} size={25} />
+      <View style={styles.topRatingContainer}>
+        <View style={styles.ratingContainer}>
+          <View style={styles.priceContainer}>
+            <PriceRating priceLevel={item.price_level} size={Sizes.hp25} />
+          </View>
+          <View style={styles.placeRating}>
+            <Text style={styles.ratingsTotalText}>
+              ({item.user_ratings_total})
+            </Text>
+            <Stars stars={stars} next={item.nextStars} size={Sizes.hp25} />
+          </View>
         </View>
       </View>
       <View style={styles.photoContainer}>
@@ -176,7 +182,7 @@ const MatchDetails = ({ route }) => {
               }>
               <View style={styles.align}>
                 <View style={styles.websiteContainer}>
-                  <Icon name="call" size={18} color="#cb3737" />
+                  <Icon name="call" size={Sizes.hp18} color="#cb3737" />
                 </View>
                 <Text style={styles.text}>{item.formatted_phone_number}</Text>
               </View>
@@ -186,7 +192,11 @@ const MatchDetails = ({ route }) => {
             <TouchableOpacity onPress={() => Linking.openURL(item.website)}>
               <View style={styles.align}>
                 <View style={styles.websiteContainer}>
-                  <Icon name="globe-outline" size={18} color="#cb3737" />
+                  <Icon
+                    name="globe-outline"
+                    size={Sizes.hp18}
+                    color="#cb3737"
+                  />
                 </View>
                 <Text style={styles.text}>Website</Text>
               </View>
@@ -211,7 +221,7 @@ const MatchDetails = ({ route }) => {
                 }>
                 <View style={styles.align}>
                   <View style={styles.websiteContainer}>
-                    <Icon name="call" size={18} color="#cb3737" />
+                    <Icon name="call" size={Sizes.hp18} color="#cb3737" />
                   </View>
                   <Text style={styles.text}>{item.formatted_phone_number}</Text>
                 </View>
@@ -219,7 +229,11 @@ const MatchDetails = ({ route }) => {
               <TouchableOpacity onPress={() => Linking.openURL(item.website)}>
                 <View style={styles.align}>
                   <View style={styles.websiteContainer}>
-                    <Icon name="globe-outline" size={18} color="#cb3737" />
+                    <Icon
+                      name="globe-outline"
+                      size={Sizes.hp18}
+                      color="#cb3737"
+                    />
                   </View>
                   <Text style={styles.text}>Website</Text>
                 </View>
@@ -233,10 +247,7 @@ const MatchDetails = ({ route }) => {
           </View>
         ) : null}
       </View>
-      <View
-        style={
-          showDetails ? styles.expandedContainer : styles.expandedContainerTwo
-        }>
+      <View style={styles.expandedContainer}>
         <Expanded
           showDetails={showDetails}
           setShowDetails={setShowDetails}

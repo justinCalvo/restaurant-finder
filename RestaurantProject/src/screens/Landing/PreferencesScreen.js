@@ -2,6 +2,8 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation, useTheme } from '@react-navigation/native';
 
+import { Sizes } from '../../constants/ResponsiveSizes';
+
 const PreferencesScreen = ({
   min,
   setMin,
@@ -117,7 +119,7 @@ const PreferencesScreen = ({
       justifyContent: 'center',
     },
     text: {
-      fontSize: 18,
+      fontSize: Sizes.hp18,
       fontWeight: 'bold',
       textAlign: 'center',
       color: colors.text,

@@ -4,6 +4,8 @@ import { useTheme } from '@react-navigation/native';
 
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
+import { Sizes } from '../constants/ResponsiveSizes';
+
 const PlusMinusButton = ({ bool, setBool, buttonName }) => {
   const [buttonTitle, setButtonTitle] = useState('plus');
 
@@ -35,11 +37,11 @@ const PlusMinusButton = ({ bool, setBool, buttonName }) => {
       alignItems: 'center',
     },
     dataContainer: {
-      paddingRight: 10,
-      paddingLeft: 5,
+      paddingRight: Sizes.hp10,
+      paddingLeft: Sizes.hp5,
     },
     data: {
-      fontSize: 18,
+      fontSize: Sizes.hp18,
       fontWeight: 'bold',
       textAlign: 'center',
     },
@@ -51,7 +53,7 @@ const PlusMinusButton = ({ bool, setBool, buttonName }) => {
   return (
     <TouchableOpacity onPress={handleBool}>
       <View style={styles.viewContainer}>
-        <FontAwesome name={buttonTitle} size={15} color="#cb3737" />
+        <FontAwesome name={buttonTitle} size={Sizes.hp15} color="#cb3737" />
         <View style={styles.dataContainer}>
           <Text style={[styles.data, styles.dataTouchable]}>{buttonName}</Text>
         </View>

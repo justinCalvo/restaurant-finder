@@ -4,7 +4,6 @@ import {
   Text,
   TextInput,
   StyleSheet,
-  Dimensions,
   Keyboard,
   Alert,
   TouchableOpacity,
@@ -13,6 +12,8 @@ import { useNavigation, useTheme } from '@react-navigation/native';
 import { Routes } from '../../constants/NavConst';
 import { useSelector, useDispatch } from 'react-redux';
 import { getLocation } from '../../redux/actions/locationActions';
+
+import { Sizes } from '../../constants/ResponsiveSizes';
 
 const CitySearch = ({ isLoading, setIsLoading, min, max, meters, type }) => {
   const [city, setCity] = useState('');
@@ -55,30 +56,34 @@ const CitySearch = ({ isLoading, setIsLoading, min, max, meters, type }) => {
 
   const theme = useTheme();
 
-  const { width } = Dimensions.get('window');
   const { colors } = useTheme();
 
   const styles = StyleSheet.create({
     container: {
-      width: width,
-      paddingHorizontal: 50,
+      paddingHorizontal: Sizes.hp50,
     },
     textInput: {
-      fontSize: 18,
-      borderBottomWidth: 1,
+      fontSize: Sizes.hp18,
+      borderBottomWidth: Sizes.wp1,
       borderColor: colors.text,
-      paddingVertical: 10,
+      paddingVertical: Sizes.hp10,
       textAlign: 'center',
       color: colors.text,
     },
     text: {
-      fontSize: 16,
+      fontSize: Sizes.hp14,
       fontWeight: 'bold',
       textAlign: 'center',
       color: colors.text,
     },
+    buttonText: {
+      fontSize: Sizes.hp18,
+      fontWeight: 'bold',
+      textAlign: 'center',
+      color: '#cb3737',
+    },
     textContainer: {
-      paddingTop: 10,
+      paddingTop: Sizes.hp10,
     },
   });
 
@@ -127,7 +132,7 @@ const CitySearch = ({ isLoading, setIsLoading, min, max, meters, type }) => {
         blurOnSubmit={false}
       />
       <TouchableOpacity onPress={getCity}>
-        <Text style={styles.text}>Search</Text>
+        <Text style={styles.buttonText}>Search</Text>
       </TouchableOpacity>
     </View>
   );

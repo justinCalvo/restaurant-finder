@@ -1,20 +1,18 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import {
-  View,
-  Image,
-  StyleSheet,
-  Dimensions,
-  TouchableOpacity,
-} from 'react-native';
+import { View, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Routes } from '../../constants/NavConst';
 import { useSelector } from 'react-redux';
 
+import { Sizes } from '../../constants/ResponsiveSizes';
+
 const Photos = ({ index, photoIndex, showDetails }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
   const navigation = useNavigation();
 
   const details = useSelector(state => state.details);
+  const photoSize = useSelector(state => state.photoSize);
 
   const handlePhotosModal = () => {
     setIsModalOpen(true);
@@ -34,8 +32,26 @@ const Photos = ({ index, photoIndex, showDetails }) => {
     openModal();
   }, [openModal, isModalOpen]);
 
+  const styles = StyleSheet.create({
+    photoContainer: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      paddingTop: Sizes.hp10,
+    },
+    photo: {
+      width: photoSize.photoSize,
+      height: photoSize.photoSize,
+      marginLeft: Sizes.hp5,
+      marginRight: Sizes.hp5,
+    },
+    condensed: {
+      width: photoSize.condensedPhotoSize,
+      height: photoSize.condensedPhotoSize,
+    },
+  });
+
   return (
-    <View style={styles.container}>
+    <>
       <TouchableOpacity onPress={handlePhotosModal}>
         <View style={styles.photoContainer}>
           <Image
@@ -48,31 +64,8 @@ const Photos = ({ index, photoIndex, showDetails }) => {
           />
         </View>
       </TouchableOpacity>
-    </View>
+    </>
   );
 };
-
-const { width } = Dimensions.get('window');
-
-const styles = StyleSheet.create({
-  container: {
-    width: width / 1.2,
-  },
-  photoContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingTop: 10,
-  },
-  photo: {
-    width: width / 1.3,
-    height: width / 1.3,
-    marginLeft: 5,
-    marginRight: 5,
-  },
-  condensed: {
-    width: (width - 10) / 2,
-    height: (width - 10) / 2,
-  },
-});
 
 export default Photos;

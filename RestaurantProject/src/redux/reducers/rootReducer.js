@@ -6,6 +6,7 @@ import typesReducer from './typesReducer';
 import counterReducer from './counterReducer';
 import queryReducer from './queryReducer';
 import notificationReducer from './notificationReducer';
+import photoSizeReducer from './photoSizeReducer';
 
 const rootReducer = combineReducers({
   places: placeIdsReducer,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   counter: counterReducer,
   query: queryReducer,
   notified: notificationReducer,
+  photoSize: photoSizeReducer,
 });
 
 export default rootReducer;

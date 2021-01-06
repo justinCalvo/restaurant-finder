@@ -3,7 +3,6 @@ import {
   View,
   Image,
   StyleSheet,
-  Dimensions,
   TouchableWithoutFeedback,
 } from 'react-native';
 import {
@@ -19,6 +18,10 @@ import {
   useIsFocused,
   useTheme,
 } from '@react-navigation/native';
+
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+
+import { Sizes } from '../../constants/ResponsiveSizes';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { getDetails } from '../../redux/actions/detailsActions';
@@ -71,30 +74,28 @@ const PhotosModal = ({ route }) => {
   ]);
 
   const { colors } = useTheme();
-  const { width, height } = Dimensions.get('window');
 
   const styles = StyleSheet.create({
     container: {
-      width: width,
-      height: height,
-      justifyContent: 'space-between',
       alignItems: 'center',
+      height: Sizes.hp_full,
+      width: Sizes.wp_full,
     },
     photo: {
-      width: (38 * width) / 43,
-      height: (38 * width) / 43,
+      width: wp('88%'),
+      height: wp('88%'),
     },
     imageContainer: {
-      width: (36 * width) / 40,
-      height: (36 * width) / 40,
+      width: wp('90%'),
+      height: wp('90%'),
       backgroundColor: colors.text,
       justifyContent: 'center',
       alignItems: 'center',
     },
     modalClose: {
-      height: height * 0.3,
-      width: width,
+      width: Sizes.wp_full,
       backgroundColor: 'transparent',
+      flex: 1,
     },
   });
 

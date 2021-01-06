@@ -11,6 +11,8 @@ import { DrawerContentScrollView } from '@react-navigation/drawer';
 import { findSession } from '../../API/findSession.js';
 import { SettingContext } from './Context';
 
+import { Sizes } from '../../constants/ResponsiveSizes';
+
 export function HomeDrawerContent(props) {
   const { toggleTheme } = React.useContext(SettingContext);
 
@@ -25,12 +27,13 @@ export function HomeDrawerContent(props) {
     preference: {
       flexDirection: 'row',
       justifyContent: 'space-between',
-      paddingVertical: 12,
-      paddingHorizontal: 16,
+      paddingVertical: Sizes.hp12,
+      paddingHorizontal: Sizes.hp14,
       alignItems: 'center',
     },
     text: {
       color: colors.text,
+      fontSize: Sizes.hp14,
     },
   });
 

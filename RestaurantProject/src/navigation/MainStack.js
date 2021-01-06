@@ -18,6 +18,8 @@ import ShareToken from '../screens/Details/ShareToken';
 import Drawer from './Drawer';
 import HomeDrawer from './HomeDrawer';
 
+import { Sizes } from '../constants/ResponsiveSizes';
+
 const Stack = createStackNavigator();
 
 const MainStack = () => {
@@ -38,6 +40,7 @@ const MainStack = () => {
         gestureEnabled: false,
         headerStyle: {
           backgroundColor: theme.dark ? '#182330' : colors.background,
+          height: Sizes.hp76,
         },
       }}>
       <Stack.Screen
@@ -47,7 +50,11 @@ const MainStack = () => {
           headerLeft: () => (
             <TouchableOpacity
               onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}>
-              <Ionicons name="menu-outline" size={30} color={colors.text} />
+              <Ionicons
+                name="menu-outline"
+                size={Sizes.hp30}
+                color={colors.text}
+              />
             </TouchableOpacity>
           ),
         })}
@@ -59,7 +66,11 @@ const MainStack = () => {
           headerLeft: () => (
             <TouchableOpacity
               onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}>
-              <Ionicons name="menu-outline" size={30} color={colors.text} />
+              <Ionicons
+                name="menu-outline"
+                size={Sizes.hp30}
+                color={colors.text}
+              />
             </TouchableOpacity>
           ),
         })}
@@ -73,7 +84,7 @@ const MainStack = () => {
               onPress={() => createSessionBackButton(navigation)}>
               <Ionicons
                 name="arrow-back-outline"
-                size={30}
+                size={Sizes.hp30}
                 color={colors.text}
               />
             </TouchableOpacity>
@@ -94,7 +105,7 @@ const MainStack = () => {
               onPress={() => navigation.dispatch(CommonActions.goBack())}>
               <Ionicons
                 name="arrow-back-outline"
-                size={30}
+                size={Sizes.hp30}
                 color={colors.text}
               />
             </TouchableOpacity>

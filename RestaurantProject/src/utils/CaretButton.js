@@ -3,13 +3,15 @@ import { Text, TouchableOpacity, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useTheme } from '@react-navigation/native';
 
+import { Sizes } from '../constants/ResponsiveSizes';
+
 const CaretButton = ({ toggle, handleSetting, title }) => {
   const { colors } = useTheme();
 
   const styles = StyleSheet.create({
     text: {
       fontWeight: 'bold',
-      fontSize: 18,
+      fontSize: Sizes.hp18,
       color: colors.text,
     },
   });
@@ -20,7 +22,7 @@ const CaretButton = ({ toggle, handleSetting, title }) => {
         {title}{' '}
         <Icon
           name={toggle ? 'caret-up' : 'caret-down'}
-          size={20}
+          size={Sizes.hp20}
           color="#cb3737"
         />
       </Text>

@@ -1,15 +1,11 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import {
-  View,
-  TextInput,
-  StyleSheet,
-  Keyboard,
-  Dimensions,
-} from 'react-native';
+import { View, TextInput, StyleSheet, Keyboard } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { updateQuery } from '../../redux/actions/queryActions';
 import { useTheme } from '@react-navigation/native';
+
+import { Sizes } from '../../constants/ResponsiveSizes';
 
 const SearchCuisines = ({ cuisines }) => {
   const [search, setSearch] = useState('');
@@ -48,17 +44,16 @@ const SearchCuisines = ({ cuisines }) => {
   const theme = useTheme();
 
   const { colors } = useTheme();
-  const { width } = Dimensions.get('window');
 
   const styles = StyleSheet.create({
     container: {
-      width: width / 1.5,
+      width: Sizes.wp2_3rd,
     },
     input: {
-      fontSize: 18,
-      borderBottomWidth: 1,
+      fontSize: Sizes.hp18,
+      borderBottomWidth: Sizes.wp1,
       borderColor: colors.text,
-      paddingVertical: 10,
+      paddingVertical: Sizes.hp10,
       textAlign: 'center',
       color: colors.text,
     },
